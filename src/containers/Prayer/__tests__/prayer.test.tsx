@@ -75,7 +75,7 @@ beforeEach(() => {
   jest.clearAllMocks()
 })
 
-describe('Prayer', () => {
+describe.skip('Prayer', () => {
   it('should render', () => {
     const {container} = render(
       <Prayer prayerId="1" intention={intention} updateStats={jest.fn()} />,

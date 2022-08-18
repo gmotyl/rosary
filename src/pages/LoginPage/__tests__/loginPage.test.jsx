@@ -18,7 +18,7 @@ test('Login form calls token request when submitted', async () => {
   const submit = new Event('submit')
   email.value = 'test@test.pl'
   password.value = 'secret'
-  form.dispatchEvent(submit)
+  fireEvent.submit(form)
   expect(mockRequest).toHaveBeenCalledTimes(1)
   expect(mockRequest).toHaveBeenCalledWith({
     email: 'test@test.pl',

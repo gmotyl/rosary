@@ -23,7 +23,7 @@ import {useIntentionStatisticRequest} from 'src/hooks/useRosaryApi/useInentionSt
 import {IntentionStatistic} from './IntentionStatistics'
 
 // tslint:disable-next-line: object-literal-sort-keys
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   card: {
     display: 'flex',
     flexDirection: 'column',
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(1),
     width: 30,
   },
-}))
+})
 
 const ExpansionPanelDetails = withStyles((theme) => ({
   root: {

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import LoginCard from '../LoginCard'
 import {MemoryRouter as Router} from 'react-router-dom'
 import {renderWithRouter} from 'src/tools/renderWithRouter'
+import {fireEvent} from '@testing-library/react'
 
 describe('LoginCard component', () => {
   test('calls submit action', async () => {
@@ -12,11 +13,11 @@ describe('LoginCard component', () => {
     )
     const form = container.querySelector('form')
     const {email, password} = form.elements
-    const submit = new Event('submit')
+    // const submit = new Event('submit')
 
     email.value = 'test@test.pl'
     password.value = 'secret'
-    form.dispatchEvent(submit)
+    fireEvent.submit(form)
 
     expect(mockSubmit).toHaveBeenCalledTimes(1)
   })
@@ -38,7 +39,7 @@ describe('LoginCard component', () => {
 
     email.value = 'test@test.pl'
     password.value = 'secret'
-    form.dispatchEvent(submit)
+    fireEvent.submit(form)
 
     expect(emailSpy.value).toEqual(email.value)
     expect(passwordSpy.value).toEqual(password.value)

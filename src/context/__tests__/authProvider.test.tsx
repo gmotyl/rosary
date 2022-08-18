@@ -4,6 +4,7 @@ import {storage} from '../../tools/storage'
 import React from 'react'
 import {render} from '@testing-library/react'
 import AuthProvider, {AuthContext, EAuthRoles} from '../AuthProvider'
+import {useEffect} from 'react'
 
 let isAuthenticatedProbe = false
 let payloadProbe = {
@@ -19,7 +20,10 @@ const TestComponent = () => {
   const {setAuthToken, payload, isAuthenticated, hasRole} = React.useContext(
     AuthContext,
   )
-  setAuthToken(token)
+  useEffect(() => {
+    setAuthToken(token)
+  }, [])
+
   React.useEffect(() => {
     payloadProbe = payload
     hasRoleSpy = hasRole

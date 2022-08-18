@@ -1,11 +1,13 @@
-import React from 'react'
+import {FC} from 'react'
 import {AuthContext, EAuthRoles} from '../context/AuthProvider'
 
 interface AuthProviderStubProps {
   isAuthenticated: boolean
   roles?: EAuthRoles[]
+  children: React.ReactNode
 }
-export const AuthProviderStub: React.FunctionComponent<AuthProviderStubProps> = ({
+
+export const AuthProviderStub: FC<AuthProviderStubProps> = ({
   isAuthenticated,
   roles,
   children,

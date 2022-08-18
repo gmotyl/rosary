@@ -1,4 +1,4 @@
-import React, {createContext, useState, useEffect} from 'react'
+import {createContext, useState, useEffect, FC, PropsWithChildren} from 'react'
 import {decodeJWT, isUserAuthenticated} from '../tools/auth'
 import {storage} from '../tools/storage'
 
@@ -9,6 +9,7 @@ export interface AuthContext {
   setAuthToken: (authToken: string) => void
   logout: () => void
   hasRole: (role: EAuthRoles) => boolean
+  children?: React.ReactNode
 }
 
 export interface AuthPayload {
@@ -48,7 +49,7 @@ export const defaultValue = {
 
 export const AuthContext = createContext<AuthContext>(defaultValue)
 
-const AuthProvider: React.FunctionComponent = ({children}) => {
+const AuthProvider: FC<PropsWithChildren<{}>> = ({children}) => {
   const savedPayload = storage.getItem('payload')
   const initialPayload = savedPayload
     ? JSON.parse(savedPayload)
