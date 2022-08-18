@@ -7,10 +7,10 @@ import {
   Grid,
   Paper,
   Typography,
-} from '@material-ui/core'
-import {makeStyles} from '@material-ui/core/styles'
-import {withStyles} from '@material-ui/core/styles'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+} from '@mui/material'
+import {makeStyles} from '@mui/material/styles'
+import {withStyles} from '@mui/material/styles'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import * as React from 'react'
 import {useState} from 'react'
 import {RouteComponentProps} from 'react-router-dom'

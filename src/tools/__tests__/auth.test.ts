@@ -1,5 +1,5 @@
 import {decodeJWT, isUserAuthenticated} from '../auth'
-import {ExpansionPanelActions} from '@material-ui/core'
+import {ExpansionPanelActions} from '@mui/material'
 import {EAuthRoles} from 'src/context/AuthProvider'
 
 it('should decode JWT', () => {

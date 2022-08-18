@@ -6,8 +6,8 @@ import {
   CardMedia,
   Container,
   makeStyles,
-} from '@material-ui/core'
-import Avatar from '@material-ui/core/Avatar'
+} from '@mui/material'
+import Avatar from '@mui/material/Avatar'
 
 import {Bold, Title, Paragraph} from 'src/components/UI/Atoms'
 import {About} from '../About'

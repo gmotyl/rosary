@@ -5,11 +5,11 @@ import {
   LinearProgress,
   makeStyles,
   Tooltip,
-} from '@material-ui/core'
+} from '@mui/material'
 import React, {FC} from 'react'
 import {CircularProgressWithLabel} from './CircularProgress'
-import AvTimerIcon from '@material-ui/icons/AvTimer'
-import CheckCircleIcon from '@material-ui/icons/CheckCircle'
+import AvTimerIcon from '@mui/icons-material/AvTimer'
+import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import rosarySVG from '../../rosary2.svg'
 
 interface IIntentionStatisticProps {

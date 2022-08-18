@@ -1,7 +1,7 @@
 import React, {FC} from 'react'
-import {Link as MUILink} from '@material-ui/core'
-import {makeStyles} from '@material-ui/core/styles'
-import Typography from '@material-ui/core/Typography'
+import {Link as MUILink} from '@mui/material'
+import {makeStyles} from '@mui/material/styles'
+import Typography from '@mui/material/Typography'
 
 const Copyright = () => {
   return (

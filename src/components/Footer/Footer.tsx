@@ -4,10 +4,10 @@ import {
   BottomNavigation,
   BottomNavigationAction,
   makeStyles,
-} from '@material-ui/core'
-import HomeIcon from '@material-ui/icons/Home'
-import InfoIcon from '@material-ui/icons/Info'
-import AddIcon from '@material-ui/icons/Add'
+} from '@mui/material'
+import HomeIcon from '@mui/icons-material/Home'
+import InfoIcon from '@mui/icons-material/Info'
+import AddIcon from '@mui/icons-material/Add'
 import {Link} from 'react-router-dom'
 import {ERoutes} from 'src/app/config/routes'
 

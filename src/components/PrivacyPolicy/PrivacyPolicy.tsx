@@ -5,7 +5,7 @@ import {
   CardMedia,
   Container,
   makeStyles,
-} from '@material-ui/core'
+} from '@mui/material'
 
 import {Title, Paragraph} from 'src/components/UI/Atoms'
 

@@ -1,18 +1,18 @@
 import * as React from 'react'
 
-import AppBar from '@material-ui/core/AppBar'
-import Box from '@material-ui/core/Box'
-import Slide from '@material-ui/core/Slide'
-import {makeStyles} from '@material-ui/core/styles'
-import Toolbar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
-import useScrollTrigger from '@material-ui/core/useScrollTrigger'
+import AppBar from '@mui/material/AppBar'
+import Box from '@mui/material/Box'
+import Slide from '@mui/material/Slide'
+import {makeStyles} from '@mui/material/styles'
+import Toolbar from '@mui/material/Toolbar'
+import Typography from '@mui/material/Typography'
+import useScrollTrigger from '@mui/material/useScrollTrigger'
 
 import DrawerMenu from 'src/components/DrawerMenu'
 import Link from 'src/components/Link'
 import {AuthContext} from 'src/context/AuthProvider'
 import {TopMenu} from 'src/components/TopMenu'
-import {Badge} from '@material-ui/core'
+import {Badge} from '@mui/material'
 
 const useStyles = makeStyles((theme) => ({
   grow: {

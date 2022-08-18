@@ -1,6 +1,6 @@
 import React from 'react'
-import {Typography, makeStyles} from '@material-ui/core'
-import VerifiedUser from '@material-ui/icons/VerifiedUser'
+import {Typography, makeStyles} from '@mui/material'
+import VerifiedUser from '@mui/icons-material/VerifiedUser'
 
 import Link from '../Link'
 
@@ -8,7 +8,7 @@ interface ITopMenuProps {
   isAuthenticated?: boolean
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   icon: {
     float: 'right',
   },

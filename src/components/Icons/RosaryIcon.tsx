@@ -1,5 +1,5 @@
 import React, {FC} from 'react'
-import {Avatar, makeStyles} from '@material-ui/core'
+import {Avatar, makeStyles} from '@mui/material'
 import rosary from 'src/rosary.svg'
 import {IconProps} from './index'
 

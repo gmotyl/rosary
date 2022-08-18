@@ -1,7 +1,7 @@
 import React, {FC} from 'react'
-import {makeStyles, Typography} from '@material-ui/core'
+import {makeStyles, Typography} from '@mui/material'
 
-export const useStyles = makeStyles(theme => ({
+export const useStyles = makeStyles((theme) => ({
   cardParagraph: {
     paddingBottom: theme.spacing(2),
   },
