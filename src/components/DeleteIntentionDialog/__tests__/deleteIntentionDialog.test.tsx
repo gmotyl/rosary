@@ -1,9 +1,10 @@
 import React from 'react'
 import {render, fireEvent} from '@testing-library/react'
 import {DeleteIntentionDialog} from '../index'
+import {renderWithTheme} from 'src/tools/renderWithTheme'
 
 it('should show dialog', () => {
-  const {getByText} = render(
+  const {getByText} = renderWithTheme(
     <DeleteIntentionDialog
       open={true}
       handleClose={jest.fn()}
@@ -17,7 +18,7 @@ it('should show dialog', () => {
 it('should execute actions dialog', () => {
   const handleClose = jest.fn()
   const onDelete = jest.fn()
-  const {getByText} = render(
+  const {getByText} = renderWithTheme(
     <DeleteIntentionDialog
       open={true}
       handleClose={handleClose}

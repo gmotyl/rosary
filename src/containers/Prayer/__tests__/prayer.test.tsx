@@ -77,7 +77,7 @@ beforeEach(() => {
 
 describe.skip('Prayer', () => {
   it('should render', () => {
-    const {container} = render(
+    const {container} = renderWithTheme(
       <Prayer prayerId="1" intention={intention} updateStats={jest.fn()} />,
     )
 
@@ -87,7 +87,7 @@ describe.skip('Prayer', () => {
 
   it('should render save action button disabled', () => {
     const mystery = getMystery(MysteryTypes.Glorious3).title
-    const {getByTestId, container} = render(
+    const {getByTestId, container} = renderWithTheme(
       <Prayer prayerId="1" intention={intention} updateStats={jest.fn()} />,
     )
     const getButton = getByTestId('pray-get-button')
@@ -105,7 +105,7 @@ describe.skip('Prayer', () => {
 
   it('should render prayer state from UI contex', () => {
     const mystery = getMystery(MysteryTypes.Luminous1).title
-    const {getByTestId, container} = render(
+    const {getByTestId, container} = renderWithTheme(
       <UIStateProvider>
         <Container />
       </UIStateProvider>,
@@ -123,7 +123,7 @@ describe.skip('Prayer', () => {
   })
 
   it('should not render prayer state from UI contex of diffrent prayer', () => {
-    const {getByTestId} = render(
+    const {getByTestId} = renderWithTheme(
       <UIStateProvider>
         <Container />
       </UIStateProvider>,

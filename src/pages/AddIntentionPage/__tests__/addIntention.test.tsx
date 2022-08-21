@@ -1,8 +1,8 @@
-import React from 'react'
-import {render, fireEvent, screen} from '@testing-library/react'
+import {fireEvent, screen} from '@testing-library/react'
 import '@testing-library/jest-dom'
 
 import {AddIntentionPage} from '../AddIntentionPage'
+import {renderWithTheme} from 'src/tools/renderWithTheme'
 
 const mockRequest = jest.fn()
 
@@ -15,19 +15,19 @@ jest.mock('../../../hooks/useRosaryApi', () => ({
 
 describe('Add intention Page', () => {
   it('should render form', () => {
-    const {container} = render(<AddIntentionPage />)
+    const {container} = renderWithTheme(<AddIntentionPage />)
 
     expect(container).toBeTruthy()
   })
 
   it('should render add intention card', () => {
-    const {getByTestId} = render(<AddIntentionPage />)
+    const {getByTestId} = renderWithTheme(<AddIntentionPage />)
 
     expect(getByTestId('add-intention-card')).toBeTruthy()
   })
 
   it('should allow user to save intention', async () => {
-    const {container} = render(<AddIntentionPage />)
+    const {container} = renderWithTheme(<AddIntentionPage />)
 
     // fill out the form
     fireEvent.change(screen.getByLabelText(/intencja/i), {

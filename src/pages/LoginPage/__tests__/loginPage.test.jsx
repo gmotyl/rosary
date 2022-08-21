@@ -9,10 +9,15 @@ import {renderWithRouter} from 'src/tools/renderWithRouter'
 import {mockRequest} from 'src/hooks/useRosaryApi/useAuthTokenRequest'
 
 import {mockPostUserRequest} from 'src/hooks/useRosaryApi/usePostUser'
+import {StylesProvider} from 'src/app/StylesProvider'
 
 test('Login form calls token request when submitted', async () => {
   const mockSubmit = jest.fn()
-  const {container} = renderWithRouter(<LoginPage />)
+  const {container} = renderWithRouter(
+    <StylesProvider>
+      <LoginPage />
+    </StylesProvider>,
+  )
   const form = container.querySelector('form')
   const {email, password} = form.elements
   const submit = new Event('submit')
@@ -28,7 +33,9 @@ test('Login form calls token request when submitted', async () => {
 
 test('Register form calls user endpoint when submitted', () => {
   const {container, getByTestId, rerender, debug} = renderWithRouter(
-    <LoginPage />,
+    <StylesProvider>
+      <LoginPage />
+    </StylesProvider>,
   )
   const form = getByTestId('register-form')
   const {email, password, password2} = form.elements

@@ -1,14 +1,15 @@
-import React from 'react'
-
 import {renderWithRouter} from 'src/tools/renderWithRouter'
 import {SideMenu} from '../SideMenu'
 import {AuthProviderStub} from 'src/tools/AuthProviderStub'
+import {StylesProvider} from 'src/app/StylesProvider'
 
 describe('sideMenu', () => {
   it('render login option for unauthenticated user ', () => {
     const {getByText, queryByText} = renderWithRouter(
       <AuthProviderStub isAuthenticated={false}>
-        <SideMenu setOpen={jest.fn()} />
+        <StylesProvider>
+          <SideMenu setOpen={jest.fn()} />
+        </StylesProvider>
       </AuthProviderStub>,
     )
 
@@ -19,7 +20,9 @@ describe('sideMenu', () => {
   it('render logout option for authenticated user ', () => {
     const {getByText, queryByText} = renderWithRouter(
       <AuthProviderStub isAuthenticated={true}>
-        <SideMenu setOpen={jest.fn()} />
+        <StylesProvider>
+          <SideMenu setOpen={jest.fn()} />
+        </StylesProvider>
       </AuthProviderStub>,
     )
 
@@ -30,7 +33,9 @@ describe('sideMenu', () => {
   it('should render add intention link', () => {
     const {getByText} = renderWithRouter(
       <AuthProviderStub isAuthenticated={true}>
-        <SideMenu setOpen={jest.fn()} />
+        <StylesProvider>
+          <SideMenu setOpen={jest.fn()} />
+        </StylesProvider>{' '}
       </AuthProviderStub>,
     )
     expect(getByText('Dodaj intencję')).toBeTruthy()
@@ -38,7 +43,9 @@ describe('sideMenu', () => {
   it('should not render add intention link for unathorised', () => {
     const {queryByText} = renderWithRouter(
       <AuthProviderStub isAuthenticated={false}>
-        <SideMenu setOpen={jest.fn()} />
+        <StylesProvider>
+          <SideMenu setOpen={jest.fn()} />
+        </StylesProvider>
       </AuthProviderStub>,
     )
     expect(queryByText('Dodaj intencję')).toBeNull()

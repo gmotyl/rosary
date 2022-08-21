@@ -6,6 +6,7 @@ import {render, fireEvent, act} from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import {usePostUser} from 'src/hooks/useRosaryApi/usePostUser'
 import {renderWithRouter} from 'src/tools/renderWithRouter'
+import {StylesProvider} from 'src/app/StylesProvider'
 
 const props = {
   handleSubmit: jest.fn(),
@@ -14,12 +15,14 @@ const props = {
   success: false,
 }
 
-const Component = <RegisterCard {...props} />
+const Component = (
+  <StylesProvider>
+    <RegisterCard {...props} />
+  </StylesProvider>
+)
 
 test('calls handleSubmit with the username and password when submitted', () => {
-  const {container, getByTestId, rerender} = renderWithRouter(
-    <RegisterCard {...props} />,
-  )
+  const {container, getByTestId, rerender} = renderWithRouter(Component)
   const form = container.querySelector('form')
   const {email, password, password2} = form.elements
   fireEvent.change(email, {target: {value: 'test@test.pl'}})
@@ -39,7 +42,7 @@ it.skip('should render progress bar', () => {
     postUser: jest.fn(),
   }))
 
-  const {getByTestId} = render(Component)
+  const {getByTestId} = renderWithRouter(Component)
 
   expect(getByTestId('progressbar')).toBeTruthy()
 })
@@ -52,16 +55,17 @@ test('shows error message', () => {
     error: {isError: true, message: 'error message'},
   }
   const {container, getByTestId, getByText, rerender, debug} = renderWithRouter(
-    <RegisterCard {...errorProps} />,
+    <StylesProvider>
+      <RegisterCard {...errorProps} />
+    </StylesProvider>,
   )
 
   expect(getByText('error message')).toBeTruthy()
 })
 
 test('checks password mismatch', () => {
-  const {container, getByTestId, getByText, rerender, debug} = renderWithRouter(
-    Component,
-  )
+  const {container, getByTestId, getByText, rerender, debug} =
+    renderWithRouter(Component)
   const form = container.querySelector('form')
   const {email, password, password2} = form.elements
   fireEvent.change(email, {target: {value: 'test@test.pl'}})
@@ -75,13 +79,8 @@ test('checks password mismatch', () => {
 })
 
 test('shows checks if passwords match', () => {
-  const {
-    container,
-    getByTestId,
-    queryAllByText,
-    rerender,
-    debug,
-  } = renderWithRouter(Component)
+  const {container, getByTestId, queryAllByText, rerender, debug} =
+    renderWithRouter(Component)
   const form = container.querySelector('form')
   const {email, password, password2} = form.elements
 

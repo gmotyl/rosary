@@ -1,7 +1,7 @@
 import {Router} from 'react-router-dom'
 import {createMemoryHistory} from 'history'
-import {render} from '@testing-library/react'
 import {PropsWithChildren} from 'react'
+import {render} from '@testing-library/react'
 
 const RouterWithChildren = Router as PropsWithChildren<any>
 

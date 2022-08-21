@@ -1,4 +1,5 @@
 {
+  "parser": "@babel/eslint-parser",
   "extends": ["prettier"],
   "rules": {
     "quotes": [2, "single", "avoid-escape"],

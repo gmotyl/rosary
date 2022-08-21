@@ -38,6 +38,8 @@
     "extends": "react-app"
   },
   "devDependencies": {
+    "@babel/core": "^7.18.10",
+    "@babel/eslint-parser": "^7.18.9",
     "@commitlint/cli": "17.0.3",
     "@commitlint/config-conventional": "17.0.3",
     "@testing-library/jest-dom": "5.16.5",
@@ -51,9 +53,11 @@
     "@types/react-router-dom": "5.1.5",
     "@typescript-eslint/eslint-plugin": "5.33.1",
     "@typescript-eslint/parser": "5.33.1",
+    "babel-eslint": "^10.1.0",
     "commitlint": "17.0.3",
     "concurrently": "7.3.0",
     "cross-env": "7.0.3",
+    "eslint": "^8.22.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-config-typescript": "3.0.0",
     "eslint-plugin-prettier": "4.2.1",
@@ -76,11 +80,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
   },
   "jest": {
     "moduleNameMapper": {

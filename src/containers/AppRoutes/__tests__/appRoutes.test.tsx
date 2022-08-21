@@ -8,6 +8,7 @@ import {AppRoutes} from 'src/containers/AppRoutes'
 import Hero from 'src/components/Hero'
 import {LoginWrapper} from 'src/tools/LoginWrapper'
 import {AuthProviderStub} from 'src/tools/AuthProviderStub'
+import {renderWithTheme} from 'src/tools/renderWithTheme'
 
 jest.mock('src/pages/IntentionList', () => () => <div>Intention list</div>)
 jest.mock('src/pages/LoginPage', () => () => <div>Login page</div>)
@@ -21,7 +22,7 @@ beforeEach(() => {
 
 it('should open login form on login link click', () => {
   const history = createMemoryHistory()
-  const {container} = render(
+  const {container} = renderWithTheme(
     <LoginWrapper>
       <Router history={history}>
         <AppRoutes />
@@ -34,7 +35,7 @@ it('should open login form on login link click', () => {
 
 it('For not logged user: should open login form on add intention button click', () => {
   const history = createMemoryHistory()
-  const {container, getByTestId} = render(
+  const {container, getByTestId} = renderWithTheme(
     <AuthProviderStub isAuthenticated={false}>
       <Router history={history}>
         <Hero />
@@ -60,7 +61,7 @@ it('For logged user: should open add intention page on add intention button clic
       </Router>
     </AuthProviderStub>
   )
-  const {container, getByTestId} = render(Component)
+  const {container, getByTestId} = renderWithTheme(Component)
 
   expect(container.innerHTML).toMatch('Intention list')
 
@@ -71,7 +72,7 @@ it('For logged user: should open add intention page on add intention button clic
 
 it('should open "how it works" page ', () => {
   const history = createMemoryHistory()
-  const {container, getByTestId} = render(
+  const {container, getByTestId} = renderWithTheme(
     <AuthProviderStub isAuthenticated={false}>
       <Router history={history}>
         <Hero />

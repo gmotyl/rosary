@@ -1,9 +1,7 @@
-import React from 'react'
-import {render} from '@testing-library/react'
-
 import Header from '../index'
 import {BrowserRouter as Router} from 'react-router-dom'
 import {AuthProviderStub} from 'src/tools/AuthProviderStub'
+import {renderWithTheme} from 'src/tools/renderWithTheme'
 
 beforeEach(() => {
   jest.clearAllMocks()
@@ -14,7 +12,7 @@ beforeEach(() => {
 })
 
 it('should render icon for logged in user', () => {
-  const {getByTestId} = render(
+  const {getByTestId} = renderWithTheme(
     <AuthProviderStub isAuthenticated={true}>
       <Router>
         <Header />
@@ -25,7 +23,7 @@ it('should render icon for logged in user', () => {
   expect(getByTestId('logged-user')).toBeTruthy()
 })
 it.skip('should not render icon for not logged user', () => {
-  const {queryByTestId} = render(
+  const {queryByTestId} = renderWithTheme(
     <AuthProviderStub isAuthenticated={false}>
       <Router>
         <Header />
