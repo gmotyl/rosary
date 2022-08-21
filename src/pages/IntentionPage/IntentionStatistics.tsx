@@ -1,5 +1,5 @@
 import dayjs, {Dayjs} from 'dayjs'
-import React, {FC, useEffect, useState} from 'react'
+import {FC, useContext, useEffect, useState} from 'react'
 import {IntentionStatisticCard} from 'src/components/IntentionStatisticCard'
 import {UIContext} from 'src/context/UIStateProvider'
 
@@ -28,7 +28,7 @@ export const IntentionStatistic: FC<IntentionStatisticProps> = ({
       start,
       data: {intentionId: activeIntentionId},
     },
-  } = React.useContext(UIContext)
+  } = useContext(UIContext)
   const [timeLeft, setTimeLeft] = useState(0)
   useEffect(() => {
     const timer = setInterval(() => {

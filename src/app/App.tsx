@@ -1,21 +1,32 @@
 import CssBaseline from '@mui/material/CssBaseline'
-import {createMuiTheme} from '@mui/material/styles'
+import {
+  createTheme,
+  adaptV4Theme,
+  StyledEngineProvider,
+  Theme,
+} from '@mui/material/styles'
 import {ThemeProvider} from '@mui/styles'
-import * as React from 'react'
 import Layout from '../containers/Layout'
 import AuthProvider from '../context/AuthProvider'
 import {UIStateProvider} from '../context/UIStateProvider'
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: '#880e4f',
+declare module '@mui/styles/defaultTheme' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultTheme extends Theme {}
+}
+
+const theme = createTheme(
+  adaptV4Theme({
+    palette: {
+      primary: {
+        main: '#880e4f',
+      },
+      secondary: {
+        main: '#fb8c00',
+      },
     },
-    secondary: {
-      main: '#fb8c00',
-    },
-  },
-})
+  }),
+)
 
 export type OrareTheme = typeof theme
 
@@ -23,13 +34,15 @@ const App = () => {
   return (
     <div>
       <CssBaseline />
-      <ThemeProvider theme={theme}>
-        <AuthProvider>
-          <UIStateProvider>
-            <Layout />
-          </UIStateProvider>
-        </AuthProvider>
-      </ThemeProvider>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme}>
+          <AuthProvider>
+            <UIStateProvider>
+              <Layout />
+            </UIStateProvider>
+          </AuthProvider>
+        </ThemeProvider>
+      </StyledEngineProvider>
     </div>
   )
 }

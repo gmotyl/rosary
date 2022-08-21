@@ -1,9 +1,7 @@
-import * as React from 'react'
-
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Slide from '@mui/material/Slide'
-import {makeStyles} from '@mui/material/styles'
+import {makeStyles} from '@mui/styles'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import useScrollTrigger from '@mui/material/useScrollTrigger'
@@ -13,6 +11,7 @@ import Link from 'src/components/Link'
 import {AuthContext} from 'src/context/AuthProvider'
 import {TopMenu} from 'src/components/TopMenu'
 import {Badge} from '@mui/material'
+import {useContext} from 'react'
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -46,7 +45,7 @@ function HideOnScroll(props: HideOnScrollProps) {
 
 export const Header = () => {
   const classes = useStyles()
-  const {isAuthenticated} = React.useContext(AuthContext)
+  const {isAuthenticated} = useContext(AuthContext)
 
   const title = 'ORARE PRO ME'
   return (

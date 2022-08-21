@@ -1,4 +1,4 @@
-import React, {FC, PropsWithChildren} from 'react'
+import {FC, PropsWithChildren, useContext} from 'react'
 import AuthProvider, {AuthContext} from 'src/context/AuthProvider'
 
 const token =
@@ -9,7 +9,7 @@ beforeEach(() => {
 })
 
 export const TestComponent: FC<PropsWithChildren<{}>> = ({children}) => {
-  const {setAuthToken, logout} = React.useContext(AuthContext)
+  const {setAuthToken, logout} = useContext(AuthContext)
 
   return (
     <>

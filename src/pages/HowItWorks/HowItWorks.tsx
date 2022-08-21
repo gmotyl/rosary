@@ -1,12 +1,6 @@
-import React, {FC} from 'react'
-import {
-  Box,
-  Card,
-  CardContent,
-  CardMedia,
-  Container,
-  makeStyles,
-} from '@mui/material'
+import {FC} from 'react'
+import {Box, Card, CardContent, CardMedia, Container} from '@mui/material'
+import {makeStyles} from '@mui/styles'
 import Avatar from '@mui/material/Avatar'
 
 import {Bold, Title, Paragraph} from 'src/components/UI/Atoms'

@@ -1,11 +1,10 @@
-import * as React from 'react'
-import {BrowserRouter as Router} from 'react-router-dom'
-import {makeStyles} from '@mui/material/styles'
+import {BrowserRouter} from 'react-router-dom'
 import {Container} from '@mui/material'
 
 import {AppRoutes} from 'src/containers/AppRoutes'
 import Footer from 'src/components/Footer'
 import Header from 'src/components/Header'
+import {makeStyles} from '@mui/styles'
 
 const useStyles = makeStyles((theme) => ({
   mainContainer: {
@@ -14,10 +13,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+const Router = BrowserRouter as any
+
 export const Layout = () => {
   const classes = useStyles()
   return (
-    <React.Fragment>
+    <>
       <Router>
         <Header />
         <Container className={classes.mainContainer} maxWidth="lg">
@@ -25,7 +26,7 @@ export const Layout = () => {
         </Container>
         <Footer />
       </Router>
-    </React.Fragment>
+    </>
   )
 }
 

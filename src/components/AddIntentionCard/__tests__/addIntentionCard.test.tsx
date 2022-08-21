@@ -1,10 +1,10 @@
 import React from 'react'
-import {render} from '@testing-library/react'
+import {fireEvent, render} from '@testing-library/react'
 import {AddIntentionCard} from '../AddIntentionCard'
 
 describe('AddInentionCard', () => {
   it('should render textbox', () => {
-    const {getAllByRole} = render(<AddIntentionCard />)
+    const {getAllByRole} = render(<AddIntentionCard onSubmit={jest.fn} />)
 
     expect(getAllByRole('textbox')).toBeTruthy()
   })
@@ -22,9 +22,8 @@ describe('AddInentionCard', () => {
     const {container} = render(<AddIntentionCard onSubmit={submitSpy} />)
 
     const form = container.querySelector('form')
-    const submit = new Event('submit')
+    fireEvent.submit(form as HTMLFormElement)
 
-    form.dispatchEvent(submit)
     expect(submitSpy).toHaveBeenCalledTimes(1)
   })
 })

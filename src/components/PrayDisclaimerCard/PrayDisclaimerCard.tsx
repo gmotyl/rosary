@@ -2,7 +2,7 @@ import React from 'react'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
-import {makeStyles} from '@mui/material/styles'
+import {makeStyles} from '@mui/styles'
 import {Paragraph, Title} from 'src/components/UI/Atoms'
 
 const useStyles = makeStyles((theme) => ({

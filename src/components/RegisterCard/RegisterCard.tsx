@@ -1,8 +1,7 @@
-import React, {FC, useEffect, useState} from 'react'
+import {FC, useEffect, useState} from 'react'
 
 import {Card, Typography, LinearProgress} from '@mui/material'
 import MuiAlert from '@mui/lab/Alert'
-import {makeStyles} from '@mui/material/styles'
 import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
 import CssBaseline from '@mui/material/CssBaseline'
@@ -11,6 +10,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle'
 import Container from '@mui/material/Container'
 
 import {ApiError} from 'src/services/api'
+import {makeStyles} from '@mui/styles'
 
 const useStyles = makeStyles((theme) => ({
   paper: {

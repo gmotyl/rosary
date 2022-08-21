@@ -1,5 +1,6 @@
-import React, {FC} from 'react'
-import {makeStyles, Typography} from '@mui/material'
+import {FC, PropsWithChildren} from 'react'
+import {Typography} from '@mui/material'
+import {makeStyles} from '@mui/styles'
 
 export const useStyles = makeStyles((theme) => ({
   cardParagraph: {
@@ -7,7 +8,7 @@ export const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export const Paragraph: FC = ({children}) => {
+export const Paragraph: FC<PropsWithChildren<{}>> = ({children}) => {
   const classes = useStyles()
 
   return <Typography className={classes.cardParagraph}>{children}</Typography>

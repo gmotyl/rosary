@@ -1,4 +1,3 @@
-import React from 'react'
 import CircularProgress, {
   CircularProgressProps,
 } from '@mui/material/CircularProgress'
@@ -10,7 +9,7 @@ export const CircularProgressWithLabel = (
 ) => {
   return (
     <Box position="relative" display="inline-flex">
-      <CircularProgress variant="static" {...props} />
+      <CircularProgress variant="determinate" {...props} />
       <Box
         top={0}
         left={0}

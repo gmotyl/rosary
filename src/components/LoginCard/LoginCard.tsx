@@ -1,8 +1,8 @@
-import React, {FC} from 'react'
+import {FC} from 'react'
 
 import {Card, Typography} from '@mui/material'
 import MuiAlert from '@mui/lab/Alert'
-import {makeStyles} from '@mui/material/styles'
+import {makeStyles} from '@mui/styles'
 import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
 import CssBaseline from '@mui/material/CssBaseline'

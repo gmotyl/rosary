@@ -1,7 +1,8 @@
-import React, {FC} from 'react'
-import {Avatar, makeStyles} from '@mui/material'
+import {FC} from 'react'
+import {Avatar} from '@mui/material'
 import rosary from 'src/rosary.svg'
 import {IconProps} from './index'
+import {makeStyles} from '@mui/styles'
 
 const useStyles = makeStyles((theme) => ({
   avatar: {

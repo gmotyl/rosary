@@ -1,7 +1,7 @@
 import {Grid} from '@mui/material'
 import dayjs from 'dayjs'
-import * as React from 'react'
-import {useState} from 'react'
+
+import {useContext, useEffect, useState} from 'react'
 
 import {PrayCard} from 'src/components/PrayCard'
 import {IIntention} from '../../components/IntentionCard/Interface'
@@ -27,7 +27,7 @@ export const Prayer: React.ComponentType<PrayerProps> = ({
       setActivePrayerData,
       data: {type, intentionId, rosary, prayer},
     },
-  } = React.useContext(UIContext)
+  } = useContext(UIContext)
   const isInContextPrayer = isPrayerActive() && intentionId === intention.id
 
   const prayRequest = usePrayRosaryRequest()
@@ -56,7 +56,7 @@ export const Prayer: React.ComponentType<PrayerProps> = ({
     savePrayerRequest(payload, prayer)
     updateStats()
   }
-  React.useEffect(() => {
+  useEffect(() => {
     if (prayRequestSuccess) {
       setIsPrayerActive(true)
       setActivePrayerData({

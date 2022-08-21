@@ -2,10 +2,8 @@
   "extends": ["prettier"],
   "rules": {
     "quotes": [2, "single", "avoid-escape"],
-    "import-quotes/import-quotes": [1, "single"],
     "@next/next/google-font-preconnect": "off",
     "semi": ["error", "never"],
-    "import/no-default-export": 2,
     "no-console": 2,
     "no-restricted-imports": [
       "error",
@@ -21,15 +19,5 @@
       }
     ]
   },
-  "plugins": ["import-quotes", "prettier", "testing-library"],
-  "overrides": [
-    // storybook recommended rules & allow default export in stories
-    {
-      "files": ["**/*.stories.*"],
-      "extends": ["plugin:storybook/recommended"],
-      "rules": {
-        "import/no-default-export": 0
-      }
-    }
-  ]
+  "plugins": ["prettier", "testing-library"]
 }

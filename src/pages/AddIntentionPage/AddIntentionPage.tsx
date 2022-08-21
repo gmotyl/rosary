@@ -1,4 +1,4 @@
-import React, {SyntheticEvent, useContext, useEffect} from 'react'
+import {SyntheticEvent, useContext, useEffect} from 'react'
 import {AddIntentionCard} from 'src/components/AddIntentionCard'
 import {usePostIntention} from 'src/hooks/useRosaryApi'
 import {AuthContext} from 'src/context/AuthProvider'

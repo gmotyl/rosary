@@ -4,9 +4,9 @@ import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
-import {makeStyles} from '@mui/material/styles'
+import {makeStyles} from '@mui/styles'
 import Typography from '@mui/material/Typography'
-import * as React from 'react'
+
 import {Mystery} from 'src/consts/rosary'
 
 const useStyles = makeStyles((theme) => ({
@@ -64,7 +64,7 @@ export const PrayCard: React.ComponentType<PrayCardProps> = (props) => {
 
   return (
     <Card className={classes.card}>
-      <Grid container={true} justify="center" alignItems="center">
+      <Grid container={true} justifyContent="center" alignItems="center">
         {props.isLoading ? (
           <CircularProgress size={42} />
         ) : (

@@ -1,9 +1,8 @@
-import * as React from 'react'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
-import {makeStyles} from '@mui/material/styles'
+import {makeStyles} from '@mui/styles'
 import Typography from '@mui/material/Typography'
 
 import Link from '../Link'
@@ -22,7 +21,7 @@ export const Hero = () => {
   const classes = useStyles()
 
   return (
-    <React.Fragment>
+    <>
       <main>
         <span className={classes.heroContent}>
           <Container maxWidth="sm">
@@ -54,7 +53,7 @@ export const Hero = () => {
               Nasza internetowa wspólnota modli się w Twojej intencji.
             </Typography>
             <span className={classes.heroButtons}>
-              <Grid container={true} spacing={2} justify="center">
+              <Grid container={true} spacing={2} justifyContent="center">
                 <Grid item={true}>
                   <Link to={`/add-intention`}>
                     <Button
@@ -82,7 +81,7 @@ export const Hero = () => {
           </Container>
         </span>
       </main>
-    </React.Fragment>
+    </>
   )
 }
 

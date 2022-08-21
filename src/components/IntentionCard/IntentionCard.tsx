@@ -4,9 +4,9 @@ import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import LinearProgress from '@mui/material/LinearProgress'
-import {makeStyles} from '@mui/material/styles'
+import {makeStyles} from '@mui/styles'
 import Typography from '@mui/material/Typography'
-import * as React from 'react'
+
 import DeleteIcon from '@mui/icons-material/Delete'
 
 import {IIntention} from './Interface'

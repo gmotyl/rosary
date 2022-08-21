@@ -1,10 +1,10 @@
 import React from 'react'
-import {makeStyles} from '@mui/material/styles'
 import SwipeableDrawer from '@mui/material/SwipeableDrawer'
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
 
 import {SideMenu} from './SideMenu'
+import { makeStyles } from '@mui/styles'
 
 const useStyles = makeStyles((theme) => ({
   fullList: {
@@ -25,7 +25,7 @@ export const DrawerMenu: React.FC = () => {
 
   return (
     <div>
-      <IconButton onClick={(e) => setOpen(true)}>
+      <IconButton onClick={(e) => setOpen(true)} size="large">
         <MenuIcon className={classes.icon} />
       </IconButton>
       <SwipeableDrawer
@@ -37,7 +37,7 @@ export const DrawerMenu: React.FC = () => {
         <SideMenu setOpen={setOpen} />
       </SwipeableDrawer>
     </div>
-  )
+  );
 }
 
 export default DrawerMenu

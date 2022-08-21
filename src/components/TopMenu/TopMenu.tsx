@@ -1,8 +1,9 @@
 import React from 'react'
-import {Typography, makeStyles} from '@mui/material'
+import {Typography} from '@mui/material'
 import VerifiedUser from '@mui/icons-material/VerifiedUser'
 
 import Link from '../Link'
+import {makeStyles} from '@mui/styles'
 
 interface ITopMenuProps {
   isAuthenticated?: boolean
