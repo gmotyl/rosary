@@ -55,21 +55,21 @@ export const Hero = () => {
             <span className={classes.heroButtons}>
               <Grid container={true} spacing={2} justifyContent="center">
                 <Grid item={true}>
-                  <Link to={`/add-intention`}>
+                  <Link to={'/add-intention'}>
                     <Button
                       variant="contained"
-                      color="primary"
                       data-testid="add-intention"
+                      color="primary"
                     >
                       Dodaj intencję
                     </Button>
                   </Link>
                 </Grid>
                 <Grid item={true}>
-                  <Link to={`/how-it-works`}>
+                  <Link to={'/how-it-works'} underline="none">
                     <Button
                       variant="outlined"
-                      color="primary"
+                      color="secondary"
                       data-testid="how-it-works"
                     >
                       Jak to działa?

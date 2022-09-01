@@ -13,10 +13,12 @@ const useStyles = makeStyles({
 
 interface LinkProps {
   to: string
+  underline?: 'none' | 'always' | 'hover' | undefined
 }
 
 export const Link: FunctionComponent<React.PropsWithChildren<LinkProps>> = ({
   to,
+  underline,
   children,
 }) => {
   const classes = useStyles()
@@ -26,6 +28,7 @@ export const Link: FunctionComponent<React.PropsWithChildren<LinkProps>> = ({
       to={to}
       color="inherit"
       className={classes.home}
+      underline={underline ?? 'none'}
     >
       {children}
     </MUILink>
