@@ -4,7 +4,7 @@ import Layout from '../containers/Layout'
 import AuthProvider from '../context/AuthProvider'
 import {UIStateProvider} from '../context/UIStateProvider'
 
-const theme = createTheme({
+export const theme = createTheme({
   palette: {
     primary: {
       main: '#880e4f',
