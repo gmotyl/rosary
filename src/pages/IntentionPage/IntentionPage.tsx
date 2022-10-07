@@ -18,7 +18,6 @@ import {RouteComponentProps} from 'react-router-dom'
 import {Prayer} from 'src/containers/Prayer'
 import {useIntention} from '../../hooks/useRosaryApi'
 import IntentionCard from '../../components/IntentionCard'
-import PrayDisclaimerCard from '../../components/PrayDisclaimerCard'
 import {useIntentionStatisticRequest} from 'src/hooks/useRosaryApi/useInentionStatistic'
 import {IntentionStatistic} from './IntentionStatistics'
 
@@ -72,9 +71,6 @@ const IntentionPage: React.ComponentType<
   const [prayPanel, setPrayPanel] = useState({
     expanded: Boolean(prayerId),
   })
-  const [helpPanel, setHelpPanel] = useState({
-    expanded: false,
-  })
   const toggleIntentionPanel = (event: object, expanded: boolean) => {
     setIntentionPanel({
       expanded,
@@ -85,11 +81,7 @@ const IntentionPage: React.ComponentType<
       expanded,
     })
   }
-  const toggleHelpPanel = (event: object, expanded: boolean) => {
-    setHelpPanel({
-      expanded,
-    })
-  }
+
   const openPrayPanel = () => togglePrayPanel({}, true)
   const closeIntentionPanel = () => toggleIntentionPanel({}, false)
   const startPray = () => {
@@ -101,80 +93,64 @@ const IntentionPage: React.ComponentType<
 
   useEffect(updateStats, [])
 
+  // TODO GM: use react-chrono
+
   return (
     <>
-      <Grid container={true} spacing={2}>
-        <Grid item={true} key={intention.id} xs={12} sm={6} md={6} lg={4}>
-          <div className={classes.root}>
-            <Accordion
-              expanded={intentionPanel.expanded}
-              onChange={toggleIntentionPanel}
+      <Grid item={true} key={intention.id} xs={12} sm={6} md={6} lg={4}>
+        <div className={classes.root}>
+          <Accordion
+            expanded={intentionPanel.expanded}
+            onChange={toggleIntentionPanel}
+          >
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
             >
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
-              >
-                <Typography className={classes.heading}>
-                  {intentionPanel.expanded ? 'Intencja' : intention.title}
-                </Typography>
-              </AccordionSummary>
-              <AccordionDetails className={classes.root}>
-                <IntentionCard
-                  intention={intention}
-                  detailed={true}
-                  isLoading={state.isLoading}
-                />
-              </AccordionDetails>
-              <AccordionActions>
-                <Button size="small" color="primary" onClick={startPray}>
-                  Odmów dziesiątek
-                </Button>
-              </AccordionActions>
-            </Accordion>
-            <Accordion expanded={prayPanel.expanded} onChange={togglePrayPanel}>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel2a-content"
-                id="panel2a-header"
-              >
-                <Typography className={classes.heading}>Modlitwa</Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Prayer
-                  intention={intention}
-                  prayerId={prayerId}
-                  updateStats={updateStats}
-                />
-              </AccordionDetails>
-            </Accordion>
-            <Paper className={classes.root}>
-              <IntentionStatistic
-                rosaryCount={rosaryCount}
-                prayFinished={prayFinished}
-                prayInProgress={prayInProgress}
-                updateStats={updateStats}
-                intentionId={id}
+              <Typography className={classes.heading}>
+                {intentionPanel.expanded ? 'Intencja' : intention.title}
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails className={classes.root}>
+              <IntentionCard
+                intention={intention}
+                detailed={true}
+                isLoading={state.isLoading}
               />
-            </Paper>
-          </div>
-        </Grid>
-        <Grid item={true} key={2} xs={12} sm={6} md={6} lg={8}>
-          <Accordion expanded={helpPanel.expanded} onChange={toggleHelpPanel}>
+            </AccordionDetails>
+            <AccordionActions>
+              <Button size="small" color="primary" onClick={startPray}>
+                Odmów dziesiątek
+              </Button>
+            </AccordionActions>
+          </Accordion>
+          <Accordion expanded={prayPanel.expanded} onChange={togglePrayPanel}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel2a-content"
               id="panel2a-header"
             >
-              <Typography className={classes.heading}>
-                Jak to działa ?
-              </Typography>
+              <Typography className={classes.heading}>Modlitwa</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <PrayDisclaimerCard />
+              <Prayer
+                intention={intention}
+                prayerId={prayerId}
+                updateStats={updateStats}
+              />
             </AccordionDetails>
           </Accordion>
-        </Grid>
+          <Paper className={classes.root}>
+            <IntentionStatistic
+              rosaryCount={rosaryCount}
+              prayFinished={prayFinished}
+              prayInProgress={prayInProgress}
+              updateStats={updateStats}
+              intentionId={id}
+            />
+          </Paper>
+        </div>
       </Grid>
     </>
   )
