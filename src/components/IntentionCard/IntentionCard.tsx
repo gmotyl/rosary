@@ -9,8 +9,8 @@ import Typography from '@mui/material/Typography'
 
 import DeleteIcon from '@mui/icons-material/Delete'
 
-import {IIntention} from './Interface'
 import Link from '../Link'
+import {IIntention} from 'src/pages/IntentionPage/Interface'
 
 const image = '/img/rosary1.jpeg'
 const useStyles = makeStyles((theme) => ({
@@ -48,7 +48,7 @@ const IntentionCard: React.ComponentType<IntentionCardProps> = ({
   const deleteAction = onDeleteAction && (
     <Button
       size="small"
-      onClick={() => onDeleteAction(intention.id ?? '')}
+      onClick={() => onDeleteAction(intention.id || '')}
       data-testid="delete-intention"
     >
       <DeleteIcon color="secondary" />

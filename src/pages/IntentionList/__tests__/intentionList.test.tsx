@@ -5,7 +5,7 @@ import {AuthProviderStub} from 'src/tools/AuthProviderStub'
 import {EAuthRoles} from 'src/context/AuthProvider'
 import {StylesProvider} from 'src/app/StylesProvider'
 
-jest.mock('../../../hooks/useRosaryApi', () => ({
+jest.mock('../../../hooks', () => ({
   useIntentionList: () => ({
     intentions: [
       {
@@ -16,7 +16,6 @@ jest.mock('../../../hooks/useRosaryApi', () => ({
       },
     ],
   }),
-  useDeleteIntention: () => ({deleteIntention: jest.fn()}),
 }))
 
 const Component = () => {

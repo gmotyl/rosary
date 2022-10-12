@@ -1,9 +1,21 @@
 import {renderHook} from '@testing-library/react-hooks'
 import {useIntentionList} from '../useIntentionList'
 
+const intention1 = {
+  id: '123',
+  title: 'title',
+  description: 'desc',
+}
+const intention2 = {
+  id: '999',
+  title: 'title',
+  description: 'desc',
+}
+const intentionListMock = [intention1, intention2]
+
 const saveLocalStorageMock = jest.fn()
 const useLocalStorageMock = (key: string, defaulValue: any) => {
-  return [defaulValue, saveLocalStorageMock]
+  return [intentionListMock, saveLocalStorageMock]
 }
 
 jest.mock('react-use', () => ({
@@ -11,30 +23,38 @@ jest.mock('react-use', () => ({
 }))
 
 describe('useIntentionList hook', () => {
-  it('should return empty list and save function', () => {
+  beforeEach(() => {
+    jest.resetAllMocks()
+  })
+  it('should return list and save function', () => {
     const {result} = renderHook(() => useIntentionList())
-    const {intentionList, saveIntentionList} = result.current
+    const {intentions, saveIntentionList} = result.current
 
-    expect(intentionList.length).toBe(0)
+    expect(intentions.length).toBe(2)
     expect(saveIntentionList).toEqual(expect.any(Function))
   })
 
   it('should save list', () => {
     const {result} = renderHook(() => useIntentionList())
-    const {intentionList, saveIntentionList} = result.current
-    const intention1 = {
-      title: 'title',
-      description: 'desc',
-    }
-    const intention2 = {
-      title: 'title',
-      description: 'desc',
-    }
-
-    expect(intentionList.length).toBe(0)
+    const {saveIntentionList} = result.current
 
     saveIntentionList([intention1])
 
     expect(saveLocalStorageMock).toBeCalledTimes(1)
+  })
+
+  it('should delete intention', () => {
+    const {result} = renderHook(() => useIntentionList())
+    const {saveIntentionList, deleteIntention} = result.current
+
+    saveIntentionList(intentionListMock)
+
+    expect(saveLocalStorageMock).toBeCalledWith(intentionListMock)
+
+    jest.resetAllMocks()
+
+    deleteIntention(intention1.id)
+
+    expect(saveLocalStorageMock).toBeCalledWith([intention2])
   })
 })

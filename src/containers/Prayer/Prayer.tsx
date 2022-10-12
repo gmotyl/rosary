@@ -4,10 +4,10 @@ import dayjs from 'dayjs'
 import {useContext, useEffect, useState} from 'react'
 
 import {PrayCard} from 'src/components/PrayCard'
-import {IIntention} from '../../components/IntentionCard/Interface'
 import {getMystery} from '../../consts/rosary'
 import {usePrayRosaryRequest, useSavePrayer} from '../../hooks/useRosaryApi'
 import {UIContext} from 'src/context/UIStateProvider'
+import {IIntention} from 'src/pages/IntentionPage/Interface'
 
 interface PrayerProps {
   intention: IIntention

@@ -4,9 +4,9 @@ import {makeStyles} from '@mui/styles'
 import {FC, useContext, useEffect, useState} from 'react'
 import Hero from 'src/components/Hero'
 import IntentionCard from 'src/components/IntentionCard'
-import {useIntentionList, useDeleteIntention} from 'src/hooks/useRosaryApi'
 import {EAuthRoles, AuthContext} from 'src/context/AuthProvider'
 import {DeleteIntentionDialog} from 'src/components/DeleteIntentionDialog'
+import {useIntentionList} from 'src/hooks'
 
 const useStyles = makeStyles((theme) => ({
   cardGrid: {
@@ -21,8 +21,8 @@ const IntentionList: FC<IntentionListProps> = () => {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
   const [deleteIntentionId, setDeleteIntentionId] = useState('')
   const classes = useStyles()
-  const {intentions} = useIntentionList()
-  const {hasRole, authToken} = useContext(AuthContext)
+  const {intentions, deleteIntention} = useIntentionList()
+  const {hasRole} = useContext(AuthContext)
   const isAdmin = hasRole(EAuthRoles.ROLE_ADMIN)
   const openDeleteIntentionDialog = isAdmin
     ? (intentionId: string) => {
@@ -30,7 +30,8 @@ const IntentionList: FC<IntentionListProps> = () => {
         setDeleteDialogOpen(true)
       }
     : undefined
-  const {deleteIntention, isLoading} = useDeleteIntention(authToken)
+  const isLoading = false
+
   const handleDeleteIntention = () => {
     deleteIntention(deleteIntentionId)
   }

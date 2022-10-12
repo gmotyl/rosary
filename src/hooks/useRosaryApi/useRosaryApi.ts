@@ -1,7 +1,7 @@
-import {IIntention} from 'src/components/IntentionCard/Interface'
 import {emptyPrayer, IPrayer} from 'src/types/Prayer'
 import api from 'src/services/api'
 import {useGetRequest} from '../useGetRequest'
+import {IIntention} from 'src/pages/IntentionPage/Interface'
 
 const emptyIntention = {
   description: 'loading...',

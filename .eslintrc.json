@@ -4,7 +4,7 @@
   "rules": {
     "quotes": [2, "single", "avoid-escape"],
     "@next/next/google-font-preconnect": "off",
-    "semi": ["error", "never"],
+    "semi": ["warning", "never"],
     "no-console": 1,
     "no-restricted-imports": [
       "error",
