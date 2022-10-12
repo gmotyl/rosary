@@ -20,20 +20,7 @@ beforeEach(() => {
   jest.clearAllMocks()
 })
 
-it('should open login form on login link click', () => {
-  const history = createMemoryHistory()
-  const {container} = renderWithTheme(
-    <LoginWrapper>
-      <Router history={history}>
-        <AppRoutes />
-      </Router>
-    </LoginWrapper>,
-  )
-
-  expect(container.innerHTML).toMatch('Intention list')
-})
-
-it('For not logged user: should open login form on add intention button click', () => {
+it('For not logged user: should not open login form on add intention button click', () => {
   const history = createMemoryHistory()
   const {container, getByTestId} = renderWithTheme(
     <AuthProviderStub isAuthenticated={false}>
@@ -48,7 +35,7 @@ it('For not logged user: should open login form on add intention button click', 
 
   fireEvent.click(getByTestId('add-intention'))
 
-  expect(container.innerHTML).toMatch('Login page')
+  expect(container.innerHTML).toMatch('Add intention page')
 })
 
 it('For logged user: should open add intention page on add intention button click', () => {

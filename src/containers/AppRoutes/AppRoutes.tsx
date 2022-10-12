@@ -1,6 +1,5 @@
 import {Route, Switch} from 'react-router-dom'
 
-import {PrivateRoute} from './PrivateRoute'
 import IntentionPage from 'src/pages/IntentionPage'
 import IntentionList from 'src/pages/IntentionList'
 import LoginPage from 'src/pages/LoginPage'
@@ -17,9 +16,11 @@ export const AppRoutes = () => {
       <Route path={ERoutes.POLICY} exact={true} component={PrivacyPolicy} />
       <Route path={ERoutes.LOGIN} exact={true} component={LoginPage} />
       <Route path={ERoutes.ABOUT} exact={true} component={HowItWorks} />
-      <PrivateRoute path={ERoutes.ADD_INTENTION}>
-        <AddIntentionPage />
-      </PrivateRoute>
+      <Route
+        path={ERoutes.ADD_INTENTION}
+        exact={true}
+        component={AddIntentionPage}
+      />
       <Route
         path="/intention/:id/(prayers)?/:prayerId?"
         component={IntentionPage}

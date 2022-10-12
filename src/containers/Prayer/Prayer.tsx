@@ -66,7 +66,6 @@ export const Prayer: React.ComponentType<PrayerProps> = ({
         intentionId: intention.id,
       })
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [prayRequestSuccess])
 
   const mystery = isPrayRequestLoading

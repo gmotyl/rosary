@@ -10,16 +10,16 @@ const emptyIntention = {
   userId: '',
 }
 
-export const useIntentionList = () => {
-  const {state} = useGetRequest<IIntention[]>(
-    api,
-    'intentions?order[updated]=desc',
-    [],
-  )
-  const {data: intentions} = state
+// export const useIntentionList = () => {
+//   const {state} = useGetRequest<IIntention[]>(
+//     api,
+//     'intentions?order[updated]=desc',
+//     [],
+//   )
+//   const {data: intentions} = state
 
-  return {intentions}
-}
+//   return {intentions}
+// }
 
 // TODO GM: change to localstorage
 export const useIntention = (id: string) =>
