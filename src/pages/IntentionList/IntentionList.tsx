@@ -6,7 +6,7 @@ import Hero from 'src/components/Hero'
 import IntentionCard from 'src/components/IntentionCard'
 import {EAuthRoles, AuthContext} from 'src/context/AuthProvider'
 import {DeleteIntentionDialog} from 'src/components/DeleteIntentionDialog'
-import {useIntentionList} from 'src/hooks'
+import {useIntentions} from 'src/hooks'
 
 const useStyles = makeStyles((theme) => ({
   cardGrid: {
@@ -21,7 +21,7 @@ const IntentionList: FC<IntentionListProps> = () => {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
   const [deleteIntentionId, setDeleteIntentionId] = useState('')
   const classes = useStyles()
-  const {intentions, deleteIntention} = useIntentionList()
+  const {intentions, deleteIntention} = useIntentions()
   const {hasRole} = useContext(AuthContext)
   const isAdmin = hasRole(EAuthRoles.ROLE_ADMIN)
   const openDeleteIntentionDialog = isAdmin

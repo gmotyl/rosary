@@ -4,16 +4,16 @@
   "rules": {
     "quotes": [2, "single", "avoid-escape"],
     "@next/next/google-font-preconnect": "off",
-    "semi": ["warning", "never"],
+    "semi": ["error", "never"],
     "no-console": 1,
     "no-restricted-imports": [
-      "error",
+      "warn",
       {
         "patterns": ["../../../"]
       }
     ],
     "no-restricted-syntax": [
-      "error",
+      "warn",
       {
         "selector": "TSEnumDeclaration:not([const=true])",
         "message": "Don't declare non-const enums"

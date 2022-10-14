@@ -1,13 +1,11 @@
-import {SyntheticEvent, useContext, useEffect} from 'react'
+import {SyntheticEvent} from 'react'
 import {AddIntentionCard} from 'src/components/AddIntentionCard'
-import {usePostIntention} from 'src/hooks/useRosaryApi'
-import {AuthContext} from 'src/context/AuthProvider'
 import {useHistory} from 'react-router-dom'
+import {useIntentions} from 'src/hooks'
 
 export const AddIntentionPage: React.FC = () => {
   let history = useHistory()
-  const {authToken} = useContext(AuthContext)
-  const {isLoading, success, postIntention} = usePostIntention(authToken)
+  const {saveIntention} = useIntentions()
   const submitIntention = (e: SyntheticEvent) => {
     e.preventDefault()
     const {
@@ -15,17 +13,13 @@ export const AddIntentionPage: React.FC = () => {
       description: {value: description},
     } = e.target['elements']
 
-    postIntention({title, description})
+    saveIntention({id: Date.now().toString(), title, description})
+    history.goBack()
   }
-
-  useEffect(() => {
-    success && history.goBack()
-  }, [success, history])
 
   return (
     <>
       <AddIntentionCard onSubmit={submitIntention} />
-      {isLoading ? 'saving...' : null}
     </>
   )
 }

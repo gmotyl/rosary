@@ -5,11 +5,18 @@ import {AddIntentionPage} from '../AddIntentionPage'
 import {renderWithTheme} from 'src/tools/renderWithTheme'
 
 const mockRequest = jest.fn()
+const mockSaveIntention = jest.fn()
 
 jest.mock('../../../hooks/useRosaryApi', () => ({
   usePostIntention: () => ({
     isLoading: false,
     postIntention: mockRequest,
+  }),
+}))
+
+jest.mock('../../../hooks', () => ({
+  useIntentions: () => ({
+    saveIntention: mockSaveIntention,
   }),
 }))
 
@@ -39,8 +46,9 @@ describe('Add intention Page', () => {
 
     await fireEvent.submit(container.querySelector('form'))
 
-    expect(mockRequest).toHaveBeenCalledTimes(1)
-    expect(mockRequest).toHaveBeenCalledWith({
+    expect(mockSaveIntention).toHaveBeenCalledTimes(1)
+    expect(mockSaveIntention).toHaveBeenCalledWith({
+      id: expect.any(String),
       title: 'chuck',
       description: 'norris',
     })

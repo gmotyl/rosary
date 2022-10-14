@@ -1,5 +1,5 @@
 import {renderHook} from '@testing-library/react-hooks'
-import {useIntentionList} from '../useIntentionList'
+import {useIntentions} from '../useIntentions'
 
 const intention1 = {
   id: '123',
@@ -27,31 +27,25 @@ describe('useIntentionList hook', () => {
     jest.resetAllMocks()
   })
   it('should return list and save function', () => {
-    const {result} = renderHook(() => useIntentionList())
-    const {intentions, saveIntentionList} = result.current
+    const {result} = renderHook(() => useIntentions())
+    const {intentions, saveIntention} = result.current
 
     expect(intentions.length).toBe(2)
-    expect(saveIntentionList).toEqual(expect.any(Function))
+    expect(saveIntention).toEqual(expect.any(Function))
   })
 
-  it('should save list', () => {
-    const {result} = renderHook(() => useIntentionList())
-    const {saveIntentionList} = result.current
+  it('should save intention', () => {
+    const {result} = renderHook(() => useIntentions())
+    const {saveIntention} = result.current
 
-    saveIntentionList([intention1])
+    saveIntention(intention1)
 
     expect(saveLocalStorageMock).toBeCalledTimes(1)
   })
 
   it('should delete intention', () => {
-    const {result} = renderHook(() => useIntentionList())
-    const {saveIntentionList, deleteIntention} = result.current
-
-    saveIntentionList(intentionListMock)
-
-    expect(saveLocalStorageMock).toBeCalledWith(intentionListMock)
-
-    jest.resetAllMocks()
+    const {result} = renderHook(() => useIntentions())
+    const {deleteIntention} = result.current
 
     deleteIntention(intention1.id)
 
