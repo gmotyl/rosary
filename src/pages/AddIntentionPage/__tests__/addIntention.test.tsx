@@ -19,6 +19,9 @@ jest.mock('../../../hooks', () => ({
     saveIntention: mockSaveIntention,
   }),
 }))
+jest.mock('react-router-dom', () => ({
+  useHistory: () => ({goBack: jest.fn()}),
+}))
 
 describe('Add intention Page', () => {
   it('should render form', () => {

@@ -6,7 +6,7 @@ import {EAuthRoles} from 'src/context/AuthProvider'
 import {StylesProvider} from 'src/app/StylesProvider'
 
 jest.mock('../../../hooks', () => ({
-  useIntentionList: () => ({
+  useIntentions: () => ({
     intentions: [
       {
         id: '123',
