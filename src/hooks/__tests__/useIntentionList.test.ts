@@ -51,4 +51,13 @@ describe('useIntentionList hook', () => {
 
     expect(saveLocalStorageMock).toBeCalledWith([intention2])
   })
+
+  it('should get intention', () => {
+    const {result} = renderHook(() => useIntentions())
+    const {getIntention} = result.current
+
+    const intention = getIntention(intention1.id)
+
+    expect(intention).toEqual(intention1)
+  })
 })

@@ -21,9 +21,12 @@ export const useIntentions = () => {
   const saveIntention = (intention: IIntention) =>
     saveIntentionList([...intentions, intention])
 
+  const getIntention = (id: string) => intentions.find((x) => x.id === id)
+
   return {
     intentions,
     saveIntention,
     deleteIntention,
+    getIntention,
   }
 }

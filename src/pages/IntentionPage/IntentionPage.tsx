@@ -16,10 +16,10 @@ import {useEffect, useState} from 'react'
 import {RouteComponentProps} from 'react-router-dom'
 
 import {Prayer} from 'src/containers/Prayer'
-import {useIntention} from '../../hooks/useRosaryApi'
 import IntentionCard from '../../components/IntentionCard'
 import {useIntentionStatisticRequest} from 'src/hooks/useRosaryApi/useInentionStatistic'
 import {IntentionStatistic} from './IntentionStatistics'
+import {useIntentions} from 'src/hooks'
 
 // tslint:disable-next-line: object-literal-sort-keys
 const useStyles = makeStyles((theme) => ({
@@ -63,8 +63,8 @@ const IntentionPage: React.ComponentType<
   }
   const {id, prayerId} = props.match.params
   const classes = useStyles()
-  const {state} = useIntention(id)
-  const intention = state.data
+  const {getIntention} = useIntentions()
+  const intention = getIntention(id)
   const [intentionPanel, setIntentionPanel] = useState({
     expanded: true,
   })
@@ -93,6 +93,11 @@ const IntentionPage: React.ComponentType<
 
   useEffect(updateStats, [])
 
+  // return null if intention not found
+  if (!intention) {
+    return null
+  }
+
   // TODO GM: use react-chrono
 
   return (
@@ -116,7 +121,7 @@ const IntentionPage: React.ComponentType<
               <IntentionCard
                 intention={intention}
                 detailed={true}
-                isLoading={state.isLoading}
+                isLoading={false} // TODO GM: refactor
               />
             </AccordionDetails>
             <AccordionActions>
@@ -134,11 +139,7 @@ const IntentionPage: React.ComponentType<
               <Typography className={classes.heading}>Modlitwa</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Prayer
-                intention={intention}
-                prayerId={prayerId}
-                updateStats={updateStats}
-              />
+              <Prayer intention={intention} updateStats={updateStats} />
             </AccordionDetails>
           </Accordion>
           <Paper className={classes.root}>
