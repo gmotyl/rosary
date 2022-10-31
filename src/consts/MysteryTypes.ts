@@ -1,5 +1,5 @@
 export enum MysteryTypes {
-  none = 0,
+  none = 0, // TODO GM: refactor: remove Mystery type 0
   Joyful1,
   Joyful2,
   Joyful3,
@@ -20,4 +20,5 @@ export enum MysteryTypes {
   Glorious3,
   Glorious4,
   Glorious5,
+  Complete,
 }

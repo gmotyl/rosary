@@ -54,7 +54,7 @@ export const Header = () => {
         <AppBar>
           <Toolbar>
             <DrawerMenu></DrawerMenu>
-            <Link to={`/`}>
+            <Link to={'/'}>
               <Badge color="secondary" badgeContent="beta">
                 <Typography variant="h6" color="inherit" noWrap={true}>
                   {title}

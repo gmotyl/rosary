@@ -27,7 +27,7 @@ export const usePrayRosaryRequest = (): TUsePrayRequest => {
       success: prayRequestSuccess,
     },
     doRequest: doPrayRequest,
-  } = useRequest(api.post, `pray_rosary_requests`, emptyPrayRequest)
+  } = useRequest(api.post, 'pray_rosary_requests', emptyPrayRequest)
 
   return {
     type,

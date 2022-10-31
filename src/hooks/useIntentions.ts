@@ -1,32 +1,48 @@
 import {IIntention} from 'src/pages/IntentionPage/Interface'
 import {useLocalStorage} from 'react-use'
 
-import {pipe, filter} from 'lodash/fp'
+import {pipe, filter, map} from 'lodash/fp'
+import {MysteryTypes} from 'src/consts/MysteryTypes'
 
-export const useIntentions = () => {
+const removeId = (id: string) => filter<IIntention>((x) => x.id !== id)
+const isNotCompleted = (x: IIntention) =>
+  x.currentMystery < MysteryTypes.Complete
+const isSameId = (id: string) => (x: IIntention) => x.id === id
+
+export const useIntentions = (initialIntentions: IIntention[] = []) => {
   const [intentionList, saveIntentionList] = useLocalStorage<IIntention[]>(
     'rosary-intentions',
-    [],
+    initialIntentions,
   )
-  const intentions = intentionList ?? []
-
-  const removeId = (id: string) => filter<IIntention>((x) => x.id !== id)
 
   const deleteIntention = (id: string) =>
     pipe(
       removeId(id), //
       saveIntentionList,
-    )(intentions)
+    )(intentionList)
 
   const saveIntention = (intention: IIntention) =>
-    saveIntentionList([...intentions, intention])
+    saveIntentionList([...(intentionList ?? []), intention])
 
-  const getIntention = (id: string) => intentions.find((x) => x.id === id)
+  const getIntention = (id: string) => (intentionList ?? []).find(isSameId(id))
+
+  const pray = (intention: IIntention) =>
+    isNotCompleted(intention)
+      ? pipe(
+          map((x: IIntention) =>
+            x.id === intention.id
+              ? {...x, currentMystery: x.currentMystery + 1}
+              : x,
+          ),
+          saveIntentionList,
+        )(intentionList)
+      : () => {}
 
   return {
-    intentions,
+    intentions: intentionList ?? [],
     saveIntention,
     deleteIntention,
     getIntention,
+    pray,
   }
 }

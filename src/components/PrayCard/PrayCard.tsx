@@ -1,4 +1,4 @@
-import {CircularProgress, Grid} from '@mui/material'
+import {Grid} from '@mui/material'
 import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
@@ -7,7 +7,9 @@ import CardContent from '@mui/material/CardContent'
 import {makeStyles} from '@mui/styles'
 import Typography from '@mui/material/Typography'
 
-import {Mystery} from 'src/consts/rosary'
+import {getMystery} from 'src/consts/rosary'
+import {useIntentions} from 'src/hooks'
+import {IIntention} from 'src/pages/IntentionPage/Interface'
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -27,59 +29,35 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 interface PrayCardProps {
-  getPrayerButtonDisabled: boolean
-  savePrayerButtonDisabled: boolean
-  isLoading?: boolean
-  mystery: Mystery
-  onPrayRequestAction: () => void
-  onPrayAction: () => void
+  intention: IIntention
 }
 
-export const PrayCard: React.ComponentType<PrayCardProps> = (props) => {
-  const {getPrayerButtonDisabled, savePrayerButtonDisabled, mystery} = props
-
+export const PrayCard: React.ComponentType<PrayCardProps> = ({intention}) => {
   const classes = useStyles()
-  const actions = (
-    <CardActions>
-      <Button
-        size="small"
-        color="primary"
-        onClick={props.onPrayRequestAction}
-        disabled={getPrayerButtonDisabled}
-        data-testid="pray-get-button"
-      >
-        Pobierz tajemnicę
-      </Button>
-      <Button
-        size="small"
-        color="primary"
-        onClick={props.onPrayAction}
-        disabled={savePrayerButtonDisabled}
-        data-testid="pray-save-button"
-      >
-        Gotowe (zapisz)
-      </Button>
-    </CardActions>
-  )
+  const mystery = getMystery(intention.currentMystery)
+  const {pray} = useIntentions()
 
   return (
     <Card className={classes.card}>
       <Grid container={true} justifyContent="center" alignItems="center">
-        {props.isLoading ? (
-          <CircularProgress size={42} />
-        ) : (
-          <Avatar alt="..." src={mystery.image} className={classes.bigAvatar} />
-        )}
+        <Avatar alt="..." src={mystery.image} className={classes.bigAvatar} />
       </Grid>
       <CardContent className={classes.cardContent}>
         <Typography gutterBottom={true} variant="h5" component="h2">
-          {getPrayerButtonDisabled ? mystery.title : null}
+          {mystery.title}
         </Typography>
-        <Typography>
-          {getPrayerButtonDisabled ? mystery.description : null}
-        </Typography>
+        <Typography>{mystery.description}</Typography>
       </CardContent>
-      {actions}
+      <CardActions>
+        <Button
+          size="small"
+          color="primary"
+          data-testid="pray-save-button"
+          onClick={() => pray(intention)}
+        >
+          Gotowe (zapisz)
+        </Button>
+      </CardActions>
     </Card>
   )
 }

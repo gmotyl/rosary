@@ -18,7 +18,7 @@ export const useIntentionStatisticRequest = () => {
     doRequest: requestIntentionStatistic,
   } = useRequest(
     api.post,
-    `intention_statistic_requests`,
+    'intention_statistic_requests',
     emptyStatisticRequest,
   )
 

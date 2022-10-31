@@ -48,7 +48,6 @@ export const IntentionStatistic: FC<IntentionStatisticProps> = ({
     if (timeLeft === 0) {
       updateStats()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeLeft])
 
   return (

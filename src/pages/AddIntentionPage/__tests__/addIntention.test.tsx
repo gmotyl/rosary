@@ -3,6 +3,7 @@ import '@testing-library/jest-dom'
 
 import {AddIntentionPage} from '../AddIntentionPage'
 import {renderWithTheme} from 'src/tools/renderWithTheme'
+import {MysteryTypes} from 'src/consts/MysteryTypes'
 
 const mockRequest = jest.fn()
 const mockSaveIntention = jest.fn()
@@ -54,6 +55,7 @@ describe('Add intention Page', () => {
       id: expect.any(String),
       title: 'chuck',
       description: 'norris',
+      currentMystery: MysteryTypes.Joyful1,
     })
   })
 })
