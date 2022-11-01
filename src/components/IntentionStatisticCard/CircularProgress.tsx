@@ -1,16 +1,15 @@
-import React from 'react'
 import CircularProgress, {
   CircularProgressProps,
-} from '@material-ui/core/CircularProgress'
-import Typography from '@material-ui/core/Typography'
-import Box from '@material-ui/core/Box'
+} from '@mui/material/CircularProgress'
+import Typography from '@mui/material/Typography'
+import Box from '@mui/material/Box'
 
 export const CircularProgressWithLabel = (
   props: CircularProgressProps & {value: number},
 ) => {
   return (
     <Box position="relative" display="inline-flex">
-      <CircularProgress variant="static" {...props} />
+      <CircularProgress variant="determinate" {...props} />
       <Box
         top={0}
         left={0}

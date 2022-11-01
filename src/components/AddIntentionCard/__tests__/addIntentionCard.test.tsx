@@ -1,15 +1,17 @@
-import React from 'react'
-import {render} from '@testing-library/react'
+import {fireEvent} from '@testing-library/react'
 import {AddIntentionCard} from '../AddIntentionCard'
+import {renderWithTheme} from 'src/tools/renderWithTheme'
 
 describe('AddInentionCard', () => {
   it('should render textbox', () => {
-    const {getAllByRole} = render(<AddIntentionCard />)
+    const {getAllByRole} = renderWithTheme(
+      <AddIntentionCard onSubmit={jest.fn} />,
+    )
 
     expect(getAllByRole('textbox')).toBeTruthy()
   })
   it('should render tatle and description and send button', () => {
-    const {getByPlaceholderText, getByRole} = render(
+    const {getByPlaceholderText, getByRole} = renderWithTheme(
       <AddIntentionCard onSubmit={jest.fn()} />,
     )
 
@@ -19,12 +21,13 @@ describe('AddInentionCard', () => {
   })
   it('should call onSubmit action', () => {
     const submitSpy = jest.fn()
-    const {container} = render(<AddIntentionCard onSubmit={submitSpy} />)
+    const {container} = renderWithTheme(
+      <AddIntentionCard onSubmit={submitSpy} />,
+    )
 
     const form = container.querySelector('form')
-    const submit = new Event('submit')
+    fireEvent.submit(form as HTMLFormElement)
 
-    form.dispatchEvent(submit)
     expect(submitSpy).toHaveBeenCalledTimes(1)
   })
 })

@@ -1,12 +1,12 @@
-import React from 'react'
 import {renderWithRouter} from 'src/tools/renderWithRouter'
 import IntentionList from '../IntentionList'
 import {fireEvent} from '@testing-library/react'
 import {AuthProviderStub} from 'src/tools/AuthProviderStub'
 import {EAuthRoles} from 'src/context/AuthProvider'
+import {StylesProvider} from 'src/app/StylesProvider'
 
-jest.mock('../../../hooks/useRosaryApi', () => ({
-  useIntentionList: () => ({
+jest.mock('../../../hooks', () => ({
+  useIntentions: () => ({
     intentions: [
       {
         id: '123',
@@ -16,14 +16,15 @@ jest.mock('../../../hooks/useRosaryApi', () => ({
       },
     ],
   }),
-  useDeleteIntention: () => ({deleteIntention: jest.fn()}),
 }))
 
 const Component = () => {
   return (
-    <AuthProviderStub isAuthenticated={true} roles={[EAuthRoles.ROLE_ADMIN]}>
-      <IntentionList />
-    </AuthProviderStub>
+    <StylesProvider>
+      <AuthProviderStub isAuthenticated={true} roles={[EAuthRoles.ROLE_ADMIN]}>
+        <IntentionList />
+      </AuthProviderStub>
+    </StylesProvider>
   )
 }
 
@@ -35,9 +36,11 @@ it('should handle opening Delete dialog for logged in user', () => {
 })
 it('should not render delete action for unathorised user', () => {
   const {queryByTestId} = renderWithRouter(
-    <AuthProviderStub isAuthenticated={false}>
-      <IntentionList />
-    </AuthProviderStub>,
+    <StylesProvider>
+      <AuthProviderStub isAuthenticated={false}>
+        <IntentionList />
+      </AuthProviderStub>
+    </StylesProvider>,
   )
 
   expect(queryByTestId('delete-intention')).toBeNull()

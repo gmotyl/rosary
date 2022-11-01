@@ -1,4 +1,4 @@
-import React, {FC} from 'react'
+import {FC, PropsWithChildren, useContext} from 'react'
 import AuthProvider, {AuthContext} from 'src/context/AuthProvider'
 
 const token =
@@ -8,8 +8,8 @@ beforeEach(() => {
   jest.clearAllMocks()
 })
 
-export const TestComponent: FC = ({children}) => {
-  const {setAuthToken, logout} = React.useContext(AuthContext)
+export const TestComponent: FC<PropsWithChildren<{}>> = ({children}) => {
+  const {setAuthToken, logout} = useContext(AuthContext)
 
   return (
     <>
@@ -19,7 +19,7 @@ export const TestComponent: FC = ({children}) => {
     </>
   )
 }
-export const LoginWrapper: FC = ({children}) => {
+export const LoginWrapper: FC<PropsWithChildren<{}>> = ({children}) => {
   return (
     <AuthProvider>
       <TestComponent>{children}</TestComponent>

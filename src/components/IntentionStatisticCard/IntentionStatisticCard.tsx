@@ -1,16 +1,10 @@
-import {
-  Badge,
-  Card,
-  CardContent,
-  LinearProgress,
-  makeStyles,
-  Tooltip,
-} from '@material-ui/core'
-import React, {FC} from 'react'
+import {Badge, Card, CardContent, LinearProgress, Tooltip} from '@mui/material'
+import {FC} from 'react'
 import {CircularProgressWithLabel} from './CircularProgress'
-import AvTimerIcon from '@material-ui/icons/AvTimer'
-import CheckCircleIcon from '@material-ui/icons/CheckCircle'
+import AvTimerIcon from '@mui/icons-material/AvTimer'
+import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import rosarySVG from '../../rosary2.svg'
+import {makeStyles} from '@mui/styles'
 
 interface IIntentionStatisticProps {
   rosaryCount: number
@@ -61,7 +55,7 @@ export const IntentionStatisticCard: FC<IIntentionStatisticProps> = ({
           <Badge color="secondary" badgeContent={0}>
             <CircularProgressWithLabel
               value={progress}
-              variant="static"
+              // variant="static"
               className={classes.icon}
             />
           </Badge>

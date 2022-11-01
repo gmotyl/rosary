@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import {useContext} from 'react'
 import {Route, Redirect, RouteProps} from 'react-router-dom'
 import {AuthContext} from 'src/context/AuthProvider'
 
@@ -10,7 +10,7 @@ export const PrivateRoute: React.FC<RouteProps> = ({children, ...rest}) => {
       {...rest}
       render={({location}) =>
         isAuthenticated ? (
-          children
+          (children as any)
         ) : (
           // <div>{location.pathname}</div>
           <Redirect

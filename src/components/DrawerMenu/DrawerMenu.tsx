@@ -1,12 +1,12 @@
 import React from 'react'
-import {makeStyles} from '@material-ui/core/styles'
-import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
-import IconButton from '@material-ui/core/IconButton'
-import MenuIcon from '@material-ui/icons/Menu'
+import SwipeableDrawer from '@mui/material/SwipeableDrawer'
+import IconButton from '@mui/material/IconButton'
+import MenuIcon from '@mui/icons-material/Menu'
 
 import {SideMenu} from './SideMenu'
+import {makeStyles} from '@mui/styles'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   fullList: {
     width: 'auto',
   },
@@ -25,14 +25,14 @@ export const DrawerMenu: React.FC = () => {
 
   return (
     <div>
-      <IconButton onClick={e => setOpen(true)}>
+      <IconButton onClick={(e) => setOpen(true)} size="large">
         <MenuIcon className={classes.icon} />
       </IconButton>
       <SwipeableDrawer
         anchor="left"
         open={open}
-        onClose={e => setOpen(false)}
-        onOpen={e => setOpen(true)}
+        onClose={(e) => setOpen(false)}
+        onOpen={(e) => setOpen(true)}
       >
         <SideMenu setOpen={setOpen} />
       </SwipeableDrawer>

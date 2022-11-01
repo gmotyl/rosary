@@ -1,7 +1,9 @@
-import React from 'react'
 import {Router} from 'react-router-dom'
 import {createMemoryHistory} from 'history'
+import {PropsWithChildren} from 'react'
 import {render} from '@testing-library/react'
+
+const RouterWithChildren = Router as PropsWithChildren<any>
 
 export function renderWithRouter(
   ui: any,
@@ -11,7 +13,7 @@ export function renderWithRouter(
   } = {},
 ) {
   const Wrapper = ({children}: any) => (
-    <Router history={history}>{children}</Router>
+    <RouterWithChildren history={history}>{children}</RouterWithChildren>
   )
   return {
     ...render(ui, {wrapper: Wrapper}),

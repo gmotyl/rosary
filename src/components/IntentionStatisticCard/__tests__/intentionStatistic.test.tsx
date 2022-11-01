@@ -1,5 +1,5 @@
 import React from 'react'
-import {render} from '@testing-library/react'
+import {renderWithTheme} from 'src/tools/renderWithTheme'
 import {IntentionStatisticCard} from '../IntentionStatisticCard'
 
 it.skip('should render rosary count', () => {
@@ -9,7 +9,7 @@ it.skip('should render rosary count', () => {
     prayInProgress: 0,
   }
 
-  const {queryAllByText, debug} = render(
+  const {queryAllByText, debug} = renderWithTheme(
     <IntentionStatisticCard {...statisticProps} />,
   )
 

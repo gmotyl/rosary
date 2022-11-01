@@ -1,5 +1,5 @@
 import React from 'react'
-import {render, fireEvent} from '@testing-library/react'
+import {fireEvent} from '@testing-library/react'
 
 import {
   UIStateProvider,
@@ -9,6 +9,7 @@ import {
 } from '../UIStateProvider'
 import {mockGetObject, mockSetObject} from 'src/tools/repository'
 import {entities} from 'src/consts/entities'
+import {renderWithTheme} from 'src/tools/renderWithTheme'
 
 jest.mock('src/tools/repository')
 
@@ -23,9 +24,8 @@ const expected = {
 const testPrayerData = {...emptyPrayerData, prayer: 'test'}
 
 const TestComponent = () => {
-  const {loginRedirect, setLoginRedirect, activePrayer} = React.useContext(
-    UIContext,
-  )
+  const {loginRedirect, setLoginRedirect, activePrayer} =
+    React.useContext(UIContext)
 
   const updateContex = () => {
     setLoginRedirect(expected.loginRedirect)
@@ -59,7 +59,7 @@ const Wrapper = (
 )
 
 it('should change value', () => {
-  const {getByTestId} = render(Wrapper)
+  const {getByTestId} = renderWithTheme(Wrapper)
 
   expect(value.loginRedirect).toEqual(defaultValue.loginRedirect)
 
@@ -69,7 +69,7 @@ it('should change value', () => {
 })
 
 it('should use repository for prayer', () => {
-  const {getByTestId} = render(Wrapper)
+  const {getByTestId} = renderWithTheme(Wrapper)
   mockGetObject.mockImplementation(() => jest.fn())
   expect(mockGetObject).toBeCalled()
   expect(mockGetObject).toBeCalledWith(entities.PRAYER, emptyPrayerData)

@@ -1,7 +1,7 @@
-import React, {FC} from 'react'
-import {Link as MUILink} from '@material-ui/core'
-import {makeStyles} from '@material-ui/core/styles'
-import Typography from '@material-ui/core/Typography'
+import {FC} from 'react'
+import {Link as MUILink} from '@mui/material'
+import Typography from '@mui/material/Typography'
+import {makeStyles} from '@mui/styles'
 
 const Copyright = () => {
   return (
@@ -25,7 +25,7 @@ export const About: FC = () => {
   const classes = useStyles()
 
   return (
-    <React.Fragment>
+    <>
       <footer className={classes.footer}>
         <Typography variant="h6" align="center" gutterBottom={true}>
           <a
@@ -53,6 +53,6 @@ export const About: FC = () => {
         </Typography>
         <Copyright />
       </footer>
-    </React.Fragment>
+    </>
   )
 }

@@ -1,14 +1,13 @@
-import * as React from 'react'
-import Box from '@material-ui/core/Box'
-import Button from '@material-ui/core/Button'
-import Container from '@material-ui/core/Container'
-import Grid from '@material-ui/core/Grid'
-import {makeStyles} from '@material-ui/core/styles'
-import Typography from '@material-ui/core/Typography'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Container from '@mui/material/Container'
+import Grid from '@mui/material/Grid'
+import {makeStyles} from '@mui/styles'
+import Typography from '@mui/material/Typography'
 
 import Link from '../Link'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   heroButtons: {
     marginTop: theme.spacing(4),
   },
@@ -22,7 +21,7 @@ export const Hero = () => {
   const classes = useStyles()
 
   return (
-    <React.Fragment>
+    <>
       <main>
         <span className={classes.heroContent}>
           <Container maxWidth="sm">
@@ -54,23 +53,23 @@ export const Hero = () => {
               Nasza internetowa wspólnota modli się w Twojej intencji.
             </Typography>
             <span className={classes.heroButtons}>
-              <Grid container={true} spacing={2} justify="center">
+              <Grid container={true} spacing={2} justifyContent="center">
                 <Grid item={true}>
-                  <Link to={`/add-intention`}>
+                  <Link to={'/add-intention'}>
                     <Button
                       variant="contained"
-                      color="primary"
                       data-testid="add-intention"
+                      color="primary"
                     >
                       Dodaj intencję
                     </Button>
                   </Link>
                 </Grid>
                 <Grid item={true}>
-                  <Link to={`/how-it-works`}>
+                  <Link to={'/how-it-works'} underline="none">
                     <Button
                       variant="outlined"
-                      color="primary"
+                      color="secondary"
                       data-testid="how-it-works"
                     >
                       Jak to działa?
@@ -82,7 +81,7 @@ export const Hero = () => {
           </Container>
         </span>
       </main>
-    </React.Fragment>
+    </>
   )
 }
 

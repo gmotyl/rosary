@@ -1,45 +1,24 @@
 {
-  "extends": [
-    "plugin:@typescript-eslint/recommended",
-    "prettier",
-    "plugin:react/recommended", // uses react-specific linting rules
-    "plugin:prettier/recommended", // enables eslint-plugin-prettier and eslint-config-prettier
-    "prettier/react" // disables react-specific linting rules that conflict with prettier
-  ],
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "project": "./tsconfig.json",
-    "ecmaVersion": 2018,
-    "ecmaFeatures": {
-      "jsx": true
-    },
-    "sourceType": "module",
-    "useJSXTextNode": true,
-    "env": {
-      "es6": true,
-      "browser": true,
-      "node": false
-    }
-  },
+  "parser": "@babel/eslint-parser",
+  "extends": ["prettier"],
   "rules": {
-    "no-console": "warn",
-    "react/prop-types": "off",
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn",
-    "@typescript-eslint/no-use-before-define": "off",
-    "@typescript-eslint/member-delimiter-style": [
-      "error",
+    "quotes": [2, "single", "avoid-escape"],
+    "@next/next/google-font-preconnect": "off",
+    "semi": ["error", "never"],
+    "no-console": 1,
+    "no-restricted-imports": [
+      "warn",
       {
-        "multiline": {
-          "delimiter": "none",
-          "requireLast": false
-        },
-        "singleline": {
-          "delimiter": "semi",
-          "requireLast": true
-        }
+        "patterns": ["../../../"]
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "TSEnumDeclaration:not([const=true])",
+        "message": "Don't declare non-const enums"
       }
     ]
   },
-  "plugins": ["react-hooks"]
+  "plugins": ["prettier", "testing-library"]
 }

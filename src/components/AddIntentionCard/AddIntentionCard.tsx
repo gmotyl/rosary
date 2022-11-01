@@ -1,4 +1,4 @@
-import React, {FC, SyntheticEvent} from 'react'
+import {FC, SyntheticEvent} from 'react'
 import {
   Card,
   Container,
@@ -6,11 +6,11 @@ import {
   Typography,
   TextField,
   Button,
-  makeStyles,
-} from '@material-ui/core'
+} from '@mui/material'
 import {RosaryIcon} from '../Icons'
+import {makeStyles} from '@mui/styles'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',

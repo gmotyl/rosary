@@ -12,7 +12,7 @@ export const getMystery = (type: MysteryTypes) => {
   if (!type || type < 1 || type > 20) {
     return {
       type: 0,
-      title: 'loading...',
+      title: 'Różaniec zakończony. Chwała Panu!',
       description: '',
       image: '/img/rosary1.jpeg',
     }

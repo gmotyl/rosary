@@ -1,5 +1,5 @@
-import React, {useEffect, useState, useContext} from 'react'
-import {Grid} from '@material-ui/core'
+import {useEffect, useState, useContext} from 'react'
+import {Grid} from '@mui/material'
 
 import LoginCard from 'src/components/LoginCard'
 import {RegisterCard} from 'src/components/RegisterCard'

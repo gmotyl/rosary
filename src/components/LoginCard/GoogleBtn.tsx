@@ -1,4 +1,4 @@
-import React, {FC, useContext} from 'react'
+import {FC, useContext} from 'react'
 import {GoogleLogin} from 'react-google-login'
 import {appConfig} from 'src/app/config/appConfig'
 import {AuthContext} from 'src/context/AuthProvider'

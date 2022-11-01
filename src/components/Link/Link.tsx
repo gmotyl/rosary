@@ -1,8 +1,7 @@
-import * as React from 'react'
 import {FunctionComponent} from 'react'
-import {Link as MUILink} from '@material-ui/core'
-import {makeStyles} from '@material-ui/core/styles'
+import {Link as MUILink} from '@mui/material'
 import {Link as RouterLink} from 'react-router-dom'
+import {makeStyles} from '@mui/styles'
 
 const useStyles = makeStyles({
   home: {
@@ -14,9 +13,14 @@ const useStyles = makeStyles({
 
 interface LinkProps {
   to: string
+  underline?: 'none' | 'always' | 'hover' | undefined
 }
 
-export const Link: FunctionComponent<LinkProps> = ({to, children}) => {
+export const Link: FunctionComponent<React.PropsWithChildren<LinkProps>> = ({
+  to,
+  underline,
+  children,
+}) => {
   const classes = useStyles()
   return (
     <MUILink
@@ -24,6 +28,7 @@ export const Link: FunctionComponent<LinkProps> = ({to, children}) => {
       to={to}
       color="inherit"
       className={classes.home}
+      underline={underline ?? 'none'}
     >
       {children}
     </MUILink>

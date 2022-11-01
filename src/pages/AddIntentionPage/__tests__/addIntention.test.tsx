@@ -1,10 +1,12 @@
-import React from 'react'
-import {render, fireEvent, screen} from '@testing-library/react'
+import {fireEvent, screen} from '@testing-library/react'
 import '@testing-library/jest-dom'
 
 import {AddIntentionPage} from '../AddIntentionPage'
+import {renderWithTheme} from 'src/tools/renderWithTheme'
+import {MysteryTypes} from 'src/consts/MysteryTypes'
 
 const mockRequest = jest.fn()
+const mockSaveIntention = jest.fn()
 
 jest.mock('../../../hooks/useRosaryApi', () => ({
   usePostIntention: () => ({
@@ -13,21 +15,30 @@ jest.mock('../../../hooks/useRosaryApi', () => ({
   }),
 }))
 
+jest.mock('../../../hooks', () => ({
+  useIntentions: () => ({
+    saveIntention: mockSaveIntention,
+  }),
+}))
+jest.mock('react-router-dom', () => ({
+  useHistory: () => ({goBack: jest.fn()}),
+}))
+
 describe('Add intention Page', () => {
   it('should render form', () => {
-    const {container} = render(<AddIntentionPage />)
+    const {container} = renderWithTheme(<AddIntentionPage />)
 
     expect(container).toBeTruthy()
   })
 
   it('should render add intention card', () => {
-    const {getByTestId} = render(<AddIntentionPage />)
+    const {getByTestId} = renderWithTheme(<AddIntentionPage />)
 
     expect(getByTestId('add-intention-card')).toBeTruthy()
   })
 
   it('should allow user to save intention', async () => {
-    const {container} = render(<AddIntentionPage />)
+    const {container} = renderWithTheme(<AddIntentionPage />)
 
     // fill out the form
     fireEvent.change(screen.getByLabelText(/intencja/i), {
@@ -39,10 +50,12 @@ describe('Add intention Page', () => {
 
     await fireEvent.submit(container.querySelector('form'))
 
-    expect(mockRequest).toHaveBeenCalledTimes(1)
-    expect(mockRequest).toHaveBeenCalledWith({
+    expect(mockSaveIntention).toHaveBeenCalledTimes(1)
+    expect(mockSaveIntention).toHaveBeenCalledWith({
+      id: expect.any(String),
       title: 'chuck',
       description: 'norris',
+      currentMystery: MysteryTypes.Joyful1,
     })
   })
 })

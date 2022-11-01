@@ -1,18 +1,17 @@
-import * as React from 'react'
-
-import AppBar from '@material-ui/core/AppBar'
-import Box from '@material-ui/core/Box'
-import Slide from '@material-ui/core/Slide'
-import {makeStyles} from '@material-ui/core/styles'
-import Toolbar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
-import useScrollTrigger from '@material-ui/core/useScrollTrigger'
+import AppBar from '@mui/material/AppBar'
+import Box from '@mui/material/Box'
+import Slide from '@mui/material/Slide'
+import {makeStyles} from '@mui/styles'
+import Toolbar from '@mui/material/Toolbar'
+import Typography from '@mui/material/Typography'
+import useScrollTrigger from '@mui/material/useScrollTrigger'
 
 import DrawerMenu from 'src/components/DrawerMenu'
 import Link from 'src/components/Link'
 import {AuthContext} from 'src/context/AuthProvider'
 import {TopMenu} from 'src/components/TopMenu'
-import {Badge} from '@material-ui/core'
+import {Badge} from '@mui/material'
+import {useContext} from 'react'
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -46,7 +45,7 @@ function HideOnScroll(props: HideOnScrollProps) {
 
 export const Header = () => {
   const classes = useStyles()
-  const {isAuthenticated} = React.useContext(AuthContext)
+  const {isAuthenticated} = useContext(AuthContext)
 
   const title = 'ORARE PRO ME'
   return (
@@ -55,7 +54,7 @@ export const Header = () => {
         <AppBar>
           <Toolbar>
             <DrawerMenu></DrawerMenu>
-            <Link to={`/`}>
+            <Link to={'/'}>
               <Badge color="secondary" badgeContent="beta">
                 <Typography variant="h6" color="inherit" noWrap={true}>
                   {title}

@@ -1,5 +1,4 @@
-export {useIntentionList} from './useRosaryApi'
-export {useIntention} from './useRosaryApi'
+// export {useIntention} from './useRosaryApi'
 export {useDeleteIntention} from './useDeleteIntention'
 export {usePrayRosaryRequest} from './usePrayRosaryRequest'
 export {useSavePrayer} from './useSavePrayer'

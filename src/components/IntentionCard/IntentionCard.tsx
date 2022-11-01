@@ -1,19 +1,19 @@
-import Button from '@material-ui/core/Button'
-import Card from '@material-ui/core/Card'
-import CardActions from '@material-ui/core/CardActions'
-import CardContent from '@material-ui/core/CardContent'
-import CardMedia from '@material-ui/core/CardMedia'
-import LinearProgress from '@material-ui/core/LinearProgress'
-import {makeStyles} from '@material-ui/core/styles'
-import Typography from '@material-ui/core/Typography'
-import * as React from 'react'
-import DeleteIcon from '@material-ui/icons/Delete'
+import Button from '@mui/material/Button'
+import Card from '@mui/material/Card'
+import CardActions from '@mui/material/CardActions'
+import CardContent from '@mui/material/CardContent'
+import CardMedia from '@mui/material/CardMedia'
+import LinearProgress from '@mui/material/LinearProgress'
+import {makeStyles} from '@mui/styles'
+import Typography from '@mui/material/Typography'
 
-import {IIntention} from './Interface'
+import DeleteIcon from '@mui/icons-material/Delete'
+
 import Link from '../Link'
+import {IIntention} from 'src/pages/IntentionPage/Interface'
 
 const image = '/img/rosary1.jpeg'
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   card: {
     display: 'flex',
     flexDirection: 'column',
@@ -48,7 +48,7 @@ const IntentionCard: React.ComponentType<IntentionCardProps> = ({
   const deleteAction = onDeleteAction && (
     <Button
       size="small"
-      onClick={() => onDeleteAction(intention.id ?? '')}
+      onClick={() => onDeleteAction(intention.id || '')}
       data-testid="delete-intention"
     >
       <DeleteIcon color="secondary" />

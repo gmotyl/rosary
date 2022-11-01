@@ -1,13 +1,8 @@
-import React, {FC} from 'react'
-import {
-  Card,
-  CardContent,
-  CardMedia,
-  Container,
-  makeStyles,
-} from '@material-ui/core'
+import {FC} from 'react'
+import {Card, CardContent, CardMedia, Container} from '@mui/material'
 
 import {Title, Paragraph} from 'src/components/UI/Atoms'
+import {makeStyles} from '@mui/styles'
 
 export const useStyles = makeStyles((theme) => ({
   root: {
