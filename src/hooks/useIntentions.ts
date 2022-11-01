@@ -3,28 +3,46 @@ import {useLocalStorage} from 'react-use'
 
 import {pipe, filter, map} from 'lodash/fp'
 import {MysteryTypes} from 'src/consts/MysteryTypes'
+import {useState} from 'react'
 
 const removeId = (id: string) => filter<IIntention>((x) => x.id !== id)
 const isNotCompleted = (x: IIntention) =>
   x.currentMystery < MysteryTypes.Complete
 const isSameId = (id: string) => (x: IIntention) => x.id === id
 
-export const useIntentions = (initialIntentions: IIntention[] = []) => {
+const defaultIntention: IIntention = {
+  id: 'default',
+  title: 'O Boże błogosławieństwo',
+  description: '',
+  currentMystery: MysteryTypes.Joyful1,
+}
+
+export const useIntentions = (
+  initialIntentions: IIntention[] = [defaultIntention],
+) => {
   const [intentionList, saveIntentionList] = useLocalStorage<IIntention[]>(
     'rosary-intentions',
     initialIntentions,
   )
+  const [intentions, saveIntentions] = useState<IIntention[]>(
+    intentionList ?? [],
+  )
+  const saveList = (x: IIntention[]) => {
+    saveIntentions([...x])
+    saveIntentionList(x)
+  }
 
   const deleteIntention = (id: string) =>
     pipe(
       removeId(id), //
-      saveIntentionList,
-    )(intentionList)
+      saveList,
+    )(intentions)
 
   const saveIntention = (intention: IIntention) =>
-    saveIntentionList([...(intentionList ?? []), intention])
+    saveList([...intentions, intention])
 
-  const getIntention = (id: string) => (intentionList ?? []).find(isSameId(id))
+  const getIntention = (id: string) =>
+    intentions.find(isSameId(id)) || defaultIntention
 
   const pray = (intention: IIntention) =>
     isNotCompleted(intention)
@@ -34,12 +52,12 @@ export const useIntentions = (initialIntentions: IIntention[] = []) => {
               ? {...x, currentMystery: x.currentMystery + 1}
               : x,
           ),
-          saveIntentionList,
-        )(intentionList)
+          saveList,
+        )(intentions)
       : () => {}
 
   return {
-    intentions: intentionList ?? [],
+    intentions,
     saveIntention,
     deleteIntention,
     getIntention,

@@ -10,7 +10,7 @@ interface PrayerProps {
 export const Prayer: React.ComponentType<PrayerProps> = ({intention}) => {
   return (
     <Grid container={true} spacing={2}>
-      <PrayCard intention={intention} />
+      <PrayCard id={intention.id} />
     </Grid>
   )
 }

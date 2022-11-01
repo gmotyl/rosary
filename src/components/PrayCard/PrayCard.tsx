@@ -9,7 +9,6 @@ import Typography from '@mui/material/Typography'
 
 import {getMystery} from 'src/consts/rosary'
 import {useIntentions} from 'src/hooks'
-import {IIntention} from 'src/pages/IntentionPage/Interface'
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -23,24 +22,28 @@ const useStyles = makeStyles((theme) => ({
   },
   bigAvatar: {
     margin: 10,
-    width: 200,
-    height: 200,
   },
 }))
 
 interface PrayCardProps {
-  intention: IIntention
+  id: string
 }
 
-export const PrayCard: React.ComponentType<PrayCardProps> = ({intention}) => {
+export const PrayCard: React.ComponentType<PrayCardProps> = ({id}) => {
+  const {pray, getIntention} = useIntentions()
+  const intention = getIntention(id)
   const classes = useStyles()
   const mystery = getMystery(intention.currentMystery)
-  const {pray} = useIntentions()
 
   return (
     <Card className={classes.card}>
       <Grid container={true} justifyContent="center" alignItems="center">
-        <Avatar alt="..." src={mystery.image} className={classes.bigAvatar} />
+        <Avatar
+          alt="..."
+          src={mystery.image}
+          className={classes.bigAvatar}
+          sx={{width: 250, height: 250}}
+        />
       </Grid>
       <CardContent className={classes.cardContent}>
         <Typography gutterBottom={true} variant="h5" component="h2">
@@ -55,7 +58,7 @@ export const PrayCard: React.ComponentType<PrayCardProps> = ({intention}) => {
           data-testid="pray-save-button"
           onClick={() => pray(intention)}
         >
-          Gotowe (zapisz)
+          Następna {'>>'}
         </Button>
       </CardActions>
     </Card>
