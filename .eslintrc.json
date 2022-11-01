@@ -5,18 +5,10 @@
     "quotes": [2, "single", "avoid-escape"],
     "@next/next/google-font-preconnect": "off",
     "semi": ["error", "never"],
-    "no-console": 1,
     "no-restricted-imports": [
       "warn",
       {
         "patterns": ["../../../"]
-      }
-    ],
-    "no-restricted-syntax": [
-      "warn",
-      {
-        "selector": "TSEnumDeclaration:not([const=true])",
-        "message": "Don't declare non-const enums"
       }
     ]
   },
