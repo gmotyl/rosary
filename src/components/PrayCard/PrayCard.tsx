@@ -55,7 +55,7 @@ export const PrayCard: React.ComponentType<PrayCardProps> = ({id}) => {
         <Button
           size="small"
           color="primary"
-          data-testid="pray-save-button"
+          data-testid="pray-next-button"
           onClick={() => pray(intention)}
         >
           Następna {'>>'}

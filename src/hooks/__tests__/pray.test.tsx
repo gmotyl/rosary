@@ -65,11 +65,12 @@ describe('useIntentionList hook', () => {
       result.current.saveIntention(intention1)
     })
     expect(mockLocalStorage.setItem).toBeCalledTimes(1)
-    expect(result.current.intentions).toEqual([intention1])
+    // expect to include instention1
+    expect(result.current.intentions).toContain(intention1)
     act(() => {
       result.current.saveIntention(intention2)
     })
-    expect(result.current.intentions).toEqual([intention1, intention2])
+    expect(result.current.intentions).toContain(intention2)
 
     expect(mockLocalStorage.setItem).toBeCalledTimes(2)
   })
