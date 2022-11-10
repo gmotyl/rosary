@@ -1,0 +1,13 @@
+{
+  "plugins": [
+    "jsdom-quokka-plugin"
+  ],
+  "jsdom": {
+    "userAgent": "quokka.js",
+    "config": {
+      "pretendToBeVisual": true,
+      "runScripts": "dangerously",
+      "url": "http://localhost/"
+    }
+  }
+}
