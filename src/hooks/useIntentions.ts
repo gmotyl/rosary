@@ -44,17 +44,22 @@ export const useIntentions = (
   const getIntention = (id: string) =>
     intentions.find(isSameId(id)) || defaultIntention
 
+  const updateIntention = (intention: IIntention) =>
+    pipe(
+      map((x: IIntention) => (x.id === intention.id ? intention : x)),
+      saveList,
+    )(intentions)
+
   const pray = (intention: IIntention) =>
     isNotCompleted(intention)
-      ? pipe(
-          map((x: IIntention) =>
-            x.id === intention.id
-              ? {...x, currentMystery: x.currentMystery + 1}
-              : x,
-          ),
-          saveList,
-        )(intentions)
-      : () => {}
+      ? updateIntention({
+          ...intention,
+          currentMystery: intention.currentMystery + 1,
+        })
+      : updateIntention({
+          ...intention,
+          currentMystery: MysteryTypes.Joyful1,
+        })
 
   return {
     intentions,

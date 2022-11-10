@@ -93,16 +93,32 @@ describe('useIntentionList hook', () => {
     expectSaveToBeCalledWith(MysteryTypes.Complete)
   })
 
-  it('should pray intention and finish', () => {
+  it('should complete intention', () => {
+    const {result} = renderHook(() => useIntentions())
+    const {pray} = result.current
+    const intention3 = {
+      ...intention2,
+      currentMystery: MysteryTypes.Glorious5,
+    }
+
+    pray(intention3)
+
+    expectSaveToBeCalledWith(MysteryTypes.Complete)
+  })
+
+  it('should reset intention', () => {
     const {result} = renderHook(() => useIntentions())
     const {pray} = result.current
     const intention3 = {
       ...intention2,
       currentMystery: MysteryTypes.Complete,
     }
-
     pray(intention3)
 
-    expect(saveLocalStorageMock).toBeCalledTimes(0)
+    expectSaveToBeCalledWith(MysteryTypes.Joyful1)
+    expect(saveLocalStorageMock).toBeCalledWith([
+      intention1,
+      {...intention3, currentMystery: MysteryTypes.Joyful1},
+    ])
   })
 })

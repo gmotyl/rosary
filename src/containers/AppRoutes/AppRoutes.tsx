@@ -9,7 +9,6 @@ import {ERoutes} from 'src/app/config/routes'
 import {PrivacyPolicy} from 'src/components/PrivacyPolicy'
 
 export const AppRoutes = () => {
-  // TODO: #37 Add "how it works" on homepage
   return (
     <Switch>
       <Route path={ERoutes.HOME} exact={true} component={IntentionList} />
