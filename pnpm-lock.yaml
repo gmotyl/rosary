@@ -65,6 +65,7 @@ specifiers:
   typescript: 4.8.4
 
 dependencies:
+  '@babel/runtime': 7.20.1
   '@emotion/react': 11.10.5_la7pbm6adqm6tma4yz6j74lkda
   '@emotion/styled': 11.10.5_tpunlkolyspf2oy5het7stfd6y
   '@mui/icons-material': 5.10.9_pyu3bnv7xtproabsf64djpmivq
@@ -95,7 +96,6 @@ devDependencies:
   '@babel/preset-env': 7.19.4_@babel+core@7.19.6
   '@babel/preset-react': 7.18.6_@babel+core@7.19.6
   '@babel/preset-typescript': 7.18.6_@babel+core@7.19.6
-  '@babel/runtime': 7.20.1
   '@commitlint/cli': 17.2.0
   '@commitlint/config-conventional': 17.2.0
   '@testing-library/jest-dom': 5.16.5
