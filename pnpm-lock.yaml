@@ -65,6 +65,13 @@ specifiers:
   typescript: 4.8.4
 
 dependencies:
+  '@babel/core': 7.19.6
+  '@babel/eslint-parser': 7.19.1_lz6pjk7mo2w5fzem2eded7dzpy
+  '@babel/plugin-syntax-flow': 7.18.6_@babel+core@7.19.6
+  '@babel/plugin-transform-react-jsx': 7.19.0_@babel+core@7.19.6
+  '@babel/preset-env': 7.19.4_@babel+core@7.19.6
+  '@babel/preset-react': 7.18.6_@babel+core@7.19.6
+  '@babel/preset-typescript': 7.18.6_@babel+core@7.19.6
   '@babel/runtime': 7.20.1
   '@emotion/react': 11.10.5_la7pbm6adqm6tma4yz6j74lkda
   '@emotion/styled': 11.10.5_tpunlkolyspf2oy5het7stfd6y
@@ -89,13 +96,6 @@ dependencies:
   tslib: 2.4.1
 
 devDependencies:
-  '@babel/core': 7.19.6
-  '@babel/eslint-parser': 7.19.1_lz6pjk7mo2w5fzem2eded7dzpy
-  '@babel/plugin-syntax-flow': 7.18.6_@babel+core@7.19.6
-  '@babel/plugin-transform-react-jsx': 7.19.0_@babel+core@7.19.6
-  '@babel/preset-env': 7.19.4_@babel+core@7.19.6
-  '@babel/preset-react': 7.18.6_@babel+core@7.19.6
-  '@babel/preset-typescript': 7.18.6_@babel+core@7.19.6
   '@commitlint/cli': 17.2.0
   '@commitlint/config-conventional': 17.2.0
   '@testing-library/jest-dom': 5.16.5
@@ -199,6 +199,7 @@ packages:
       eslint: 8.26.0
       eslint-visitor-keys: 2.1.0
       semver: 6.3.0
+    dev: false
 
   /@babel/generator/7.20.1:
     resolution: {integrity: sha512-u1dMdBUmA7Z0rBB97xh8pIhviK7oItYOkjbsCxTWMknyvbQRBwX7/gn4JXurRdirWMFh+ZtYARqkA6ydogVZpg==}
@@ -2741,6 +2742,7 @@ packages:
     resolution: {integrity: sha512-54/JRvkLIzzDWshCWfuhadfrfZVPiElY8Fcgmg1HroEly/EDSszzhBAsarCux+D/kOslTRquNzuyGSmUSTTHGg==}
     dependencies:
       eslint-scope: 5.1.1
+    dev: false
 
   /@nodelib/fs.scandir/2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
