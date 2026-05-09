@@ -51,18 +51,6 @@ export const navigationFactory = ({logout}: NavProps) => [
     icon: 'PolicyIcon',
     roles,
   },
-  {
-    key: 'nav.logout',
-    action: logout,
-    icon: 'AccountCircleIcon',
-    roles: [EAuthRoles.ROLE_USER],
-  },
-  {
-    key: 'nav.login',
-    path: ERoutes.LOGIN,
-    icon: 'AccountCircleIcon',
-    roles: [EAuthRoles.ROLE_UNAUTHORIZED],
-  },
 ]
 
 export const navLabels = {
@@ -71,7 +59,5 @@ export const navLabels = {
     'nav.add-intention': 'Dodaj intencję',
     'nav.about': 'O projekcie',
     'nav.policy': 'Polityka prywatności',
-    'nav.login': 'Zaloguj',
-    'nav.logout': 'Wyloguj',
   },
 }
