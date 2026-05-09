@@ -26,8 +26,10 @@
     "cancel": "Annulla"
   },
   "intentionForm": {
-    "title": "Titolo",
-    "description": "Descrizione",
+    "title": "La mia intenzione",
+    "titlePlaceholder": "Per cosa vuoi pregare",
+    "description": "Descrizione (facoltativa)",
+    "descriptionPlaceholder": "Aggiungi qui una descrizione più lunga se vuoi",
     "submit": "Salva",
     "headline": "Nuova intenzione"
   },

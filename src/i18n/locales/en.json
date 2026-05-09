@@ -26,8 +26,10 @@
     "cancel": "Cancel"
   },
   "intentionForm": {
-    "title": "Title",
-    "description": "Description",
+    "title": "My intention",
+    "titlePlaceholder": "What you want to pray for",
+    "description": "Description (optional)",
+    "descriptionPlaceholder": "Add a longer description here if you like",
     "submit": "Save",
     "headline": "New intention"
   },

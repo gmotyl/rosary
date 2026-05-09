@@ -1,32 +1,36 @@
 import {fireEvent} from '@testing-library/react'
+import {vi} from 'vitest'
+
 import {AddIntentionCard} from '../AddIntentionCard'
 import {renderWithTheme} from 'src/tools/renderWithTheme'
 
-describe('AddInentionCard', () => {
+describe('AddIntentionCard', () => {
   it('should render textbox', () => {
     const {getAllByRole} = renderWithTheme(
-      <AddIntentionCard onSubmit={jest.fn} />,
+      <AddIntentionCard onSubmit={vi.fn()} />,
     )
 
     expect(getAllByRole('textbox')).toBeTruthy()
   })
-  it('should render tatle and description and send button', () => {
+
+  it('should render title and description fields plus a submit button', () => {
     const {getByPlaceholderText, getByRole} = renderWithTheme(
-      <AddIntentionCard onSubmit={jest.fn()} />,
+      <AddIntentionCard onSubmit={vi.fn()} />,
     )
 
-    expect(getByPlaceholderText(/intencja/i)).toBeTruthy()
-    expect(getByPlaceholderText(/opis/i)).toBeTruthy()
+    expect(getByPlaceholderText('intentionForm.titlePlaceholder')).toBeTruthy()
+    expect(getByPlaceholderText('intentionForm.descriptionPlaceholder')).toBeTruthy()
     expect(getByRole('button')).toBeTruthy()
   })
-  it('should call onSubmit action', () => {
-    const submitSpy = jest.fn()
+
+  it('calls onSubmit when the form is submitted', () => {
+    const submitSpy = vi.fn()
     const {container} = renderWithTheme(
       <AddIntentionCard onSubmit={submitSpy} />,
     )
 
-    const form = container.querySelector('form')
-    fireEvent.submit(form as HTMLFormElement)
+    const form = container.querySelector('form')!
+    fireEvent.submit(form)
 
     expect(submitSpy).toHaveBeenCalledTimes(1)
   })

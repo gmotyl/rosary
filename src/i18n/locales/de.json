@@ -26,8 +26,10 @@
     "cancel": "Abbrechen"
   },
   "intentionForm": {
-    "title": "Titel",
-    "description": "Beschreibung",
+    "title": "Mein Anliegen",
+    "titlePlaceholder": "Wofür du beten möchtest",
+    "description": "Beschreibung (optional)",
+    "descriptionPlaceholder": "Füge hier bei Bedarf eine längere Beschreibung hinzu",
     "submit": "Speichern",
     "headline": "Neues Anliegen"
   },

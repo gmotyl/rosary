@@ -37,10 +37,10 @@ describe('Add intention Page', () => {
   it('should allow user to save intention', async () => {
     const {container} = renderWithTheme(<AddIntentionPage />)
 
-    fireEvent.change(screen.getByLabelText(/intencja/i), {
+    fireEvent.change(screen.getByLabelText(/intentionForm\.title/i), {
       target: {value: 'chuck'},
     })
-    fireEvent.change(screen.getByLabelText(/opis/i), {
+    fireEvent.change(screen.getByLabelText(/intentionForm\.description/i), {
       target: {value: 'norris'},
     })
 

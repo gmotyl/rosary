@@ -26,8 +26,10 @@
     "cancel": "Cancelar"
   },
   "intentionForm": {
-    "title": "Título",
-    "description": "Descripción",
+    "title": "Mi intención",
+    "titlePlaceholder": "Por qué quieres rezar",
+    "description": "Descripción (opcional)",
+    "descriptionPlaceholder": "Añade aquí una descripción más larga si lo deseas",
     "submit": "Guardar",
     "headline": "Nueva intención"
   },

@@ -13,6 +13,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
 import {useState} from 'react'
 import {RouteComponentProps} from 'react-router-dom'
+import {useTranslation} from 'react-i18next'
 
 import {Prayer} from 'src/containers/Prayer'
 import IntentionCard from '../../components/IntentionCard'
@@ -54,6 +55,7 @@ const IntentionPage: React.ComponentType<
 > = (props) => {
   const {id, prayerId} = props.match.params
   const classes = useStyles()
+  const {t} = useTranslation()
   const {getIntention} = useIntentions()
   const intention = getIntention(id)
   const [intentionPanel, setIntentionPanel] = useState({
@@ -100,19 +102,19 @@ const IntentionPage: React.ComponentType<
               id="panel1a-header"
             >
               <Typography className={classes.heading}>
-                {intentionPanel.expanded ? 'Intencja' : intention.title}
+                {intentionPanel.expanded ? t('prayer.panelIntention') : intention.title}
               </Typography>
             </AccordionSummary>
             <AccordionDetails className={classes.root}>
               <IntentionCard
                 intention={intention}
                 detailed={true}
-                isLoading={false} // TODO GM: refactor
+                isLoading={false}
               />
             </AccordionDetails>
             <AccordionActions>
               <Button size="small" color="primary" onClick={startPray}>
-                Odmów dziesiątek
+                {t('prayer.startDecade')}
               </Button>
             </AccordionActions>
           </Accordion>
@@ -122,7 +124,7 @@ const IntentionPage: React.ComponentType<
               aria-controls="panel2a-content"
               id="panel2a-header"
             >
-              <Typography className={classes.heading}>Modlitwa</Typography>
+              <Typography className={classes.heading}>{t('prayer.panelPrayer')}</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Prayer intention={intention} />

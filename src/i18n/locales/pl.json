@@ -26,8 +26,10 @@
     "cancel": "Anuluj"
   },
   "intentionForm": {
-    "title": "Intencja",
-    "description": "Opis",
+    "title": "Moja intencja",
+    "titlePlaceholder": "Intencja, w której chcesz się modlić",
+    "description": "Opis (opcjonalnie)",
+    "descriptionPlaceholder": "Tutaj możesz dodać bardziej rozbudowany opis",
     "submit": "Zapisz",
     "headline": "Nowa intencja"
   },

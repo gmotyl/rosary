@@ -1,5 +1,7 @@
 import {IIntention} from 'src/pages/IntentionPage/Interface'
 import {useLocalStorage} from 'react-use'
+import {useTranslation} from 'react-i18next'
+import {TFunction} from 'i18next'
 
 import {pipe, filter, map} from 'lodash/fp'
 import {MysteryTypes} from 'src/consts/MysteryTypes'
@@ -10,19 +12,19 @@ const isNotCompleted = (x: IIntention) =>
   x.currentMystery < MysteryTypes.Complete
 const isSameId = (id: string) => (x: IIntention) => x.id === id
 
-const defaultIntention: IIntention = {
+const buildDefaultIntention = (t: TFunction): IIntention => ({
   id: 'default',
-  title: 'O Boże błogosławieństwo',
-  description: '',
+  title: t('prayer.default.title'),
+  description: t('prayer.default.description'),
   currentMystery: MysteryTypes.Joyful1,
-}
+})
 
-export const useIntentions = (
-  initialIntentions: IIntention[] = [defaultIntention],
-) => {
+export const useIntentions = (initialIntentions?: IIntention[]) => {
+  const {t} = useTranslation()
+  const seed = initialIntentions ?? [buildDefaultIntention(t)]
   const [intentionList, saveIntentionList] = useLocalStorage<IIntention[]>(
     'rosary-intentions',
-    initialIntentions,
+    seed,
   )
   const [intentions, saveIntentions] = useState<IIntention[]>(
     intentionList ?? [],
@@ -42,7 +44,7 @@ export const useIntentions = (
     saveList([...intentions, intention])
 
   const getIntention = (id: string) =>
-    intentions.find(isSameId(id)) || defaultIntention
+    intentions.find(isSameId(id)) || buildDefaultIntention(t)
 
   const updateIntention = (intention: IIntention) =>
     pipe(
