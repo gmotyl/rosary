@@ -6,4 +6,6 @@ export interface IIntention {
   description: string
   currentMystery: MysteryTypes
   completedRosaries?: number
+  currentBead?: number
+  decadesPrayed?: number
 }
