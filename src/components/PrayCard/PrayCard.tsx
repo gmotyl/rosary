@@ -6,6 +6,7 @@ import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import {makeStyles} from '@mui/styles'
 import Typography from '@mui/material/Typography'
+import {useTranslation} from 'react-i18next'
 
 import {getMystery} from 'src/consts/rosary'
 import {useIntentions} from 'src/hooks'
@@ -31,10 +32,11 @@ interface PrayCardProps {
 }
 
 export const PrayCard: React.ComponentType<PrayCardProps> = ({id}) => {
+  const {t} = useTranslation()
   const {pray, getIntention} = useIntentions()
   const intention = getIntention(id)
   const classes = useStyles()
-  const mystery = getMystery(intention.currentMystery)
+  const mystery = getMystery(intention.currentMystery, t)
 
   const button =
     intention.currentMystery === MysteryTypes.Complete ? (
@@ -44,7 +46,7 @@ export const PrayCard: React.ComponentType<PrayCardProps> = ({id}) => {
         data-testid="pray-reload-button"
         onClick={() => pray(intention)}
       >
-        Od nowa {'🔁'}
+        {t('prayer.restart')} 🔁
       </Button>
     ) : (
       <Button
@@ -53,7 +55,7 @@ export const PrayCard: React.ComponentType<PrayCardProps> = ({id}) => {
         data-testid="pray-next-button"
         onClick={() => pray(intention)}
       >
-        Następna {'⏭'}
+        {t('prayer.next')} ⏭
       </Button>
     )
 
@@ -79,7 +81,7 @@ export const PrayCard: React.ComponentType<PrayCardProps> = ({id}) => {
             data-testid="completed-rosaries"
             sx={{display: 'block', mt: 1}}
           >
-            Odmówionych różańców: {intention.completedRosaries}
+            {t('intentions.completedRosariesLabel')}: {intention.completedRosaries}
           </Typography>
         )}
       </CardContent>
