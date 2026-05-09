@@ -1,6 +1,7 @@
 import {vi, describe, it, expect, beforeEach} from 'vitest'
 import {renderHook} from '@testing-library/react-hooks'
 import {MysteryTypes} from 'src/consts/MysteryTypes'
+import {MysteryGroup} from 'src/utils/rosaryGroups'
 import {useIntentions} from '../useIntentions'
 
 // vi.hoisted runs before imports — keep the factory side-effect free.
@@ -186,6 +187,85 @@ describe('tapBead', () => {
           (1 << (MysteryTypes.Joyful1 - 1)) |
           (1 << (MysteryTypes.Glorious5 - 1)),
         completedRosaries: 0,
+      }),
+    ])
+  })
+})
+
+describe('jumpToMystery', () => {
+  it('sets currentMystery and resets currentBead', () => {
+    const priorMask = 1 << (MysteryTypes.Joyful1 - 1)
+    const intention = {
+      id: 'jm',
+      title: 't',
+      description: 'd',
+      currentMystery: MysteryTypes.Joyful2,
+      currentBead: 4,
+      decadesPrayed: priorMask,
+    }
+    mocks.intentionListMock.splice(0, mocks.intentionListMock.length, intention)
+
+    const {result} = renderHook(() => useIntentions())
+    result.current.jumpToMystery(intention, MysteryTypes.Sorrowful3)
+
+    expect(mocks.saveLocalStorageMock).toHaveBeenCalledWith([
+      expect.objectContaining({
+        currentMystery: MysteryTypes.Sorrowful3,
+        currentBead: 0,
+        decadesPrayed: priorMask,
+      }),
+    ])
+  })
+})
+
+describe('jumpToGroup', () => {
+  it('jumps to the first mystery of the named group, preserves bitmask', () => {
+    const priorMask = 1 << (MysteryTypes.Joyful1 - 1)
+    const intention = {
+      id: 'jg',
+      title: 't',
+      description: 'd',
+      currentMystery: MysteryTypes.Joyful2,
+      currentBead: 7,
+      decadesPrayed: priorMask,
+    }
+    mocks.intentionListMock.splice(0, mocks.intentionListMock.length, intention)
+
+    const {result} = renderHook(() => useIntentions())
+    result.current.jumpToGroup(intention, MysteryGroup.Sorrowful)
+
+    expect(mocks.saveLocalStorageMock).toHaveBeenCalledWith([
+      expect.objectContaining({
+        currentMystery: MysteryTypes.Sorrowful1,
+        currentBead: 0,
+        decadesPrayed: priorMask,
+      }),
+    ])
+  })
+})
+
+describe('restart', () => {
+  it('resets to Joyful1, currentBead 0, and clears the bitmask', () => {
+    const intention = {
+      id: 'r',
+      title: 't',
+      description: 'd',
+      currentMystery: MysteryTypes.Complete,
+      currentBead: 0,
+      decadesPrayed: 0xabcde,
+      completedRosaries: 3,
+    }
+    mocks.intentionListMock.splice(0, mocks.intentionListMock.length, intention)
+
+    const {result} = renderHook(() => useIntentions())
+    result.current.restart(intention)
+
+    expect(mocks.saveLocalStorageMock).toHaveBeenCalledWith([
+      expect.objectContaining({
+        currentMystery: MysteryTypes.Joyful1,
+        currentBead: 0,
+        decadesPrayed: 0,
+        completedRosaries: 3,
       }),
     ])
   })

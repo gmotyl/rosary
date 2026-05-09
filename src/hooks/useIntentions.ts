@@ -5,7 +5,7 @@ import {TFunction} from 'i18next'
 
 import {pipe, filter, map} from 'lodash/fp'
 import {MysteryTypes} from 'src/consts/MysteryTypes'
-import {ALL_DECADES_MASK, bitForMystery} from 'src/utils/rosaryGroups'
+import {ALL_DECADES_MASK, bitForMystery, MysteryGroup, firstMysteryOfGroup} from 'src/utils/rosaryGroups'
 import {useState} from 'react'
 
 const removeId = (id: string) => filter<IIntention>((x) => x.id !== id)
@@ -93,11 +93,39 @@ export const useIntentions = (initialIntentions?: IIntention[]) => {
     completeDecade(intention)
   }
 
+  const jumpToMystery = (intention: IIntention, mystery: MysteryTypes) => {
+    updateIntention({
+      ...intention,
+      currentMystery: mystery,
+      currentBead: 0,
+    })
+  }
+
+  const jumpToGroup = (intention: IIntention, group: MysteryGroup) => {
+    updateIntention({
+      ...intention,
+      currentMystery: firstMysteryOfGroup(group),
+      currentBead: 0,
+    })
+  }
+
+  const restart = (intention: IIntention) => {
+    updateIntention({
+      ...intention,
+      currentMystery: MysteryTypes.Joyful1,
+      currentBead: 0,
+      decadesPrayed: 0,
+    })
+  }
+
   return {
     intentions,
     saveIntention,
     deleteIntention,
     getIntention,
     tapBead,
+    jumpToMystery,
+    jumpToGroup,
+    restart,
   }
 }
