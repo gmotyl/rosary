@@ -1,5 +1,71 @@
 {
   "app": {
-    "name": "Rosario"
+    "name": "Rosario",
+    "tagline": "Contador personal del Rosario"
+  },
+  "menu": {
+    "home": "Inicio",
+    "addIntention": "Añadir intención",
+    "howItWorks": "Cómo funciona",
+    "privacyPolicy": "Política de privacidad",
+    "language": "Idioma"
+  },
+  "intentions": {
+    "listTitle": "Mis intenciones",
+    "empty": "Aún no tienes intenciones.",
+    "completedRosariesLabel": "Rosarios rezados",
+    "deleteConfirmTitle": "¿Eliminar la intención?",
+    "deleteConfirmBody": "Esta intención y su progreso se eliminarán de este dispositivo.",
+    "delete": "Eliminar",
+    "cancel": "Cancelar"
+  },
+  "intentionForm": {
+    "title": "Título",
+    "description": "Descripción",
+    "submit": "Guardar",
+    "headline": "Nueva intención"
+  },
+  "prayer": {
+    "panelIntention": "Intención",
+    "panelPrayer": "Oración",
+    "startDecade": "Rezar una decena",
+    "next": "Siguiente",
+    "restart": "Reiniciar",
+    "rosaryCompleteTitle": "Rosario completo. ¡Alabado sea el Señor!",
+    "default": {
+      "title": "Por mi familia",
+      "description": ""
+    }
+  },
+  "mysteries": {
+    "joyful1": {"title": "1.º Misterio Gozoso: La Anunciación", "description": "Lc 1,26-38"},
+    "joyful2": {"title": "2.º Misterio Gozoso: La Visitación", "description": "Lc 1,39-45"},
+    "joyful3": {"title": "3.º Misterio Gozoso: El Nacimiento de Jesús", "description": "Lc 2,1-7"},
+    "joyful4": {"title": "4.º Misterio Gozoso: La Presentación en el Templo", "description": "Lc 2,22-38"},
+    "joyful5": {"title": "5.º Misterio Gozoso: El Niño Perdido y Hallado en el Templo", "description": "Lc 2,41-52"},
+    "luminous1": {"title": "1.º Misterio Luminoso: El Bautismo en el Jordán", "description": "Lc 3,15-22"},
+    "luminous2": {"title": "2.º Misterio Luminoso: Las Bodas de Caná", "description": "Jn 2,1-11"},
+    "luminous3": {"title": "3.º Misterio Luminoso: El Anuncio del Reino", "description": "Mt 4,23-25"},
+    "luminous4": {"title": "4.º Misterio Luminoso: La Transfiguración", "description": "Mt 17,1-8"},
+    "luminous5": {"title": "5.º Misterio Luminoso: La Institución de la Eucaristía", "description": "Mc 14,22-25"},
+    "sorrowful1": {"title": "1.º Misterio Doloroso: La Oración en el Huerto", "description": "Mc 14,32-42"},
+    "sorrowful2": {"title": "2.º Misterio Doloroso: La Flagelación", "description": "Mt 27,15-26"},
+    "sorrowful3": {"title": "3.º Misterio Doloroso: La Coronación de Espinas", "description": "Mc 15,16-20"},
+    "sorrowful4": {"title": "4.º Misterio Doloroso: La Cruz a Cuestas", "description": "Lc 23,26-32"},
+    "sorrowful5": {"title": "5.º Misterio Doloroso: La Crucifixión", "description": "Jn 19,25-30"},
+    "glorious1": {"title": "1.º Misterio Glorioso: La Resurrección", "description": "Jn 20,1-18"},
+    "glorious2": {"title": "2.º Misterio Glorioso: La Ascensión", "description": "Lc 24,44-53"},
+    "glorious3": {"title": "3.º Misterio Glorioso: La Venida del Espíritu Santo", "description": "Hch 2,1-13"},
+    "glorious4": {"title": "4.º Misterio Glorioso: La Asunción de María", "description": "Lc 1,46-56"},
+    "glorious5": {"title": "5.º Misterio Glorioso: La Coronación de María", "description": "Ap 12,1"}
+  },
+  "languageSwitcher": {
+    "label": "Idioma",
+    "en": "English",
+    "pl": "Polski",
+    "es": "Español",
+    "fr": "Français",
+    "it": "Italiano",
+    "de": "Deutsch"
   }
 }

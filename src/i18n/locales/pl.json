@@ -1,5 +1,71 @@
 {
   "app": {
-    "name": "Różaniec"
+    "name": "Różaniec",
+    "tagline": "Osobisty licznik różańców"
+  },
+  "menu": {
+    "home": "Strona główna",
+    "addIntention": "Dodaj intencję",
+    "howItWorks": "O projekcie",
+    "privacyPolicy": "Polityka prywatności",
+    "language": "Język"
+  },
+  "intentions": {
+    "listTitle": "Moje intencje",
+    "empty": "Nie masz jeszcze żadnych intencji.",
+    "completedRosariesLabel": "Odmówionych różańców",
+    "deleteConfirmTitle": "Usunąć intencję?",
+    "deleteConfirmBody": "Ta intencja i jej postęp zostaną usunięte z tego urządzenia.",
+    "delete": "Usuń",
+    "cancel": "Anuluj"
+  },
+  "intentionForm": {
+    "title": "Intencja",
+    "description": "Opis",
+    "submit": "Zapisz",
+    "headline": "Nowa intencja"
+  },
+  "prayer": {
+    "panelIntention": "Intencja",
+    "panelPrayer": "Modlitwa",
+    "startDecade": "Odmów dziesiątek",
+    "next": "Następna",
+    "restart": "Od nowa",
+    "rosaryCompleteTitle": "Różaniec zakończony. Chwała Panu!",
+    "default": {
+      "title": "Za moją rodzinę",
+      "description": ""
+    }
+  },
+  "mysteries": {
+    "joyful1": {"title": "1 tajemnica radosna: Zwiastowanie Najświętszej Maryi Pannie", "description": "Łk 1,26-38: W szóstym miesiącu posłał Bóg anioła Gabriela do miasta w Galilei, zwanego Nazaret, do Dziewicy poślubionej mężowi, imieniem Józef, z rodu Dawida; a Dziewicy było na imię Maryja. Anioł wszedł do Niej i rzekł: \"Bądź pozdrowiona, pełna łaski, Pan z Tobą, błogosławiona jesteś między niewiastami\"."},
+    "joyful2": {"title": "2 tajemnica radosna: Nawiedzenie św. Elżbiety przez Najświętszą Maryję Pannę", "description": "Łk 1,39-45: W tym czasie Maryja wybrała się i poszła z pośpiechem w góry do pewnego miasta w pokoleniu Judy. Weszła do domu Zachariasza i pozdrowiła Elżbietę..."},
+    "joyful3": {"title": "3 tajemnica radosna: Narodzenie Pana Jezusa", "description": "Łk 2,1-7: W owym czasie wyszło rozporządzenie Cezara Augusta, żeby przeprowadzić spis ludności w całym państwie. Pierwszy ten spis odbył się wówczas, gdy wielkorządcą Syrii był Kwiryniusz..."},
+    "joyful4": {"title": "4 tajemnica radosna: Ofiarowanie Pana Jezusa w Świątyni", "description": "Łk 2,22-38: Gdy potem upłynęły dni ich oczyszczenia według Prawa Mojżeszowego, przynieśli Je do Jerozolimy, aby Je przedstawić Panu. Tak bowiem jest napisane w Prawie Pańskim: Każde pierworodne dziecko płci męskiej będzie poświęcone Panu..."},
+    "joyful5": {"title": "5 tajemnica radosna: Znalezienie Pana Jezusa w Świątyni", "description": "Łk 2,41-52: Rodzice Jego chodzili co roku do Jerozolimy na Święto Paschy. Gdy miał lat dwanaście, udali się tam zwyczajem świątecznym. Kiedy wracali po skończonych uroczystościach, został Jezus w Jerozolimie, a tego nie zauważyli Jego Rodzice."},
+    "luminous1": {"title": "1 tajemnica światła: Chrzest Pana Jezusa w Jordanie", "description": "Łk 3,15-22: Gdy więc lud oczekiwał z napięciem i wszyscy snuli domysły w sercach co do Jana, czy nie jest Mesjaszem, on tak przemówił do wszystkich: \"Ja was chrzczę wodą; lecz idzie mocniejszy ode mnie, któremu nie jestem godzien rozwiązać rzemyka u sandałów. On chrzcić was będzie Duchem Świętym i ogniem.\""},
+    "luminous2": {"title": "2 tajemnica światła: Objawienie się Pana Jezusa na weselu w Kanie", "description": "J 2,1-11: Trzeciego dnia odbywało się wesele w Kanie Galilejskiej i była tam Matka Jezusa. Zaproszono na to wesele także Jezusa i Jego uczniów. A kiedy zabrakło wina, Matka Jezusa mówi do Niego: \"Nie mają już wina\"."},
+    "luminous3": {"title": "3 tajemnica światła: Głoszenie Królestwa Bożego i wzywanie do nawrócenia", "description": "Mt 4,23-25: I obchodził Jezus całą Galileę, nauczając w tamtejszych synagogach, głosząc Ewangelię o królestwie i lecząc wszystkie choroby i wszelkie słabości wśród ludu."},
+    "luminous4": {"title": "4 tajemnica światła: Przemienienie się Pana Jezusa na Górze Tabor", "description": "Mt 17,1-8: Po sześciu dniach Jezus wziął z sobą Piotra, Jakuba i brata jego Jana i zaprowadził ich na górę wysoką, osobno. Tam przemienił się wobec nich: twarz Jego zajaśniała jak słońce, odzienie zaś stało się białe jak światło."},
+    "luminous5": {"title": "5 tajemnica światła: Ustanowienie Eucharystii będącej sakramentalnym wyrazem misterium paschalnego", "description": "Mk 14,22-25: A gdy jedli, wziął chleb, odmówił błogosławieństwo, połamał i dał im mówiąc: \"Bierzcie, to jest Ciało moje\"."},
+    "sorrowful1": {"title": "1 tajemnica bolesna: Modlitwa Pana Jezusa w Ogrójcu", "description": "Mk 14,32-42: A kiedy przyszli do ogrodu zwanego Getsemani, rzekł Jezus do swoich uczniów: \"Usiądźcie tutaj, Ja tymczasem będę się modlił\"."},
+    "sorrowful2": {"title": "2 tajemnica bolesna: Biczowanie Pana Jezusa", "description": "Mt 27,15-26: A był zwyczaj, że na każde święto namiestnik uwalniał jednego więźnia, którego chcieli."},
+    "sorrowful3": {"title": "3 tajemnica bolesna: Cierniem ukoronowanie Pana Jezusa", "description": "Mk 15,16-20: Żołnierze zaprowadzili Go na wewnętrzny dziedziniec, czyli pretorium, i zwołali całą kohortę. Ubrali Go w purpurę i uplótłszy wieniec z ciernia włożyli Mu na głowę."},
+    "sorrowful4": {"title": "4 tajemnica bolesna: Droga Krzyżowa Pana Jezusa", "description": "Łk 23,26-32: Gdy Go wyprowadzili, zatrzymali niejakiego Szymona z Cyreny, który wracał z pola, i włożyli na niego krzyż, aby go niósł za Jezusem."},
+    "sorrowful5": {"title": "5 tajemnica bolesna: Ukrzyżowanie Pana Jezusa", "description": "J 19,25-30: A obok krzyża Jezusowego stały: Matka Jego i siostra Matki Jego, Maria, żona Kleofasa, i Maria Magdalena."},
+    "glorious1": {"title": "1 tajemnica chwalebna: Zmartwychwstanie Pana Jezusa", "description": "J 20,1-18: A pierwszego dnia po szabacie, wczesnym rankiem, gdy jeszcze było ciemno, Maria Magdalena udała się do grobu i zobaczyła kamień odsunięty od grobu."},
+    "glorious2": {"title": "2 tajemnica chwalebna: Wniebowstąpienie Pana Jezusa", "description": "Łk 24,44-53: Potem rzekł do nich: \"To właśnie znaczyły słowa, które mówiłem do was, gdy byłem jeszcze z wami: Musi się wypełnić wszystko, co napisane jest o Mnie w Prawie Mojżesza, u Proroków i w Psalmach\"."},
+    "glorious3": {"title": "3 tajemnica chwalebna: Zesłanie Ducha Świętego", "description": "Dz 2,1-13: Kiedy nadszedł wreszcie dzień Pięćdziesiątnicy, znajdowali się wszyscy razem na tym samym miejscu. Nagle dał się słyszeć z nieba szum, jakby uderzenie gwałtownego wiatru, i napełnił cały dom, w którym przebywali."},
+    "glorious4": {"title": "4 tajemnica chwalebna: Wniebowzięcie Najświętszej Maryi Panny", "description": "Łk 1,46-56: Wtedy Maryja rzekła: Wielbi dusza moja Pana, i raduje się duch mój w Bogu, moim Zbawcy. Bo wejrzał na uniżenie Służebnicy swojej."},
+    "glorious5": {"title": "5 tajemnica chwalebna: Ukoronowanie Najświętszej Maryi Panny na Królową Nieba i Ziemi", "description": "Ap 12,1: Potem wielki znak się ukazał na niebie: Niewiasta obleczona w słońce i księżyc pod jej stopami a na jej głowie wieniec z gwiazd dwunastu."}
+  },
+  "languageSwitcher": {
+    "label": "Język",
+    "en": "English",
+    "pl": "Polski",
+    "es": "Español",
+    "fr": "Français",
+    "it": "Italiano",
+    "de": "Deutsch"
   }
 }

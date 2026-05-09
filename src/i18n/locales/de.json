@@ -1,5 +1,71 @@
 {
   "app": {
-    "name": "Rosenkranz"
+    "name": "Rosenkranz",
+    "tagline": "Persönlicher Rosenkranz-Tracker"
+  },
+  "menu": {
+    "home": "Startseite",
+    "addIntention": "Anliegen hinzufügen",
+    "howItWorks": "Wie es funktioniert",
+    "privacyPolicy": "Datenschutz",
+    "language": "Sprache"
+  },
+  "intentions": {
+    "listTitle": "Meine Anliegen",
+    "empty": "Du hast noch keine Anliegen.",
+    "completedRosariesLabel": "Gebetete Rosenkränze",
+    "deleteConfirmTitle": "Anliegen löschen?",
+    "deleteConfirmBody": "Dieses Anliegen und sein Fortschritt werden von diesem Gerät entfernt.",
+    "delete": "Löschen",
+    "cancel": "Abbrechen"
+  },
+  "intentionForm": {
+    "title": "Titel",
+    "description": "Beschreibung",
+    "submit": "Speichern",
+    "headline": "Neues Anliegen"
+  },
+  "prayer": {
+    "panelIntention": "Anliegen",
+    "panelPrayer": "Gebet",
+    "startDecade": "Ein Gesätz beten",
+    "next": "Weiter",
+    "restart": "Von vorn",
+    "rosaryCompleteTitle": "Rosenkranz beendet. Gelobt sei der Herr!",
+    "default": {
+      "title": "Für meine Familie",
+      "description": ""
+    }
+  },
+  "mysteries": {
+    "joyful1": {"title": "1. Freudenreiches Geheimnis: Die Verkündigung", "description": "Lk 1,26-38"},
+    "joyful2": {"title": "2. Freudenreiches Geheimnis: Der Besuch bei Elisabeth", "description": "Lk 1,39-45"},
+    "joyful3": {"title": "3. Freudenreiches Geheimnis: Die Geburt Jesu", "description": "Lk 2,1-7"},
+    "joyful4": {"title": "4. Freudenreiches Geheimnis: Die Darstellung im Tempel", "description": "Lk 2,22-38"},
+    "joyful5": {"title": "5. Freudenreiches Geheimnis: Die Wiederfindung im Tempel", "description": "Lk 2,41-52"},
+    "luminous1": {"title": "1. Lichtreiches Geheimnis: Die Taufe im Jordan", "description": "Lk 3,15-22"},
+    "luminous2": {"title": "2. Lichtreiches Geheimnis: Die Hochzeit zu Kana", "description": "Joh 2,1-11"},
+    "luminous3": {"title": "3. Lichtreiches Geheimnis: Die Verkündigung des Reiches Gottes", "description": "Mt 4,23-25"},
+    "luminous4": {"title": "4. Lichtreiches Geheimnis: Die Verklärung", "description": "Mt 17,1-8"},
+    "luminous5": {"title": "5. Lichtreiches Geheimnis: Die Einsetzung der Eucharistie", "description": "Mk 14,22-25"},
+    "sorrowful1": {"title": "1. Schmerzhaftes Geheimnis: Die Todesangst Jesu im Garten", "description": "Mk 14,32-42"},
+    "sorrowful2": {"title": "2. Schmerzhaftes Geheimnis: Die Geißelung Jesu", "description": "Mt 27,15-26"},
+    "sorrowful3": {"title": "3. Schmerzhaftes Geheimnis: Die Dornenkrönung", "description": "Mk 15,16-20"},
+    "sorrowful4": {"title": "4. Schmerzhaftes Geheimnis: Die Kreuztragung", "description": "Lk 23,26-32"},
+    "sorrowful5": {"title": "5. Schmerzhaftes Geheimnis: Die Kreuzigung", "description": "Joh 19,25-30"},
+    "glorious1": {"title": "1. Glorreiches Geheimnis: Die Auferstehung", "description": "Joh 20,1-18"},
+    "glorious2": {"title": "2. Glorreiches Geheimnis: Die Himmelfahrt", "description": "Lk 24,44-53"},
+    "glorious3": {"title": "3. Glorreiches Geheimnis: Die Sendung des Heiligen Geistes", "description": "Apg 2,1-13"},
+    "glorious4": {"title": "4. Glorreiches Geheimnis: Die Aufnahme Mariens", "description": "Lk 1,46-56"},
+    "glorious5": {"title": "5. Glorreiches Geheimnis: Die Krönung Mariens", "description": "Offb 12,1"}
+  },
+  "languageSwitcher": {
+    "label": "Sprache",
+    "en": "English",
+    "pl": "Polski",
+    "es": "Español",
+    "fr": "Français",
+    "it": "Italiano",
+    "de": "Deutsch"
   }
 }
