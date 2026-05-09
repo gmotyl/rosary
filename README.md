@@ -1,26 +1,28 @@
-# rosary project
+# rosary
 
-It's implementation open source Progressive
-Web App (PWA) that helps to connect people on holy rosary prayer. You
-can add intention and Orare Pro Me community will pray on Holy Rosary for you.
+A personal, offline-first Progressive Web App (PWA) that tracks where you are
+in praying the Holy Rosary. Add prayer intentions, work through the 20
+mysteries, and watch the lifetime rosary count climb for each intention.
 
-Production App consumes backend service, that allows to connect prayers together
-(detail's are described in the app).
+All data lives in your browser's localStorage. No login, no server, no tracking.
 
-In development use json-server to set up local API backend
+## Setup
 
-```
-npm install -g json-server
-```
-
-Once json-server is installed globally, you can run api
-
-```
-npm run json-server
+```bash
+pnpm install
+pnpm dev
 ```
 
-make sure `.env.development.local` point's to json-server
+The dev server runs on http://localhost:5173.
 
+## Build
+
+```bash
+pnpm build
+pnpm preview
 ```
-REACT_APP_ROSARY_API_="https://localhost:3001/"
-```
+
+## Project domain
+
+See [CONTEXT.md](./CONTEXT.md) for the glossary (Intention, Mystery, Decade,
+Rosary).
