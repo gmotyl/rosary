@@ -1,6 +1,21 @@
+import {vi, describe, it, expect, beforeEach} from 'vitest'
 import {renderHook} from '@testing-library/react-hooks'
 import {MysteryTypes} from 'src/consts/MysteryTypes'
 import {useIntentions} from '../useIntentions'
+
+// vi.hoisted runs before imports — keep the factory side-effect free.
+// intentionListMock is intentionally empty here; beforeEach fills it.
+const mocks = vi.hoisted(() => ({
+  intentionListMock: [] as any[],
+  saveLocalStorageMock: vi.fn(),
+}))
+
+vi.mock('react-use', () => ({
+  useLocalStorage: (_key: string, _defaultValue: any) => [
+    mocks.intentionListMock,
+    mocks.saveLocalStorageMock,
+  ],
+}))
 
 const intention1 = {
   id: '123',
@@ -14,21 +29,13 @@ const intention2 = {
   description: 'desc',
   currentMystery: MysteryTypes.Glorious5,
 }
-const intentionListMock = [intention1, intention2]
-
-const saveLocalStorageMock = jest.fn()
-const useLocalStorageMock = (key: string, defaulValue: any) => {
-  return [intentionListMock, saveLocalStorageMock]
-}
-
-jest.mock('react-use', () => ({
-  useLocalStorage: useLocalStorageMock,
-}))
 
 describe('useIntentionList hook', () => {
   beforeEach(() => {
-    jest.resetAllMocks()
+    mocks.saveLocalStorageMock.mockClear()
+    mocks.intentionListMock.splice(0, mocks.intentionListMock.length, intention1, intention2)
   })
+
   it('should return list and save function', () => {
     const {result} = renderHook(() => useIntentions())
     const {intentions, saveIntention} = result.current
@@ -43,7 +50,7 @@ describe('useIntentionList hook', () => {
 
     saveIntention(intention1)
 
-    expect(saveLocalStorageMock).toBeCalledTimes(1)
+    expect(mocks.saveLocalStorageMock).toBeCalledTimes(1)
   })
 
   it('should delete intention', () => {
@@ -52,7 +59,7 @@ describe('useIntentionList hook', () => {
 
     deleteIntention(intention1.id)
 
-    expect(saveLocalStorageMock).toBeCalledWith([intention2])
+    expect(mocks.saveLocalStorageMock).toBeCalledWith([intention2])
   })
 
   it('should get intention', () => {
@@ -65,7 +72,7 @@ describe('useIntentionList hook', () => {
   })
 
   const expectSaveToBeCalledWith = (mystery: MysteryTypes) =>
-    expect(saveLocalStorageMock).toBeCalledWith(
+    expect(mocks.saveLocalStorageMock).toBeCalledWith(
       expect.arrayContaining([
         expect.objectContaining({
           currentMystery: mystery,
@@ -79,7 +86,6 @@ describe('useIntentionList hook', () => {
 
     pray(intention1)
 
-    // expect(saveLocalStorageMock).toBeCalledTimes(1)
     expectSaveToBeCalledWith(MysteryTypes.Joyful2)
   })
 
@@ -89,7 +95,6 @@ describe('useIntentionList hook', () => {
 
     pray(intention2)
 
-    // expect(saveLocalStorageMock).toBeCalledTimes(1)
     expectSaveToBeCalledWith(MysteryTypes.Complete)
   })
 
@@ -116,9 +121,72 @@ describe('useIntentionList hook', () => {
     pray(intention3)
 
     expectSaveToBeCalledWith(MysteryTypes.Joyful1)
-    expect(saveLocalStorageMock).toBeCalledWith([
+    expect(mocks.saveLocalStorageMock).toBeCalledWith([
       intention1,
-      {...intention3, currentMystery: MysteryTypes.Joyful1},
+      {...intention3, currentMystery: MysteryTypes.Joyful1, completedRosaries: 1},
+    ])
+  })
+})
+
+describe('completedRosaries counter', () => {
+  beforeEach(() => {
+    mocks.saveLocalStorageMock.mockClear()
+  })
+
+  it('increments when prayer cycles Complete → Joyful1', () => {
+    const completedIntention = {
+      id: 'c1',
+      title: 't',
+      description: 'd',
+      currentMystery: MysteryTypes.Complete,
+      completedRosaries: 4,
+    }
+    mocks.intentionListMock.splice(0, mocks.intentionListMock.length, completedIntention)
+
+    const {result} = renderHook(() => useIntentions())
+    result.current.pray(completedIntention)
+
+    expect(mocks.saveLocalStorageMock).toHaveBeenCalledWith([
+      expect.objectContaining({
+        id: 'c1',
+        currentMystery: MysteryTypes.Joyful1,
+        completedRosaries: 5,
+      }),
+    ])
+  })
+
+  it('treats undefined completedRosaries as 0 on first completion', () => {
+    const intention = {
+      id: 'c2',
+      title: 't',
+      description: 'd',
+      currentMystery: MysteryTypes.Complete,
+    }
+    mocks.intentionListMock.splice(0, mocks.intentionListMock.length, intention)
+
+    const {result} = renderHook(() => useIntentions())
+    result.current.pray(intention)
+
+    expect(mocks.saveLocalStorageMock).toHaveBeenCalledWith([
+      expect.objectContaining({completedRosaries: 1}),
+    ])
+  })
+
+  it('does not bump counter mid-rosary', () => {
+    const intention = {
+      id: 'c3',
+      title: 't',
+      description: 'd',
+      currentMystery: MysteryTypes.Joyful2,
+      completedRosaries: 2,
+    }
+    mocks.intentionListMock.splice(0, mocks.intentionListMock.length, intention)
+
+    const {result} = renderHook(() => useIntentions())
+    result.current.pray(intention)
+
+    expect(mocks.saveLocalStorageMock).toHaveBeenCalledWith([
+      expect.objectContaining({completedRosaries: 2}),
     ])
   })
 })

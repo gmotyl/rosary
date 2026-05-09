@@ -59,6 +59,7 @@ export const useIntentions = (
       : updateIntention({
           ...intention,
           currentMystery: MysteryTypes.Joyful1,
+          completedRosaries: (intention.completedRosaries ?? 0) + 1,
         })
 
   return {
