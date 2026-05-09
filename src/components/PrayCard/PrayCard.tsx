@@ -1,16 +1,19 @@
-import {Grid} from '@mui/material'
-import Avatar from '@mui/material/Avatar'
-import Button from '@mui/material/Button'
-import Card from '@mui/material/Card'
-import CardActions from '@mui/material/CardActions'
-import CardContent from '@mui/material/CardContent'
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Typography,
+} from '@mui/material'
 import {makeStyles} from '@mui/styles'
-import Typography from '@mui/material/Typography'
 import {useTranslation} from 'react-i18next'
 
 import {getMystery} from 'src/consts/rosary'
 import {useIntentions} from 'src/hooks'
 import {MysteryTypes} from 'src/consts/MysteryTypes'
+import {RosaryBreadcrumb} from 'src/components/RosaryBreadcrumb'
+import {RosaryProgressBars} from 'src/components/RosaryProgressBars'
+import {BeadCircle} from 'src/components/BeadCircle'
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -22,9 +25,6 @@ const useStyles = makeStyles((theme) => ({
   cardContent: {
     flexGrow: 1,
   },
-  bigAvatar: {
-    margin: 10,
-  },
 }))
 
 interface PrayCardProps {
@@ -33,44 +33,39 @@ interface PrayCardProps {
 
 export const PrayCard: React.ComponentType<PrayCardProps> = ({id}) => {
   const {t} = useTranslation()
-  const {pray, getIntention} = useIntentions()
+  const {getIntention, tapBead, jumpToMystery, jumpToGroup, restart, prayNext} =
+    useIntentions()
   const intention = getIntention(id)
   const classes = useStyles()
   const mystery = getMystery(intention.currentMystery, t)
-
-  const button =
-    intention.currentMystery === MysteryTypes.Complete ? (
-      <Button
-        size="small"
-        color="primary"
-        data-testid="pray-reload-button"
-        onClick={() => pray(intention)}
-      >
-        {t('prayer.restart')} 🔁
-      </Button>
-    ) : (
-      <Button
-        size="small"
-        color="primary"
-        data-testid="pray-next-button"
-        onClick={() => pray(intention)}
-      >
-        {t('prayer.next')} ⏭
-      </Button>
-    )
+  const isComplete = intention.currentMystery === MysteryTypes.Complete
+  const displayMystery = isComplete ? MysteryTypes.Glorious5 : intention.currentMystery
 
   return (
     <Card className={classes.card}>
-      <Grid container={true} justifyContent="center" alignItems="center">
-        <Avatar
-          alt="..."
-          src={mystery.image}
-          className={classes.bigAvatar}
-          sx={{width: 250, height: 250}}
+      <CardContent>
+        <RosaryBreadcrumb
+          currentMystery={displayMystery}
+          onJumpToGroup={(group) => jumpToGroup(intention, group)}
         />
-      </Grid>
+        <RosaryProgressBars
+          currentMystery={displayMystery}
+          decadesPrayed={intention.decadesPrayed ?? 0}
+          onJumpToGroup={(group) => jumpToGroup(intention, group)}
+          onJumpToMystery={(m) => jumpToMystery(intention, m)}
+        />
+      </CardContent>
+
+      {!isComplete && (
+        <BeadCircle
+          imageSrc={mystery.image}
+          currentBead={intention.currentBead ?? 0}
+          onTapBead={(n) => tapBead(intention, n)}
+        />
+      )}
+
       <CardContent className={classes.cardContent}>
-        <Typography gutterBottom={true} variant="h5" component="h2">
+        <Typography gutterBottom variant="h5" component="h2">
           {mystery.title}
         </Typography>
         <Typography>{mystery.description}</Typography>
@@ -85,7 +80,28 @@ export const PrayCard: React.ComponentType<PrayCardProps> = ({id}) => {
           </Typography>
         )}
       </CardContent>
-      <CardActions>{button}</CardActions>
+
+      <CardActions>
+        {isComplete ? (
+          <Button
+            size="small"
+            color="primary"
+            data-testid="pray-reload-button"
+            onClick={() => restart(intention)}
+          >
+            {t('prayer.restart')} 🔁
+          </Button>
+        ) : (
+          <Button
+            size="small"
+            color="primary"
+            data-testid="pray-next-button"
+            onClick={() => prayNext(intention)}
+          >
+            {t('prayer.next')} ⏭
+          </Button>
+        )}
+      </CardActions>
     </Card>
   )
 }
