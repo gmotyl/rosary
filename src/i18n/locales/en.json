@@ -10,10 +10,16 @@
     "privacyPolicy": "Privacy policy",
     "language": "Language"
   },
+  "hero": {
+    "title": "Pray a Rosary",
+    "quote": "\"Whatever you ask through the Rosary, you shall receive.\"",
+    "subtitle": "Your personal rosary tracker. All data stays on this device."
+  },
   "intentions": {
     "listTitle": "My intentions",
     "empty": "You have no intentions yet.",
     "completedRosariesLabel": "Rosaries prayed",
+    "open": "Open",
     "deleteConfirmTitle": "Delete intention?",
     "deleteConfirmBody": "This intention and its progress will be removed from this device.",
     "delete": "Delete",

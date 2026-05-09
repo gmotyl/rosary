@@ -6,6 +6,7 @@ import CardMedia from '@mui/material/CardMedia'
 import LinearProgress from '@mui/material/LinearProgress'
 import {makeStyles} from '@mui/styles'
 import Typography from '@mui/material/Typography'
+import {useTranslation} from 'react-i18next'
 
 import DeleteIcon from '@mui/icons-material/Delete'
 
@@ -42,6 +43,7 @@ const IntentionCard: React.ComponentType<IntentionCardProps> = ({
   isLoading,
 }) => {
   const classes = useStyles()
+  const {t} = useTranslation()
   const description = detailed && (
     <Typography>{intention.description}</Typography>
   )
@@ -57,7 +59,7 @@ const IntentionCard: React.ComponentType<IntentionCardProps> = ({
   const actions = !detailed && (
     <CardActions>
       <Button size="small" color="primary">
-        <Link to={`/intention/${intention.id}`}>Dalej</Link>
+        <Link to={`/intention/${intention.id}`}>{t('intentions.open')}</Link>
       </Button>
       {deleteAction}
     </CardActions>

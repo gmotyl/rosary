@@ -1,5 +1,6 @@
-import React from 'react'
-import {render, fireEvent} from '@testing-library/react'
+import {fireEvent} from '@testing-library/react'
+import {vi} from 'vitest'
+
 import {DeleteIntentionDialog} from '../index'
 import {renderWithTheme} from 'src/tools/renderWithTheme'
 
@@ -7,17 +8,17 @@ it('should show dialog', () => {
   const {getByText} = renderWithTheme(
     <DeleteIntentionDialog
       open={true}
-      handleClose={jest.fn()}
-      onDelete={jest.fn()}
+      handleClose={vi.fn()}
+      onDelete={vi.fn()}
     />,
   )
 
-  expect(getByText('Delete intention?')).not.toBeNull()
+  expect(getByText('intentions.deleteConfirmTitle')).not.toBeNull()
 })
 
 it('should execute actions dialog', () => {
-  const handleClose = jest.fn()
-  const onDelete = jest.fn()
+  const handleClose = vi.fn()
+  const onDelete = vi.fn()
   const {getByText} = renderWithTheme(
     <DeleteIntentionDialog
       open={true}
@@ -25,8 +26,8 @@ it('should execute actions dialog', () => {
       onDelete={onDelete}
     />,
   )
-  fireEvent.click(getByText('Cancel'))
-  fireEvent.click(getByText('Delete'))
+  fireEvent.click(getByText('intentions.cancel'))
+  fireEvent.click(getByText('intentions.delete'))
 
   expect(handleClose).toHaveBeenCalledTimes(1)
   expect(onDelete).toHaveBeenCalledTimes(1)

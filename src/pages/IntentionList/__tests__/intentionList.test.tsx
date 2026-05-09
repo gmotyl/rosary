@@ -33,5 +33,5 @@ it('opens the delete dialog when the delete affordance is clicked', () => {
   const {getByTestId, getByText} = renderWithRouter(<Component />)
 
   fireEvent.click(getByTestId('delete-intention'))
-  expect(getByText('Delete intention?')).not.toBeNull()
+  expect(getByText('intentions.deleteConfirmTitle')).not.toBeNull()
 })

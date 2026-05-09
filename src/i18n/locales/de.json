@@ -10,10 +10,16 @@
     "privacyPolicy": "Datenschutz",
     "language": "Sprache"
   },
+  "hero": {
+    "title": "Bete einen Rosenkranz",
+    "quote": "„Was immer du durch den Rosenkranz erbittest — du wirst es empfangen.\"",
+    "subtitle": "Dein persönlicher Rosenkranz-Tracker. Daten bleiben auf diesem Gerät."
+  },
   "intentions": {
     "listTitle": "Meine Anliegen",
     "empty": "Du hast noch keine Anliegen.",
     "completedRosariesLabel": "Gebetete Rosenkränze",
+    "open": "Öffnen",
     "deleteConfirmTitle": "Anliegen löschen?",
     "deleteConfirmBody": "Dieses Anliegen und sein Fortschritt werden von diesem Gerät entfernt.",
     "delete": "Löschen",

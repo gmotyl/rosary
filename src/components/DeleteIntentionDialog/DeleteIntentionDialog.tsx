@@ -7,6 +7,7 @@ import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 import Slide from '@mui/material/Slide'
 import {TransitionProps} from '@mui/material/transitions'
+import {useTranslation} from 'react-i18next'
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {children?: React.ReactElement<any, any>},
@@ -26,19 +27,7 @@ export const DeleteIntentionDialog: FC<DeleteIntentionDialogProps> = ({
   handleClose,
   onDelete,
 }) => {
-  // const [open, setOpen] = React.useState(false)
-
-  // const handleClickOpen = () => {
-  // setOpen(true)
-  // }
-
-  // const handleClose = () => {
-  // setOpen(false)
-  // }
-  // {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-  //   Slide in alert dialog
-  // </Button> */}
-
+  const {t} = useTranslation()
   return (
     <Dialog
       open={open}
@@ -49,19 +38,19 @@ export const DeleteIntentionDialog: FC<DeleteIntentionDialogProps> = ({
       aria-describedby="alert-dialog-slide-description"
     >
       <DialogTitle id="alert-dialog-slide-title">
-        {'Delete intention?'}
+        {t('intentions.deleteConfirmTitle')}
       </DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-slide-description">
-          Are you shure you want to delete this intention ?
+          {t('intentions.deleteConfirmBody')}
         </DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button onClick={onDelete} color="secondary">
-          Delete
+          {t('intentions.delete')}
         </Button>
         <Button onClick={handleClose} color="primary">
-          Cancel
+          {t('intentions.cancel')}
         </Button>
       </DialogActions>
     </Dialog>

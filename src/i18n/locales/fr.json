@@ -10,10 +10,16 @@
     "privacyPolicy": "Politique de confidentialité",
     "language": "Langue"
   },
+  "hero": {
+    "title": "Priez le Rosaire",
+    "quote": "« Quoi que vous demandiez par le Rosaire, vous l'obtiendrez. »",
+    "subtitle": "Votre compteur personnel du Rosaire. Les données restent sur cet appareil."
+  },
   "intentions": {
     "listTitle": "Mes intentions",
     "empty": "Vous n'avez encore aucune intention.",
     "completedRosariesLabel": "Rosaires priés",
+    "open": "Ouvrir",
     "deleteConfirmTitle": "Supprimer l'intention ?",
     "deleteConfirmBody": "Cette intention et son progrès seront supprimés de cet appareil.",
     "delete": "Supprimer",

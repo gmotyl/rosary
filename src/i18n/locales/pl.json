@@ -10,10 +10,16 @@
     "privacyPolicy": "Polityka prywatności",
     "language": "Język"
   },
+  "hero": {
+    "title": "Odmów Różaniec",
+    "quote": "„O cokolwiek przez różaniec prosić będziesz — otrzymasz.”",
+    "subtitle": "Twój osobisty licznik różańców. Dane pozostają na tym urządzeniu."
+  },
   "intentions": {
     "listTitle": "Moje intencje",
     "empty": "Nie masz jeszcze żadnych intencji.",
     "completedRosariesLabel": "Odmówionych różańców",
+    "open": "Dalej",
     "deleteConfirmTitle": "Usunąć intencję?",
     "deleteConfirmBody": "Ta intencja i jej postęp zostaną usunięte z tego urządzenia.",
     "delete": "Usuń",

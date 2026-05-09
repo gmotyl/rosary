@@ -10,10 +10,16 @@
     "privacyPolicy": "Política de privacidad",
     "language": "Idioma"
   },
+  "hero": {
+    "title": "Reza un Rosario",
+    "quote": "«Cualquier cosa que pidieres por el Rosario, la recibirás.»",
+    "subtitle": "Tu contador personal del Rosario. Los datos permanecen en este dispositivo."
+  },
   "intentions": {
     "listTitle": "Mis intenciones",
     "empty": "Aún no tienes intenciones.",
     "completedRosariesLabel": "Rosarios rezados",
+    "open": "Abrir",
     "deleteConfirmTitle": "¿Eliminar la intención?",
     "deleteConfirmBody": "Esta intención y su progreso se eliminarán de este dispositivo.",
     "delete": "Eliminar",
