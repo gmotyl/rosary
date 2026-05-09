@@ -1,0 +1,1 @@
+export {RosaryBreadcrumb} from './RosaryBreadcrumb'
