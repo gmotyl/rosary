@@ -74,6 +74,7 @@
     "@testing-library/jest-dom": "^6.4.0",
     "@testing-library/react": "13.4.0",
     "@testing-library/react-hooks": "8.0.1",
+    "@types/jest": "^29.5.14",
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.8",
@@ -95,9 +96,10 @@
     "react-is": "18.2.0",
     "react-test-renderer": "18.2.0",
     "standard-version": "9.5.0",
-    "typescript": "4.8.4",
+    "typescript": "^5.7.2",
     "vite": "^5.4.11",
     "vite-plugin-pwa": "^0.21.1",
-    "vitest": "^2.1.8"
+    "vitest": "^2.1.8",
+    "workbox-window": "^7.3.0"
   }
 }

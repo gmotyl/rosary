@@ -2,7 +2,7 @@
 import {defineConfig} from 'vite'
 import react from '@vitejs/plugin-react'
 import {VitePWA} from 'vite-plugin-pwa'
-import path from 'node:path'
+import {fileURLToPath} from 'node:url'
 
 export default defineConfig({
   plugins: [
@@ -17,18 +17,25 @@ export default defineConfig({
         'android-chrome-192x192.png',
         'android-chrome-512x512.png',
         'browserconfig.xml',
+        'manifest.json',
+        'site.webmanifest',
         'img/**/*',
       ],
+      // We ship a static manifest at public/manifest.json; tell the plugin
+      // not to generate its own, but include it in the precache below so the
+      // PWA still works offline.
       manifest: false,
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,woff,woff2}'],
+        globPatterns: [
+          '**/*.{js,css,html,ico,png,svg,webp,woff,woff2,json,webmanifest,xml}',
+        ],
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
       },
     }),
   ],
   resolve: {
     alias: {
-      src: path.resolve(__dirname, 'src'),
+      src: fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
   server: {
