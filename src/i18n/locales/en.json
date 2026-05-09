@@ -43,9 +43,22 @@
     "default": {
       "title": "For my family",
       "description": ""
+    },
+    "markerOurFather": "OF",
+    "markerGloryBe": "GB",
+    "markerFatima": "OMJ",
+    "breadcrumb": {
+      "home": "ROSARY",
+      "mystery": "Mystery {{n}}"
     }
   },
   "mysteries": {
+    "groupName": {
+      "joyful": "Joyful",
+      "luminous": "Luminous",
+      "sorrowful": "Sorrowful",
+      "glorious": "Glorious"
+    },
     "joyful1": {"title": "1st Joyful Mystery: The Annunciation", "description": "Lk 1:26-38"},
     "joyful2": {"title": "2nd Joyful Mystery: The Visitation", "description": "Lk 1:39-45"},
     "joyful3": {"title": "3rd Joyful Mystery: The Nativity", "description": "Lk 2:1-7"},

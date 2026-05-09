@@ -43,9 +43,22 @@
     "default": {
       "title": "Pour ma famille",
       "description": ""
+    },
+    "markerOurFather": "PN",
+    "markerGloryBe": "GP",
+    "markerFatima": "OMJ",
+    "breadcrumb": {
+      "home": "ROSARY",
+      "mystery": "Mystère {{n}}"
     }
   },
   "mysteries": {
+    "groupName": {
+      "joyful": "Joyeux",
+      "luminous": "Lumineux",
+      "sorrowful": "Douloureux",
+      "glorious": "Glorieux"
+    },
     "joyful1": {"title": "1er Mystère Joyeux : L'Annonciation", "description": "Lc 1,26-38"},
     "joyful2": {"title": "2e Mystère Joyeux : La Visitation", "description": "Lc 1,39-45"},
     "joyful3": {"title": "3e Mystère Joyeux : La Nativité", "description": "Lc 2,1-7"},
