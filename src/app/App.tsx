@@ -1,7 +1,6 @@
 import {CssBaseline} from '@mui/material'
 import {createTheme, ThemeProvider} from '@mui/material/styles'
 import Layout from '../containers/Layout'
-import AuthProvider from '../context/AuthProvider'
 
 export const theme = createTheme({
   palette: {
@@ -19,9 +18,7 @@ const App = () => {
     <div>
       <CssBaseline />
       <ThemeProvider theme={theme}>
-        <AuthProvider>
-          <Layout />
-        </AuthProvider>
+        <Layout />
       </ThemeProvider>
     </div>
   )
