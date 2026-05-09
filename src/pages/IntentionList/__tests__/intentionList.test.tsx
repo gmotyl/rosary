@@ -1,47 +1,37 @@
+import {vi} from 'vitest'
 import {renderWithRouter} from 'src/tools/renderWithRouter'
 import IntentionList from '../IntentionList'
 import {fireEvent} from '@testing-library/react'
-import {AuthProviderStub} from 'src/tools/AuthProviderStub'
-import {EAuthRoles} from 'src/context/AuthProvider'
 import {StylesProvider} from 'src/app/StylesProvider'
 
-jest.mock('../../../hooks', () => ({
+vi.mock('../../../hooks', () => ({
   useIntentions: () => ({
     intentions: [
       {
         id: '123',
-        userId: '345',
         title: 'title',
         description: 'desc',
+        currentMystery: 1,
       },
     ],
+    deleteIntention: vi.fn(),
   }),
 }))
 
-const Component = () => {
-  return (
-    <StylesProvider>
-      <AuthProviderStub isAuthenticated={true} roles={[EAuthRoles.ROLE_ADMIN]}>
-        <IntentionList />
-      </AuthProviderStub>
-    </StylesProvider>
-  )
-}
+const Component = () => (
+  <StylesProvider>
+    <IntentionList />
+  </StylesProvider>
+)
 
-it('should handle opening Delete dialog for logged in user', () => {
+it('renders a delete affordance for every intention', () => {
+  const {getByTestId} = renderWithRouter(<Component />)
+  expect(getByTestId('delete-intention')).toBeTruthy()
+})
+
+it('opens the delete dialog when the delete affordance is clicked', () => {
   const {getByTestId, getByText} = renderWithRouter(<Component />)
 
   fireEvent.click(getByTestId('delete-intention'))
   expect(getByText('Delete intention?')).not.toBeNull()
-})
-it('should not render delete action for unathorised user', () => {
-  const {queryByTestId} = renderWithRouter(
-    <StylesProvider>
-      <AuthProviderStub isAuthenticated={false}>
-        <IntentionList />
-      </AuthProviderStub>
-    </StylesProvider>,
-  )
-
-  expect(queryByTestId('delete-intention')).toBeNull()
 })

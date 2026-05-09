@@ -1,10 +1,9 @@
 import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
 import {makeStyles} from '@mui/styles'
-import {FC, useContext, useEffect, useState} from 'react'
+import {FC, useState} from 'react'
 import Hero from 'src/components/Hero'
 import IntentionCard from 'src/components/IntentionCard'
-import {EAuthRoles, AuthContext} from 'src/context/AuthProvider'
 import {DeleteIntentionDialog} from 'src/components/DeleteIntentionDialog'
 import {useIntentions} from 'src/hooks'
 
@@ -15,30 +14,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-interface IntentionListProps {}
-
-const IntentionList: FC<IntentionListProps> = () => {
+const IntentionList: FC = () => {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
   const [deleteIntentionId, setDeleteIntentionId] = useState('')
   const classes = useStyles()
   const {intentions, deleteIntention} = useIntentions()
-  const {hasRole} = useContext(AuthContext)
-  const isAdmin = hasRole(EAuthRoles.ROLE_ADMIN)
-  const openDeleteIntentionDialog = isAdmin
-    ? (intentionId: string) => {
-        setDeleteIntentionId(intentionId)
-        setDeleteDialogOpen(true)
-      }
-    : undefined
-  const isLoading = false
+
+  const openDeleteIntentionDialog = (intentionId: string) => {
+    setDeleteIntentionId(intentionId)
+    setDeleteDialogOpen(true)
+  }
 
   const handleDeleteIntention = () => {
     deleteIntention(deleteIntentionId)
+    setDeleteDialogOpen(false)
   }
-
-  useEffect(() => {
-    setDeleteDialogOpen(isLoading)
-  }, [isLoading])
 
   return (
     <>
@@ -48,7 +38,6 @@ const IntentionList: FC<IntentionListProps> = () => {
         maxWidth="md"
         data-testid="intention-list"
       >
-        {/* End hero unit */}
         <Grid container={true} spacing={4}>
           {intentions.map((intention) => (
             <Grid item={true} key={intention.id} xs={12} sm={6} md={4}>
