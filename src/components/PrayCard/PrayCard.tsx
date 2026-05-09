@@ -72,6 +72,16 @@ export const PrayCard: React.ComponentType<PrayCardProps> = ({id}) => {
           {mystery.title}
         </Typography>
         <Typography>{mystery.description}</Typography>
+        {(intention.completedRosaries ?? 0) > 0 && (
+          <Typography
+            variant="caption"
+            color="text.secondary"
+            data-testid="completed-rosaries"
+            sx={{display: 'block', mt: 1}}
+          >
+            Odmówionych różańców: {intention.completedRosaries}
+          </Typography>
+        )}
       </CardContent>
       <CardActions>{button}</CardActions>
     </Card>
