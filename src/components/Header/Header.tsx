@@ -39,7 +39,7 @@ function HideOnScroll(props: HideOnScrollProps) {
 
 export const Header = () => {
   const classes = useStyles()
-  const title = 'ORARE PRO ME'
+  const title = 'ROSARY'
   return (
     <div className={classes.grow}>
       <HideOnScroll>

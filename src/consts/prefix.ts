@@ -1,1 +1,1 @@
-export const PREFIX = 'orareprome-'
+export const PREFIX = 'rosary-'
