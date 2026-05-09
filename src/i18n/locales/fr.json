@@ -1,0 +1,95 @@
+{
+  "app": {
+    "name": "Rosaire",
+    "tagline": "Compteur personnel du Rosaire"
+  },
+  "menu": {
+    "home": "Accueil",
+    "addIntention": "Ajouter une intention",
+    "howItWorks": "Comment ça marche",
+    "privacyPolicy": "Politique de confidentialité",
+    "language": "Langue"
+  },
+  "hero": {
+    "title": "Priez le Rosaire",
+    "quote": "« Quoi que vous demandiez par le Rosaire, vous l'obtiendrez. »",
+    "subtitle": "Votre compteur personnel du Rosaire. Les données restent sur cet appareil."
+  },
+  "intentions": {
+    "listTitle": "Mes intentions",
+    "empty": "Vous n'avez encore aucune intention.",
+    "completedRosariesLabel": "Rosaires priés",
+    "open": "Ouvrir",
+    "deleteConfirmTitle": "Supprimer l'intention ?",
+    "deleteConfirmBody": "Cette intention et son progrès seront supprimés de cet appareil.",
+    "delete": "Supprimer",
+    "cancel": "Annuler"
+  },
+  "intentionForm": {
+    "title": "Mon intention",
+    "titlePlaceholder": "Pour qui ou quoi vous souhaitez prier",
+    "description": "Description (facultative)",
+    "descriptionPlaceholder": "Ajoutez ici une description plus longue si vous le souhaitez",
+    "submit": "Enregistrer",
+    "headline": "Nouvelle intention"
+  },
+  "prayer": {
+    "panelIntention": "Intention",
+    "panelPrayer": "Prière",
+    "startDecade": "Prier une dizaine",
+    "next": "Suivante",
+    "restart": "Recommencer",
+    "rosaryCompleteTitle": "Rosaire terminé. Loué soit le Seigneur !",
+    "default": {
+      "title": "Pour ma famille",
+      "description": ""
+    }
+  },
+  "mysteries": {
+    "joyful1": {"title": "1er Mystère Joyeux : L'Annonciation", "description": "Lc 1,26-38"},
+    "joyful2": {"title": "2e Mystère Joyeux : La Visitation", "description": "Lc 1,39-45"},
+    "joyful3": {"title": "3e Mystère Joyeux : La Nativité", "description": "Lc 2,1-7"},
+    "joyful4": {"title": "4e Mystère Joyeux : La Présentation au Temple", "description": "Lc 2,22-38"},
+    "joyful5": {"title": "5e Mystère Joyeux : Le Recouvrement de Jésus au Temple", "description": "Lc 2,41-52"},
+    "luminous1": {"title": "1er Mystère Lumineux : Le Baptême au Jourdain", "description": "Lc 3,15-22"},
+    "luminous2": {"title": "2e Mystère Lumineux : Les Noces de Cana", "description": "Jn 2,1-11"},
+    "luminous3": {"title": "3e Mystère Lumineux : L'Annonce du Royaume", "description": "Mt 4,23-25"},
+    "luminous4": {"title": "4e Mystère Lumineux : La Transfiguration", "description": "Mt 17,1-8"},
+    "luminous5": {"title": "5e Mystère Lumineux : L'Institution de l'Eucharistie", "description": "Mc 14,22-25"},
+    "sorrowful1": {"title": "1er Mystère Douloureux : L'Agonie de Jésus à Gethsémani", "description": "Mc 14,32-42"},
+    "sorrowful2": {"title": "2e Mystère Douloureux : La Flagellation", "description": "Mt 27,15-26"},
+    "sorrowful3": {"title": "3e Mystère Douloureux : Le Couronnement d'épines", "description": "Mc 15,16-20"},
+    "sorrowful4": {"title": "4e Mystère Douloureux : Le Portement de la Croix", "description": "Lc 23,26-32"},
+    "sorrowful5": {"title": "5e Mystère Douloureux : La Crucifixion", "description": "Jn 19,25-30"},
+    "glorious1": {"title": "1er Mystère Glorieux : La Résurrection", "description": "Jn 20,1-18"},
+    "glorious2": {"title": "2e Mystère Glorieux : L'Ascension", "description": "Lc 24,44-53"},
+    "glorious3": {"title": "3e Mystère Glorieux : La Pentecôte", "description": "Ac 2,1-13"},
+    "glorious4": {"title": "4e Mystère Glorieux : L'Assomption de Marie", "description": "Lc 1,46-56"},
+    "glorious5": {"title": "5e Mystère Glorieux : Le Couronnement de Marie", "description": "Ap 12,1"}
+  },
+  "languageSwitcher": {
+    "label": "Langue",
+    "en": "English",
+    "pl": "Polski",
+    "es": "Español",
+    "fr": "Français",
+    "it": "Italiano",
+    "de": "Deutsch"
+  },
+  "howItWorks": {
+    "title": "Comment ça marche",
+    "intro": "Suivez où vous en êtes dans le Rosaire, sur autant d'intentions que vous le souhaitez.",
+    "step1": "Ajoutez une intention — une personne, une situation ou une action de grâce pour laquelle vous voulez prier.",
+    "step2": "Appuyez sur « Prier une dizaine » — l'app vous montre quel mystère méditer.",
+    "step3": "Chaque appui sur « Suivante » avance d'un mystère ; après le 20e, le Rosaire se termine et le compteur augmente.",
+    "offlineNote": "L'app garde tout dans votre navigateur. Pas de connexion, pas de serveur, pas de suivi."
+  },
+  "privacyPolicy": {
+    "title": "Politique de confidentialité",
+    "body": "Cette application enregistre vos intentions et votre progression uniquement dans le localStorage de votre navigateur. Rien n'est transmis à un serveur. Effacer les données du navigateur supprimera vos intentions."
+  },
+  "about": {
+    "openSource": "Projet Open Source",
+    "license": "GPLv3"
+  }
+}

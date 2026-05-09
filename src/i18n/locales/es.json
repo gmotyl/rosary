@@ -1,0 +1,95 @@
+{
+  "app": {
+    "name": "Rosario",
+    "tagline": "Contador personal del Rosario"
+  },
+  "menu": {
+    "home": "Inicio",
+    "addIntention": "Añadir intención",
+    "howItWorks": "Cómo funciona",
+    "privacyPolicy": "Política de privacidad",
+    "language": "Idioma"
+  },
+  "hero": {
+    "title": "Reza un Rosario",
+    "quote": "«Cualquier cosa que pidieres por el Rosario, la recibirás.»",
+    "subtitle": "Tu contador personal del Rosario. Los datos permanecen en este dispositivo."
+  },
+  "intentions": {
+    "listTitle": "Mis intenciones",
+    "empty": "Aún no tienes intenciones.",
+    "completedRosariesLabel": "Rosarios rezados",
+    "open": "Abrir",
+    "deleteConfirmTitle": "¿Eliminar la intención?",
+    "deleteConfirmBody": "Esta intención y su progreso se eliminarán de este dispositivo.",
+    "delete": "Eliminar",
+    "cancel": "Cancelar"
+  },
+  "intentionForm": {
+    "title": "Mi intención",
+    "titlePlaceholder": "Por qué quieres rezar",
+    "description": "Descripción (opcional)",
+    "descriptionPlaceholder": "Añade aquí una descripción más larga si lo deseas",
+    "submit": "Guardar",
+    "headline": "Nueva intención"
+  },
+  "prayer": {
+    "panelIntention": "Intención",
+    "panelPrayer": "Oración",
+    "startDecade": "Rezar una decena",
+    "next": "Siguiente",
+    "restart": "Reiniciar",
+    "rosaryCompleteTitle": "Rosario completo. ¡Alabado sea el Señor!",
+    "default": {
+      "title": "Por mi familia",
+      "description": ""
+    }
+  },
+  "mysteries": {
+    "joyful1": {"title": "1.º Misterio Gozoso: La Anunciación", "description": "Lc 1,26-38"},
+    "joyful2": {"title": "2.º Misterio Gozoso: La Visitación", "description": "Lc 1,39-45"},
+    "joyful3": {"title": "3.º Misterio Gozoso: El Nacimiento de Jesús", "description": "Lc 2,1-7"},
+    "joyful4": {"title": "4.º Misterio Gozoso: La Presentación en el Templo", "description": "Lc 2,22-38"},
+    "joyful5": {"title": "5.º Misterio Gozoso: El Niño Perdido y Hallado en el Templo", "description": "Lc 2,41-52"},
+    "luminous1": {"title": "1.º Misterio Luminoso: El Bautismo en el Jordán", "description": "Lc 3,15-22"},
+    "luminous2": {"title": "2.º Misterio Luminoso: Las Bodas de Caná", "description": "Jn 2,1-11"},
+    "luminous3": {"title": "3.º Misterio Luminoso: El Anuncio del Reino", "description": "Mt 4,23-25"},
+    "luminous4": {"title": "4.º Misterio Luminoso: La Transfiguración", "description": "Mt 17,1-8"},
+    "luminous5": {"title": "5.º Misterio Luminoso: La Institución de la Eucaristía", "description": "Mc 14,22-25"},
+    "sorrowful1": {"title": "1.º Misterio Doloroso: La Oración en el Huerto", "description": "Mc 14,32-42"},
+    "sorrowful2": {"title": "2.º Misterio Doloroso: La Flagelación", "description": "Mt 27,15-26"},
+    "sorrowful3": {"title": "3.º Misterio Doloroso: La Coronación de Espinas", "description": "Mc 15,16-20"},
+    "sorrowful4": {"title": "4.º Misterio Doloroso: La Cruz a Cuestas", "description": "Lc 23,26-32"},
+    "sorrowful5": {"title": "5.º Misterio Doloroso: La Crucifixión", "description": "Jn 19,25-30"},
+    "glorious1": {"title": "1.º Misterio Glorioso: La Resurrección", "description": "Jn 20,1-18"},
+    "glorious2": {"title": "2.º Misterio Glorioso: La Ascensión", "description": "Lc 24,44-53"},
+    "glorious3": {"title": "3.º Misterio Glorioso: La Venida del Espíritu Santo", "description": "Hch 2,1-13"},
+    "glorious4": {"title": "4.º Misterio Glorioso: La Asunción de María", "description": "Lc 1,46-56"},
+    "glorious5": {"title": "5.º Misterio Glorioso: La Coronación de María", "description": "Ap 12,1"}
+  },
+  "languageSwitcher": {
+    "label": "Idioma",
+    "en": "English",
+    "pl": "Polski",
+    "es": "Español",
+    "fr": "Français",
+    "it": "Italiano",
+    "de": "Deutsch"
+  },
+  "howItWorks": {
+    "title": "Cómo funciona",
+    "intro": "Lleva la cuenta de en qué decena del Rosario vas, en todas las intenciones que quieras.",
+    "step1": "Añade una intención — una persona, situación o acción de gracias por la que quieras rezar.",
+    "step2": "Pulsa «Rezar una decena» — la app te muestra qué misterio meditar.",
+    "step3": "Cada pulsación de «Siguiente» te avanza un misterio; al pasar el 20.º, el Rosario se completa y el contador sube.",
+    "offlineNote": "La app guarda todo en tu navegador. Sin inicio de sesión, sin servidor, sin seguimiento."
+  },
+  "privacyPolicy": {
+    "title": "Política de privacidad",
+    "body": "Esta aplicación guarda tus intenciones y tu progreso solo en el localStorage de tu navegador. No se transmite nada a ningún servidor. Borrar los datos del navegador eliminará tus intenciones."
+  },
+  "about": {
+    "openSource": "Proyecto de código abierto",
+    "license": "GPLv3"
+  }
+}

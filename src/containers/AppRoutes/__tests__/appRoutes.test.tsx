@@ -36,5 +36,5 @@ it('navigates to the how it works page', () => {
 
   fireEvent.click(getByTestId('how-it-works'))
 
-  expect(container.innerHTML).toMatch('How it works')
+  expect(container.innerHTML).toMatch('howItWorks.title')
 })

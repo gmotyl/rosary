@@ -2,38 +2,34 @@ import {ERoutes} from './routes'
 
 export interface NavLinkItem {
   key: string
+  labelKey: string
   path: ERoutes
   icon: string
 }
 
 export const navigation: NavLinkItem[] = [
   {
-    key: 'nav.home',
+    key: 'home',
+    labelKey: 'menu.home',
     path: ERoutes.HOME,
     icon: 'HomeIcon',
   },
   {
-    key: 'nav.add-intention',
+    key: 'addIntention',
+    labelKey: 'menu.addIntention',
     path: ERoutes.ADD_INTENTION,
     icon: 'RosaryIcon',
   },
   {
-    key: 'nav.about',
+    key: 'about',
+    labelKey: 'menu.howItWorks',
     path: ERoutes.ABOUT,
     icon: 'InfoIcon',
   },
   {
-    key: 'nav.policy',
+    key: 'policy',
+    labelKey: 'menu.privacyPolicy',
     path: ERoutes.POLICY,
     icon: 'PolicyIcon',
   },
 ]
-
-export const navLabels = {
-  pl: {
-    'nav.home': 'ORARE PRO ME',
-    'nav.add-intention': 'Dodaj intencję',
-    'nav.about': 'O projekcie',
-    'nav.policy': 'Polityka prywatności',
-  },
-}

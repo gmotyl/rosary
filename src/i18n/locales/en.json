@@ -1,0 +1,95 @@
+{
+  "app": {
+    "name": "Rosary",
+    "tagline": "Personal rosary tracker"
+  },
+  "menu": {
+    "home": "Home",
+    "addIntention": "Add intention",
+    "howItWorks": "How it works",
+    "privacyPolicy": "Privacy policy",
+    "language": "Language"
+  },
+  "hero": {
+    "title": "Pray a Rosary",
+    "quote": "\"Whatever you ask through the Rosary, you shall receive.\"",
+    "subtitle": "Your personal rosary tracker. All data stays on this device."
+  },
+  "intentions": {
+    "listTitle": "My intentions",
+    "empty": "You have no intentions yet.",
+    "completedRosariesLabel": "Rosaries prayed",
+    "open": "Open",
+    "deleteConfirmTitle": "Delete intention?",
+    "deleteConfirmBody": "This intention and its progress will be removed from this device.",
+    "delete": "Delete",
+    "cancel": "Cancel"
+  },
+  "intentionForm": {
+    "title": "My intention",
+    "titlePlaceholder": "What you want to pray for",
+    "description": "Description (optional)",
+    "descriptionPlaceholder": "Add a longer description here if you like",
+    "submit": "Save",
+    "headline": "New intention"
+  },
+  "prayer": {
+    "panelIntention": "Intention",
+    "panelPrayer": "Prayer",
+    "startDecade": "Pray a decade",
+    "next": "Next",
+    "restart": "Restart",
+    "rosaryCompleteTitle": "Rosary complete. Praise the Lord!",
+    "default": {
+      "title": "For my family",
+      "description": ""
+    }
+  },
+  "mysteries": {
+    "joyful1": {"title": "1st Joyful Mystery: The Annunciation", "description": "Lk 1:26-38"},
+    "joyful2": {"title": "2nd Joyful Mystery: The Visitation", "description": "Lk 1:39-45"},
+    "joyful3": {"title": "3rd Joyful Mystery: The Nativity", "description": "Lk 2:1-7"},
+    "joyful4": {"title": "4th Joyful Mystery: The Presentation in the Temple", "description": "Lk 2:22-38"},
+    "joyful5": {"title": "5th Joyful Mystery: The Finding of Jesus in the Temple", "description": "Lk 2:41-52"},
+    "luminous1": {"title": "1st Luminous Mystery: The Baptism in the Jordan", "description": "Lk 3:15-22"},
+    "luminous2": {"title": "2nd Luminous Mystery: The Wedding at Cana", "description": "Jn 2:1-11"},
+    "luminous3": {"title": "3rd Luminous Mystery: The Proclamation of the Kingdom", "description": "Mt 4:23-25"},
+    "luminous4": {"title": "4th Luminous Mystery: The Transfiguration", "description": "Mt 17:1-8"},
+    "luminous5": {"title": "5th Luminous Mystery: The Institution of the Eucharist", "description": "Mk 14:22-25"},
+    "sorrowful1": {"title": "1st Sorrowful Mystery: The Agony in the Garden", "description": "Mk 14:32-42"},
+    "sorrowful2": {"title": "2nd Sorrowful Mystery: The Scourging at the Pillar", "description": "Mt 27:15-26"},
+    "sorrowful3": {"title": "3rd Sorrowful Mystery: The Crowning with Thorns", "description": "Mk 15:16-20"},
+    "sorrowful4": {"title": "4th Sorrowful Mystery: The Carrying of the Cross", "description": "Lk 23:26-32"},
+    "sorrowful5": {"title": "5th Sorrowful Mystery: The Crucifixion", "description": "Jn 19:25-30"},
+    "glorious1": {"title": "1st Glorious Mystery: The Resurrection", "description": "Jn 20:1-18"},
+    "glorious2": {"title": "2nd Glorious Mystery: The Ascension", "description": "Lk 24:44-53"},
+    "glorious3": {"title": "3rd Glorious Mystery: The Descent of the Holy Spirit", "description": "Acts 2:1-13"},
+    "glorious4": {"title": "4th Glorious Mystery: The Assumption of Mary", "description": "Lk 1:46-56"},
+    "glorious5": {"title": "5th Glorious Mystery: The Coronation of Mary", "description": "Rev 12:1"}
+  },
+  "languageSwitcher": {
+    "label": "Language",
+    "en": "English",
+    "pl": "Polski",
+    "es": "Español",
+    "fr": "Français",
+    "it": "Italiano",
+    "de": "Deutsch"
+  },
+  "howItWorks": {
+    "title": "How it works",
+    "intro": "Track which decade of the rosary you're on, across as many intentions as you want.",
+    "step1": "Add an intention — a person, situation, or thanksgiving you want to pray for.",
+    "step2": "Tap \"Pray a decade\" — the app shows you which mystery and meditation to pray.",
+    "step3": "Each tap of \"Next\" advances you one mystery; after the 20th, the rosary completes and the counter goes up.",
+    "offlineNote": "The app stores everything in your browser. No login, no server, no tracking."
+  },
+  "privacyPolicy": {
+    "title": "Privacy policy",
+    "body": "This app stores your intentions and progress only in your browser's localStorage. Nothing is transmitted to any server. Clearing browser data will erase your intentions."
+  },
+  "about": {
+    "openSource": "Open Source project",
+    "license": "GPLv3"
+  }
+}

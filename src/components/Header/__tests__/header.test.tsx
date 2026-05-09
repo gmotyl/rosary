@@ -9,5 +9,5 @@ it('renders the app title', () => {
       <Header />
     </Router>,
   )
-  expect(getAllByText('ORARE PRO ME').length).toBeGreaterThan(0)
+  expect(getAllByText('ROSARY').length).toBeGreaterThan(0)
 })

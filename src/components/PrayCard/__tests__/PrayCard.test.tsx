@@ -10,6 +10,13 @@ const mocks = vi.hoisted(() => ({
   completedRosaries: 7,
 }))
 
+vi.mock('react-i18next', () => ({
+  useTranslation: () => ({
+    t: (key: string) => key,
+    i18n: {language: 'en', changeLanguage: vi.fn()},
+  }),
+}))
+
 vi.mock('src/hooks', () => ({
   useIntentions: () => ({
     getIntention: vi.fn(() => ({

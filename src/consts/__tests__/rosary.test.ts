@@ -1,14 +1,12 @@
 import {getMystery} from '../rosary'
 import {MysteryTypes} from '../MysteryTypes'
+import type {TFunction} from 'i18next'
 
-test('Rosary helper returns correct mystery by type', () => {
-  const mystery1 = getMystery(MysteryTypes.Joyful1)
-  const mystery7 = getMystery(MysteryTypes.Luminous2)
-  const mystery18 = getMystery(MysteryTypes.Glorious3)
-  const mystery21 = getMystery(21)
+const fakeT = ((key: string) => key) as unknown as TFunction
 
-  expect(mystery1.title).toMatch('Zwiastowanie')
-  expect(mystery7.title).toMatch('Objawienie')
-  expect(mystery18.title).toMatch('Zesłanie Ducha Świętego')
-  expect(mystery21.title).toMatch('Różaniec zakończony. Chwała Panu')
+test('Rosary helper returns correct mystery key by type', () => {
+  expect(getMystery(MysteryTypes.Joyful1, fakeT).title).toBe('mysteries.joyful1.title')
+  expect(getMystery(MysteryTypes.Luminous2, fakeT).title).toBe('mysteries.luminous2.title')
+  expect(getMystery(MysteryTypes.Glorious3, fakeT).title).toBe('mysteries.glorious3.title')
+  expect(getMystery(21 as MysteryTypes, fakeT).title).toBe('prayer.rosaryCompleteTitle')
 })

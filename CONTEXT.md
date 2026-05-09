@@ -22,7 +22,7 @@ A full cycle of all 20 Mysteries prayed in sequence; the unit counted by `comple
 _Avoid_: cycle, prayer.
 
 **Rosary** (the app):
-The PWA itself. Branded "Orare Pro Me" historically; the name predates the personal-only architecture.
+The PWA itself. Display name is "ROSARY" (`src/components/Header/Header.tsx`).
 
 ## Relationships
 

@@ -1,0 +1,95 @@
+{
+  "app": {
+    "name": "Rosenkranz",
+    "tagline": "Persönlicher Rosenkranz-Tracker"
+  },
+  "menu": {
+    "home": "Startseite",
+    "addIntention": "Anliegen hinzufügen",
+    "howItWorks": "Wie es funktioniert",
+    "privacyPolicy": "Datenschutz",
+    "language": "Sprache"
+  },
+  "hero": {
+    "title": "Bete einen Rosenkranz",
+    "quote": "„Was immer du durch den Rosenkranz erbittest — du wirst es empfangen.\"",
+    "subtitle": "Dein persönlicher Rosenkranz-Tracker. Daten bleiben auf diesem Gerät."
+  },
+  "intentions": {
+    "listTitle": "Meine Anliegen",
+    "empty": "Du hast noch keine Anliegen.",
+    "completedRosariesLabel": "Gebetete Rosenkränze",
+    "open": "Öffnen",
+    "deleteConfirmTitle": "Anliegen löschen?",
+    "deleteConfirmBody": "Dieses Anliegen und sein Fortschritt werden von diesem Gerät entfernt.",
+    "delete": "Löschen",
+    "cancel": "Abbrechen"
+  },
+  "intentionForm": {
+    "title": "Mein Anliegen",
+    "titlePlaceholder": "Wofür du beten möchtest",
+    "description": "Beschreibung (optional)",
+    "descriptionPlaceholder": "Füge hier bei Bedarf eine längere Beschreibung hinzu",
+    "submit": "Speichern",
+    "headline": "Neues Anliegen"
+  },
+  "prayer": {
+    "panelIntention": "Anliegen",
+    "panelPrayer": "Gebet",
+    "startDecade": "Ein Gesätz beten",
+    "next": "Weiter",
+    "restart": "Von vorn",
+    "rosaryCompleteTitle": "Rosenkranz beendet. Gelobt sei der Herr!",
+    "default": {
+      "title": "Für meine Familie",
+      "description": ""
+    }
+  },
+  "mysteries": {
+    "joyful1": {"title": "1. Freudenreiches Geheimnis: Die Verkündigung", "description": "Lk 1,26-38"},
+    "joyful2": {"title": "2. Freudenreiches Geheimnis: Der Besuch bei Elisabeth", "description": "Lk 1,39-45"},
+    "joyful3": {"title": "3. Freudenreiches Geheimnis: Die Geburt Jesu", "description": "Lk 2,1-7"},
+    "joyful4": {"title": "4. Freudenreiches Geheimnis: Die Darstellung im Tempel", "description": "Lk 2,22-38"},
+    "joyful5": {"title": "5. Freudenreiches Geheimnis: Die Wiederfindung im Tempel", "description": "Lk 2,41-52"},
+    "luminous1": {"title": "1. Lichtreiches Geheimnis: Die Taufe im Jordan", "description": "Lk 3,15-22"},
+    "luminous2": {"title": "2. Lichtreiches Geheimnis: Die Hochzeit zu Kana", "description": "Joh 2,1-11"},
+    "luminous3": {"title": "3. Lichtreiches Geheimnis: Die Verkündigung des Reiches Gottes", "description": "Mt 4,23-25"},
+    "luminous4": {"title": "4. Lichtreiches Geheimnis: Die Verklärung", "description": "Mt 17,1-8"},
+    "luminous5": {"title": "5. Lichtreiches Geheimnis: Die Einsetzung der Eucharistie", "description": "Mk 14,22-25"},
+    "sorrowful1": {"title": "1. Schmerzhaftes Geheimnis: Die Todesangst Jesu im Garten", "description": "Mk 14,32-42"},
+    "sorrowful2": {"title": "2. Schmerzhaftes Geheimnis: Die Geißelung Jesu", "description": "Mt 27,15-26"},
+    "sorrowful3": {"title": "3. Schmerzhaftes Geheimnis: Die Dornenkrönung", "description": "Mk 15,16-20"},
+    "sorrowful4": {"title": "4. Schmerzhaftes Geheimnis: Die Kreuztragung", "description": "Lk 23,26-32"},
+    "sorrowful5": {"title": "5. Schmerzhaftes Geheimnis: Die Kreuzigung", "description": "Joh 19,25-30"},
+    "glorious1": {"title": "1. Glorreiches Geheimnis: Die Auferstehung", "description": "Joh 20,1-18"},
+    "glorious2": {"title": "2. Glorreiches Geheimnis: Die Himmelfahrt", "description": "Lk 24,44-53"},
+    "glorious3": {"title": "3. Glorreiches Geheimnis: Die Sendung des Heiligen Geistes", "description": "Apg 2,1-13"},
+    "glorious4": {"title": "4. Glorreiches Geheimnis: Die Aufnahme Mariens", "description": "Lk 1,46-56"},
+    "glorious5": {"title": "5. Glorreiches Geheimnis: Die Krönung Mariens", "description": "Offb 12,1"}
+  },
+  "languageSwitcher": {
+    "label": "Sprache",
+    "en": "English",
+    "pl": "Polski",
+    "es": "Español",
+    "fr": "Français",
+    "it": "Italiano",
+    "de": "Deutsch"
+  },
+  "howItWorks": {
+    "title": "Wie es funktioniert",
+    "intro": "Behalte den Überblick, bei welchem Gesätz des Rosenkranzes du bist — bei beliebig vielen Anliegen.",
+    "step1": "Lege ein Anliegen an — eine Person, Situation oder Danksagung, für die du beten möchtest.",
+    "step2": "Tippe auf „Ein Gesätz beten\" — die App zeigt, welches Geheimnis du betrachten sollst.",
+    "step3": "Jeder Tipp auf „Weiter\" geht ein Geheimnis weiter; nach dem 20. ist der Rosenkranz beendet und der Zähler steigt.",
+    "offlineNote": "Die App speichert alles in deinem Browser. Kein Login, kein Server, kein Tracking."
+  },
+  "privacyPolicy": {
+    "title": "Datenschutz",
+    "body": "Diese App speichert deine Anliegen und Fortschritte ausschließlich im localStorage deines Browsers. Es wird nichts an einen Server übertragen. Wenn du die Browserdaten löschst, sind die Anliegen weg."
+  },
+  "about": {
+    "openSource": "Open-Source-Projekt",
+    "license": "GPLv3"
+  }
+}
