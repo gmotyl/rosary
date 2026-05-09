@@ -75,5 +75,21 @@
     "fr": "Français",
     "it": "Italiano",
     "de": "Deutsch"
+  },
+  "howItWorks": {
+    "title": "Come funziona",
+    "intro": "Tieni traccia di a che decina del Rosario sei arrivato, su quante intenzioni vuoi.",
+    "step1": "Aggiungi un'intenzione — una persona, una situazione o un ringraziamento per cui vuoi pregare.",
+    "step2": "Tocca «Prega una decina» — l'app ti mostra quale mistero meditare.",
+    "step3": "Ogni tocco di «Avanti» ti fa avanzare di un mistero; dopo il 20° il Rosario si completa e il contatore sale.",
+    "offlineNote": "L'app conserva tutto nel tuo browser. Nessun login, nessun server, nessun tracciamento."
+  },
+  "privacyPolicy": {
+    "title": "Informativa sulla privacy",
+    "body": "Questa app salva le tue intenzioni e il tuo progresso solo nel localStorage del tuo browser. Nulla viene trasmesso a un server. Cancellando i dati del browser perderai le tue intenzioni."
+  },
+  "about": {
+    "openSource": "Progetto Open Source",
+    "license": "GPLv3"
   }
 }

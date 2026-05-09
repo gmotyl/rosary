@@ -75,5 +75,21 @@
     "fr": "Français",
     "it": "Italiano",
     "de": "Deutsch"
+  },
+  "howItWorks": {
+    "title": "Wie es funktioniert",
+    "intro": "Behalte den Überblick, bei welchem Gesätz des Rosenkranzes du bist — bei beliebig vielen Anliegen.",
+    "step1": "Lege ein Anliegen an — eine Person, Situation oder Danksagung, für die du beten möchtest.",
+    "step2": "Tippe auf „Ein Gesätz beten\" — die App zeigt, welches Geheimnis du betrachten sollst.",
+    "step3": "Jeder Tipp auf „Weiter\" geht ein Geheimnis weiter; nach dem 20. ist der Rosenkranz beendet und der Zähler steigt.",
+    "offlineNote": "Die App speichert alles in deinem Browser. Kein Login, kein Server, kein Tracking."
+  },
+  "privacyPolicy": {
+    "title": "Datenschutz",
+    "body": "Diese App speichert deine Anliegen und Fortschritte ausschließlich im localStorage deines Browsers. Es wird nichts an einen Server übertragen. Wenn du die Browserdaten löschst, sind die Anliegen weg."
+  },
+  "about": {
+    "openSource": "Open-Source-Projekt",
+    "license": "GPLv3"
   }
 }

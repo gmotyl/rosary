@@ -75,5 +75,21 @@
     "fr": "Français",
     "it": "Italiano",
     "de": "Deutsch"
+  },
+  "howItWorks": {
+    "title": "Comment ça marche",
+    "intro": "Suivez où vous en êtes dans le Rosaire, sur autant d'intentions que vous le souhaitez.",
+    "step1": "Ajoutez une intention — une personne, une situation ou une action de grâce pour laquelle vous voulez prier.",
+    "step2": "Appuyez sur « Prier une dizaine » — l'app vous montre quel mystère méditer.",
+    "step3": "Chaque appui sur « Suivante » avance d'un mystère ; après le 20e, le Rosaire se termine et le compteur augmente.",
+    "offlineNote": "L'app garde tout dans votre navigateur. Pas de connexion, pas de serveur, pas de suivi."
+  },
+  "privacyPolicy": {
+    "title": "Politique de confidentialité",
+    "body": "Cette application enregistre vos intentions et votre progression uniquement dans le localStorage de votre navigateur. Rien n'est transmis à un serveur. Effacer les données du navigateur supprimera vos intentions."
+  },
+  "about": {
+    "openSource": "Projet Open Source",
+    "license": "GPLv3"
   }
 }

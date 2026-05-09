@@ -75,5 +75,21 @@
     "fr": "Français",
     "it": "Italiano",
     "de": "Deutsch"
+  },
+  "howItWorks": {
+    "title": "How it works",
+    "intro": "Track which decade of the rosary you're on, across as many intentions as you want.",
+    "step1": "Add an intention — a person, situation, or thanksgiving you want to pray for.",
+    "step2": "Tap \"Pray a decade\" — the app shows you which mystery and meditation to pray.",
+    "step3": "Each tap of \"Next\" advances you one mystery; after the 20th, the rosary completes and the counter goes up.",
+    "offlineNote": "The app stores everything in your browser. No login, no server, no tracking."
+  },
+  "privacyPolicy": {
+    "title": "Privacy policy",
+    "body": "This app stores your intentions and progress only in your browser's localStorage. Nothing is transmitted to any server. Clearing browser data will erase your intentions."
+  },
+  "about": {
+    "openSource": "Open Source project",
+    "license": "GPLv3"
   }
 }

@@ -6,10 +6,11 @@ import HomeIcon from '@mui/icons-material/Home'
 import InfoIcon from '@mui/icons-material/Info'
 import PolicyIcon from '@mui/icons-material/Policy'
 import ListItemText from '@mui/material/ListItemText'
+import {useTranslation} from 'react-i18next'
 
 import Link from '../Link'
 import {RosaryIcon} from '../Icons'
-import {navigation, navLabels, NavLinkItem} from 'src/app/config/navigation'
+import {navigation, NavLinkItem} from 'src/app/config/navigation'
 
 const useStyles = makeStyles((theme) => ({
   list: {
@@ -23,6 +24,7 @@ interface SideMenuProps {
 
 export const SideMenu: React.FC<SideMenuProps> = ({setOpen}) => {
   const classes = useStyles()
+  const {t} = useTranslation()
 
   return (
     <div
@@ -31,7 +33,11 @@ export const SideMenu: React.FC<SideMenuProps> = ({setOpen}) => {
       onClick={() => setOpen(false)}
       onKeyDown={() => setOpen(false)}
     >
-      <List>{navigation.map(renderLink)}</List>
+      <List>
+        {navigation.map((item) => (
+          <NavListItem key={item.key} item={item} t={t} />
+        ))}
+      </List>
     </div>
   )
 }
@@ -51,13 +57,16 @@ const getIcon = (icon: string) => {
   }
 }
 
-const renderLink = (item: NavLinkItem) => (
-  <div key={item.key}>
-    <Link to={item.path}>
-      <ListItem button>
-        <ListItemIcon>{getIcon(item.icon)}</ListItemIcon>
-        <ListItemText primary={navLabels['pl'][item.key]} />
-      </ListItem>
-    </Link>
-  </div>
+interface NavListItemProps {
+  item: NavLinkItem
+  t: (key: string) => string
+}
+
+const NavListItem: React.FC<NavListItemProps> = ({item, t}) => (
+  <Link to={item.path}>
+    <ListItem button>
+      <ListItemIcon>{getIcon(item.icon)}</ListItemIcon>
+      <ListItemText primary={t(item.labelKey)} />
+    </ListItem>
+  </Link>
 )

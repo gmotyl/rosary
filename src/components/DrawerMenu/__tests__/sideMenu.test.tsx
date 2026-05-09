@@ -11,7 +11,7 @@ describe('sideMenu', () => {
         <SideMenu setOpen={vi.fn()} />
       </StylesProvider>,
     )
-    expect(getByText('ORARE PRO ME')).toBeTruthy()
+    expect(getByText('menu.home')).toBeTruthy()
   })
 
   it('renders the add intention link', () => {
@@ -20,7 +20,7 @@ describe('sideMenu', () => {
         <SideMenu setOpen={vi.fn()} />
       </StylesProvider>,
     )
-    expect(getByText('Dodaj intencję')).toBeTruthy()
+    expect(getByText('menu.addIntention')).toBeTruthy()
   })
 
   it('renders the about and policy links', () => {
@@ -29,7 +29,7 @@ describe('sideMenu', () => {
         <SideMenu setOpen={vi.fn()} />
       </StylesProvider>,
     )
-    expect(getByText('O projekcie')).toBeTruthy()
-    expect(getByText('Polityka prywatności')).toBeTruthy()
+    expect(getByText('menu.howItWorks')).toBeTruthy()
+    expect(getByText('menu.privacyPolicy')).toBeTruthy()
   })
 })

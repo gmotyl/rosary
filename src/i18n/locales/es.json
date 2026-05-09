@@ -75,5 +75,21 @@
     "fr": "Français",
     "it": "Italiano",
     "de": "Deutsch"
+  },
+  "howItWorks": {
+    "title": "Cómo funciona",
+    "intro": "Lleva la cuenta de en qué decena del Rosario vas, en todas las intenciones que quieras.",
+    "step1": "Añade una intención — una persona, situación o acción de gracias por la que quieras rezar.",
+    "step2": "Pulsa «Rezar una decena» — la app te muestra qué misterio meditar.",
+    "step3": "Cada pulsación de «Siguiente» te avanza un misterio; al pasar el 20.º, el Rosario se completa y el contador sube.",
+    "offlineNote": "La app guarda todo en tu navegador. Sin inicio de sesión, sin servidor, sin seguimiento."
+  },
+  "privacyPolicy": {
+    "title": "Política de privacidad",
+    "body": "Esta aplicación guarda tus intenciones y tu progreso solo en el localStorage de tu navegador. No se transmite nada a ningún servidor. Borrar los datos del navegador eliminará tus intenciones."
+  },
+  "about": {
+    "openSource": "Proyecto de código abierto",
+    "license": "GPLv3"
   }
 }
