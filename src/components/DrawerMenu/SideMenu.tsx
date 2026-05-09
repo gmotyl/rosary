@@ -26,7 +26,6 @@ interface SideMenuProps {
 
 export const SideMenu: React.FC<SideMenuProps> = ({setOpen}) => {
   const classes = useStyles()
-  const {t} = useTranslation()
 
   return (
     <div className={classes.list} role="presentation">
@@ -35,7 +34,7 @@ export const SideMenu: React.FC<SideMenuProps> = ({setOpen}) => {
         onKeyDown={() => setOpen(false)}
       >
         {navigation.map((item) => (
-          <NavListItem key={item.key} item={item} t={t} />
+          <NavListItem key={item.key} item={item} />
         ))}
       </List>
       <Divider />
@@ -65,14 +64,16 @@ const getIcon = (icon: string) => {
 
 interface NavListItemProps {
   item: NavLinkItem
-  t: (key: string) => string
 }
 
-const NavListItem: React.FC<NavListItemProps> = ({item, t}) => (
-  <Link to={item.path}>
-    <ListItem button>
-      <ListItemIcon>{getIcon(item.icon)}</ListItemIcon>
-      <ListItemText primary={t(item.labelKey)} />
-    </ListItem>
-  </Link>
-)
+const NavListItem: React.FC<NavListItemProps> = ({item}) => {
+  const {t} = useTranslation()
+  return (
+    <Link to={item.path}>
+      <ListItem button>
+        <ListItemIcon>{getIcon(item.icon)}</ListItemIcon>
+        <ListItemText primary={t(item.labelKey)} />
+      </ListItem>
+    </Link>
+  )
+}
