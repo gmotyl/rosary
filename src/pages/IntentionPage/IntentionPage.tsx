@@ -5,20 +5,17 @@ import {
   AccordionDetails as MuiExpansionPanelDetails,
   AccordionSummary,
   Grid,
-  Paper,
   Typography,
 } from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
 import withStyles from '@mui/styles/withStyles'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
-import {useEffect, useState} from 'react'
+import {useState} from 'react'
 import {RouteComponentProps} from 'react-router-dom'
 
 import {Prayer} from 'src/containers/Prayer'
 import IntentionCard from '../../components/IntentionCard'
-import {useIntentionStatisticRequest} from 'src/hooks/useRosaryApi/useInentionStatistic'
-import {IntentionStatistic} from './IntentionStatistics'
 import {useIntentions} from 'src/hooks'
 
 // tslint:disable-next-line: object-literal-sort-keys
@@ -55,12 +52,6 @@ interface IntentionPageProps {
 const IntentionPage: React.ComponentType<
   RouteComponentProps<IntentionPageProps>
 > = (props) => {
-  const updateStats = () => {
-    setTimeout(
-      () => requestIntentionStatistic({intention: `intentions/${id}`}, ''),
-      1000,
-    )
-  }
   const {id, prayerId} = props.match.params
   const classes = useStyles()
   const {getIntention} = useIntentions()
@@ -88,11 +79,6 @@ const IntentionPage: React.ComponentType<
     closeIntentionPanel()
     openPrayPanel()
   }
-  const {rosaryCount, prayFinished, prayInProgress, requestIntentionStatistic} =
-    useIntentionStatisticRequest()
-
-  useEffect(updateStats, [])
-
   // return null if intention not found
   if (!intention) {
     return null
@@ -139,18 +125,9 @@ const IntentionPage: React.ComponentType<
               <Typography className={classes.heading}>Modlitwa</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Prayer intention={intention} updateStats={updateStats} />
+              <Prayer intention={intention} />
             </AccordionDetails>
           </Accordion>
-          <Paper className={classes.root}>
-            <IntentionStatistic
-              rosaryCount={rosaryCount}
-              prayFinished={prayFinished}
-              prayInProgress={prayInProgress}
-              updateStats={updateStats}
-              intentionId={id}
-            />
-          </Paper>
         </div>
       </Grid>
     </>
