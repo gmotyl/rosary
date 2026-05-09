@@ -8,10 +8,7 @@ import useScrollTrigger from '@mui/material/useScrollTrigger'
 
 import DrawerMenu from 'src/components/DrawerMenu'
 import Link from 'src/components/Link'
-import {AuthContext} from 'src/context/AuthProvider'
-import {TopMenu} from 'src/components/TopMenu'
 import {Badge} from '@mui/material'
-import {useContext} from 'react'
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -19,9 +16,6 @@ const useStyles = makeStyles((theme) => ({
   },
   box: {
     paddingBottom: theme.spacing(5),
-  },
-  login: {
-    marginRight: theme.spacing(2),
   },
   home: {
     '&:hover': {
@@ -45,8 +39,6 @@ function HideOnScroll(props: HideOnScrollProps) {
 
 export const Header = () => {
   const classes = useStyles()
-  const {isAuthenticated} = useContext(AuthContext)
-
   const title = 'ORARE PRO ME'
   return (
     <div className={classes.grow}>
@@ -62,7 +54,6 @@ export const Header = () => {
               </Badge>
             </Link>
             <div className={classes.grow} />
-            <TopMenu isAuthenticated={isAuthenticated} />
           </Toolbar>
         </AppBar>
       </HideOnScroll>

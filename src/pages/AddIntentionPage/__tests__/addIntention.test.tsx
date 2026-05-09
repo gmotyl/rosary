@@ -1,28 +1,25 @@
 import {fireEvent, screen} from '@testing-library/react'
+import {vi} from 'vitest'
 import '@testing-library/jest-dom'
 
 import {AddIntentionPage} from '../AddIntentionPage'
 import {renderWithTheme} from 'src/tools/renderWithTheme'
 import {MysteryTypes} from 'src/consts/MysteryTypes'
 
-const mockRequest = jest.fn()
-const mockSaveIntention = jest.fn()
+const mockSaveIntention = vi.fn()
 
-jest.mock('../../../hooks/useRosaryApi', () => ({
-  usePostIntention: () => ({
-    isLoading: false,
-    postIntention: mockRequest,
-  }),
-}))
-
-jest.mock('../../../hooks', () => ({
+vi.mock('../../../hooks', () => ({
   useIntentions: () => ({
     saveIntention: mockSaveIntention,
   }),
 }))
-jest.mock('react-router-dom', () => ({
-  useHistory: () => ({goBack: jest.fn()}),
-}))
+vi.mock('react-router-dom', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('react-router-dom')>()
+  return {
+    ...actual,
+    useHistory: () => ({goBack: vi.fn()}),
+  }
+})
 
 describe('Add intention Page', () => {
   it('should render form', () => {
@@ -40,7 +37,6 @@ describe('Add intention Page', () => {
   it('should allow user to save intention', async () => {
     const {container} = renderWithTheme(<AddIntentionPage />)
 
-    // fill out the form
     fireEvent.change(screen.getByLabelText(/intencja/i), {
       target: {value: 'chuck'},
     })
@@ -48,7 +44,7 @@ describe('Add intention Page', () => {
       target: {value: 'norris'},
     })
 
-    await fireEvent.submit(container.querySelector('form'))
+    await fireEvent.submit(container.querySelector('form')!)
 
     expect(mockSaveIntention).toHaveBeenCalledTimes(1)
     expect(mockSaveIntention).toHaveBeenCalledWith({

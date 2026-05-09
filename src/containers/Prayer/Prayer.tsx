@@ -4,7 +4,6 @@ import {IIntention} from 'src/pages/IntentionPage/Interface'
 
 interface PrayerProps {
   intention: IIntention
-  updateStats: () => void
 }
 
 export const Prayer: React.ComponentType<PrayerProps> = ({intention}) => {

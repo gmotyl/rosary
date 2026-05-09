@@ -1,1 +1,0 @@
-export {RegisterCard} from './RegisterCard'
