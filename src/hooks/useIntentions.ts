@@ -118,6 +118,11 @@ export const useIntentions = (initialIntentions?: IIntention[]) => {
     })
   }
 
+  const prayNext = (intention: IIntention) => {
+    const next = (intention.currentBead ?? 0) + 1
+    tapBead(intention, next)
+  }
+
   return {
     intentions,
     saveIntention,
@@ -127,5 +132,6 @@ export const useIntentions = (initialIntentions?: IIntention[]) => {
     jumpToMystery,
     jumpToGroup,
     restart,
+    prayNext,
   }
 }

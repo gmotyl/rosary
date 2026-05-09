@@ -270,3 +270,63 @@ describe('restart', () => {
     ])
   })
 })
+
+describe('prayNext (linear "Next" button)', () => {
+  it('advances by one bead when below 10', () => {
+    const intention = {
+      id: 'pn1',
+      title: 't',
+      description: 'd',
+      currentMystery: MysteryTypes.Joyful1,
+      currentBead: 3,
+    }
+    mocks.intentionListMock.splice(0, mocks.intentionListMock.length, intention)
+
+    const {result} = renderHook(() => useIntentions())
+    result.current.prayNext(intention)
+
+    expect(mocks.saveLocalStorageMock).toHaveBeenCalledWith([
+      expect.objectContaining({currentBead: 4}),
+    ])
+  })
+
+  it('completes the decade when called at currentBead 9', () => {
+    const intention = {
+      id: 'pn2',
+      title: 't',
+      description: 'd',
+      currentMystery: MysteryTypes.Joyful1,
+      currentBead: 9,
+      decadesPrayed: 0,
+    }
+    mocks.intentionListMock.splice(0, mocks.intentionListMock.length, intention)
+
+    const {result} = renderHook(() => useIntentions())
+    result.current.prayNext(intention)
+
+    expect(mocks.saveLocalStorageMock).toHaveBeenCalledWith([
+      expect.objectContaining({
+        currentMystery: MysteryTypes.Joyful2,
+        currentBead: 0,
+        decadesPrayed: 1 << (MysteryTypes.Joyful1 - 1),
+      }),
+    ])
+  })
+
+  it('treats undefined currentBead as 0 — first tap goes to bead 1', () => {
+    const intention = {
+      id: 'pn3',
+      title: 't',
+      description: 'd',
+      currentMystery: MysteryTypes.Joyful1,
+    }
+    mocks.intentionListMock.splice(0, mocks.intentionListMock.length, intention)
+
+    const {result} = renderHook(() => useIntentions())
+    result.current.prayNext(intention)
+
+    expect(mocks.saveLocalStorageMock).toHaveBeenCalledWith([
+      expect.objectContaining({currentBead: 1}),
+    ])
+  })
+})
