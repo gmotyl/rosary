@@ -1,1 +1,0 @@
-export {BeadCircle} from './BeadCircle'
