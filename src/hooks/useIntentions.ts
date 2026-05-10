@@ -85,8 +85,12 @@ export const useIntentions = (initialIntentions?: IIntention[]) => {
     })
   }
 
+  // Bead model: 11 prayer steps per decade.
+  //   currentBead = 0       → OF active
+  //   currentBead = 1..10   → HM1..HM10 active
+  //   tap with index = 11   → completeDecade (advance mystery)
   const tapBead = (intention: IIntention, beadIndex: number) => {
-    if (beadIndex < 10) {
+    if (beadIndex < 11) {
       updateIntention({...intention, currentBead: beadIndex})
       return
     }
@@ -123,6 +127,14 @@ export const useIntentions = (initialIntentions?: IIntention[]) => {
     tapBead(intention, next)
   }
 
+  // Boundary: at Joyful1 + OF (mystery 0 of cycle, bead 0) → no-op.
+  // Backward navigation never clears decadesPrayed bits — completed decades stay completed.
+  const prayPrev = (intention: IIntention) => {
+    const curr = intention.currentBead ?? 0
+    if (curr <= 0) return
+    updateIntention({...intention, currentBead: curr - 1})
+  }
+
   return {
     intentions,
     saveIntention,
@@ -133,5 +145,6 @@ export const useIntentions = (initialIntentions?: IIntention[]) => {
     jumpToGroup,
     restart,
     prayNext,
+    prayPrev,
   }
 }

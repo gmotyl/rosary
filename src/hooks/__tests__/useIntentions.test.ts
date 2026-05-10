@@ -75,7 +75,7 @@ describe('useIntentionList hook', () => {
 })
 
 describe('tapBead', () => {
-  it('saves intention with currentBead set to N when N < 10', () => {
+  it('saves intention with currentBead set to N when N < 11', () => {
     const intention = {
       id: 'a',
       title: 't',
@@ -92,19 +92,19 @@ describe('tapBead', () => {
     ])
   })
 
-  it('advances mystery and sets bit when N === 10 and not on Glorious5', () => {
+  it('advances mystery and sets bit when N === 11 and not on Glorious5', () => {
     const intention = {
       id: 'b',
       title: 't',
       description: 'd',
       currentMystery: MysteryTypes.Luminous3,
-      currentBead: 9,
+      currentBead: 10,
       decadesPrayed: 0,
     }
     mocks.intentionListMock.splice(0, mocks.intentionListMock.length, intention)
 
     const {result} = renderHook(() => useIntentions())
-    result.current.tapBead(intention, 10)
+    result.current.tapBead(intention, 11)
 
     expect(mocks.saveLocalStorageMock).toHaveBeenCalledWith([
       expect.objectContaining({
@@ -129,7 +129,7 @@ describe('tapBead', () => {
     mocks.intentionListMock.splice(0, mocks.intentionListMock.length, intention)
 
     const {result} = renderHook(() => useIntentions())
-    result.current.tapBead(intention, 10)
+    result.current.tapBead(intention, 11)
 
     expect(mocks.saveLocalStorageMock).toHaveBeenCalledWith([
       expect.objectContaining({
@@ -146,14 +146,14 @@ describe('tapBead', () => {
       title: 't',
       description: 'd',
       currentMystery: MysteryTypes.Glorious5,
-      currentBead: 9,
+      currentBead: 10,
       decadesPrayed: allButLast,
       completedRosaries: 4,
     }
     mocks.intentionListMock.splice(0, mocks.intentionListMock.length, intention)
 
     const {result} = renderHook(() => useIntentions())
-    result.current.tapBead(intention, 10)
+    result.current.tapBead(intention, 11)
 
     expect(mocks.saveLocalStorageMock).toHaveBeenCalledWith([
       expect.objectContaining({
@@ -171,14 +171,14 @@ describe('tapBead', () => {
       title: 't',
       description: 'd',
       currentMystery: MysteryTypes.Glorious5,
-      currentBead: 9,
+      currentBead: 10,
       decadesPrayed: 1 << (MysteryTypes.Joyful1 - 1),
       completedRosaries: 0,
     }
     mocks.intentionListMock.splice(0, mocks.intentionListMock.length, intention)
 
     const {result} = renderHook(() => useIntentions())
-    result.current.tapBead(intention, 10)
+    result.current.tapBead(intention, 11)
 
     expect(mocks.saveLocalStorageMock).toHaveBeenCalledWith([
       expect.objectContaining({
@@ -290,13 +290,13 @@ describe('prayNext (linear "Next" button)', () => {
     ])
   })
 
-  it('completes the decade when called at currentBead 9', () => {
+  it('completes the decade when called at currentBead 10', () => {
     const intention = {
       id: 'pn2',
       title: 't',
       description: 'd',
       currentMystery: MysteryTypes.Joyful1,
-      currentBead: 9,
+      currentBead: 10,
       decadesPrayed: 0,
     }
     mocks.intentionListMock.splice(0, mocks.intentionListMock.length, intention)
@@ -313,7 +313,7 @@ describe('prayNext (linear "Next" button)', () => {
     ])
   })
 
-  it('treats undefined currentBead as 0 — first tap goes to bead 1', () => {
+  it('treats undefined currentBead as 0 (OF) — first tap goes to bead 1 (HM1)', () => {
     const intention = {
       id: 'pn3',
       title: 't',
@@ -327,6 +327,81 @@ describe('prayNext (linear "Next" button)', () => {
 
     expect(mocks.saveLocalStorageMock).toHaveBeenCalledWith([
       expect.objectContaining({currentBead: 1}),
+    ])
+  })
+})
+
+describe('prayPrev (backward navigation)', () => {
+  it('decrements currentBead by one when above 0', () => {
+    const intention = {
+      id: 'pp1',
+      title: 't',
+      description: 'd',
+      currentMystery: MysteryTypes.Joyful1,
+      currentBead: 4,
+    }
+    mocks.intentionListMock.splice(0, mocks.intentionListMock.length, intention)
+
+    const {result} = renderHook(() => useIntentions())
+    result.current.prayPrev(intention)
+
+    expect(mocks.saveLocalStorageMock).toHaveBeenCalledWith([
+      expect.objectContaining({currentBead: 3}),
+    ])
+  })
+
+  it('is a no-op at currentBead 0 (boundary)', () => {
+    const intention = {
+      id: 'pp2',
+      title: 't',
+      description: 'd',
+      currentMystery: MysteryTypes.Joyful1,
+      currentBead: 0,
+    }
+    mocks.intentionListMock.splice(0, mocks.intentionListMock.length, intention)
+
+    const {result} = renderHook(() => useIntentions())
+    result.current.prayPrev(intention)
+
+    expect(mocks.saveLocalStorageMock).not.toHaveBeenCalled()
+  })
+
+  it('treats undefined currentBead as 0 — boundary no-op', () => {
+    const intention = {
+      id: 'pp3',
+      title: 't',
+      description: 'd',
+      currentMystery: MysteryTypes.Sorrowful2,
+    }
+    mocks.intentionListMock.splice(0, mocks.intentionListMock.length, intention)
+
+    const {result} = renderHook(() => useIntentions())
+    result.current.prayPrev(intention)
+
+    expect(mocks.saveLocalStorageMock).not.toHaveBeenCalled()
+  })
+
+  it('does not clear decadesPrayed bits when stepping back', () => {
+    const priorMask =
+      (1 << (MysteryTypes.Joyful1 - 1)) | (1 << (MysteryTypes.Joyful2 - 1))
+    const intention = {
+      id: 'pp4',
+      title: 't',
+      description: 'd',
+      currentMystery: MysteryTypes.Joyful3,
+      currentBead: 5,
+      decadesPrayed: priorMask,
+    }
+    mocks.intentionListMock.splice(0, mocks.intentionListMock.length, intention)
+
+    const {result} = renderHook(() => useIntentions())
+    result.current.prayPrev(intention)
+
+    expect(mocks.saveLocalStorageMock).toHaveBeenCalledWith([
+      expect.objectContaining({
+        currentBead: 4,
+        decadesPrayed: priorMask,
+      }),
     ])
   })
 })
