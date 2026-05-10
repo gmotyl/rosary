@@ -5,11 +5,10 @@ import {TFunction} from 'i18next'
 
 import {pipe, filter, map} from 'lodash/fp'
 import {MysteryTypes} from 'src/consts/MysteryTypes'
+import {ALL_DECADES_MASK, bitForMystery, MysteryGroup, firstMysteryOfGroup} from 'src/utils/rosaryGroups'
 import {useState} from 'react'
 
 const removeId = (id: string) => filter<IIntention>((x) => x.id !== id)
-const isNotCompleted = (x: IIntention) =>
-  x.currentMystery < MysteryTypes.Complete
 const isSameId = (id: string) => (x: IIntention) => x.id === id
 
 const buildDefaultIntention = (t: TFunction): IIntention => ({
@@ -52,23 +51,100 @@ export const useIntentions = (initialIntentions?: IIntention[]) => {
       saveList,
     )(intentions)
 
-  const pray = (intention: IIntention) =>
-    isNotCompleted(intention)
-      ? updateIntention({
-          ...intention,
-          currentMystery: intention.currentMystery + 1,
-        })
-      : updateIntention({
-          ...intention,
-          currentMystery: MysteryTypes.Joyful1,
-          completedRosaries: (intention.completedRosaries ?? 0) + 1,
-        })
+  const completeDecade = (intention: IIntention) => {
+    const bit = bitForMystery(intention.currentMystery)
+    const mask = (intention.decadesPrayed ?? 0) | bit
+
+    if (mask === ALL_DECADES_MASK) {
+      updateIntention({
+        ...intention,
+        currentMystery: MysteryTypes.Complete,
+        currentBead: 0,
+        decadesPrayed: 0,
+        completedRosaries: (intention.completedRosaries ?? 0) + 1,
+      })
+      return
+    }
+
+    if (intention.currentMystery < MysteryTypes.Glorious5) {
+      updateIntention({
+        ...intention,
+        currentMystery: intention.currentMystery + 1,
+        currentBead: 0,
+        decadesPrayed: mask,
+      })
+      return
+    }
+
+    // at Glorious5 but mask isn't full — partial rosary
+    updateIntention({
+      ...intention,
+      currentMystery: MysteryTypes.Complete,
+      currentBead: 0,
+      decadesPrayed: mask,
+    })
+  }
+
+  // Bead model: 11 prayer steps per decade.
+  //   currentBead = 0       → OF active
+  //   currentBead = 1..10   → HM1..HM10 active
+  //   tap with index = 11   → completeDecade (advance mystery)
+  const tapBead = (intention: IIntention, beadIndex: number) => {
+    if (beadIndex < 11) {
+      updateIntention({...intention, currentBead: beadIndex})
+      return
+    }
+    completeDecade(intention)
+  }
+
+  const jumpToMystery = (intention: IIntention, mystery: MysteryTypes) => {
+    updateIntention({
+      ...intention,
+      currentMystery: mystery,
+      currentBead: 0,
+    })
+  }
+
+  const jumpToGroup = (intention: IIntention, group: MysteryGroup) => {
+    updateIntention({
+      ...intention,
+      currentMystery: firstMysteryOfGroup(group),
+      currentBead: 0,
+    })
+  }
+
+  const restart = (intention: IIntention) => {
+    updateIntention({
+      ...intention,
+      currentMystery: MysteryTypes.Joyful1,
+      currentBead: 0,
+      decadesPrayed: 0,
+    })
+  }
+
+  const prayNext = (intention: IIntention) => {
+    const next = (intention.currentBead ?? 0) + 1
+    tapBead(intention, next)
+  }
+
+  // Boundary: at Joyful1 + OF (mystery 0 of cycle, bead 0) → no-op.
+  // Backward navigation never clears decadesPrayed bits — completed decades stay completed.
+  const prayPrev = (intention: IIntention) => {
+    const curr = intention.currentBead ?? 0
+    if (curr <= 0) return
+    updateIntention({...intention, currentBead: curr - 1})
+  }
 
   return {
     intentions,
     saveIntention,
     deleteIntention,
     getIntention,
-    pray,
+    tapBead,
+    jumpToMystery,
+    jumpToGroup,
+    restart,
+    prayNext,
+    prayPrev,
   }
 }

@@ -43,9 +43,22 @@
     "default": {
       "title": "Per la mia famiglia",
       "description": ""
-    }
+    },
+    "changeGroup": "Cambia gruppo di misteri"
   },
   "mysteries": {
+    "groupName": {
+      "joyful": "Gaudiosi",
+      "luminous": "Luminosi",
+      "sorrowful": "Dolorosi",
+      "glorious": "Gloriosi"
+    },
+    "groupTitle": {
+      "joyful": "Misteri gaudiosi",
+      "luminous": "Misteri luminosi",
+      "sorrowful": "Misteri dolorosi",
+      "glorious": "Misteri gloriosi"
+    },
     "joyful1": {"title": "1° Mistero Gaudioso: L'Annunciazione", "description": "Lc 1,26-38"},
     "joyful2": {"title": "2° Mistero Gaudioso: La Visitazione", "description": "Lc 1,39-45"},
     "joyful3": {"title": "3° Mistero Gaudioso: La Natività", "description": "Lc 2,1-7"},

@@ -43,9 +43,22 @@
     "default": {
       "title": "Za moją rodzinę",
       "description": ""
-    }
+    },
+    "changeGroup": "Zmień grupę tajemnic"
   },
   "mysteries": {
+    "groupName": {
+      "joyful": "Radosne",
+      "luminous": "Światła",
+      "sorrowful": "Bolesne",
+      "glorious": "Chwalebne"
+    },
+    "groupTitle": {
+      "joyful": "Tajemnice radosne",
+      "luminous": "Tajemnice światła",
+      "sorrowful": "Tajemnice bolesne",
+      "glorious": "Tajemnice chwalebne"
+    },
     "joyful1": {"title": "1 tajemnica radosna: Zwiastowanie Najświętszej Maryi Pannie", "description": "Łk 1,26-38: W szóstym miesiącu posłał Bóg anioła Gabriela do miasta w Galilei, zwanego Nazaret, do Dziewicy poślubionej mężowi, imieniem Józef, z rodu Dawida; a Dziewicy było na imię Maryja. Anioł wszedł do Niej i rzekł: \"Bądź pozdrowiona, pełna łaski, Pan z Tobą, błogosławiona jesteś między niewiastami\"."},
     "joyful2": {"title": "2 tajemnica radosna: Nawiedzenie św. Elżbiety przez Najświętszą Maryję Pannę", "description": "Łk 1,39-45: W tym czasie Maryja wybrała się i poszła z pośpiechem w góry do pewnego miasta w pokoleniu Judy. Weszła do domu Zachariasza i pozdrowiła Elżbietę..."},
     "joyful3": {"title": "3 tajemnica radosna: Narodzenie Pana Jezusa", "description": "Łk 2,1-7: W owym czasie wyszło rozporządzenie Cezara Augusta, żeby przeprowadzić spis ludności w całym państwie. Pierwszy ten spis odbył się wówczas, gdy wielkorządcą Syrii był Kwiryniusz..."},

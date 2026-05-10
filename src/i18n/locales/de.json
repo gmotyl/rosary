@@ -43,9 +43,22 @@
     "default": {
       "title": "Für meine Familie",
       "description": ""
-    }
+    },
+    "changeGroup": "Geheimnisgruppe wechseln"
   },
   "mysteries": {
+    "groupName": {
+      "joyful": "Freudenreiche",
+      "luminous": "Lichtreiche",
+      "sorrowful": "Schmerzhafte",
+      "glorious": "Glorreiche"
+    },
+    "groupTitle": {
+      "joyful": "Freudenreiche Geheimnisse",
+      "luminous": "Lichtreiche Geheimnisse",
+      "sorrowful": "Schmerzhafte Geheimnisse",
+      "glorious": "Glorreiche Geheimnisse"
+    },
     "joyful1": {"title": "1. Freudenreiches Geheimnis: Die Verkündigung", "description": "Lk 1,26-38"},
     "joyful2": {"title": "2. Freudenreiches Geheimnis: Der Besuch bei Elisabeth", "description": "Lk 1,39-45"},
     "joyful3": {"title": "3. Freudenreiches Geheimnis: Die Geburt Jesu", "description": "Lk 2,1-7"},
