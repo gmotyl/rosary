@@ -44,13 +44,7 @@
       "title": "Für meine Familie",
       "description": ""
     },
-    "markerOurFather": "VU",
-    "markerGloryBe": "EV",
-    "markerFatima": "OMJ",
-    "breadcrumb": {
-      "home": "ROSARY",
-      "mystery": "Geheimnis {{n}}"
-    }
+    "changeGroup": "Geheimnisgruppe wechseln"
   },
   "mysteries": {
     "groupName": {
@@ -58,6 +52,12 @@
       "luminous": "Lichtreiche",
       "sorrowful": "Schmerzhafte",
       "glorious": "Glorreiche"
+    },
+    "groupTitle": {
+      "joyful": "Freudenreiche Geheimnisse",
+      "luminous": "Lichtreiche Geheimnisse",
+      "sorrowful": "Schmerzhafte Geheimnisse",
+      "glorious": "Glorreiche Geheimnisse"
     },
     "joyful1": {"title": "1. Freudenreiches Geheimnis: Die Verkündigung", "description": "Lk 1,26-38"},
     "joyful2": {"title": "2. Freudenreiches Geheimnis: Der Besuch bei Elisabeth", "description": "Lk 1,39-45"},

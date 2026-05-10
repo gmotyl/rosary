@@ -44,13 +44,7 @@
       "title": "Per la mia famiglia",
       "description": ""
     },
-    "markerOurFather": "PN",
-    "markerGloryBe": "GP",
-    "markerFatima": "OMJ",
-    "breadcrumb": {
-      "home": "ROSARY",
-      "mystery": "Mistero {{n}}"
-    }
+    "changeGroup": "Cambia gruppo di misteri"
   },
   "mysteries": {
     "groupName": {
@@ -58,6 +52,12 @@
       "luminous": "Luminosi",
       "sorrowful": "Dolorosi",
       "glorious": "Gloriosi"
+    },
+    "groupTitle": {
+      "joyful": "Misteri gaudiosi",
+      "luminous": "Misteri luminosi",
+      "sorrowful": "Misteri dolorosi",
+      "glorious": "Misteri gloriosi"
     },
     "joyful1": {"title": "1° Mistero Gaudioso: L'Annunciazione", "description": "Lc 1,26-38"},
     "joyful2": {"title": "2° Mistero Gaudioso: La Visitazione", "description": "Lc 1,39-45"},

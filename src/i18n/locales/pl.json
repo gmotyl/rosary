@@ -44,13 +44,7 @@
       "title": "Za moją rodzinę",
       "description": ""
     },
-    "markerOurFather": "OŁ",
-    "markerGloryBe": "CO",
-    "markerFatima": "OMJ",
-    "breadcrumb": {
-      "home": "ROSARY",
-      "mystery": "Tajemnica {{n}}"
-    }
+    "changeGroup": "Zmień grupę tajemnic"
   },
   "mysteries": {
     "groupName": {
@@ -58,6 +52,12 @@
       "luminous": "Światła",
       "sorrowful": "Bolesne",
       "glorious": "Chwalebne"
+    },
+    "groupTitle": {
+      "joyful": "Tajemnice radosne",
+      "luminous": "Tajemnice światła",
+      "sorrowful": "Tajemnice bolesne",
+      "glorious": "Tajemnice chwalebne"
     },
     "joyful1": {"title": "1 tajemnica radosna: Zwiastowanie Najświętszej Maryi Pannie", "description": "Łk 1,26-38: W szóstym miesiącu posłał Bóg anioła Gabriela do miasta w Galilei, zwanego Nazaret, do Dziewicy poślubionej mężowi, imieniem Józef, z rodu Dawida; a Dziewicy było na imię Maryja. Anioł wszedł do Niej i rzekł: \"Bądź pozdrowiona, pełna łaski, Pan z Tobą, błogosławiona jesteś między niewiastami\"."},
     "joyful2": {"title": "2 tajemnica radosna: Nawiedzenie św. Elżbiety przez Najświętszą Maryję Pannę", "description": "Łk 1,39-45: W tym czasie Maryja wybrała się i poszła z pośpiechem w góry do pewnego miasta w pokoleniu Judy. Weszła do domu Zachariasza i pozdrowiła Elżbietę..."},
