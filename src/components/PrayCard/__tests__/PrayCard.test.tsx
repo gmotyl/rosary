@@ -105,4 +105,12 @@ describe('PrayCard', () => {
     const {getByText} = renderInRouter(<PrayCard id="test" />)
     expect(getByText(/7/)).toBeTruthy()
   })
+
+  it('renders gilt verse block with mystery-verse and mystery-reference when not complete', () => {
+    mocks.intention.currentMystery = MysteryTypes.Joyful1
+    const {getByTestId} = renderInRouter(<PrayCard id="test" />)
+    // t() returns keys as strings in test env; key for Joyful1 verse contains 'joyful1'
+    expect(getByTestId('mystery-verse').textContent).toContain('joyful1')
+    expect(getByTestId('mystery-reference').textContent).toBeTruthy()
+  })
 })

@@ -1,4 +1,4 @@
-import {Button, Card, CardActions, CardContent, Typography} from '@mui/material'
+import {Box, Button, Card, CardActions, CardContent, Typography} from '@mui/material'
 import {makeStyles} from '@mui/styles'
 import {useTranslation} from 'react-i18next'
 
@@ -60,15 +60,37 @@ export const PrayCard: React.ComponentType<PrayCardProps> = ({id}) => {
         />
       )}
 
+      {!isComplete && mystery.verse && (
+        <Box
+          sx={{
+            mx: 2, my: 1, px: 2.25, py: 2,
+            bgcolor: 'rgba(195,154,78,0.12)',
+            borderLeft: '3px solid', borderColor: 'secondary.main',
+            borderRadius: 1, textAlign: 'left',
+          }}
+        >
+          <Typography
+            data-testid="mystery-verse"
+            sx={{fontFamily: 'Georgia,serif', fontStyle: 'italic', fontSize: 16, lineHeight: 1.5}}
+          >
+            "{mystery.verse}"
+          </Typography>
+          <Typography
+            data-testid="mystery-reference"
+            sx={{mt: 1, fontSize: 11.5, letterSpacing: '0.16em', textTransform: 'uppercase',
+                 color: 'text.secondary', fontWeight: 700}}
+          >
+            {mystery.reference}
+          </Typography>
+        </Box>
+      )}
+
       <CardContent className={classes.cardContent}>
         {isComplete && (
           <Typography variant="h5" component="h2" sx={{color: 'primary.main'}}>
             {t('prayer.rosaryCompleteTitle')}
           </Typography>
         )}
-        <Typography variant="body2" color="text.secondary" sx={{mt: 1}}>
-          {mystery.description}
-        </Typography>
         {(intention.completedRosaries ?? 0) > 0 && (
           <Typography
             variant="caption"
