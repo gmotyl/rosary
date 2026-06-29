@@ -1,5 +1,7 @@
-export const mockGetItem = jest.fn()
-export const mockSetItem = jest.fn()
+import {vi} from 'vitest'
+
+export const mockGetItem = vi.fn()
+export const mockSetItem = vi.fn()
 export const mockStorage = {
   getItem: mockGetItem,
   setItem: mockSetItem,
