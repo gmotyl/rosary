@@ -28,6 +28,8 @@ export interface Mystery {
   type: MysteryTypes
   title: string
   description: string
+  reference: string
+  verse: string
   image: string
 }
 
@@ -37,6 +39,8 @@ export const getMystery = (type: MysteryTypes, t: TFunction): Mystery => {
       type: 0,
       title: t('prayer.rosaryCompleteTitle'),
       description: '',
+      reference: '',
+      verse: '',
       image: '/img/rosary1.jpeg',
     }
   }
@@ -45,6 +49,8 @@ export const getMystery = (type: MysteryTypes, t: TFunction): Mystery => {
     type,
     title: t(`${baseKey}.title`),
     description: t(`${baseKey}.description`),
+    reference: t(`${baseKey}.description`),
+    verse: t(`${baseKey}.verse`),
     image: `/img/${type}.jpg`,
   }
 }
