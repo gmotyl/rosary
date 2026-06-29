@@ -48,7 +48,7 @@ export const PrayCard: React.ComponentType<PrayCardProps> = ({id}) => {
   const mystery = getMystery(displayMystery, t)
 
   return (
-    <Box sx={{display: 'flex', flexDirection: 'column'}}>
+    <Box sx={{display: 'flex', flexDirection: 'column', pb: 8}}>
     <Card className={classes.card}>
       <CardContent sx={{pb: 0}}>
         <RosaryHeader
@@ -143,7 +143,18 @@ export const PrayCard: React.ComponentType<PrayCardProps> = ({id}) => {
       </CardActions>
     </Card>
 
-      <BottomNavigation showLabels sx={{position: 'sticky', bottom: 0}}>
+      <BottomNavigation
+        showLabels
+        sx={{
+          position: 'fixed',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          zIndex: (theme) => theme.zIndex.appBar,
+          borderTop: '1px solid #E2D8C6',
+          bgcolor: 'background.paper',
+        }}
+      >
         <BottomNavigationAction
           data-testid="reset-tab"
           label={t('prayer.resetTab')}
