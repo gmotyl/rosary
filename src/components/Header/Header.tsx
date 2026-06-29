@@ -42,7 +42,7 @@ export const Header = () => {
   return (
     <div className={classes.grow}>
       <HideOnScroll>
-        <AppBar sx={{bgcolor: 'background.paper', color: 'primary.main', boxShadow: 'none', borderBottom: '1px solid #E2D8C6'}}>
+        <AppBar sx={{bgcolor: 'background.paper', color: 'primary.main', boxShadow: 'none', borderBottom: 1, borderColor: 'divider'}}>
           <Toolbar>
             <DrawerMenu></DrawerMenu>
             <div className={classes.grow} />

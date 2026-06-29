@@ -151,7 +151,8 @@ export const PrayCard: React.ComponentType<PrayCardProps> = ({id}) => {
           left: 0,
           right: 0,
           zIndex: (theme) => theme.zIndex.appBar,
-          borderTop: '1px solid #E2D8C6',
+          borderTop: 1,
+          borderColor: 'divider',
           bgcolor: 'background.paper',
         }}
       >

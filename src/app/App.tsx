@@ -1,31 +1,33 @@
+import {useMemo} from 'react'
 import {CssBaseline} from '@mui/material'
-import {createTheme, ThemeProvider} from '@mui/material/styles'
+import {ThemeProvider} from '@mui/material/styles'
+import {useLocalStorage} from 'react-use'
 import Layout from '../containers/Layout'
+import {createAppTheme, ColorMode} from './theme'
+import {ColorModeContext} from './ColorModeContext'
 
-export const theme = createTheme({
-  palette: {
-    primary: {main: '#6B1438'},      // liturgical claret
-    secondary: {main: '#C39A4E'},    // gilt gold
-    background: {default: '#F7F3EC', paper: '#FBF8F2'}, // parchment
-    text: {primary: '#2A2320', secondary: '#6B6058'},
-  },
-  typography: {
-    fontFamily: '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif',
-    h4: {fontFamily: 'Georgia,"Times New Roman",serif', fontWeight: 600},
-    h5: {fontFamily: 'Georgia,"Times New Roman",serif', fontWeight: 600},
-    h6: {fontFamily: 'Georgia,"Times New Roman",serif', fontWeight: 700, letterSpacing: '0.18em'},
-  },
-  shape: {borderRadius: 12},
-})
+// Default light theme kept as a named export for StylesProvider / test helpers.
+export const theme = createAppTheme('light')
 
 const App = () => {
+  const [mode, setMode] = useLocalStorage<ColorMode>('rosary-color-mode', 'light')
+  const activeMode: ColorMode = mode === 'dark' ? 'dark' : 'light'
+  const appTheme = useMemo(() => createAppTheme(activeMode), [activeMode])
+  const colorMode = useMemo(
+    () => ({
+      mode: activeMode,
+      toggle: () => setMode(activeMode === 'dark' ? 'light' : 'dark'),
+    }),
+    [activeMode, setMode],
+  )
+
   return (
-    <div>
-      <CssBaseline />
-      <ThemeProvider theme={theme}>
+    <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={appTheme}>
+        <CssBaseline />
         <Layout />
       </ThemeProvider>
-    </div>
+    </ColorModeContext.Provider>
   )
 }
 
