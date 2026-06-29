@@ -6,9 +6,11 @@
   "menu": {
     "home": "Startseite",
     "addIntention": "Anliegen hinzufügen",
-    "howItWorks": "Wie es funktioniert",
+    "pray": "Beten",
+    "howItWorks": "Wie man betet",
     "privacyPolicy": "Datenschutz",
-    "language": "Sprache"
+    "language": "Sprache",
+    "darkMode": "Dunkelmodus"
   },
   "hero": {
     "title": "Bete einen Rosenkranz",
@@ -44,7 +46,13 @@
       "title": "Für meine Familie",
       "description": ""
     },
-    "changeGroup": "Geheimnisgruppe wechseln"
+    "changeGroup": "Geheimnisgruppe wechseln",
+    "resetTab": "Neu starten",
+    "indexTab": "Index",
+    "resetTitle": "Diesen Rosenkranz neu beginnen?",
+    "resetBody": "Dein Fortschritt beim aktuellen Rosenkranz wird gelöscht und du beginnst wieder beim ersten Geheimnis.",
+    "resetConfirm": "Neu beginnen",
+    "cancel": "Abbrechen"
   },
   "mysteries": {
     "groupName": {
@@ -59,26 +67,26 @@
       "sorrowful": "Schmerzhafte Geheimnisse",
       "glorious": "Glorreiche Geheimnisse"
     },
-    "joyful1": {"title": "1. Freudenreiches Geheimnis: Die Verkündigung", "description": "Lk 1,26-38"},
-    "joyful2": {"title": "2. Freudenreiches Geheimnis: Der Besuch bei Elisabeth", "description": "Lk 1,39-45"},
-    "joyful3": {"title": "3. Freudenreiches Geheimnis: Die Geburt Jesu", "description": "Lk 2,1-7"},
-    "joyful4": {"title": "4. Freudenreiches Geheimnis: Die Darstellung im Tempel", "description": "Lk 2,22-38"},
-    "joyful5": {"title": "5. Freudenreiches Geheimnis: Die Wiederfindung im Tempel", "description": "Lk 2,41-52"},
-    "luminous1": {"title": "1. Lichtreiches Geheimnis: Die Taufe im Jordan", "description": "Lk 3,15-22"},
-    "luminous2": {"title": "2. Lichtreiches Geheimnis: Die Hochzeit zu Kana", "description": "Joh 2,1-11"},
-    "luminous3": {"title": "3. Lichtreiches Geheimnis: Die Verkündigung des Reiches Gottes", "description": "Mt 4,23-25"},
-    "luminous4": {"title": "4. Lichtreiches Geheimnis: Die Verklärung", "description": "Mt 17,1-8"},
-    "luminous5": {"title": "5. Lichtreiches Geheimnis: Die Einsetzung der Eucharistie", "description": "Mk 14,22-25"},
-    "sorrowful1": {"title": "1. Schmerzhaftes Geheimnis: Die Todesangst Jesu im Garten", "description": "Mk 14,32-42"},
-    "sorrowful2": {"title": "2. Schmerzhaftes Geheimnis: Die Geißelung Jesu", "description": "Mt 27,15-26"},
-    "sorrowful3": {"title": "3. Schmerzhaftes Geheimnis: Die Dornenkrönung", "description": "Mk 15,16-20"},
-    "sorrowful4": {"title": "4. Schmerzhaftes Geheimnis: Die Kreuztragung", "description": "Lk 23,26-32"},
-    "sorrowful5": {"title": "5. Schmerzhaftes Geheimnis: Die Kreuzigung", "description": "Joh 19,25-30"},
-    "glorious1": {"title": "1. Glorreiches Geheimnis: Die Auferstehung", "description": "Joh 20,1-18"},
-    "glorious2": {"title": "2. Glorreiches Geheimnis: Die Himmelfahrt", "description": "Lk 24,44-53"},
-    "glorious3": {"title": "3. Glorreiches Geheimnis: Die Sendung des Heiligen Geistes", "description": "Apg 2,1-13"},
-    "glorious4": {"title": "4. Glorreiches Geheimnis: Die Aufnahme Mariens", "description": "Lk 1,46-56"},
-    "glorious5": {"title": "5. Glorreiches Geheimnis: Die Krönung Mariens", "description": "Offb 12,1"}
+    "joyful1": {"title": "1. Freudenreiches Geheimnis: Die Verkündigung", "description": "Lk 1,26-38", "verse": "Du wirst ein Kind empfangen, einen Sohn wirst du gebären; dem sollst du den Namen Jesus geben."},
+    "joyful2": {"title": "2. Freudenreiches Geheimnis: Der Besuch bei Elisabeth", "description": "Lk 1,39-45", "verse": "Gesegnet bist du unter den Frauen und gesegnet ist die Frucht deines Leibes."},
+    "joyful3": {"title": "3. Freudenreiches Geheimnis: Die Geburt Jesu", "description": "Lk 2,1-7", "verse": "Sie gebar ihren Sohn, den Erstgeborenen. Sie wickelte ihn in Windeln und legte ihn in eine Krippe, weil in der Herberge kein Platz für sie war."},
+    "joyful4": {"title": "4. Freudenreiches Geheimnis: Die Darstellung im Tempel", "description": "Lk 2,22-38", "verse": "Sie brachten ihn nach Jerusalem, um ihn dem Herrn zu weihen."},
+    "joyful5": {"title": "5. Freudenreiches Geheimnis: Die Wiederfindung im Tempel", "description": "Lk 2,41-52", "verse": "Sie fanden ihn im Tempel, mitten unter den Lehrern, wie er ihnen zuhörte und sie fragte."},
+    "luminous1": {"title": "1. Lichtreiches Geheimnis: Die Taufe im Jordan", "description": "Lk 3,15-22", "verse": "Du bist mein geliebter Sohn, an dir habe ich Gefallen gefunden."},
+    "luminous2": {"title": "2. Lichtreiches Geheimnis: Die Hochzeit zu Kana", "description": "Joh 2,1-11", "verse": "Was er euch sagt, das tut. So tat Jesus sein erstes Zeichen in Kana in Galiläa."},
+    "luminous3": {"title": "3. Lichtreiches Geheimnis: Die Verkündigung des Reiches Gottes", "description": "Mt 4,23-25", "verse": "Das Reich Gottes ist nahe. Kehrt um und glaubt an das Evangelium."},
+    "luminous4": {"title": "4. Lichtreiches Geheimnis: Die Verklärung", "description": "Mt 17,1-8", "verse": "Sein Gesicht leuchtete wie die Sonne und seine Kleider wurden weiß wie das Licht."},
+    "luminous5": {"title": "5. Lichtreiches Geheimnis: Die Einsetzung der Eucharistie", "description": "Mk 14,22-25", "verse": "Das ist mein Leib, der für euch hingegeben wird. Tut dies zu meinem Gedächtnis."},
+    "sorrowful1": {"title": "1. Schmerzhaftes Geheimnis: Die Todesangst Jesu im Garten", "description": "Mk 14,32-42", "verse": "Meine Seele ist zu Tode betrübt. Vater, nicht was ich will, sondern was du willst."},
+    "sorrowful2": {"title": "2. Schmerzhaftes Geheimnis: Die Geißelung Jesu", "description": "Mt 27,15-26", "verse": "Pilatus ließ Jesus geißeln und übergab ihn zur Kreuzigung."},
+    "sorrowful3": {"title": "3. Schmerzhaftes Geheimnis: Die Dornenkrönung", "description": "Mk 15,16-20", "verse": "Sie flochten einen Kranz aus Dornen und setzten ihn ihm auf den Kopf."},
+    "sorrowful4": {"title": "4. Schmerzhaftes Geheimnis: Die Kreuztragung", "description": "Lk 23,26-32", "verse": "Jesus trug sein Kreuz und ging hinaus zur sogenannten Schädelstätte, auf Hebräisch Golgota."},
+    "sorrowful5": {"title": "5. Schmerzhaftes Geheimnis: Die Kreuzigung", "description": "Joh 19,25-30", "verse": "Vater, in deine Hände lege ich meinen Geist. Und mit diesen Worten neigte er den Kopf und übergab den Geist."},
+    "glorious1": {"title": "1. Glorreiches Geheimnis: Die Auferstehung", "description": "Joh 20,1-18", "verse": "Er ist auferstanden, er ist nicht hier. Seht, da ist die Stelle, wo man ihn hingelegt hatte."},
+    "glorious2": {"title": "2. Glorreiches Geheimnis: Die Himmelfahrt", "description": "Lk 24,44-53", "verse": "Er wurde emporgehoben, und eine Wolke nahm ihn auf und entzog ihn ihren Blicken."},
+    "glorious3": {"title": "3. Glorreiches Geheimnis: Die Sendung des Heiligen Geistes", "description": "Apg 2,1-13", "verse": "Alle wurden mit dem Heiligen Geist erfüllt und begannen, in anderen Sprachen zu reden."},
+    "glorious4": {"title": "4. Glorreiches Geheimnis: Die Aufnahme Mariens", "description": "Lk 1,46-56", "verse": "Maria wurde in den Himmel aufgenommen; die Engel jubeln."},
+    "glorious5": {"title": "5. Glorreiches Geheimnis: Die Krönung Mariens", "description": "Offb 12,1", "verse": "Ein großes Zeichen erschien am Himmel: eine Frau, mit der Sonne bekleidet, den Mond unter ihren Füßen und auf ihrem Haupt einen Kranz von zwölf Sternen."}
   },
   "languageSwitcher": {
     "label": "Sprache",
@@ -90,16 +98,20 @@
     "de": "Deutsch"
   },
   "howItWorks": {
-    "title": "Wie es funktioniert",
-    "intro": "Behalte den Überblick, bei welchem Gesätz des Rosenkranzes du bist — bei beliebig vielen Anliegen.",
-    "step1": "Lege ein Anliegen an — eine Person, Situation oder Danksagung, für die du beten möchtest.",
-    "step2": "Tippe auf „Ein Gesätz beten\" — die App zeigt, welches Geheimnis du betrachten sollst.",
-    "step3": "Jeder Tipp auf „Weiter\" geht ein Geheimnis weiter; nach dem 20. ist der Rosenkranz beendet und der Zähler steigt.",
-    "offlineNote": "Die App speichert alles in deinem Browser. Kein Login, kein Server, kein Tracking."
+    "title": "Wie man den Rosenkranz betet",
+    "intro": "Der Rosenkranz ist eine Betrachtung des Lebens Christi durch die Augen Marias. Ein vollständiger Rosenkranz besteht aus fünf Gesätzen; jedes Gesätz umfasst ein Vaterunser, zehn Gegrüßet seist du, Maria und ein Ehre sei dem Vater, gesprochen in der Betrachtung eines Geheimnisses.",
+    "step1": "Bekreuzige dich und bete das Apostolische Glaubensbekenntnis.",
+    "step2": "Bete ein Vaterunser, drei Gegrüßet seist du, Maria und ein Ehre sei dem Vater.",
+    "step3": "Kündige das erste Geheimnis an und bete ein Vaterunser.",
+    "step4": "Bete zehn Gegrüßet seist du, Maria und betrachtete dabei das Geheimnis.",
+    "step5": "Bete ein Ehre sei dem Vater (und nach Wunsch das Fatima-Gebet).",
+    "step6": "Wiederhole dies für alle fünf Geheimnisse.",
+    "step7": "Schließe mit dem Salve Regina und dem Kreuzzeichen ab.",
+    "mysteryDays": "Freudenreiche — Montag & Samstag · Schmerzhafte — Dienstag & Freitag · Glorreiche — Mittwoch & Sonntag · Lichtreiche — Donnerstag"
   },
   "privacyPolicy": {
     "title": "Datenschutz",
-    "body": "Diese App speichert deine Anliegen und Fortschritte ausschließlich im localStorage deines Browsers. Es wird nichts an einen Server übertragen. Wenn du die Browserdaten löschst, sind die Anliegen weg."
+    "body": "ROSARY hat keine Konten und keine Anmeldung. Dein Rosenkranz-Fortschritt — das aktuelle Geheimnis und die Anzahl der gebeteten Rosenkränze — wird ausschließlich auf diesem Gerät, in deinem Browser gespeichert. Es wird niemals etwas an einen Server gesendet, und es gibt kein Tracking, keine Analyse und keine Cookies. Wenn du die Browserdaten löschst, wird dein Fortschritt zurückgesetzt."
   },
   "about": {
     "openSource": "Open-Source-Projekt",

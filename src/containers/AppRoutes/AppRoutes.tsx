@@ -1,25 +1,14 @@
 import {Route, Switch} from 'react-router-dom'
 
-import IntentionPage from 'src/pages/IntentionPage'
-import IntentionList from 'src/pages/IntentionList'
-import {AddIntentionPage} from 'src/pages/AddIntentionPage'
+import {PrayPage} from 'src/pages/PrayPage'
 import {HowItWorks} from 'src/pages/HowItWorks'
 import {ERoutes} from 'src/app/config/routes'
 import {PrivacyPolicy} from 'src/components/PrivacyPolicy'
 
 export const AppRoutes = () => (
   <Switch>
-    <Route path={ERoutes.HOME} exact={true} component={IntentionList} />
-    <Route path={ERoutes.POLICY} exact={true} component={PrivacyPolicy} />
-    <Route path={ERoutes.ABOUT} exact={true} component={HowItWorks} />
-    <Route
-      path={ERoutes.ADD_INTENTION}
-      exact={true}
-      component={AddIntentionPage}
-    />
-    <Route
-      path="/intention/:id/(prayers)?/:prayerId?"
-      component={IntentionPage}
-    />
+    <Route path={ERoutes.HOME} exact component={PrayPage} />
+    <Route path={ERoutes.ABOUT} exact component={HowItWorks} />
+    <Route path={ERoutes.POLICY} exact component={PrivacyPolicy} />
   </Switch>
 )

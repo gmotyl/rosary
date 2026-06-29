@@ -1,26 +1,33 @@
+import {useMemo} from 'react'
 import {CssBaseline} from '@mui/material'
-import {createTheme, ThemeProvider} from '@mui/material/styles'
+import {ThemeProvider} from '@mui/material/styles'
+import {useLocalStorage} from 'react-use'
 import Layout from '../containers/Layout'
+import {createAppTheme, ColorMode} from './theme'
+import {ColorModeContext} from './ColorModeContext'
 
-export const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#880e4f',
-    },
-    secondary: {
-      main: '#fb8c00',
-    },
-  },
-})
+// Default light theme kept as a named export for StylesProvider / test helpers.
+export const theme = createAppTheme('light')
 
 const App = () => {
+  const [mode, setMode] = useLocalStorage<ColorMode>('rosary-color-mode', 'light')
+  const activeMode: ColorMode = mode === 'dark' ? 'dark' : 'light'
+  const appTheme = useMemo(() => createAppTheme(activeMode), [activeMode])
+  const colorMode = useMemo(
+    () => ({
+      mode: activeMode,
+      toggle: () => setMode(activeMode === 'dark' ? 'light' : 'dark'),
+    }),
+    [activeMode, setMode],
+  )
+
   return (
-    <div>
-      <CssBaseline />
-      <ThemeProvider theme={theme}>
+    <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={appTheme}>
+        <CssBaseline />
         <Layout />
       </ThemeProvider>
-    </div>
+    </ColorModeContext.Provider>
   )
 }
 

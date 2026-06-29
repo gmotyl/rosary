@@ -10,3 +10,9 @@ test('Rosary helper returns correct mystery key by type', () => {
   expect(getMystery(MysteryTypes.Glorious3, fakeT).title).toBe('mysteries.glorious3.title')
   expect(getMystery(21 as MysteryTypes, fakeT).title).toBe('prayer.rosaryCompleteTitle')
 })
+
+it('returns the verse i18n key for a mystery', () => {
+  const m = getMystery(MysteryTypes.Joyful1, fakeT)
+  expect(m.verse).toBe('mysteries.joyful1.verse')
+  expect(m.reference).toBe('mysteries.joyful1.description')
+})

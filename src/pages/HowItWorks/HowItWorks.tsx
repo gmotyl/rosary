@@ -36,10 +36,10 @@ export const HowItWorks: FC = () => {
         <CardContent className={classes.cardContent}>
           <Title>{t('howItWorks.title')}</Title>
           <Paragraph>{t('howItWorks.intro')}</Paragraph>
-          <Paragraph>1. {t('howItWorks.step1')}</Paragraph>
-          <Paragraph>2. {t('howItWorks.step2')}</Paragraph>
-          <Paragraph>3. {t('howItWorks.step3')}</Paragraph>
-          <Paragraph>{t('howItWorks.offlineNote')}</Paragraph>
+          {[1, 2, 3, 4, 5, 6, 7].map((n) => (
+            <Paragraph key={n}>{n}. {t(`howItWorks.step${n}`)}</Paragraph>
+          ))}
+          <Paragraph>{t('howItWorks.mysteryDays')}</Paragraph>
         </CardContent>
       </Card>
       <About />

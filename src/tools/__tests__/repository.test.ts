@@ -1,11 +1,12 @@
+import {vi} from 'vitest'
 import {mockGetItem, mockSetItem} from '../storage'
 import {getObject, setObject} from '../repository'
 import {PREFIX} from '../../consts/prefix'
 
-jest.mock('../storage')
+vi.mock('../storage')
 
 beforeEach(() => {
-  jest.clearAllMocks()
+  vi.clearAllMocks()
 })
 
 describe('repository', () => {

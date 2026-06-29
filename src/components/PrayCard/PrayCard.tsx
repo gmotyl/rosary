@@ -1,5 +1,17 @@
-import {Button, Card, CardActions, CardContent, Typography} from '@mui/material'
+import {
+  Box,
+  BottomNavigation,
+  BottomNavigationAction,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Typography,
+} from '@mui/material'
+import RestartAltIcon from '@mui/icons-material/RestartAlt'
+import MenuBookIcon from '@mui/icons-material/MenuBook'
 import {makeStyles} from '@mui/styles'
+import {useState} from 'react'
 import {useTranslation} from 'react-i18next'
 
 import {getMystery} from 'src/consts/rosary'
@@ -8,17 +20,14 @@ import {MysteryTypes} from 'src/consts/MysteryTypes'
 import {DecadeDots} from 'src/components/DecadeDots'
 import {RosaryHeader} from 'src/components/RosaryHeader'
 import {RosaryLoop} from 'src/components/RosaryLoop'
+import {ResetConfirmDialog} from 'src/components/ResetConfirmDialog'
+import {MysteryIndexSheet} from 'src/components/MysteryIndexSheet'
 
 const useStyles = makeStyles((theme) => ({
   card: {
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
-    height: '100%',
-  },
-  cardContent: {
-    flexGrow: 1,
-    textAlign: 'center',
   },
 }))
 
@@ -32,11 +41,14 @@ export const PrayCard: React.ComponentType<PrayCardProps> = ({id}) => {
     useIntentions()
   const intention = getIntention(id)
   const classes = useStyles()
+  const [resetOpen, setResetOpen] = useState(false)
+  const [indexOpen, setIndexOpen] = useState(false)
   const isComplete = intention.currentMystery === MysteryTypes.Complete
   const displayMystery = isComplete ? MysteryTypes.Glorious5 : intention.currentMystery
   const mystery = getMystery(displayMystery, t)
 
   return (
+    <Box sx={{display: 'flex', flexDirection: 'column', pb: 8}}>
     <Card className={classes.card}>
       <CardContent sx={{pb: 0}}>
         <RosaryHeader
@@ -60,26 +72,50 @@ export const PrayCard: React.ComponentType<PrayCardProps> = ({id}) => {
         />
       )}
 
-      <CardContent className={classes.cardContent}>
-        {isComplete && (
-          <Typography variant="h5" component="h2" sx={{color: 'primary.main'}}>
-            {t('prayer.rosaryCompleteTitle')}
-          </Typography>
-        )}
-        <Typography variant="body2" color="text.secondary" sx={{mt: 1}}>
-          {mystery.description}
-        </Typography>
-        {(intention.completedRosaries ?? 0) > 0 && (
+      {!isComplete && mystery.verse && (
+        <Box
+          sx={{
+            mx: 2, my: 1, px: 2.25, py: 2,
+            bgcolor: 'rgba(195,154,78,0.12)',
+            borderLeft: '3px solid', borderColor: 'secondary.main',
+            borderRadius: 1, textAlign: 'left',
+          }}
+        >
           <Typography
-            variant="caption"
-            color="text.secondary"
-            data-testid="completed-rosaries"
-            sx={{display: 'block', mt: 1}}
+            data-testid="mystery-verse"
+            sx={{fontFamily: 'Georgia,serif', fontStyle: 'italic', fontSize: 16, lineHeight: 1.5}}
           >
-            {t('intentions.completedRosariesLabel')}: {intention.completedRosaries}
+            "{mystery.verse}"
           </Typography>
-        )}
-      </CardContent>
+          <Typography
+            data-testid="mystery-reference"
+            sx={{mt: 1, fontSize: 11.5, letterSpacing: '0.16em', textTransform: 'uppercase',
+                 color: 'text.secondary', fontWeight: 700}}
+          >
+            {mystery.reference}
+          </Typography>
+        </Box>
+      )}
+
+      {(isComplete || (intention.completedRosaries ?? 0) > 0) && (
+        <CardContent sx={{textAlign: 'center', py: 1}}>
+          {isComplete && (
+            <Typography variant="h5" component="h2" sx={{color: 'primary.main'}}>
+              {t('prayer.rosaryCompleteTitle')}
+            </Typography>
+          )}
+          {(intention.completedRosaries ?? 0) > 0 && (
+            <Typography
+              variant="caption"
+              color="text.secondary"
+              data-testid="completed-rosaries"
+              sx={{display: 'block', mt: 1}}
+            >
+              {t('intentions.completedRosariesLabel')}: {intention.completedRosaries}
+            </Typography>
+          )}
+        </CardContent>
+      )}
 
       <CardActions sx={{justifyContent: 'center', pb: 2}}>
         {isComplete ? (
@@ -106,5 +142,47 @@ export const PrayCard: React.ComponentType<PrayCardProps> = ({id}) => {
         )}
       </CardActions>
     </Card>
+
+      <BottomNavigation
+        showLabels
+        sx={{
+          position: 'fixed',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          zIndex: (theme) => theme.zIndex.appBar,
+          borderTop: 1,
+          borderColor: 'divider',
+          bgcolor: 'background.paper',
+        }}
+      >
+        <BottomNavigationAction
+          data-testid="reset-tab"
+          label={t('prayer.resetTab')}
+          icon={<RestartAltIcon />}
+          onClick={() => setResetOpen(true)}
+        />
+        <BottomNavigationAction
+          data-testid="index-tab"
+          label={t('prayer.indexTab')}
+          icon={<MenuBookIcon />}
+          onClick={() => setIndexOpen(true)}
+        />
+      </BottomNavigation>
+
+      <ResetConfirmDialog
+        open={resetOpen}
+        onClose={() => setResetOpen(false)}
+        onConfirm={() => {
+          restart(intention)
+          setResetOpen(false)
+        }}
+      />
+      <MysteryIndexSheet
+        open={indexOpen}
+        onClose={() => setIndexOpen(false)}
+        onSelect={(m: MysteryTypes) => jumpToMystery(intention, m)}
+      />
+    </Box>
   )
 }

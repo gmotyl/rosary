@@ -6,9 +6,11 @@
   "menu": {
     "home": "Inicio",
     "addIntention": "Añadir intención",
-    "howItWorks": "Cómo funciona",
+    "pray": "Rezar",
+    "howItWorks": "Cómo rezar",
     "privacyPolicy": "Política de privacidad",
-    "language": "Idioma"
+    "language": "Idioma",
+    "darkMode": "Modo oscuro"
   },
   "hero": {
     "title": "Reza un Rosario",
@@ -44,7 +46,13 @@
       "title": "Por mi familia",
       "description": ""
     },
-    "changeGroup": "Cambiar grupo de misterios"
+    "changeGroup": "Cambiar grupo de misterios",
+    "resetTab": "Reiniciar",
+    "indexTab": "Índice",
+    "resetTitle": "¿Empezar este rosario de nuevo?",
+    "resetBody": "Tu progreso en el rosario actual se borrará y empezarás de nuevo desde el primer misterio.",
+    "resetConfirm": "Empezar de nuevo",
+    "cancel": "Cancelar"
   },
   "mysteries": {
     "groupName": {
@@ -59,26 +67,26 @@
       "sorrowful": "Misterios dolorosos",
       "glorious": "Misterios gloriosos"
     },
-    "joyful1": {"title": "1.º Misterio Gozoso: La Anunciación", "description": "Lc 1,26-38"},
-    "joyful2": {"title": "2.º Misterio Gozoso: La Visitación", "description": "Lc 1,39-45"},
-    "joyful3": {"title": "3.º Misterio Gozoso: El Nacimiento de Jesús", "description": "Lc 2,1-7"},
-    "joyful4": {"title": "4.º Misterio Gozoso: La Presentación en el Templo", "description": "Lc 2,22-38"},
-    "joyful5": {"title": "5.º Misterio Gozoso: El Niño Perdido y Hallado en el Templo", "description": "Lc 2,41-52"},
-    "luminous1": {"title": "1.º Misterio Luminoso: El Bautismo en el Jordán", "description": "Lc 3,15-22"},
-    "luminous2": {"title": "2.º Misterio Luminoso: Las Bodas de Caná", "description": "Jn 2,1-11"},
-    "luminous3": {"title": "3.º Misterio Luminoso: El Anuncio del Reino", "description": "Mt 4,23-25"},
-    "luminous4": {"title": "4.º Misterio Luminoso: La Transfiguración", "description": "Mt 17,1-8"},
-    "luminous5": {"title": "5.º Misterio Luminoso: La Institución de la Eucaristía", "description": "Mc 14,22-25"},
-    "sorrowful1": {"title": "1.º Misterio Doloroso: La Oración en el Huerto", "description": "Mc 14,32-42"},
-    "sorrowful2": {"title": "2.º Misterio Doloroso: La Flagelación", "description": "Mt 27,15-26"},
-    "sorrowful3": {"title": "3.º Misterio Doloroso: La Coronación de Espinas", "description": "Mc 15,16-20"},
-    "sorrowful4": {"title": "4.º Misterio Doloroso: La Cruz a Cuestas", "description": "Lc 23,26-32"},
-    "sorrowful5": {"title": "5.º Misterio Doloroso: La Crucifixión", "description": "Jn 19,25-30"},
-    "glorious1": {"title": "1.º Misterio Glorioso: La Resurrección", "description": "Jn 20,1-18"},
-    "glorious2": {"title": "2.º Misterio Glorioso: La Ascensión", "description": "Lc 24,44-53"},
-    "glorious3": {"title": "3.º Misterio Glorioso: La Venida del Espíritu Santo", "description": "Hch 2,1-13"},
-    "glorious4": {"title": "4.º Misterio Glorioso: La Asunción de María", "description": "Lc 1,46-56"},
-    "glorious5": {"title": "5.º Misterio Glorioso: La Coronación de María", "description": "Ap 12,1"}
+    "joyful1": {"title": "1.º Misterio Gozoso: La Anunciación", "description": "Lc 1,26-38", "verse": "Concebirás en tu seno y darás a luz un hijo, a quien pondrás por nombre Jesús."},
+    "joyful2": {"title": "2.º Misterio Gozoso: La Visitación", "description": "Lc 1,39-45", "verse": "Bendita tú entre las mujeres y bendito el fruto de tu vientre."},
+    "joyful3": {"title": "3.º Misterio Gozoso: El Nacimiento de Jesús", "description": "Lc 2,1-7", "verse": "Dio a luz a su hijo primogénito, lo envolvió en pañales y lo acostó en un pesebre, porque no había sitio para ellos en la posada."},
+    "joyful4": {"title": "4.º Misterio Gozoso: La Presentación en el Templo", "description": "Lc 2,22-38", "verse": "Le llevaron a Jerusalén para presentarle al Señor."},
+    "joyful5": {"title": "5.º Misterio Gozoso: El Niño Perdido y Hallado en el Templo", "description": "Lc 2,41-52", "verse": "Le encontraron en el templo, sentado en medio de los doctores, escuchándoles y haciéndoles preguntas."},
+    "luminous1": {"title": "1.º Misterio Luminoso: El Bautismo en el Jordán", "description": "Lc 3,15-22", "verse": "Tú eres mi Hijo amado, en ti me he complacido."},
+    "luminous2": {"title": "2.º Misterio Luminoso: Las Bodas de Caná", "description": "Jn 2,1-11", "verse": "Haced lo que él os diga. Así, en Caná de Galilea, Jesús realizó el primero de sus signos."},
+    "luminous3": {"title": "3.º Misterio Luminoso: El Anuncio del Reino", "description": "Mt 4,23-25", "verse": "El reino de Dios está cerca; convertíos y creed en el Evangelio."},
+    "luminous4": {"title": "4.º Misterio Luminoso: La Transfiguración", "description": "Mt 17,1-8", "verse": "Su rostro resplandecía como el sol y sus vestidos se volvieron blancos como la luz."},
+    "luminous5": {"title": "5.º Misterio Luminoso: La Institución de la Eucaristía", "description": "Mc 14,22-25", "verse": "Este es mi cuerpo, que se entrega por vosotros; haced esto en recuerdo mío."},
+    "sorrowful1": {"title": "1.º Misterio Doloroso: La Oración en el Huerto", "description": "Mc 14,32-42", "verse": "Mi alma está triste hasta la muerte. Padre, no lo que yo quiero, sino lo que quieras tú."},
+    "sorrowful2": {"title": "2.º Misterio Doloroso: La Flagelación", "description": "Mt 27,15-26", "verse": "Pilato mandó azotarlo y lo entregó para que fuera crucificado."},
+    "sorrowful3": {"title": "3.º Misterio Doloroso: La Coronación de Espinas", "description": "Mc 15,16-20", "verse": "Trenzaron una corona de espinas y se la pusieron en la cabeza."},
+    "sorrowful4": {"title": "4.º Misterio Doloroso: La Cruz a Cuestas", "description": "Lc 23,26-32", "verse": "Cargando con su propia cruz, salió hacia el lugar llamado Calvario."},
+    "sorrowful5": {"title": "5.º Misterio Doloroso: La Crucifixión", "description": "Jn 19,25-30", "verse": "Padre, en tus manos encomiendo mi espíritu. Y dicho esto, inclinó la cabeza y entregó el espíritu."},
+    "glorious1": {"title": "1.º Misterio Glorioso: La Resurrección", "description": "Jn 20,1-18", "verse": "Ha resucitado, no está aquí. Mirad el lugar donde le habían puesto."},
+    "glorious2": {"title": "2.º Misterio Glorioso: La Ascensión", "description": "Lc 24,44-53", "verse": "Fue llevado al cielo, y una nube le ocultó de su vista."},
+    "glorious3": {"title": "3.º Misterio Glorioso: La Venida del Espíritu Santo", "description": "Hch 2,1-13", "verse": "Todos quedaron llenos del Espíritu Santo y comenzaron a hablar en otras lenguas."},
+    "glorious4": {"title": "4.º Misterio Glorioso: La Asunción de María", "description": "Lc 1,46-56", "verse": "María ha sido llevada al cielo; se alegran los ángeles."},
+    "glorious5": {"title": "5.º Misterio Glorioso: La Coronación de María", "description": "Ap 12,1", "verse": "Apareció en el cielo una señal grande: una mujer vestida de sol, con la luna bajo sus pies y una corona de doce estrellas sobre su cabeza."}
   },
   "languageSwitcher": {
     "label": "Idioma",
@@ -90,16 +98,20 @@
     "de": "Deutsch"
   },
   "howItWorks": {
-    "title": "Cómo funciona",
-    "intro": "Lleva la cuenta de en qué decena del Rosario vas, en todas las intenciones que quieras.",
-    "step1": "Añade una intención — una persona, situación o acción de gracias por la que quieras rezar.",
-    "step2": "Pulsa «Rezar una decena» — la app te muestra qué misterio meditar.",
-    "step3": "Cada pulsación de «Siguiente» te avanza un misterio; al pasar el 20.º, el Rosario se completa y el contador sube.",
-    "offlineNote": "La app guarda todo en tu navegador. Sin inicio de sesión, sin servidor, sin seguimiento."
+    "title": "Cómo rezar el Rosario",
+    "intro": "El Rosario es una meditación sobre la vida de Cristo a través de los ojos de María. Un Rosario completo consta de cinco decenas; cada decena se compone de un Padrenuestro, diez Avemarías y un Gloria, rezados mientras se medita un misterio.",
+    "step1": "Haz la señal de la Cruz y reza el Credo Apostólico.",
+    "step2": "Reza un Padrenuestro, tres Avemarías y un Gloria.",
+    "step3": "Anuncia el primer misterio y reza un Padrenuestro.",
+    "step4": "Reza diez Avemarías meditando el misterio.",
+    "step5": "Reza el Gloria (y, si lo deseas, la oración de Fátima).",
+    "step6": "Repite para los cinco misterios.",
+    "step7": "Concluye con la Salve y la señal de la Cruz.",
+    "mysteryDays": "Gozosos — lunes y sábado · Dolorosos — martes y viernes · Gloriosos — miércoles y domingo · Luminosos — jueves"
   },
   "privacyPolicy": {
     "title": "Política de privacidad",
-    "body": "Esta aplicación guarda tus intenciones y tu progreso solo en el localStorage de tu navegador. No se transmite nada a ningún servidor. Borrar los datos del navegador eliminará tus intenciones."
+    "body": "ROSARY no tiene cuentas ni registro. Tu progreso en el Rosario — el misterio en el que estás y cuántos rosarios has completado — se guarda únicamente en este dispositivo, en tu navegador. Nunca se envía nada a un servidor, y no hay rastreo, analítica ni cookies. Borrar los datos del navegador reiniciará tu progreso."
   },
   "about": {
     "openSource": "Proyecto de código abierto",

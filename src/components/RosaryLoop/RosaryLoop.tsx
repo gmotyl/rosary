@@ -61,6 +61,11 @@ export const RosaryLoop: React.FC<RosaryLoopProps> = ({
     const prevMystery = prevMysteryRef.current
     if (prevBead === currentBead && prevMystery === currentMystery) return
 
+    // Update refs up front so the early return in the jump branch below does
+    // not skip them and leave stale prev values for the next render.
+    prevBeadRef.current = currentBead
+    prevMysteryRef.current = currentMystery
+
     const mysteryChanged = prevMystery !== currentMystery
     const beadDelta = currentBead - prevBead
 
@@ -76,9 +81,6 @@ export const RosaryLoop: React.FC<RosaryLoopProps> = ({
       const id = requestAnimationFrame(() => setTransitionsOn(true))
       return () => cancelAnimationFrame(id)
     }
-
-    prevBeadRef.current = currentBead
-    prevMysteryRef.current = currentMystery
   }, [currentBead, currentMystery])
 
   useEffect(() => {

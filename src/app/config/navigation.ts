@@ -10,15 +10,9 @@ export interface NavLinkItem {
 export const navigation: NavLinkItem[] = [
   {
     key: 'home',
-    labelKey: 'menu.home',
+    labelKey: 'menu.pray',
     path: ERoutes.HOME,
     icon: 'HomeIcon',
-  },
-  {
-    key: 'addIntention',
-    labelKey: 'menu.addIntention',
-    path: ERoutes.ADD_INTENTION,
-    icon: 'RosaryIcon',
   },
   {
     key: 'about',
