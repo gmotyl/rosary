@@ -28,11 +28,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
-    flexGrow: 1,
-  },
-  cardContent: {
-    flexGrow: 1,
-    textAlign: 'center',
   },
 }))
 
@@ -53,9 +48,7 @@ export const PrayCard: React.ComponentType<PrayCardProps> = ({id}) => {
   const mystery = getMystery(displayMystery, t)
 
   return (
-    <Box
-      sx={{display: 'flex', flexDirection: 'column', minHeight: 'calc(100vh - 64px)'}}
-    >
+    <Box sx={{display: 'flex', flexDirection: 'column'}}>
     <Card className={classes.card}>
       <CardContent sx={{pb: 0}}>
         <RosaryHeader
@@ -104,23 +97,25 @@ export const PrayCard: React.ComponentType<PrayCardProps> = ({id}) => {
         </Box>
       )}
 
-      <CardContent className={classes.cardContent}>
-        {isComplete && (
-          <Typography variant="h5" component="h2" sx={{color: 'primary.main'}}>
-            {t('prayer.rosaryCompleteTitle')}
-          </Typography>
-        )}
-        {(intention.completedRosaries ?? 0) > 0 && (
-          <Typography
-            variant="caption"
-            color="text.secondary"
-            data-testid="completed-rosaries"
-            sx={{display: 'block', mt: 1}}
-          >
-            {t('intentions.completedRosariesLabel')}: {intention.completedRosaries}
-          </Typography>
-        )}
-      </CardContent>
+      {(isComplete || (intention.completedRosaries ?? 0) > 0) && (
+        <CardContent sx={{textAlign: 'center', py: 1}}>
+          {isComplete && (
+            <Typography variant="h5" component="h2" sx={{color: 'primary.main'}}>
+              {t('prayer.rosaryCompleteTitle')}
+            </Typography>
+          )}
+          {(intention.completedRosaries ?? 0) > 0 && (
+            <Typography
+              variant="caption"
+              color="text.secondary"
+              data-testid="completed-rosaries"
+              sx={{display: 'block', mt: 1}}
+            >
+              {t('intentions.completedRosariesLabel')}: {intention.completedRosaries}
+            </Typography>
+          )}
+        </CardContent>
+      )}
 
       <CardActions sx={{justifyContent: 'center', pb: 2}}>
         {isComplete ? (

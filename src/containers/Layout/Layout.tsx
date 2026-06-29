@@ -7,8 +7,8 @@ import {makeStyles} from '@mui/styles'
 
 const useStyles = makeStyles((theme) => ({
   mainContainer: {
-    paddingBottom: theme.spacing(8),
-    paddingTop: theme.spacing(6),
+    paddingBottom: theme.spacing(2),
+    paddingTop: theme.spacing(2),
   },
 }))
 
