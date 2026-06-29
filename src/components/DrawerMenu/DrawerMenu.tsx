@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
   icon: {
     marginRight: theme.spacing(2),
-    color: 'white',
+    color: theme.palette.primary.main,
   },
   drawerIcon: {
     marginRight: theme.spacing(2),
