@@ -111,6 +111,6 @@ describe('PrayCard', () => {
     const {getByTestId} = renderInRouter(<PrayCard id="test" />)
     // t() returns keys as strings in test env; key for Joyful1 verse contains 'joyful1'
     expect(getByTestId('mystery-verse').textContent).toContain('joyful1')
-    expect(getByTestId('mystery-reference').textContent).toBeTruthy()
+    expect(getByTestId('mystery-reference').textContent).toContain('joyful1.description')
   })
 })
