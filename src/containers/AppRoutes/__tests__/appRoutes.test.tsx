@@ -6,24 +6,15 @@ import {AppRoutes} from 'src/containers/AppRoutes'
 import Hero from 'src/components/Hero'
 import {renderWithTheme} from 'src/tools/renderWithTheme'
 
-vi.mock('src/pages/IntentionList', () => ({default: () => <div>Intention list</div>}))
-vi.mock('src/pages/AddIntentionPage', () => ({
-  AddIntentionPage: () => <div>Add intention page</div>,
-}))
+vi.mock('src/pages/PrayPage', () => ({PrayPage: () => <div>Pray page</div>}))
 
-it('navigates from intention list to add intention page', () => {
-  const {container, getByTestId} = renderWithTheme(
+it('renders the pray page at root', () => {
+  const {container} = renderWithTheme(
     <BrowserRouter>
-      <Hero />
       <AppRoutes />
     </BrowserRouter>,
   )
-
-  expect(container.innerHTML).toMatch('Intention list')
-
-  fireEvent.click(getByTestId('add-intention'))
-
-  expect(container.innerHTML).toMatch('Add intention page')
+  expect(container.innerHTML).toMatch('Pray page')
 })
 
 it('navigates to the how it works page', () => {
