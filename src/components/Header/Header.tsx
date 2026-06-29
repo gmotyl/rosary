@@ -8,7 +8,6 @@ import useScrollTrigger from '@mui/material/useScrollTrigger'
 
 import DrawerMenu from 'src/components/DrawerMenu'
 import Link from 'src/components/Link'
-import {Badge} from '@mui/material'
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -43,15 +42,14 @@ export const Header = () => {
   return (
     <div className={classes.grow}>
       <HideOnScroll>
-        <AppBar>
+        <AppBar sx={{bgcolor: 'background.paper', color: 'primary.main', boxShadow: 'none', borderBottom: '1px solid #E2D8C6'}}>
           <Toolbar>
             <DrawerMenu></DrawerMenu>
+            <div className={classes.grow} />
             <Link to={'/'}>
-              <Badge color="secondary" badgeContent="beta">
-                <Typography variant="h6" color="inherit" noWrap={true}>
-                  {title}
-                </Typography>
-              </Badge>
+              <Typography variant="h6" color="inherit" noWrap={true}>
+                {title}
+              </Typography>
             </Link>
             <div className={classes.grow} />
           </Toolbar>
