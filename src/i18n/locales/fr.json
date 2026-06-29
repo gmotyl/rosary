@@ -105,7 +105,7 @@
   },
   "privacyPolicy": {
     "title": "Politique de confidentialité",
-    "body": "Cette application enregistre vos intentions et votre progression uniquement dans le localStorage de votre navigateur. Rien n'est transmis à un serveur. Effacer les données du navigateur supprimera vos intentions."
+    "body": "ROSARY ne comporte aucun compte ni inscription. Votre progression dans le Rosaire — le mystère en cours et le nombre de Rosaires complétés — est enregistrée uniquement sur cet appareil, dans votre navigateur. Rien n'est jamais envoyé à un serveur, et il n'y a aucun suivi, aucune analytique ni aucun cookie. Effacer les données du navigateur réinitialise votre progression."
   },
   "about": {
     "openSource": "Projet Open Source",

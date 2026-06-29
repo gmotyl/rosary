@@ -105,7 +105,7 @@
   },
   "privacyPolicy": {
     "title": "Informativa sulla privacy",
-    "body": "Questa app salva le tue intenzioni e il tuo progresso solo nel localStorage del tuo browser. Nulla viene trasmesso a un server. Cancellando i dati del browser perderai le tue intenzioni."
+    "body": "ROSARY non richiede account né registrazione. Il tuo avanzamento nel Rosario — il mistero su cui ti trovi e quanti rosari hai completato — viene salvato solo su questo dispositivo, nel tuo browser. Nulla viene mai inviato a un server, e non vi è alcun tracciamento, alcuna analisi né cookie. Cancellare i dati del browser azzera il tuo avanzamento."
   },
   "about": {
     "openSource": "Progetto Open Source",

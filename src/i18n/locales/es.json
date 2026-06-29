@@ -105,7 +105,7 @@
   },
   "privacyPolicy": {
     "title": "Política de privacidad",
-    "body": "Esta aplicación guarda tus intenciones y tu progreso solo en el localStorage de tu navegador. No se transmite nada a ningún servidor. Borrar los datos del navegador eliminará tus intenciones."
+    "body": "ROSARY no tiene cuentas ni registro. Tu progreso en el Rosario — el misterio en el que estás y cuántos rosarios has completado — se guarda únicamente en este dispositivo, en tu navegador. Nunca se envía nada a un servidor, y no hay rastreo, analítica ni cookies. Borrar los datos del navegador reiniciará tu progreso."
   },
   "about": {
     "openSource": "Proyecto de código abierto",

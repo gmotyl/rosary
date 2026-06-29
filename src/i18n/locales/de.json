@@ -105,7 +105,7 @@
   },
   "privacyPolicy": {
     "title": "Datenschutz",
-    "body": "Diese App speichert deine Anliegen und Fortschritte ausschließlich im localStorage deines Browsers. Es wird nichts an einen Server übertragen. Wenn du die Browserdaten löschst, sind die Anliegen weg."
+    "body": "ROSARY hat keine Konten und keine Anmeldung. Dein Rosenkranz-Fortschritt — das aktuelle Geheimnis und die Anzahl der gebeteten Rosenkränze — wird ausschließlich auf diesem Gerät, in deinem Browser gespeichert. Es wird niemals etwas an einen Server gesendet, und es gibt kein Tracking, keine Analyse und keine Cookies. Wenn du die Browserdaten löschst, wird dein Fortschritt zurückgesetzt."
   },
   "about": {
     "openSource": "Open-Source-Projekt",

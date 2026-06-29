@@ -105,7 +105,7 @@
   },
   "privacyPolicy": {
     "title": "Privacy policy",
-    "body": "This app stores your intentions and progress only in your browser's localStorage. Nothing is transmitted to any server. Clearing browser data will erase your intentions."
+    "body": "ROSARY has no accounts and no sign-up. Your rosary progress — the mystery you are on and how many rosaries you have completed — is saved only on this device, in your browser. Nothing is ever sent to a server, and there is no tracking, no analytics, and no cookies. Clearing your browser data resets your progress."
   },
   "about": {
     "openSource": "Open Source project",

@@ -105,7 +105,7 @@
   },
   "privacyPolicy": {
     "title": "Polityka prywatności",
-    "body": "Aplikacja przechowuje twoje intencje i postępy wyłącznie w localStorage twojej przeglądarki. Nic nie jest wysyłane na żaden serwer. Wyczyszczenie danych przeglądarki usunie twoje intencje."
+    "body": "ROSARY nie wymaga konta ani rejestracji. Twój postęp w różańcu — tajemnica, na której jesteś, oraz liczba odmówionych różańców — jest zapisany wyłącznie na tym urządzeniu, w twojej przeglądarce. Nic nie jest wysyłane na serwer, nie ma żadnego śledzenia, analityki ani plików cookie. Wyczyszczenie danych przeglądarki zresetuje twój postęp."
   },
   "about": {
     "openSource": "Projekt Open Source",
