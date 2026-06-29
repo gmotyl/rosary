@@ -44,7 +44,13 @@
       "title": "Für meine Familie",
       "description": ""
     },
-    "changeGroup": "Geheimnisgruppe wechseln"
+    "changeGroup": "Geheimnisgruppe wechseln",
+    "resetTab": "Neu starten",
+    "indexTab": "Index",
+    "resetTitle": "Diesen Rosenkranz neu beginnen?",
+    "resetBody": "Dein Fortschritt beim aktuellen Rosenkranz wird gelöscht. Deine Gesamtzahl bleibt erhalten.",
+    "resetConfirm": "Neu beginnen",
+    "cancel": "Abbrechen"
   },
   "mysteries": {
     "groupName": {

@@ -44,7 +44,13 @@
       "title": "Per la mia famiglia",
       "description": ""
     },
-    "changeGroup": "Cambia gruppo di misteri"
+    "changeGroup": "Cambia gruppo di misteri",
+    "resetTab": "Ricomincia",
+    "indexTab": "Indice",
+    "resetTitle": "Ricominciare questo rosario dall'inizio?",
+    "resetBody": "Il tuo progresso nel rosario corrente verrà azzerato. Il conteggio totale viene conservato.",
+    "resetConfirm": "Ricomincia dall'inizio",
+    "cancel": "Annulla"
   },
   "mysteries": {
     "groupName": {

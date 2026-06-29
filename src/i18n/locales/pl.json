@@ -44,7 +44,13 @@
       "title": "Za moją rodzinę",
       "description": ""
     },
-    "changeGroup": "Zmień grupę tajemnic"
+    "changeGroup": "Zmień grupę tajemnic",
+    "resetTab": "Od nowa",
+    "indexTab": "Indeks",
+    "resetTitle": "Zacząć ten różaniec od początku?",
+    "resetBody": "Twój postęp w bieżącym różańcu zostanie usunięty. Łączna liczba różańców pozostaje bez zmian.",
+    "resetConfirm": "Zacznij od nowa",
+    "cancel": "Anuluj"
   },
   "mysteries": {
     "groupName": {
