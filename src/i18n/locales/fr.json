@@ -6,7 +6,8 @@
   "menu": {
     "home": "Accueil",
     "addIntention": "Ajouter une intention",
-    "howItWorks": "Comment ça marche",
+    "pray": "Prier",
+    "howItWorks": "Comment prier",
     "privacyPolicy": "Politique de confidentialité",
     "language": "Langue"
   },
@@ -96,12 +97,16 @@
     "de": "Deutsch"
   },
   "howItWorks": {
-    "title": "Comment ça marche",
-    "intro": "Suivez où vous en êtes dans le Rosaire, sur autant d'intentions que vous le souhaitez.",
-    "step1": "Ajoutez une intention — une personne, une situation ou une action de grâce pour laquelle vous voulez prier.",
-    "step2": "Appuyez sur « Prier une dizaine » — l'app vous montre quel mystère méditer.",
-    "step3": "Chaque appui sur « Suivante » avance d'un mystère ; après le 20e, le Rosaire se termine et le compteur augmente.",
-    "offlineNote": "L'app garde tout dans votre navigateur. Pas de connexion, pas de serveur, pas de suivi."
+    "title": "Comment prier le Rosaire",
+    "intro": "Le Rosaire est une méditation sur la vie du Christ à travers les yeux de Marie. Un Rosaire complet comprend cinq dizaines ; chaque dizaine se compose d'un Notre Père, dix Je vous salue Marie et un Gloire soit au Père, priés en méditant sur un mystère.",
+    "step1": "Faites le signe de la Croix et priez le Symbole des Apôtres.",
+    "step2": "Priez un Notre Père, trois Je vous salue Marie et un Gloire soit au Père.",
+    "step3": "Annoncez le premier mystère, puis priez un Notre Père.",
+    "step4": "Priez dix Je vous salue Marie en méditant sur le mystère.",
+    "step5": "Priez un Gloire soit au Père (et, si vous le souhaitez, la prière de Fatima).",
+    "step6": "Répétez pour les cinq mystères.",
+    "step7": "Concluez par le Salve Regina et le signe de la Croix.",
+    "mysteryDays": "Joyeux — lundi et samedi · Douloureux — mardi et vendredi · Glorieux — mercredi et dimanche · Lumineux — jeudi"
   },
   "privacyPolicy": {
     "title": "Politique de confidentialité",

@@ -6,7 +6,8 @@
   "menu": {
     "home": "Home",
     "addIntention": "Add intention",
-    "howItWorks": "How it works",
+    "pray": "Pray",
+    "howItWorks": "How to pray",
     "privacyPolicy": "Privacy policy",
     "language": "Language"
   },
@@ -96,12 +97,16 @@
     "de": "Deutsch"
   },
   "howItWorks": {
-    "title": "How it works",
-    "intro": "Track which decade of the rosary you're on, across as many intentions as you want.",
-    "step1": "Add an intention — a person, situation, or thanksgiving you want to pray for.",
-    "step2": "Tap \"Pray a decade\" — the app shows you which mystery and meditation to pray.",
-    "step3": "Each tap of \"Next\" advances you one mystery; after the 20th, the rosary completes and the counter goes up.",
-    "offlineNote": "The app stores everything in your browser. No login, no server, no tracking."
+    "title": "How to pray the Rosary",
+    "intro": "The Rosary is a meditation on the life of Christ through the eyes of Mary. A full Rosary is five decades; each decade is one Our Father, ten Hail Marys, and a Glory Be, prayed while meditating on a mystery.",
+    "step1": "Make the Sign of the Cross and pray the Apostles' Creed.",
+    "step2": "Pray one Our Father, three Hail Marys, and a Glory Be.",
+    "step3": "Announce the first mystery, then pray one Our Father.",
+    "step4": "Pray ten Hail Marys while meditating on the mystery.",
+    "step5": "Pray a Glory Be (and, if you wish, the Fatima prayer).",
+    "step6": "Repeat for all five mysteries.",
+    "step7": "Conclude with the Hail Holy Queen and the Sign of the Cross.",
+    "mysteryDays": "Joyful — Monday & Saturday · Sorrowful — Tuesday & Friday · Glorious — Wednesday & Sunday · Luminous — Thursday"
   },
   "privacyPolicy": {
     "title": "Privacy policy",

@@ -6,7 +6,8 @@
   "menu": {
     "home": "Strona główna",
     "addIntention": "Dodaj intencję",
-    "howItWorks": "O projekcie",
+    "pray": "Módl się",
+    "howItWorks": "Jak odmawiać różaniec",
     "privacyPolicy": "Polityka prywatności",
     "language": "Język"
   },
@@ -96,12 +97,16 @@
     "de": "Deutsch"
   },
   "howItWorks": {
-    "title": "Jak to działa",
-    "intro": "Śledź, na której tajemnicy różańca jesteś — w tylu intencjach, ile zechcesz.",
-    "step1": "Dodaj intencję — osobę, sytuację lub dziękczynienie, w której chcesz się modlić.",
-    "step2": "Naciśnij „Odmów dziesiątek\" — aplikacja pokaże, jaką tajemnicę masz teraz rozważać.",
-    "step3": "Każde naciśnięcie „Następna\" przesuwa cię o jedną tajemnicę; po 20. różaniec się zamyka, a licznik się zwiększa.",
-    "offlineNote": "Aplikacja przechowuje wszystko w twojej przeglądarce. Bez logowania, bez serwera, bez śledzenia."
+    "title": "Jak odmawiać różaniec",
+    "intro": "Różaniec jest medytacją nad życiem Chrystusa oczami Maryi. Pełny różaniec obejmuje pięć dziesiątek; każda dziesiątka składa się z jednego Ojcze nasz, dziesięciu Zdrowaś Maryjo i Chwały Ojcu, odmawianych podczas rozważania tajemnicy.",
+    "step1": "Przeżegnaj się i odmów Skład Apostolski.",
+    "step2": "Odmów jedno Ojcze nasz, trzy Zdrowaś Maryjo i Chwałę Ojcu.",
+    "step3": "Zapowiedz pierwszą tajemnicę, a następnie odmów jedno Ojcze nasz.",
+    "step4": "Odmów dziesięć Zdrowaś Maryjo, rozważając tajemnicę.",
+    "step5": "Odmów Chwałę Ojcu (i, jeśli chcesz, modlitwę fatimską).",
+    "step6": "Powtórz dla wszystkich pięciu tajemnic.",
+    "step7": "Zakończ modlitwą Witaj Królowo i przeżegnaniem.",
+    "mysteryDays": "Radosne — poniedziałek i sobota · Bolesne — wtorek i piątek · Chwalebne — środa i niedziela · Światła — czwartek"
   },
   "privacyPolicy": {
     "title": "Polityka prywatności",

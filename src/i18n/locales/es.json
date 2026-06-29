@@ -6,7 +6,8 @@
   "menu": {
     "home": "Inicio",
     "addIntention": "Añadir intención",
-    "howItWorks": "Cómo funciona",
+    "pray": "Rezar",
+    "howItWorks": "Cómo rezar",
     "privacyPolicy": "Política de privacidad",
     "language": "Idioma"
   },
@@ -96,12 +97,16 @@
     "de": "Deutsch"
   },
   "howItWorks": {
-    "title": "Cómo funciona",
-    "intro": "Lleva la cuenta de en qué decena del Rosario vas, en todas las intenciones que quieras.",
-    "step1": "Añade una intención — una persona, situación o acción de gracias por la que quieras rezar.",
-    "step2": "Pulsa «Rezar una decena» — la app te muestra qué misterio meditar.",
-    "step3": "Cada pulsación de «Siguiente» te avanza un misterio; al pasar el 20.º, el Rosario se completa y el contador sube.",
-    "offlineNote": "La app guarda todo en tu navegador. Sin inicio de sesión, sin servidor, sin seguimiento."
+    "title": "Cómo rezar el Rosario",
+    "intro": "El Rosario es una meditación sobre la vida de Cristo a través de los ojos de María. Un Rosario completo consta de cinco decenas; cada decena se compone de un Padrenuestro, diez Avemarías y un Gloria, rezados mientras se medita un misterio.",
+    "step1": "Haz la señal de la Cruz y reza el Credo Apostólico.",
+    "step2": "Reza un Padrenuestro, tres Avemarías y un Gloria.",
+    "step3": "Anuncia el primer misterio y reza un Padrenuestro.",
+    "step4": "Reza diez Avemarías meditando el misterio.",
+    "step5": "Reza el Gloria (y, si lo deseas, la oración de Fátima).",
+    "step6": "Repite para los cinco misterios.",
+    "step7": "Concluye con la Salve y la señal de la Cruz.",
+    "mysteryDays": "Gozosos — lunes y sábado · Dolorosos — martes y viernes · Gloriosos — miércoles y domingo · Luminosos — jueves"
   },
   "privacyPolicy": {
     "title": "Política de privacidad",

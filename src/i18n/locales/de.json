@@ -6,7 +6,8 @@
   "menu": {
     "home": "Startseite",
     "addIntention": "Anliegen hinzufügen",
-    "howItWorks": "Wie es funktioniert",
+    "pray": "Beten",
+    "howItWorks": "Wie man betet",
     "privacyPolicy": "Datenschutz",
     "language": "Sprache"
   },
@@ -96,12 +97,16 @@
     "de": "Deutsch"
   },
   "howItWorks": {
-    "title": "Wie es funktioniert",
-    "intro": "Behalte den Überblick, bei welchem Gesätz des Rosenkranzes du bist — bei beliebig vielen Anliegen.",
-    "step1": "Lege ein Anliegen an — eine Person, Situation oder Danksagung, für die du beten möchtest.",
-    "step2": "Tippe auf „Ein Gesätz beten\" — die App zeigt, welches Geheimnis du betrachten sollst.",
-    "step3": "Jeder Tipp auf „Weiter\" geht ein Geheimnis weiter; nach dem 20. ist der Rosenkranz beendet und der Zähler steigt.",
-    "offlineNote": "Die App speichert alles in deinem Browser. Kein Login, kein Server, kein Tracking."
+    "title": "Wie man den Rosenkranz betet",
+    "intro": "Der Rosenkranz ist eine Betrachtung des Lebens Christi durch die Augen Marias. Ein vollständiger Rosenkranz besteht aus fünf Gesätzen; jedes Gesätz umfasst ein Vaterunser, zehn Gegrüßet seist du, Maria und ein Ehre sei dem Vater, gesprochen in der Betrachtung eines Geheimnisses.",
+    "step1": "Bekreuzige dich und bete das Apostolische Glaubensbekenntnis.",
+    "step2": "Bete ein Vaterunser, drei Gegrüßet seist du, Maria und ein Ehre sei dem Vater.",
+    "step3": "Kündige das erste Geheimnis an und bete ein Vaterunser.",
+    "step4": "Bete zehn Gegrüßet seist du, Maria und betrachtete dabei das Geheimnis.",
+    "step5": "Bete ein Ehre sei dem Vater (und nach Wunsch das Fatima-Gebet).",
+    "step6": "Wiederhole dies für alle fünf Geheimnisse.",
+    "step7": "Schließe mit dem Salve Regina und dem Kreuzzeichen ab.",
+    "mysteryDays": "Freudenreiche — Montag & Samstag · Schmerzhafte — Dienstag & Freitag · Glorreiche — Mittwoch & Sonntag · Lichtreiche — Donnerstag"
   },
   "privacyPolicy": {
     "title": "Datenschutz",
