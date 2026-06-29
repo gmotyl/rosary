@@ -49,7 +49,7 @@
     "resetTab": "Reset",
     "indexTab": "Index",
     "resetTitle": "Start this rosary over?",
-    "resetBody": "Your progress in the current rosary will be cleared. Your lifetime count is kept.",
+    "resetBody": "Your progress in the current rosary will be cleared and you'll start again from the first mystery.",
     "resetConfirm": "Start over",
     "cancel": "Cancel"
   },

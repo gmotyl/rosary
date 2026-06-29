@@ -49,7 +49,7 @@
     "resetTab": "Neu starten",
     "indexTab": "Index",
     "resetTitle": "Diesen Rosenkranz neu beginnen?",
-    "resetBody": "Dein Fortschritt beim aktuellen Rosenkranz wird gelöscht. Deine Gesamtzahl bleibt erhalten.",
+    "resetBody": "Dein Fortschritt beim aktuellen Rosenkranz wird gelöscht und du beginnst wieder beim ersten Geheimnis.",
     "resetConfirm": "Neu beginnen",
     "cancel": "Abbrechen"
   },

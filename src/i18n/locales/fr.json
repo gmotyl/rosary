@@ -49,7 +49,7 @@
     "resetTab": "Réinitialiser",
     "indexTab": "Index",
     "resetTitle": "Recommencer ce rosaire depuis le début ?",
-    "resetBody": "Votre progression dans le rosaire en cours sera effacée. Votre compteur total est conservé.",
+    "resetBody": "Votre progression dans le rosaire en cours sera effacée et vous recommencerez au premier mystère.",
     "resetConfirm": "Recommencer",
     "cancel": "Annuler"
   },

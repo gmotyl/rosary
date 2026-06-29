@@ -49,7 +49,7 @@
     "resetTab": "Reiniciar",
     "indexTab": "Índice",
     "resetTitle": "¿Empezar este rosario de nuevo?",
-    "resetBody": "Tu progreso en el rosario actual se borrará. Tu contador total se conserva.",
+    "resetBody": "Tu progreso en el rosario actual se borrará y empezarás de nuevo desde el primer misterio.",
     "resetConfirm": "Empezar de nuevo",
     "cancel": "Cancelar"
   },
