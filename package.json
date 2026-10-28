@@ -2,6 +2,7 @@
   "name": "rosary-pwa",
   "version": "1.0.0",
   "private": true,
+  "packageManager": "pnpm@10.34.9",
   "type": "module",
   "dependencies": {
     "@emotion/react": "^11.14.0",
