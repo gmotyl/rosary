@@ -1,0 +1,7 @@
+{
+  "name": "rosary",
+  "compatibility_date": "2026-10-01",
+  "assets": { "directory": "./build", "not_found_handling": "single-page-application" },
+  // Required by `wrangler preview`, the Workers Builds command for non-main branches.
+  "previews": {}
+}
