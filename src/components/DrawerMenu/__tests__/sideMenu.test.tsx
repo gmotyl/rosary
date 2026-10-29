@@ -20,6 +20,19 @@ describe('sideMenu', () => {
     localStorage.clear()
   })
 
+  it('no empty menu row without vibration support', () => {
+    const {container, queryByRole} = renderWithRouter(
+      <StylesProvider>
+        <SideMenu setOpen={vi.fn()} />
+      </StylesProvider>,
+    )
+    expect(queryByRole('checkbox', {name: 'hapticsSwitch.label'})).toBeNull()
+    const emptyItems = Array.from(container.querySelectorAll('li')).filter(
+      (li) => li.childElementCount === 0,
+    )
+    expect(emptyItems).toHaveLength(0)
+  })
+
   it('side menu shows the switch under the language selector', () => {
     // jsdom has no navigator.vibrate; stub it so the switch renders
     Object.defineProperty(navigator, 'vibrate', {

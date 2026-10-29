@@ -15,6 +15,7 @@ import Link from '../Link'
 import {RosaryIcon} from '../Icons'
 import {LanguageSwitcher} from '../LanguageSwitcher'
 import {HapticsSwitch} from '../HapticsSwitch'
+import {isHapticsSupported} from 'src/tools/haptics'
 import {navigation, NavLinkItem} from 'src/app/config/navigation'
 import {useColorMode} from 'src/app/ColorModeContext'
 
@@ -55,9 +56,12 @@ export const SideMenu: React.FC<SideMenuProps> = ({setOpen}) => {
         <ListItem>
           <LanguageSwitcher />
         </ListItem>
-        <ListItem>
-          <HapticsSwitch />
-        </ListItem>
+        {/* No row at all on devices that cannot vibrate (e.g. iOS) */}
+        {isHapticsSupported() && (
+          <ListItem>
+            <HapticsSwitch />
+          </ListItem>
+        )}
       </List>
     </div>
   )
