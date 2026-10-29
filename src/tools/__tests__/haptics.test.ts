@@ -114,6 +114,32 @@ describe('haptics', () => {
     expect(storageGetter).toHaveBeenCalled()
   })
 
+  it('a failed write still silences pulse over a stale stored value', () => {
+    const vibrate = installVibrate()
+    window.localStorage.setItem(HAPTICS_STORAGE_KEY, 'true')
+    const setItem = vi
+      // an instance spy is inert in this jsdom; spy on the prototype
+      .spyOn(Storage.prototype, 'setItem')
+      .mockImplementation(() => {
+        throw new Error('QuotaExceededError')
+      })
+
+    setHapticsEnabled(false)
+
+    // guard against an inert spy: the throwing setItem must have been hit
+    expect(setItem).toHaveBeenCalled()
+    expect(window.localStorage.getItem(HAPTICS_STORAGE_KEY)).toBe('true')
+    expect(getHapticsEnabled()).toBe(false)
+    pulse('bead')
+    expect(vibrate).not.toHaveBeenCalled()
+
+    setHapticsEnabled(true)
+
+    expect(getHapticsEnabled()).toBe(true)
+    pulse('bead')
+    expect(vibrate).toHaveBeenCalledWith(PULSE_PATTERNS.bead)
+  })
+
   it('a stored preference wins over the in-memory one', () => {
     setHapticsEnabled(false)
     // A fresh page load (empty memory) reads the stored value back
