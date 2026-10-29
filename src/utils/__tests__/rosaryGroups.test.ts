@@ -6,8 +6,10 @@ import {
   decadeIndex,
   ALL_DECADES_MASK,
   bitForMystery,
+  willCompleteRosary,
 } from '../rosaryGroups'
 import {MysteryTypes} from 'src/consts/MysteryTypes'
+import {IIntention} from 'src/pages/IntentionPage/Interface'
 
 describe('groupOf', () => {
   it('maps Joyful 1..5 to Joyful', () => {
@@ -63,5 +65,28 @@ describe('bitForMystery', () => {
 describe('ALL_DECADES_MASK', () => {
   it('is 0xFFFFF (20 bits set)', () => {
     expect(ALL_DECADES_MASK).toBe(0xfffff)
+  })
+})
+
+describe('willCompleteRosary', () => {
+  const intention = (currentMystery: MysteryTypes, decadesPrayed: number): IIntention => ({
+    id: 'i',
+    title: 't',
+    description: 'd',
+    currentMystery,
+    decadesPrayed,
+  })
+
+  it('willCompleteRosary is true when the last missing decade is finished', () => {
+    const mask = ALL_DECADES_MASK & ~bitForMystery(MysteryTypes.Sorrowful2)
+    expect(willCompleteRosary(intention(MysteryTypes.Sorrowful2, mask))).toBe(true)
+  })
+
+  it('willCompleteRosary is true at Glorious5 with a partial mask', () => {
+    expect(willCompleteRosary(intention(MysteryTypes.Glorious5, 0b111))).toBe(true)
+  })
+
+  it('willCompleteRosary is false mid-rosary', () => {
+    expect(willCompleteRosary(intention(MysteryTypes.Glorious4, 0b111))).toBe(false)
   })
 })

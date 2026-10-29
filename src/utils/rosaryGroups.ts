@@ -1,4 +1,5 @@
 import {MysteryTypes} from 'src/consts/MysteryTypes'
+import {IIntention} from 'src/pages/IntentionPage/Interface'
 
 export enum MysteryGroup {
   Joyful = 'joyful',
@@ -42,3 +43,9 @@ export const decadeIndex = (mystery: MysteryTypes): number => {
 
 export const bitForMystery = (mystery: MysteryTypes): number =>
   1 << (mystery - 1)
+
+// true when finishing the current decade turns the intention into MysteryTypes.Complete
+export const willCompleteRosary = (intention: IIntention): boolean => {
+  const mask = (intention.decadesPrayed ?? 0) | bitForMystery(intention.currentMystery)
+  return mask === ALL_DECADES_MASK || intention.currentMystery >= MysteryTypes.Glorious5
+}

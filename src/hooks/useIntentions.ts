@@ -5,7 +5,13 @@ import {TFunction} from 'i18next'
 
 import {pipe, filter, map} from 'lodash/fp'
 import {MysteryTypes} from 'src/consts/MysteryTypes'
-import {ALL_DECADES_MASK, bitForMystery, MysteryGroup, firstMysteryOfGroup} from 'src/utils/rosaryGroups'
+import {
+  ALL_DECADES_MASK,
+  bitForMystery,
+  MysteryGroup,
+  firstMysteryOfGroup,
+  willCompleteRosary,
+} from 'src/utils/rosaryGroups'
 import {useState} from 'react'
 
 const removeId = (id: string) => filter<IIntention>((x) => x.id !== id)
@@ -55,6 +61,16 @@ export const useIntentions = (initialIntentions?: IIntention[]) => {
     const bit = bitForMystery(intention.currentMystery)
     const mask = (intention.decadesPrayed ?? 0) | bit
 
+    if (!willCompleteRosary(intention)) {
+      updateIntention({
+        ...intention,
+        currentMystery: intention.currentMystery + 1,
+        currentBead: 0,
+        decadesPrayed: mask,
+      })
+      return
+    }
+
     if (mask === ALL_DECADES_MASK) {
       updateIntention({
         ...intention,
@@ -62,16 +78,6 @@ export const useIntentions = (initialIntentions?: IIntention[]) => {
         currentBead: 0,
         decadesPrayed: 0,
         completedRosaries: (intention.completedRosaries ?? 0) + 1,
-      })
-      return
-    }
-
-    if (intention.currentMystery < MysteryTypes.Glorious5) {
-      updateIntention({
-        ...intention,
-        currentMystery: intention.currentMystery + 1,
-        currentBead: 0,
-        decadesPrayed: mask,
       })
       return
     }
