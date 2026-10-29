@@ -153,6 +153,18 @@ describe('PrayCard', () => {
     }
   })
 
+  it('keys in the open group menu do not advance', () => {
+    mocks.intention.currentMystery = MysteryTypes.Luminous3
+    const {getByTestId} = renderInRouter(<PrayCard id="test" />)
+    fireEvent.click(getByTestId('rosary-header-trigger'))
+    const item = getByTestId('group-menu-glorious')
+    mocks.prayNext.mockClear()
+    for (const key of ['ArrowDown', 'PageDown', 'Enter', ' ']) {
+      fireEvent.keyDown(item, {key})
+    }
+    expect(mocks.prayNext).not.toHaveBeenCalled()
+  })
+
   it('an advance key on the page body advances', () => {
     mocks.intention.currentMystery = MysteryTypes.Luminous3
     mocks.prayNext.mockClear()

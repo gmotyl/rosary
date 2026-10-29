@@ -84,6 +84,37 @@ describe('useAdvanceKeys', () => {
     expect(advance).toHaveBeenCalledTimes(1)
   })
 
+  it('keys inside an open overlay are ignored', () => {
+    const advance = vi.fn()
+    renderHook(() => useAdvanceKeys(advance, true))
+    // Modal backdrop/container, dialog, menu, listbox and select trigger
+    const targets = [
+      '<div role="presentation" tabindex="-1">p</div>',
+      '<div role="dialog"><p>d</p></div>',
+      '<ul role="menu"><li role="menuitem" tabindex="0">m</li></ul>',
+      '<ul role="listbox"><li role="option" tabindex="0">o</li></ul>',
+      '<div role="combobox" tabindex="0">c</div>',
+    ]
+    for (const html of targets) {
+      const host = mount(html)
+      const el = (host.querySelector('[tabindex], p') as HTMLElement) ?? host
+      for (const key of ['ArrowDown', 'Enter', ' ', 'PageDown']) {
+        const event = press(key, el)
+        expect(event.defaultPrevented).toBe(false)
+      }
+    }
+    expect(advance).not.toHaveBeenCalled()
+  })
+
+  it('keys already handled are ignored', () => {
+    const advance = vi.fn()
+    renderHook(() => useAdvanceKeys(advance, true))
+    const el = mount('<div>x</div>')
+    el.addEventListener('keydown', (e) => e.preventDefault())
+    press('ArrowDown', el)
+    expect(advance).not.toHaveBeenCalled()
+  })
+
   it('repeat and modifier keys are ignored', () => {
     const advance = vi.fn()
     renderHook(() => useAdvanceKeys(advance, true))

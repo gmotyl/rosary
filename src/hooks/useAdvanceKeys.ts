@@ -9,6 +9,9 @@ const INTERACTIVE =
 // Arrows/PageDown move the caret or the selection inside these
 const TEXT_FIELD =
   'input, select, textarea, [contenteditable]:not([contenteditable="false"])'
+// Open modals/drawers/menus and composite widgets own their keys
+const OVERLAY =
+  '[role=presentation], [role=dialog], [role=menu], [role=listbox], [role=combobox]'
 
 const isAdvanceKey = (key: string) =>
   (ADVANCE_KEYS as readonly string[]).includes(key)
@@ -26,6 +29,9 @@ export const useAdvanceKeys = (advance: () => void, enabled: boolean) => {
 
     const onKeyDown = (e: KeyboardEvent) => {
       if (!isAdvanceKey(e.key)) return
+      // A component handler (React's root listener runs before window) took it
+      if (e.defaultPrevented) return
+      if (targetMatches(e.target, OVERLAY)) return
       if (e.repeat || e.ctrlKey || e.altKey || e.metaKey) return
       const activates = e.key === ' ' || e.key === 'Enter'
       if (targetMatches(e.target, activates ? INTERACTIVE : TEXT_FIELD)) return
