@@ -10,6 +10,12 @@ const HM_BEAD_SIZE = 22
 const OF_BEAD_SIZE = 30
 const IMAGE_SIZE = 200
 const TRANSITION = 'transform 400ms cubic-bezier(0.4, 0, 0.2, 1)'
+const SWIPE_MIN_DX = 50
+const SWIPE_AXIS_RATIO = 1.5
+
+// Swipe left = moved at least SWIPE_MIN_DX to the left, mostly horizontally.
+const isSwipeLeft = (dx: number, dy: number) =>
+  dx <= -SWIPE_MIN_DX && Math.abs(dx) > SWIPE_AXIS_RATIO * Math.abs(dy)
 
 // Slot 0 = OF, slot 1 = gap (between OF and HM1),
 // slots 2..11 = HM1..HM10, slot 12 = gap (between HM10 and OF — "Glory Be" position).
@@ -36,6 +42,7 @@ interface RosaryLoopProps {
   currentMystery: number
   onAdvance: () => void
   onRetreat: () => void
+  swipeEnabled?: boolean
 }
 
 export const RosaryLoop: React.FC<RosaryLoopProps> = ({
@@ -44,6 +51,7 @@ export const RosaryLoop: React.FC<RosaryLoopProps> = ({
   currentMystery,
   onAdvance,
   onRetreat,
+  swipeEnabled = true,
 }) => {
   const activeSlot = slotForBead(currentBead)
 
@@ -55,6 +63,8 @@ export const RosaryLoop: React.FC<RosaryLoopProps> = ({
   const [displayedSrc, setDisplayedSrc] = useState(imageSrc)
   const prevBeadRef = useRef(currentBead)
   const prevMysteryRef = useRef(currentMystery)
+  const swipeStartRef = useRef<{x: number; y: number} | null>(null)
+  const suppressClickRef = useRef(false)
 
   useEffect(() => {
     const prevBead = prevBeadRef.current
@@ -93,6 +103,29 @@ export const RosaryLoop: React.FC<RosaryLoopProps> = ({
     return () => clearTimeout(t)
   }, [imageSrc, displayedSrc])
 
+  const handlePointerDown = (e: React.PointerEvent) => {
+    // A new gesture clears any suppression left by a swipe with no trailing click.
+    suppressClickRef.current = false
+    swipeStartRef.current = swipeEnabled ? {x: e.clientX, y: e.clientY} : null
+  }
+
+  const handlePointerUp = (e: React.PointerEvent) => {
+    const start = swipeStartRef.current
+    swipeStartRef.current = null
+    if (!start || !swipeEnabled) return
+    if (!isSwipeLeft(e.clientX - start.x, e.clientY - start.y)) return
+    suppressClickRef.current = true
+    onAdvance()
+  }
+
+  // Capture phase: swallow the click that follows a swipe ending over the
+  // image or a bead, so the swipe does not advance twice.
+  const handleClickCapture = (e: React.MouseEvent) => {
+    if (!suppressClickRef.current) return
+    suppressClickRef.current = false
+    e.stopPropagation()
+  }
+
   return (
     <Box
       sx={{
@@ -102,6 +135,14 @@ export const RosaryLoop: React.FC<RosaryLoopProps> = ({
         mx: 'auto',
         userSelect: 'none',
       }}
+      // Inline so vertical page scroll is guaranteed to keep working on touch.
+      style={{touchAction: 'pan-y'}}
+      onPointerDown={handlePointerDown}
+      onPointerUp={handlePointerUp}
+      onPointerCancel={() => {
+        swipeStartRef.current = null
+      }}
+      onClickCapture={handleClickCapture}
       data-testid="rosary-loop"
     >
       <Box

@@ -11,6 +11,31 @@ const baseProps = {
   onRetreat: vi.fn(),
 }
 
+// jsdom's PointerEvent drops clientX/clientY, so dispatch a MouseEvent under the
+// pointer event type (React's onPointerDown/onPointerUp still receive it) and
+// assert it really carries its coordinates so the swipe tests cannot pass vacuously.
+const pointer = (
+  el: Element,
+  type: 'pointerdown' | 'pointerup',
+  clientX: number,
+  clientY: number,
+) => {
+  const event = new MouseEvent(type, {clientX, clientY, bubbles: true, cancelable: true})
+  expect(event.clientX).toBe(clientX)
+  expect(event.clientY).toBe(clientY)
+  fireEvent(el, event)
+}
+
+const drag = (
+  start: Element,
+  end: Element,
+  dx: number,
+  dy: number,
+) => {
+  pointer(start, 'pointerdown', 200, 100)
+  pointer(end, 'pointerup', 200 + dx, 100 + dy)
+}
+
 describe('RosaryLoop', () => {
   it('renders 11 beads (1 OF + 10 HM)', () => {
     const {getAllByTestId} = render(<RosaryLoop {...baseProps} currentBead={0} />)
@@ -122,5 +147,80 @@ describe('RosaryLoop', () => {
     fireEvent.click(getByTestId('bead-9').querySelector('button')!)
     expect(onRetreat).toHaveBeenCalledTimes(1)
     expect(onAdvance).not.toHaveBeenCalled()
+  })
+
+  it('horizontal swipe left advances', () => {
+    const onAdvance = vi.fn()
+    const {getByTestId} = render(
+      <RosaryLoop {...baseProps} onAdvance={onAdvance} currentBead={2} />,
+    )
+    const stage = getByTestId('rosary-loop')
+    drag(stage, stage, -80, 10)
+    expect(onAdvance).toHaveBeenCalledTimes(1)
+  })
+
+  it('short or vertical drags do not advance', () => {
+    const onAdvance = vi.fn()
+    const {getByTestId} = render(
+      <RosaryLoop {...baseProps} onAdvance={onAdvance} currentBead={2} />,
+    )
+    const stage = getByTestId('rosary-loop')
+    drag(stage, stage, -30, 0)
+    drag(stage, stage, -60, 60)
+    drag(stage, stage, 80, 0)
+    expect(onAdvance).not.toHaveBeenCalled()
+  })
+
+  it('swipe ending on a bead advances once', () => {
+    const onAdvance = vi.fn()
+    const {getByTestId} = render(
+      <RosaryLoop {...baseProps} onAdvance={onAdvance} currentBead={2} />,
+    )
+    const stage = getByTestId('rosary-loop')
+    const nextBead = getByTestId('bead-3').querySelector('button')!
+    drag(stage, nextBead, -80, 10)
+    fireEvent.click(nextBead)
+    expect(onAdvance).toHaveBeenCalledTimes(1)
+
+    const image = getByTestId('rosary-image')
+    drag(image, image, -80, 10)
+    fireEvent.click(image)
+    expect(onAdvance).toHaveBeenCalledTimes(2)
+  })
+
+  it('tap on next bead still advances once', () => {
+    const onAdvance = vi.fn()
+    const {getByTestId} = render(
+      <RosaryLoop {...baseProps} onAdvance={onAdvance} currentBead={2} />,
+    )
+    const stage = getByTestId('rosary-loop')
+    const nextBead = getByTestId('bead-3').querySelector('button')!
+    // A swipe with no trailing click must not swallow a later tap.
+    drag(stage, stage, -80, 0)
+    expect(onAdvance).toHaveBeenCalledTimes(1)
+    drag(nextBead, nextBead, 0, 0)
+    fireEvent.click(nextBead)
+    expect(onAdvance).toHaveBeenCalledTimes(2)
+  })
+
+  it('swipe disabled does nothing', () => {
+    const onAdvance = vi.fn()
+    const {getByTestId} = render(
+      <RosaryLoop
+        {...baseProps}
+        onAdvance={onAdvance}
+        currentBead={2}
+        swipeEnabled={false}
+      />,
+    )
+    const stage = getByTestId('rosary-loop')
+    drag(stage, stage, -80, 10)
+    expect(onAdvance).not.toHaveBeenCalled()
+  })
+
+  it('stage allows vertical panning', () => {
+    const {getByTestId} = render(<RosaryLoop {...baseProps} currentBead={2} />)
+    // jsdom's CSS parser ignores touch-action, so read the inline style property.
+    expect((getByTestId('rosary-loop') as HTMLElement).style.touchAction).toBe('pan-y')
   })
 })
