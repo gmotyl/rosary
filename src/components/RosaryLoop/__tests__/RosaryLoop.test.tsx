@@ -183,13 +183,14 @@ describe('RosaryLoop', () => {
     )
     const stage = getByTestId('rosary-loop')
     const nextBead = getByTestId('bead-3').querySelector('button')!
+    // detail: 1 marks a pointer-generated click, as browsers report it
     drag(stage, nextBead, -80, 10)
-    fireEvent.click(nextBead)
+    fireEvent.click(nextBead, {detail: 1})
     expect(onAdvance).toHaveBeenCalledTimes(1)
 
     const image = getByTestId('rosary-image')
     drag(image, image, -80, 10)
-    fireEvent.click(image)
+    fireEvent.click(image, {detail: 1})
     expect(onAdvance).toHaveBeenCalledTimes(2)
   })
 
@@ -204,7 +205,7 @@ describe('RosaryLoop', () => {
     drag(stage, stage, -80, 0)
     expect(onAdvance).toHaveBeenCalledTimes(1)
     drag(nextBead, nextBead, 0, 0)
-    fireEvent.click(nextBead)
+    fireEvent.click(nextBead, {detail: 1})
     expect(onAdvance).toHaveBeenCalledTimes(2)
   })
 
@@ -252,6 +253,21 @@ describe('RosaryLoop', () => {
     drag(image, image, -30, 0) // too short
     fireEvent.click(image, {detail: 1})
     expect(onAdvance).not.toHaveBeenCalled()
+  })
+
+  it('keyboard click after a swipe with no trailing click still advances', () => {
+    const onAdvance = vi.fn()
+    const {getByTestId} = render(
+      <RosaryLoop {...baseProps} onAdvance={onAdvance} currentBead={2} />,
+    )
+    const stage = getByTestId('rosary-loop')
+    const nextBead = getByTestId('bead-3').querySelector('button')!
+    // Touch swipe: no click follows, so suppression is left armed.
+    drag(stage, stage, -80, 0)
+    expect(onAdvance).toHaveBeenCalledTimes(1)
+    // Enter/Space on a focused bead: a click with detail 0 and no pointerdown.
+    fireEvent.click(nextBead, {detail: 0})
+    expect(onAdvance).toHaveBeenCalledTimes(2)
   })
 
   it('a tap with tiny jitter still clicks', () => {

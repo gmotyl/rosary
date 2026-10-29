@@ -166,8 +166,11 @@ export const RosaryLoop: React.FC<RosaryLoopProps> = ({
 
   // Capture phase: swallow the click that follows a swipe ending over the
   // image or a bead, so the swipe does not advance twice.
+  // A touch swipe has no trailing click, so suppression can stay armed until
+  // the next pointerdown. Keyboard activation (Enter/Space) yields a click with
+  // detail 0 and no pointerdown, so such clicks always pass through.
   const handleClickCapture = (e: React.MouseEvent) => {
-    if (!suppressClickRef.current) return
+    if (e.detail === 0 || !suppressClickRef.current) return
     suppressClickRef.current = false
     e.stopPropagation()
   }
