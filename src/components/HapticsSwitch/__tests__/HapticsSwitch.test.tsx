@@ -15,7 +15,10 @@ import de from 'src/i18n/locales/de.json'
 import es from 'src/i18n/locales/es.json'
 import fr from 'src/i18n/locales/fr.json'
 import it_ from 'src/i18n/locales/it.json'
-import {HAPTICS_STORAGE_KEY} from 'src/tools/haptics'
+import {
+  HAPTICS_STORAGE_KEY,
+  resetHapticsMemoryForTests,
+} from 'src/tools/haptics'
 import {HapticsSwitch} from '../HapticsSwitch'
 
 // jsdom has no navigator.vibrate; install a configurable stub per test
@@ -29,6 +32,7 @@ const stubVibrate = () =>
 describe('HapticsSwitch', () => {
   beforeEach(async () => {
     localStorage.clear()
+    resetHapticsMemoryForTests()
     await i18n.changeLanguage('en')
   })
 

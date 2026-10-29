@@ -12,20 +12,33 @@ export const PULSE_PATTERNS: Record<PulseKind, number | number[]> = {
 export const isHapticsSupported = (): boolean =>
   typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function'
 
+// Last preference set in this session. Storage stays the source of truth
+// when it works; this copy keeps a toggle effective when storage throws or
+// silently fails to persist (private mode, blocked cookies, quota).
+let memoryPreference: boolean | null = null
+
+// Test-only: simulate a fresh page load with no in-session preference
+export const resetHapticsMemoryForTests = (): void => {
+  memoryPreference = null
+}
+
 // Missing or unreadable preference means haptics are on
 export const getHapticsEnabled = (): boolean => {
   try {
-    return window.localStorage.getItem(HAPTICS_STORAGE_KEY) !== 'false'
+    const stored = window.localStorage.getItem(HAPTICS_STORAGE_KEY)
+    if (stored !== null) return stored !== 'false'
   } catch {
-    return true
+    // Storage unreadable: fall through to the in-session preference
   }
+  return memoryPreference ?? true
 }
 
 export const setHapticsEnabled = (on: boolean): void => {
+  memoryPreference = on
   try {
     window.localStorage.setItem(HAPTICS_STORAGE_KEY, String(on))
   } catch {
-    // Storage unavailable (private mode, blocked cookies): keep the default
+    // Storage unavailable: the in-memory preference still applies
   }
 }
 

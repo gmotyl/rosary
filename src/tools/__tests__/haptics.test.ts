@@ -6,6 +6,7 @@ import {
   getHapticsEnabled,
   isHapticsSupported,
   pulse,
+  resetHapticsMemoryForTests,
   setHapticsEnabled,
 } from '../haptics'
 
@@ -26,6 +27,7 @@ const removeVibrate = () => {
 
 beforeEach(() => {
   window.localStorage.clear()
+  resetHapticsMemoryForTests()
   removeVibrate()
 })
 
@@ -94,5 +96,28 @@ describe('haptics', () => {
     expect(() => setHapticsEnabled(false)).not.toThrow()
     // guard against an inert spy: the throwing getter must have been hit
     expect(storageGetter).toHaveBeenCalled()
+  })
+
+  it('disabling survives storage failures', () => {
+    const vibrate = installVibrate()
+    const storageGetter = vi
+      .spyOn(window, 'localStorage', 'get')
+      .mockImplementation(() => {
+        throw new Error('SecurityError')
+      })
+
+    setHapticsEnabled(false)
+
+    expect(getHapticsEnabled()).toBe(false)
+    pulse('bead')
+    expect(vibrate).not.toHaveBeenCalled()
+    expect(storageGetter).toHaveBeenCalled()
+  })
+
+  it('a stored preference wins over the in-memory one', () => {
+    setHapticsEnabled(false)
+    // A fresh page load (empty memory) reads the stored value back
+    resetHapticsMemoryForTests()
+    expect(getHapticsEnabled()).toBe(false)
   })
 })
