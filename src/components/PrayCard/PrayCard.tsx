@@ -16,6 +16,7 @@ import {useTranslation} from 'react-i18next'
 
 import {getMystery} from 'src/consts/rosary'
 import {useIntentions} from 'src/hooks'
+import {usePrayerNavigation} from 'src/hooks/usePrayerNavigation'
 import {MysteryTypes} from 'src/consts/MysteryTypes'
 import {DecadeDots} from 'src/components/DecadeDots'
 import {RosaryHeader} from 'src/components/RosaryHeader'
@@ -43,7 +44,10 @@ export const PrayCard: React.ComponentType<PrayCardProps> = ({id}) => {
   const classes = useStyles()
   const [resetOpen, setResetOpen] = useState(false)
   const [indexOpen, setIndexOpen] = useState(false)
-  const isComplete = intention.currentMystery === MysteryTypes.Complete
+  const {advance, retreat, isComplete} = usePrayerNavigation(intention, {
+    prayNext,
+    prayPrev,
+  })
   const displayMystery = isComplete ? MysteryTypes.Glorious5 : intention.currentMystery
   const mystery = getMystery(displayMystery, t)
 
@@ -67,8 +71,8 @@ export const PrayCard: React.ComponentType<PrayCardProps> = ({id}) => {
           imageSrc={mystery.image}
           currentBead={intention.currentBead ?? 0}
           currentMystery={intention.currentMystery}
-          onAdvance={() => prayNext(intention)}
-          onRetreat={() => prayPrev(intention)}
+          onAdvance={advance}
+          onRetreat={retreat}
         />
       )}
 
@@ -134,7 +138,7 @@ export const PrayCard: React.ComponentType<PrayCardProps> = ({id}) => {
             variant="contained"
             color="primary"
             data-testid="pray-next-button"
-            onClick={() => prayNext(intention)}
+            onClick={advance}
             sx={{minWidth: 160, borderRadius: 6}}
           >
             {t('prayer.next')} ⏭

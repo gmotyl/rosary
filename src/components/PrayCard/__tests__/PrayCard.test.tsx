@@ -106,6 +106,35 @@ describe('PrayCard', () => {
     expect(getByText(/7/)).toBeTruthy()
   })
 
+  it('every click path in PrayCard vibrates once', () => {
+    window.localStorage.clear()
+    const vibrate = vi.fn(() => true)
+    Object.defineProperty(navigator, 'vibrate', {
+      configurable: true,
+      writable: true,
+      value: vibrate,
+    })
+    try {
+      mocks.intention.currentMystery = MysteryTypes.Luminous3
+      mocks.intention.currentBead = 4
+      const {getByTestId, getByText} = renderInRouter(<PrayCard id="test" />)
+      const clickPaths = [
+        () => fireEvent.click(getByText(/prayer\.next/)),
+        () => fireEvent.click(getByTestId('rosary-image')),
+        () => fireEvent.click(getByTestId('bead-5').querySelector('button')!),
+        () => fireEvent.click(getByTestId('bead-3').querySelector('button')!),
+      ]
+      for (const click of clickPaths) {
+        vibrate.mockClear()
+        click()
+        expect(vibrate).toHaveBeenCalledTimes(1)
+      }
+    } finally {
+      // jsdom has no navigator.vibrate; do not leak the stub
+      delete (navigator as {vibrate?: unknown}).vibrate
+    }
+  })
+
   it('renders gilt verse block with mystery-verse and mystery-reference when not complete', () => {
     mocks.intention.currentMystery = MysteryTypes.Joyful1
     const {getByTestId} = renderInRouter(<PrayCard id="test" />)
