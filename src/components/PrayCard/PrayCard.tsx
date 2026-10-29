@@ -17,6 +17,7 @@ import {useTranslation} from 'react-i18next'
 import {getMystery} from 'src/consts/rosary'
 import {useIntentions} from 'src/hooks'
 import {usePrayerNavigation} from 'src/hooks/usePrayerNavigation'
+import {useAdvanceKeys} from 'src/hooks/useAdvanceKeys'
 import {MysteryTypes} from 'src/consts/MysteryTypes'
 import {DecadeDots} from 'src/components/DecadeDots'
 import {RosaryHeader} from 'src/components/RosaryHeader'
@@ -48,6 +49,7 @@ export const PrayCard: React.ComponentType<PrayCardProps> = ({id}) => {
     prayNext,
     prayPrev,
   })
+  useAdvanceKeys(advance, !isComplete)
   const displayMystery = isComplete ? MysteryTypes.Glorious5 : intention.currentMystery
   const mystery = getMystery(displayMystery, t)
 

@@ -135,6 +135,32 @@ describe('PrayCard', () => {
     }
   })
 
+  it('Enter on the focused Next button advances exactly once', () => {
+    mocks.intention.currentMystery = MysteryTypes.Luminous3
+    mocks.intention.currentBead = 4
+    const {getByTestId} = renderInRouter(<PrayCard id="test" />)
+    const next = getByTestId('pray-next-button')
+    next.focus()
+    expect(document.activeElement).toBe(next)
+    for (const key of ['Enter', ' ']) {
+      mocks.prayNext.mockClear()
+      // jsdom does not synthesize the native click a browser fires for
+      // Enter/Space on a button, so model both: the keydown (which the key
+      // hook must ignore) and the resulting click
+      fireEvent.keyDown(next, {key})
+      fireEvent.click(next)
+      expect(mocks.prayNext).toHaveBeenCalledTimes(1)
+    }
+  })
+
+  it('an advance key on the page body advances', () => {
+    mocks.intention.currentMystery = MysteryTypes.Luminous3
+    mocks.prayNext.mockClear()
+    renderInRouter(<PrayCard id="test" />)
+    fireEvent.keyDown(document.body, {key: 'ArrowRight'})
+    expect(mocks.prayNext).toHaveBeenCalledTimes(1)
+  })
+
   it('renders gilt verse block with mystery-verse and mystery-reference when not complete', () => {
     mocks.intention.currentMystery = MysteryTypes.Joyful1
     const {getByTestId} = renderInRouter(<PrayCard id="test" />)
