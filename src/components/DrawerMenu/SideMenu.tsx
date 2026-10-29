@@ -14,6 +14,7 @@ import {useTranslation} from 'react-i18next'
 import Link from '../Link'
 import {RosaryIcon} from '../Icons'
 import {LanguageSwitcher} from '../LanguageSwitcher'
+import {HapticsSwitch} from '../HapticsSwitch'
 import {navigation, NavLinkItem} from 'src/app/config/navigation'
 import {useColorMode} from 'src/app/ColorModeContext'
 
@@ -53,6 +54,9 @@ export const SideMenu: React.FC<SideMenuProps> = ({setOpen}) => {
         </ListItem>
         <ListItem>
           <LanguageSwitcher />
+        </ListItem>
+        <ListItem>
+          <HapticsSwitch />
         </ListItem>
       </List>
     </div>

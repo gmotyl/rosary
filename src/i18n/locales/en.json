@@ -97,6 +97,9 @@
     "it": "Italiano",
     "de": "Deutsch"
   },
+  "hapticsSwitch": {
+    "label": "Vibration"
+  },
   "howItWorks": {
     "title": "How to pray the Rosary",
     "intro": "The Rosary is a meditation on the life of Christ through the eyes of Mary. A full Rosary is five decades; each decade is one Our Father, ten Hail Marys, and a Glory Be, prayed while meditating on a mystery.",
