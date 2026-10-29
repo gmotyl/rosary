@@ -19,8 +19,11 @@ const pointer = (
   type: 'pointerdown' | 'pointerup',
   clientX: number,
   clientY: number,
+  isPrimary = true,
 ) => {
   const event = new MouseEvent(type, {clientX, clientY, bubbles: true, cancelable: true})
+  // MouseEvent has no isPrimary; browsers set it on every pointer event
+  Object.defineProperty(event, 'isPrimary', {value: isPrimary})
   expect(event.clientX).toBe(clientX)
   expect(event.clientY).toBe(clientY)
   fireEvent(el, event)
@@ -216,6 +219,28 @@ describe('RosaryLoop', () => {
     const stage = getByTestId('rosary-loop')
     drag(stage, stage, -80, 10)
     expect(onAdvance).not.toHaveBeenCalled()
+  })
+
+  it('a second finger does not disturb the swipe', () => {
+    const onAdvance = vi.fn()
+    const {getByTestId} = render(
+      <RosaryLoop {...baseProps} onAdvance={onAdvance} currentBead={2} />,
+    )
+    const stage = getByTestId('rosary-loop')
+    pointer(stage, 'pointerdown', 200, 100)
+    // Secondary pointer must neither overwrite the start point nor end the gesture
+    pointer(stage, 'pointerdown', 120, 100, false)
+    pointer(stage, 'pointerup', 120, 100, false)
+    expect(onAdvance).not.toHaveBeenCalled()
+    pointer(stage, 'pointerup', 120, 100)
+    expect(onAdvance).toHaveBeenCalledTimes(1)
+  })
+
+  it('native image drag is prevented on the stage', () => {
+    const {getByTestId} = render(<RosaryLoop {...baseProps} currentBead={2} />)
+    // A native HTML5 drag would end the pointer gesture with pointercancel
+    const notPrevented = fireEvent.dragStart(getByTestId('rosary-image'))
+    expect(notPrevented).toBe(false)
   })
 
   it('stage allows vertical panning', () => {

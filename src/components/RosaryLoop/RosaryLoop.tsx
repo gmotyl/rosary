@@ -104,12 +104,15 @@ export const RosaryLoop: React.FC<RosaryLoopProps> = ({
   }, [imageSrc, displayedSrc])
 
   const handlePointerDown = (e: React.PointerEvent) => {
+    // A second finger must not overwrite the start point of the first
+    if (!e.isPrimary) return
     // A new gesture clears any suppression left by a swipe with no trailing click.
     suppressClickRef.current = false
     swipeStartRef.current = swipeEnabled ? {x: e.clientX, y: e.clientY} : null
   }
 
   const handlePointerUp = (e: React.PointerEvent) => {
+    if (!e.isPrimary) return
     const start = swipeStartRef.current
     swipeStartRef.current = null
     if (!start || !swipeEnabled) return
@@ -135,7 +138,8 @@ export const RosaryLoop: React.FC<RosaryLoopProps> = ({
         mx: 'auto',
         userSelect: 'none',
       }}
-      // Inline so vertical page scroll is guaranteed to keep working on touch.
+      // Inline rather than in sx so tests can read it: jsdom's CSS parser
+      // drops touch-action from stylesheets.
       style={{touchAction: 'pan-y'}}
       onPointerDown={handlePointerDown}
       onPointerUp={handlePointerUp}
@@ -143,6 +147,9 @@ export const RosaryLoop: React.FC<RosaryLoopProps> = ({
         swipeStartRef.current = null
       }}
       onClickCapture={handleClickCapture}
+      // A native image drag on desktop would end the gesture with
+      // pointercancel instead of pointerup, losing the swipe
+      onDragStart={(e: React.DragEvent) => e.preventDefault()}
       data-testid="rosary-loop"
     >
       <Box
