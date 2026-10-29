@@ -91,6 +91,7 @@ export const RosaryLoop: React.FC<RosaryLoopProps> = ({
       const id = requestAnimationFrame(() => setTransitionsOn(true))
       return () => cancelAnimationFrame(id)
     }
+    return undefined
   }, [currentBead, currentMystery])
 
   useEffect(() => {

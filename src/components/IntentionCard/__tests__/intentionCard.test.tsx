@@ -1,4 +1,3 @@
-import React from 'react'
 import IntentionCard from '../IntentionCard'
 import {renderWithRouter} from 'src/tools/renderWithRouter'
 import {fireEvent} from '@testing-library/react'
