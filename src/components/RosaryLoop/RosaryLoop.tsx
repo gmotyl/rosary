@@ -138,8 +138,8 @@ export const RosaryLoop: React.FC<RosaryLoopProps> = ({
         mx: 'auto',
         userSelect: 'none',
       }}
-      // Inline rather than in sx so tests can read it: jsdom's CSS parser
-      // drops touch-action from stylesheets.
+      // pan-y keeps vertical scroll on touch; inline rather than sx because
+      // jsdom drops touch-action from stylesheets
       style={{touchAction: 'pan-y'}}
       onPointerDown={handlePointerDown}
       onPointerUp={handlePointerUp}
