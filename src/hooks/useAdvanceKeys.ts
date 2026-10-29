@@ -1,6 +1,12 @@
 import {useEffect, useRef} from 'react'
 
-export const ADVANCE_KEYS = ['ArrowRight', 'ArrowDown', ' ', 'PageDown', 'Enter'] as const
+export const ADVANCE_KEYS = [
+  'ArrowRight',
+  'ArrowDown',
+  ' ',
+  'PageDown',
+  'Enter',
+] as const
 
 // Space/Enter on these already fire a native click (or type); handling the key
 // too would advance twice

@@ -36,10 +36,7 @@ export const SideMenu: React.FC<SideMenuProps> = ({setOpen}) => {
 
   return (
     <div className={classes.list} role="presentation">
-      <List
-        onClick={() => setOpen(false)}
-        onKeyDown={() => setOpen(false)}
-      >
+      <List onClick={() => setOpen(false)} onKeyDown={() => setOpen(false)}>
         {navigation.map((item) => (
           <NavListItem key={item.key} item={item} />
         ))}

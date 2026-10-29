@@ -76,7 +76,11 @@ describe('usePrayerNavigation', () => {
   })
 
   it('advance past bead 10 pulses decade', () => {
-    const {result} = renderNavigation({...base, currentBead: 10, decadesPrayed: 0})
+    const {result} = renderNavigation({
+      ...base,
+      currentBead: 10,
+      decadesPrayed: 0,
+    })
     act(() => result.current.advance())
     expect(result.current.current.currentMystery).toBe(MysteryTypes.Joyful2)
     expect(result.current.current.currentBead).toBe(0)
@@ -111,7 +115,10 @@ describe('usePrayerNavigation', () => {
   })
 
   it('advance on a complete intention is a no-op', () => {
-    const {result} = renderNavigation({...base, currentMystery: MysteryTypes.Complete})
+    const {result} = renderNavigation({
+      ...base,
+      currentMystery: MysteryTypes.Complete,
+    })
     expect(result.current.isComplete).toBe(true)
     act(() => result.current.advance())
     expect(result.current.current.currentMystery).toBe(MysteryTypes.Complete)

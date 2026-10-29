@@ -18,5 +18,3 @@ it('should display delete icon for ADMIN user in detailed view', () => {
   expect(onDeleteAction).toHaveBeenCalledTimes(1)
   expect(onDeleteAction).toBeCalledWith('123')
 })
-
-

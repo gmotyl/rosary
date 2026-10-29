@@ -11,8 +11,9 @@ export const AddIntentionPage: React.FC = () => {
     e.preventDefault()
     const {elements} = e.currentTarget
     const title = (elements.namedItem('title') as HTMLTextAreaElement).value
-    const description = (elements.namedItem('description') as HTMLTextAreaElement)
-      .value
+    const description = (
+      elements.namedItem('description') as HTMLTextAreaElement
+    ).value
 
     saveIntention({
       id: Date.now().toString(),

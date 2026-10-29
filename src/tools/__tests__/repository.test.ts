@@ -6,7 +6,8 @@ import {PREFIX} from '../../consts/prefix'
 vi.mock('../storage')
 
 // vi.mock swaps '../storage' for '../__mocks__/storage'; view it through the mock's type.
-const {mockGetItem, mockSetItem} = storageModule as unknown as typeof import('../__mocks__/storage')
+const {mockGetItem, mockSetItem} =
+  storageModule as unknown as typeof import('../__mocks__/storage')
 
 beforeEach(() => {
   vi.clearAllMocks()

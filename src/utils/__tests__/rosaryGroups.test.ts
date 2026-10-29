@@ -35,13 +35,19 @@ describe('firstMysteryOfGroup', () => {
     expect(firstMysteryOfGroup(MysteryGroup.Joyful)).toBe(MysteryTypes.Joyful1)
   })
   it('returns Luminous1 for Luminous', () => {
-    expect(firstMysteryOfGroup(MysteryGroup.Luminous)).toBe(MysteryTypes.Luminous1)
+    expect(firstMysteryOfGroup(MysteryGroup.Luminous)).toBe(
+      MysteryTypes.Luminous1,
+    )
   })
   it('returns Sorrowful1 for Sorrowful', () => {
-    expect(firstMysteryOfGroup(MysteryGroup.Sorrowful)).toBe(MysteryTypes.Sorrowful1)
+    expect(firstMysteryOfGroup(MysteryGroup.Sorrowful)).toBe(
+      MysteryTypes.Sorrowful1,
+    )
   })
   it('returns Glorious1 for Glorious', () => {
-    expect(firstMysteryOfGroup(MysteryGroup.Glorious)).toBe(MysteryTypes.Glorious1)
+    expect(firstMysteryOfGroup(MysteryGroup.Glorious)).toBe(
+      MysteryTypes.Glorious1,
+    )
   })
 })
 
@@ -69,7 +75,10 @@ describe('ALL_DECADES_MASK', () => {
 })
 
 describe('willCompleteRosary', () => {
-  const intention = (currentMystery: MysteryTypes, decadesPrayed: number): IIntention => ({
+  const intention = (
+    currentMystery: MysteryTypes,
+    decadesPrayed: number,
+  ): IIntention => ({
     id: 'i',
     title: 't',
     description: 'd',
@@ -79,14 +88,20 @@ describe('willCompleteRosary', () => {
 
   it('willCompleteRosary is true when the last missing decade is finished', () => {
     const mask = ALL_DECADES_MASK & ~bitForMystery(MysteryTypes.Sorrowful2)
-    expect(willCompleteRosary(intention(MysteryTypes.Sorrowful2, mask))).toBe(true)
+    expect(willCompleteRosary(intention(MysteryTypes.Sorrowful2, mask))).toBe(
+      true,
+    )
   })
 
   it('willCompleteRosary is true at Glorious5 with a partial mask', () => {
-    expect(willCompleteRosary(intention(MysteryTypes.Glorious5, 0b111))).toBe(true)
+    expect(willCompleteRosary(intention(MysteryTypes.Glorious5, 0b111))).toBe(
+      true,
+    )
   })
 
   it('willCompleteRosary is false mid-rosary', () => {
-    expect(willCompleteRosary(intention(MysteryTypes.Glorious4, 0b111))).toBe(false)
+    expect(willCompleteRosary(intention(MysteryTypes.Glorious4, 0b111))).toBe(
+      false,
+    )
   })
 })

@@ -40,7 +40,7 @@ describe('haptics', () => {
     const vibrate = installVibrate()
     const kinds: PulseKind[] = ['bead', 'decade', 'rosary']
 
-    kinds.forEach(kind => pulse(kind))
+    kinds.forEach((kind) => pulse(kind))
 
     expect(isHapticsSupported()).toBe(true)
     expect(vibrate).toHaveBeenCalledTimes(3)

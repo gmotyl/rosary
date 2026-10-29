@@ -15,7 +15,10 @@ export const HapticsSwitch = () => {
   // Devices that cannot vibrate get no switch at all
   if (!isHapticsSupported()) return null
 
-  const handleChange = (_e: React.ChangeEvent<HTMLInputElement>, on: boolean) => {
+  const handleChange = (
+    _e: React.ChangeEvent<HTMLInputElement>,
+    on: boolean,
+  ) => {
     setEnabled(on)
     setHapticsEnabled(on)
   }

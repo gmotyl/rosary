@@ -17,7 +17,10 @@ export const groupOf = (mystery: MysteryTypes): MysteryGroup => {
   if (mystery >= MysteryTypes.Luminous1 && mystery <= MysteryTypes.Luminous5) {
     return MysteryGroup.Luminous
   }
-  if (mystery >= MysteryTypes.Sorrowful1 && mystery <= MysteryTypes.Sorrowful5) {
+  if (
+    mystery >= MysteryTypes.Sorrowful1 &&
+    mystery <= MysteryTypes.Sorrowful5
+  ) {
     return MysteryGroup.Sorrowful
   }
   return MysteryGroup.Glorious
@@ -46,6 +49,10 @@ export const bitForMystery = (mystery: MysteryTypes): number =>
 
 // true when finishing the current decade turns the intention into MysteryTypes.Complete
 export const willCompleteRosary = (intention: IIntention): boolean => {
-  const mask = (intention.decadesPrayed ?? 0) | bitForMystery(intention.currentMystery)
-  return mask === ALL_DECADES_MASK || intention.currentMystery >= MysteryTypes.Glorious5
+  const mask =
+    (intention.decadesPrayed ?? 0) | bitForMystery(intention.currentMystery)
+  return (
+    mask === ALL_DECADES_MASK ||
+    intention.currentMystery >= MysteryTypes.Glorious5
+  )
 }

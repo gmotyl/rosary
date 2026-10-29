@@ -2,8 +2,10 @@ import {render, fireEvent, screen} from '@testing-library/react'
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
 
 // Use the real i18n so the label assertion checks the translated string
-vi.mock('react-i18next', async (importOriginal) =>
-  await importOriginal<typeof import('react-i18next')>(),
+vi.mock(
+  'react-i18next',
+  async (importOriginal) =>
+    await importOriginal<typeof import('react-i18next')>(),
 )
 
 import i18n from 'src/i18n'

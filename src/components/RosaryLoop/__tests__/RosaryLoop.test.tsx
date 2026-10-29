@@ -21,7 +21,12 @@ const pointer = (
   clientY: number,
   isPrimary = true,
 ) => {
-  const event = new MouseEvent(type, {clientX, clientY, bubbles: true, cancelable: true})
+  const event = new MouseEvent(type, {
+    clientX,
+    clientY,
+    bubbles: true,
+    cancelable: true,
+  })
   // MouseEvent has no isPrimary; browsers set it on every pointer event
   Object.defineProperty(event, 'isPrimary', {value: isPrimary})
   expect(event.clientX).toBe(clientX)
@@ -29,19 +34,16 @@ const pointer = (
   fireEvent(el, event)
 }
 
-const drag = (
-  start: Element,
-  end: Element,
-  dx: number,
-  dy: number,
-) => {
+const drag = (start: Element, end: Element, dx: number, dy: number) => {
   pointer(start, 'pointerdown', 200, 100)
   pointer(end, 'pointerup', 200 + dx, 100 + dy)
 }
 
 describe('RosaryLoop', () => {
   it('renders 11 beads (1 OF + 10 HM)', () => {
-    const {getAllByTestId} = render(<RosaryLoop {...baseProps} currentBead={0} />)
+    const {getAllByTestId} = render(
+      <RosaryLoop {...baseProps} currentBead={0} />,
+    )
     expect(getAllByTestId(/^bead-\d+$/)).toHaveLength(11)
   })
 
@@ -246,6 +248,8 @@ describe('RosaryLoop', () => {
   it('stage allows vertical panning', () => {
     const {getByTestId} = render(<RosaryLoop {...baseProps} currentBead={2} />)
     // jsdom's CSS parser ignores touch-action, so read the inline style property.
-    expect((getByTestId('rosary-loop') as HTMLElement).style.touchAction).toBe('pan-y')
+    expect((getByTestId('rosary-loop') as HTMLElement).style.touchAction).toBe(
+      'pan-y',
+    )
   })
 })

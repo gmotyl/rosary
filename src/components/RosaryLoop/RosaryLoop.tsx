@@ -19,11 +19,13 @@ const isSwipeLeft = (dx: number, dy: number) =>
 
 // Slot 0 = OF, slot 1 = gap (between OF and HM1),
 // slots 2..11 = HM1..HM10, slot 12 = gap (between HM10 and OF — "Glory Be" position).
-const slotForBead = (beadIndex: number): number => (beadIndex === 0 ? 0 : beadIndex + 1)
+const slotForBead = (beadIndex: number): number =>
+  beadIndex === 0 ? 0 : beadIndex + 1
 
 // Slot 0 sits at the top (-π/2). Active bead lands at the bottom (+π/2).
 const baseAngle = (slot: number) => -Math.PI / 2 + slot * SLOT_ANGLE
-const rotationForActive = (activeSlot: number) => Math.PI / 2 - baseAngle(activeSlot)
+const rotationForActive = (activeSlot: number) =>
+  Math.PI / 2 - baseAngle(activeSlot)
 
 const pulse = keyframes`
   0%, 100% {
@@ -231,11 +233,16 @@ export const RosaryLoop: React.FC<RosaryLoopProps> = ({
                   borderRadius: '50%',
                   border: '2px solid',
                   borderColor: 'primary.main',
-                  backgroundColor: isPast || isActive ? 'primary.main' : 'background.paper',
+                  backgroundColor:
+                    isPast || isActive ? 'primary.main' : 'background.paper',
                   pointerEvents: clickable ? 'auto' : 'none',
                   cursor: clickable ? 'pointer' : 'default',
-                  animation: isActive ? `${pulse} 1.4s ease-in-out infinite` : 'none',
-                  boxShadow: isActive ? '0 0 0 4px rgba(136, 14, 79, 0.25)' : 'none',
+                  animation: isActive
+                    ? `${pulse} 1.4s ease-in-out infinite`
+                    : 'none',
+                  boxShadow: isActive
+                    ? '0 0 0 4px rgba(136, 14, 79, 0.25)'
+                    : 'none',
                 }}
               />
             </Box>
