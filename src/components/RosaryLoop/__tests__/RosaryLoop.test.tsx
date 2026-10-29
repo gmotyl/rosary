@@ -238,6 +238,33 @@ describe('RosaryLoop', () => {
     expect(onAdvance).toHaveBeenCalledTimes(1)
   })
 
+  it('moved drags that are not swipes do not click through', () => {
+    const onAdvance = vi.fn()
+    const {getByTestId} = render(
+      <RosaryLoop {...baseProps} onAdvance={onAdvance} currentBead={2} />,
+    )
+    const image = getByTestId('rosary-image')
+    // detail: 1 marks a pointer-generated click, as browsers report it
+    drag(image, image, 0, 80) // vertical
+    fireEvent.click(image, {detail: 1})
+    drag(image, image, 80, 0) // rightward
+    fireEvent.click(image, {detail: 1})
+    drag(image, image, -30, 0) // too short
+    fireEvent.click(image, {detail: 1})
+    expect(onAdvance).not.toHaveBeenCalled()
+  })
+
+  it('a tap with tiny jitter still clicks', () => {
+    const onAdvance = vi.fn()
+    const {getByTestId} = render(
+      <RosaryLoop {...baseProps} onAdvance={onAdvance} currentBead={2} />,
+    )
+    const image = getByTestId('rosary-image')
+    drag(image, image, 3, -3)
+    fireEvent.click(image, {detail: 1})
+    expect(onAdvance).toHaveBeenCalledTimes(1)
+  })
+
   it('mouse swipe released outside the stage still advances', () => {
     const onAdvance = vi.fn()
     const {getByTestId} = render(

@@ -13,6 +13,11 @@ const TRANSITION = 'transform 400ms cubic-bezier(0.4, 0, 0.2, 1)'
 const SWIPE_MIN_DX = 50
 const SWIPE_AXIS_RATIO = 1.5
 
+// Movement beyond this many px (on either axis) is a drag, not a tap.
+const TAP_TOLERANCE = 10
+const isDragMove = (dx: number, dy: number) =>
+  Math.max(Math.abs(dx), Math.abs(dy)) > TAP_TOLERANCE
+
 // Swipe left = moved at least SWIPE_MIN_DX to the left, mostly horizontally.
 const isSwipeLeft = (dx: number, dy: number) =>
   dx <= -SWIPE_MIN_DX && Math.abs(dx) > SWIPE_AXIS_RATIO * Math.abs(dy)
@@ -137,9 +142,12 @@ export const RosaryLoop: React.FC<RosaryLoopProps> = ({
       endGesture()
       if (swipeStartRef.current !== start) return
       swipeStartRef.current = null
-      if (!isSwipeLeft(ev.clientX - start.x, ev.clientY - start.y)) return
-      suppressClickRef.current = true
-      onAdvanceRef.current()
+      const dx = ev.clientX - start.x
+      const dy = ev.clientY - start.y
+      // Any drag beyond tap tolerance is a gesture, not a tap: its trailing
+      // click must not advance, whether or not it qualified as a swipe.
+      if (isDragMove(dx, dy)) suppressClickRef.current = true
+      if (isSwipeLeft(dx, dy)) onAdvanceRef.current()
     }
     const onCancel = (ev: PointerEvent) => {
       if (!ev.isPrimary || ev.pointerId !== pointerId) return
