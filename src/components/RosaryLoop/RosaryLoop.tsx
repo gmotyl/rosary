@@ -106,22 +106,54 @@ export const RosaryLoop: React.FC<RosaryLoopProps> = ({
     return () => clearTimeout(t)
   }, [imageSrc, displayedSrc])
 
+  // Latest onAdvance for the window listeners, which outlive the render
+  // that registered them.
+  const onAdvanceRef = useRef(onAdvance)
+  onAdvanceRef.current = onAdvance
+  // Removes the window listeners of the gesture in progress, if any.
+  const endGestureRef = useRef<(() => void) | null>(null)
+
+  useEffect(() => () => endGestureRef.current?.(), [])
+
   const handlePointerDown = (e: React.PointerEvent) => {
     // A second finger must not overwrite the start point of the first
     if (!e.isPrimary) return
     // A new gesture clears any suppression left by a swipe with no trailing click.
     suppressClickRef.current = false
-    swipeStartRef.current = swipeEnabled ? {x: e.clientX, y: e.clientY} : null
-  }
+    endGestureRef.current?.()
+    if (!swipeEnabled) {
+      swipeStartRef.current = null
+      return
+    }
+    const start = {x: e.clientX, y: e.clientY}
+    swipeStartRef.current = start
+    const pointerId = e.pointerId
 
-  const handlePointerUp = (e: React.PointerEvent) => {
-    if (!e.isPrimary) return
-    const start = swipeStartRef.current
-    swipeStartRef.current = null
-    if (!start || !swipeEnabled) return
-    if (!isSwipeLeft(e.clientX - start.x, e.clientY - start.y)) return
-    suppressClickRef.current = true
-    onAdvance()
+    // Mouse has no implicit pointer capture, so a release outside the stage
+    // never reaches it. Capturing on the stage would retarget the click away
+    // from the beads, so listen on window for the end of this gesture instead.
+    const onUp = (ev: PointerEvent) => {
+      if (!ev.isPrimary || ev.pointerId !== pointerId) return
+      endGesture()
+      if (swipeStartRef.current !== start) return
+      swipeStartRef.current = null
+      if (!isSwipeLeft(ev.clientX - start.x, ev.clientY - start.y)) return
+      suppressClickRef.current = true
+      onAdvanceRef.current()
+    }
+    const onCancel = (ev: PointerEvent) => {
+      if (!ev.isPrimary || ev.pointerId !== pointerId) return
+      endGesture()
+      if (swipeStartRef.current === start) swipeStartRef.current = null
+    }
+    const endGesture = () => {
+      window.removeEventListener('pointerup', onUp)
+      window.removeEventListener('pointercancel', onCancel)
+      if (endGestureRef.current === endGesture) endGestureRef.current = null
+    }
+    window.addEventListener('pointerup', onUp)
+    window.addEventListener('pointercancel', onCancel)
+    endGestureRef.current = endGesture
   }
 
   // Capture phase: swallow the click that follows a swipe ending over the
@@ -145,10 +177,6 @@ export const RosaryLoop: React.FC<RosaryLoopProps> = ({
       // jsdom drops touch-action from stylesheets
       style={{touchAction: 'pan-y'}}
       onPointerDown={handlePointerDown}
-      onPointerUp={handlePointerUp}
-      onPointerCancel={() => {
-        swipeStartRef.current = null
-      }}
       onClickCapture={handleClickCapture}
       // A native image drag on desktop would end the gesture with
       // pointercancel instead of pointerup, losing the swipe

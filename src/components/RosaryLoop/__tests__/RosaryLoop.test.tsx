@@ -238,6 +238,50 @@ describe('RosaryLoop', () => {
     expect(onAdvance).toHaveBeenCalledTimes(1)
   })
 
+  it('mouse swipe released outside the stage still advances', () => {
+    const onAdvance = vi.fn()
+    const {getByTestId} = render(
+      <RosaryLoop {...baseProps} onAdvance={onAdvance} currentBead={2} />,
+    )
+    const stage = getByTestId('rosary-loop')
+    // Mouse has no implicit pointer capture, so the release lands outside.
+    pointer(stage, 'pointerdown', 200, 100)
+    pointer(document.body, 'pointerup', 100, 100)
+    expect(onAdvance).toHaveBeenCalledTimes(1)
+    // The gesture is over: another stray release must not advance again.
+    pointer(document.body, 'pointerup', 100, 100)
+    expect(onAdvance).toHaveBeenCalledTimes(1)
+  })
+
+  it('removes window gesture listeners on completion and unmount', () => {
+    const add = vi.spyOn(window, 'addEventListener')
+    const remove = vi.spyOn(window, 'removeEventListener')
+    const {getByTestId, unmount} = render(
+      <RosaryLoop {...baseProps} currentBead={2} />,
+    )
+    const stage = getByTestId('rosary-loop')
+    const added = () =>
+      add.mock.calls.filter(([t]) => t === 'pointerup' || t === 'pointercancel')
+    const removed = () =>
+      remove.mock.calls.filter(
+        ([t]) => t === 'pointerup' || t === 'pointercancel',
+      )
+
+    pointer(stage, 'pointerdown', 200, 100)
+    expect(added()).toHaveLength(2)
+    pointer(stage, 'pointerup', 200, 100)
+    expect(removed()).toHaveLength(2)
+    expect(removed().map(([, fn]) => fn)).toEqual(added().map(([, fn]) => fn))
+
+    pointer(stage, 'pointerdown', 200, 100)
+    expect(added()).toHaveLength(4)
+    unmount()
+    expect(removed()).toHaveLength(4)
+    expect(removed().map(([, fn]) => fn)).toEqual(added().map(([, fn]) => fn))
+    add.mockRestore()
+    remove.mockRestore()
+  })
+
   it('native image drag is prevented on the stage', () => {
     const {getByTestId} = render(<RosaryLoop {...baseProps} currentBead={2} />)
     // A native HTML5 drag would end the pointer gesture with pointercancel
