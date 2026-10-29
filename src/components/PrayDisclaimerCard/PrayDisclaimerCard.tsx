@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const PrayDisclaimerCard: React.ComponentType<{}> = () => {
+const PrayDisclaimerCard: React.FC = () => {
   const classes = useStyles()
 
   return (

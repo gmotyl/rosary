@@ -8,7 +8,7 @@ export interface ColorModeContextValue {
 
 export const ColorModeContext = createContext<ColorModeContextValue>({
   mode: 'light',
-  toggle: () => {},
+  toggle: () => undefined,
 })
 
 export const useColorMode = () => useContext(ColorModeContext)
