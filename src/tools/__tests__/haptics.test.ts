@@ -46,9 +46,9 @@ describe('haptics', () => {
 
     expect(isHapticsSupported()).toBe(true)
     expect(vibrate).toHaveBeenCalledTimes(3)
-    expect(vibrate).toHaveBeenNthCalledWith(1, 15)
-    expect(vibrate).toHaveBeenNthCalledWith(2, [30, 60, 30])
-    expect(vibrate).toHaveBeenNthCalledWith(3, [30, 60, 30, 60, 30])
+    expect(vibrate).toHaveBeenNthCalledWith(1, 30)
+    expect(vibrate).toHaveBeenNthCalledWith(2, [60, 60, 60])
+    expect(vibrate).toHaveBeenNthCalledWith(3, [60, 60, 60, 60, 60])
     kinds.forEach((kind, i) =>
       expect(vibrate).toHaveBeenNthCalledWith(i + 1, PULSE_PATTERNS[kind]),
     )
