@@ -15,7 +15,7 @@ import {FishIcon} from 'src/components/Icons'
 
 // Mystery titles read "<ordinal> <group>: <name>"; split them into the short
 // label (heading kicker, banner) and the name
-const splitTitle = (title: string) => {
+export const splitTitle = (title: string) => {
   const idx = title.indexOf(': ')
   return idx >= 0
     ? {label: title.slice(0, idx), name: title.slice(idx + 2)}

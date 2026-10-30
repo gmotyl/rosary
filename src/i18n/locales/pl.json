@@ -153,6 +153,24 @@
       "todayNotPrayed": "Dziś: jeszcze nie odmówiono",
       "todayPrayed": "Dziś: odmówione"
     },
+    "calendar": {
+      "prevMonth": "Poprzedni miesiąc",
+      "nextMonth": "Następny miesiąc",
+      "weekdayShort": {
+        "mon": "Pn",
+        "tue": "Wt",
+        "wed": "Śr",
+        "thu": "Cz",
+        "fri": "Pt",
+        "sat": "So",
+        "sun": "Nd"
+      },
+      "prayed": "odmówione",
+      "changeDayMark": "dzień zmiany",
+      "tapHint": "dotknij dnia, by zaznaczyć ręcznie",
+      "changeDay": "Dzień zmiany",
+      "change": "Zmień"
+    },
     "menu": {
       "rosary": "Różaniec",
       "add": "Dodaj różę",

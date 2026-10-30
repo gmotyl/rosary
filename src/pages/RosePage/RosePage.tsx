@@ -16,6 +16,7 @@ import {useTranslation} from 'react-i18next'
 import {ERoutes} from 'src/app/config/routes'
 import {useRoses} from 'src/hooks'
 import {RosePrayTab} from './RosePrayTab'
+import {RoseCalendarTab} from './RoseCalendarTab'
 
 type RoseTab = 'pray' | 'calendar' | 'edit'
 
@@ -28,7 +29,7 @@ const TABS: {tab: RoseTab; icon: JSX.Element}[] = [
 
 const rosePath = (id: string, tab: RoseTab) => `/rose/${id}/${tab}`
 
-// Placeholder bodies; later tasks swap them for RoseCalendarTab, RoseEditTab
+// Placeholder body; a later task swaps it for RoseEditTab
 const TabPlaceholder = ({tab}: {tab: RoseTab}) => (
   <Box data-testid={`rose-${tab}-tab`} />
 )
@@ -60,6 +61,8 @@ export const RosePage = () => {
             <Route key={tab} path={`${ERoutes.ROSE}/${tab}`}>
               {tab === 'pray' ? (
                 <RosePrayTab id={id} />
+              ) : tab === 'calendar' ? (
+                <RoseCalendarTab id={id} />
               ) : (
                 <TabPlaceholder tab={tab} />
               )}

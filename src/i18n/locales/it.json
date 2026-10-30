@@ -153,6 +153,24 @@
       "todayNotPrayed": "Oggi: non ancora pregato",
       "todayPrayed": "Oggi: pregato"
     },
+    "calendar": {
+      "prevMonth": "Mese precedente",
+      "nextMonth": "Mese successivo",
+      "weekdayShort": {
+        "mon": "Lu",
+        "tue": "Ma",
+        "wed": "Me",
+        "thu": "Gi",
+        "fri": "Ve",
+        "sat": "Sa",
+        "sun": "Do"
+      },
+      "prayed": "pregato",
+      "changeDayMark": "giorno di cambio",
+      "tapHint": "tocca un giorno per segnarlo a mano",
+      "changeDay": "Giorno di cambio",
+      "change": "Cambia"
+    },
     "menu": {
       "rosary": "Rosario",
       "add": "Aggiungi rosa",
