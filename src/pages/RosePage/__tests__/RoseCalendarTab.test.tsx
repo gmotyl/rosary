@@ -1,4 +1,4 @@
-import {fireEvent, screen, within} from '@testing-library/react'
+import {act, fireEvent, screen, within} from '@testing-library/react'
 import {MemoryRouter, Route, Switch} from 'react-router-dom'
 import {vi} from 'vitest'
 import '@testing-library/jest-dom'
@@ -244,5 +244,42 @@ describe('RoseCalendarTab', () => {
     expect(header).toHaveTextContent('Październik 2026')
     expect(next).toBeDisabled()
     expect(day(4)).toHaveAttribute('data-change-day', 'true')
+  })
+
+  it('rolls over to the new day and month at midnight while mounted', () => {
+    vi.useFakeTimers({toFake: ['Date', 'setTimeout', 'clearTimeout']})
+    vi.setSystemTime(new Date(2026, 9, 31, 23, 59, 0))
+    seed()
+    renderAt()
+    expect(day(31)).toHaveAttribute('data-today', 'true')
+
+    act(() => {
+      vi.advanceTimersByTime(2 * 60 * 1000)
+    })
+
+    // The calendar followed today into November
+    const header = screen.getByTestId('rose-calendar-header')
+    expect(header).toHaveTextContent('Listopad 2026')
+    expect(day(1, 'listopada')).toHaveAttribute('data-today', 'true')
+    expect(day(1, 'listopada')).toBeEnabled()
+    expect(
+      within(header).getByRole('button', {name: 'Następny miesiąc'}),
+    ).toBeDisabled()
+  })
+
+  it('picks up a new day when the app resumes', () => {
+    vi.setSystemTime(new Date(2026, 9, 29, 21, 0, 0))
+    seed({prayedDays: []})
+    renderAt()
+    expect(day(30)).toBeDisabled()
+
+    // Timers do not run while the PWA sleeps; the resume must refresh today
+    vi.setSystemTime(new Date(2026, 9, 30, 7, 0, 0))
+    act(() => {
+      document.dispatchEvent(new Event('visibilitychange'))
+    })
+
+    expect(day(30)).toBeEnabled()
+    expect(day(30)).toHaveAttribute('data-today', 'true')
   })
 })

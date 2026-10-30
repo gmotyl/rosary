@@ -6,7 +6,7 @@ import {Link as RouterLink} from 'react-router-dom'
 import {useTranslation} from 'react-i18next'
 
 import {getMystery} from 'src/consts/rosary'
-import {useRoses} from 'src/hooks'
+import {useLocalToday, useRoses} from 'src/hooks'
 import {changeDateInMonth, toLocalDate} from 'src/utils/roseChangeDay'
 import {formatMonthCounter, monthLocative} from 'src/components/FishCelebration'
 import {formatChangeDayLong, WEEKDAYS} from 'src/components/AddRoseDialog'
@@ -26,22 +26,29 @@ export const RoseCalendarTab: React.FC<RoseCalendarTabProps> = ({id}) => {
   const {getRose, toggleDay} = useRoses()
   const rose = getRose(id)
 
-  const now = new Date()
-  const today = toLocalDate(now)
-  // Shown month; starts on the current one and never goes past it
-  const [shown, setShown] = useState({
-    year: now.getFullYear(),
-    month: now.getMonth(),
-  })
+  // Re-renders at midnight and on resume, so a calendar left open overnight
+  // enables the new day and follows it into a new month
+  const today = useLocalToday()
+  const current = {
+    year: Number(today.slice(0, 4)),
+    month: Number(today.slice(5, 7)) - 1,
+  }
+  // Shown month; null follows the current one. Never goes past it.
+  const [shown, setShown] = useState<{year: number; month: number} | null>(
+    null,
+  )
 
   // RosePage redirects unknown ids; this only covers a rose deleted meanwhile
   if (!rose) return null
 
-  const {year, month} = shown
-  const isCurrentMonth = year === now.getFullYear() && month === now.getMonth()
+  const {year, month} = shown ?? current
+  const isCurrentMonth = year === current.year && month === current.month
   const shiftMonth = (delta: number) => {
     const d = new Date(year, month + delta, 1)
-    setShown({year: d.getFullYear(), month: d.getMonth()})
+    const next = {year: d.getFullYear(), month: d.getMonth()}
+    const backToCurrent =
+      next.year === current.year && next.month === current.month
+    setShown(backToCurrent ? null : next)
   }
 
   const lng = i18n.resolvedLanguage ?? i18n.language
