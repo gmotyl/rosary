@@ -14,7 +14,7 @@ import {
 import {useTranslation} from 'react-i18next'
 
 import {ERoutes} from 'src/app/config/routes'
-import {useRoses} from 'src/hooks'
+import {useLocalToday, useRoses} from 'src/hooks'
 import {RosePrayTab} from './RosePrayTab'
 import {RoseCalendarTab} from './RoseCalendarTab'
 import {RoseEditTab} from './RoseEditTab'
@@ -37,11 +37,14 @@ export const RosePage = () => {
   const {getRose, applyChangeDays} = useRoses()
   const rose = getRose(id)
 
-  // Catch up on change dates that passed since the last visit, once per rose
+  // Catch up on change dates that passed since the last visit: once per rose,
+  // and again whenever the local day changes while the page stays open
+  // (midnight, or a PWA resumed on a later day)
+  const today = useLocalToday()
   useEffect(() => {
-    applyChangeDays(id)
+    applyChangeDays(id, today)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id])
+  }, [id, today])
 
   if (!rose) return <Redirect to={ERoutes.HOME} />
 

@@ -1,4 +1,4 @@
-import {fireEvent, screen, within} from '@testing-library/react'
+import {act, fireEvent, screen, within} from '@testing-library/react'
 import {MemoryRouter, Route, Switch} from 'react-router-dom'
 import {vi} from 'vitest'
 import '@testing-library/jest-dom'
@@ -122,6 +122,40 @@ describe('RosePage', () => {
     fireEvent.click(screen.getByTestId('rose-calendar-tab-nav'))
     fireEvent.click(screen.getByTestId('rose-edit-tab-nav'))
     expect(mockApplyChangeDays).toHaveBeenCalledTimes(1)
-    expect(mockApplyChangeDays).toHaveBeenCalledWith('r1', undefined)
+    expect(mockApplyChangeDays).toHaveBeenCalledWith(
+      'r1',
+      toLocalDate(new Date()),
+    )
+  })
+
+  it('applies a change date that passes while the page stays open', () => {
+    vi.useFakeTimers({toFake: ['Date']})
+    try {
+      vi.setSystemTime(new Date(2026, 9, 31, 22, 0, 0))
+      localStorage.setItem(
+        ROSES_KEY,
+        JSON.stringify([{...rose, lastChange: '2026-10-01', currentBead: 4}]),
+      )
+      renderAt('/rose/r1/pray')
+      const stored = (): IRose =>
+        JSON.parse(localStorage.getItem(ROSES_KEY)!)[0]
+      expect(stored().mystery).toBe(MysteryTypes.Joyful1)
+
+      // The PWA resumes on 1 November, the rose's change day, without remount
+      vi.setSystemTime(new Date(2026, 10, 1, 7, 0, 0))
+      act(() => {
+        document.dispatchEvent(new Event('visibilitychange'))
+      })
+
+      expect(stored()).toMatchObject({
+        mystery: MysteryTypes.Joyful2,
+        lastChange: '2026-11-01',
+        showNewMysteryBanner: true,
+        currentBead: 0,
+      })
+      expect(screen.getByTestId('rose-new-mystery-banner')).toBeInTheDocument()
+    } finally {
+      vi.useRealTimers()
+    }
   })
 })
