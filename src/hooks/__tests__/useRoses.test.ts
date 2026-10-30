@@ -395,4 +395,35 @@ describe('useRoses', () => {
     expect(result.current.roses).toBe(before)
     expect(result.current.getRose(before[0].id)).toEqual(before[0])
   })
+
+  it('keeps mutations in memory and warns when storage writes fail', () => {
+    const {result} = renderHook(() => useRoses())
+    let id = ''
+    act(() => {
+      id = result.current.addRose({
+        name: 'A',
+        mystery: MysteryTypes.Joyful1,
+        changeDay: firstSunday,
+      }).id
+    })
+    const persisted = localStorage.getItem(ROSES_KEY)
+    const setItem = vi
+      .spyOn(Storage.prototype, 'setItem')
+      .mockImplementation(() => {
+        throw new DOMException('full', 'QuotaExceededError')
+      })
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+    act(() => {
+      expect(() => result.current.advanceBead(id)).not.toThrow()
+      result.current.advanceBead(id)
+    })
+
+    expect(setItem).toHaveBeenCalled()
+    expect(warn).toHaveBeenCalled()
+    // Both taps composed in memory although nothing reached storage
+    expect(result.current.getRose(id)?.currentBead).toBe(2)
+    expect(result.current.roses[0].currentBead).toBe(2)
+    expect(localStorage.getItem(ROSES_KEY)).toBe(persisted)
+  })
 })

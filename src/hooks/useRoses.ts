@@ -78,8 +78,16 @@ const readRoses = (): IRose[] => {
 
 const writeRoses = (next: IRose[]) => {
   const raw = JSON.stringify(next)
-  localStorage.setItem(ROSES_KEY, raw)
-  cachedRaw = raw
+  try {
+    localStorage.setItem(ROSES_KEY, raw)
+    cachedRaw = raw
+  } catch (error) {
+    // Quota or blocked storage: keep the change in memory for this session.
+    // Pinning cachedRaw to what storage still holds makes readRoses keep
+    // serving `next` until storage really changes (e.g. another tab writes).
+    console.warn('rosary: could not persist roses', error)
+    cachedRaw = readStoredRaw()
+  }
   cachedList = next
   listeners.forEach((listener) => listener())
 }
