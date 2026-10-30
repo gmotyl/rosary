@@ -119,5 +119,12 @@
   "about": {
     "openSource": "Open-Source-Projekt",
     "license": "GPLv3"
+  },
+  "rose": {
+    "tabs": {
+      "pray": "Gebet",
+      "calendar": "Kalender",
+      "edit": "Ändern"
+    }
   }
 }
