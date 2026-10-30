@@ -74,3 +74,18 @@ it('header title follows a rename done through another useRoses instance', () =>
   expect(getByText('Żeńska róża')).toBeInTheDocument()
   expect(queryByText('Męska róża')).not.toBeInTheDocument()
 })
+
+it('a long rose name can shrink to ellipsis instead of overflowing', () => {
+  renderWithTheme(
+    <MemoryRouter initialEntries={['/rose/r1/pray']}>
+      <Header />
+    </MemoryRouter>,
+  )
+  // jsdom has no layout: assert the flex item may shrink below its nowrap
+  // content (min-width: 0) and clips, so the title's ellipsis can apply
+  const slot = appBar().getByTestId('header-title')
+  expect(slot).toHaveStyle('min-width: 0; overflow: hidden')
+  expect(within(slot).getByText('Męska róża')).toHaveClass(
+    'MuiTypography-noWrap',
+  )
+})

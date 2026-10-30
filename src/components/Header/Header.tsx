@@ -61,11 +61,19 @@ export const Header = () => {
           <Toolbar>
             <DrawerMenu></DrawerMenu>
             <div className={classes.grow} />
-            <Link to={'/'}>
-              <Typography variant="h6" color="inherit" noWrap={true}>
-                {title}
-              </Typography>
-            </Link>
+            {/* Flex items default to min-width: auto, which for nowrap text is
+                the whole name; min-width 0 lets a long rose name shrink so
+                the Typography ellipsis applies instead of overflowing */}
+            <Box
+              data-testid="header-title"
+              sx={{minWidth: 0, overflow: 'hidden'}}
+            >
+              <Link to={'/'}>
+                <Typography variant="h6" color="inherit" noWrap={true}>
+                  {title}
+                </Typography>
+              </Link>
+            </Box>
             <div className={classes.grow} />
           </Toolbar>
         </AppBar>
