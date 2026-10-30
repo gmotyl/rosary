@@ -108,7 +108,9 @@ describe('RosePrayTab', () => {
     expect(heading).toHaveTextContent(mystery.title.split(': ')[1])
 
     const loop = screen.getByTestId('rosary-loop')
-    const img = within(screen.getByTestId('rosary-image')).getByRole('img')
+    // The Avatar image is decorative (alt=""): newer dom-testing-library maps
+    // that to role presentation, so select the element instead of role img
+    const img = screen.getByTestId('rosary-image').querySelector('img')
     expect(img).toHaveAttribute('src', mystery.image)
     // Agreed deviation: the image stays in the centre, no "7 z 10" counter
     expect(loop).not.toHaveTextContent(/\d+\s*z\s*10/)
