@@ -426,4 +426,31 @@ describe('useRoses', () => {
     expect(result.current.roses[0].currentBead).toBe(2)
     expect(localStorage.getItem(ROSES_KEY)).toBe(persisted)
   })
+
+  it('changing the mystery restarts the decade, same mystery keeps it', () => {
+    const {result} = renderHook(() => useRoses())
+    let id = ''
+    act(() => {
+      id = result.current.addRose({
+        name: 'A',
+        mystery: MysteryTypes.Joyful1,
+        changeDay: firstSunday,
+      }).id
+    })
+    act(() => {
+      for (let i = 0; i < 10; i++) result.current.advanceBead(id)
+    })
+    expect(result.current.getRose(id)?.currentBead).toBe(10)
+
+    // Re-saving the same mystery (or only the name) is not a new decade
+    act(() => {
+      result.current.updateRose(id, {name: 'B', mystery: MysteryTypes.Joyful1})
+    })
+    expect(result.current.getRose(id)?.currentBead).toBe(10)
+
+    act(() => {
+      result.current.updateRose(id, {mystery: MysteryTypes.Sorrowful2})
+    })
+    expect(result.current.getRose(id)?.currentBead).toBe(0)
+  })
 })

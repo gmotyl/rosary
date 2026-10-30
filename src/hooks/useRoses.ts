@@ -141,7 +141,13 @@ export const useRoses = () => {
     updateOne(id, (rose) => ({
       ...rose,
       ...(patch.name !== undefined && {name: patch.name.trim()}),
-      ...(patch.mystery !== undefined && {mystery: patch.mystery}),
+      // A different mystery is a new decade: progress from the old one must
+      // not let a single tap complete it
+      ...(patch.mystery !== undefined &&
+        patch.mystery !== rose.mystery && {
+          mystery: patch.mystery,
+          currentBead: 0,
+        }),
       ...(patch.changeDay !== undefined && {
         changeDay: patch.changeDay,
         lastChange: latestChangeDateOnOrBefore(patch.changeDay, today()),
