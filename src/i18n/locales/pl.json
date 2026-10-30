@@ -121,6 +121,25 @@
     "license": "GPLv3"
   },
   "rose": {
+    "monthCounter": "{{prayed}} z {{days}} dni w {{month}}",
+    "monthLocative": {
+      "0": "styczniu",
+      "1": "lutym",
+      "2": "marcu",
+      "3": "kwietniu",
+      "4": "maju",
+      "5": "czerwcu",
+      "6": "lipcu",
+      "7": "sierpniu",
+      "8": "wrześniu",
+      "9": "październiku",
+      "10": "listopadzie",
+      "11": "grudniu"
+    },
+    "celebration": {
+      "praise": "Chwała Panu!\nDziesiątka odmówiona.",
+      "hint": "dotknij, aby zamknąć"
+    },
     "tabs": {
       "pray": "Modlitwa",
       "calendar": "Kalendarz",

@@ -121,6 +121,25 @@
     "license": "GPLv3"
   },
   "rose": {
+    "monthCounter": "{{prayed}} jours sur {{days}} en {{month}}",
+    "monthLocative": {
+      "0": "janvier",
+      "1": "février",
+      "2": "mars",
+      "3": "avril",
+      "4": "mai",
+      "5": "juin",
+      "6": "juillet",
+      "7": "août",
+      "8": "septembre",
+      "9": "octobre",
+      "10": "novembre",
+      "11": "décembre"
+    },
+    "celebration": {
+      "praise": "Gloire au Seigneur !\nDizaine priée.",
+      "hint": "touchez pour fermer"
+    },
     "tabs": {
       "pray": "Prière",
       "calendar": "Calendrier",
