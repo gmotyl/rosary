@@ -1,5 +1,6 @@
-import {fireEvent, screen, within} from '@testing-library/react'
+import {act, fireEvent, screen, within} from '@testing-library/react'
 import {MemoryRouter, Route, Switch} from 'react-router-dom'
+import type {RouteComponentProps} from 'react-router-dom'
 import {vi} from 'vitest'
 import '@testing-library/jest-dom'
 
@@ -40,6 +41,9 @@ const seed = (patch: Partial<IRose> = {}) =>
 const storedRoses = (): IRose[] => JSON.parse(localStorage.getItem(ROSES_KEY)!)
 const stored = (): IRose => storedRoses()[0]
 
+// Same-tab navigation, as the side menu or a browser back would do it
+let routerHistory: RouteComponentProps['history']
+
 const renderAt = (path = '/rose/r1/edit') =>
   renderWithTheme(
     <MemoryRouter initialEntries={[path]}>
@@ -51,9 +55,10 @@ const renderAt = (path = '/rose/r1/edit') =>
       </Switch>
       <Route
         path="*"
-        render={({location}) => (
-          <div data-testid="location">{location.pathname}</div>
-        )}
+        render={({location, history}) => {
+          routerHistory = history
+          return <div data-testid="location">{location.pathname}</div>
+        }}
       />
     </MemoryRouter>,
   )
@@ -227,5 +232,32 @@ describe('RoseEditTab', () => {
     expect(stored()).toEqual(baseRose)
     expect(screen.getByTestId('location')).toHaveTextContent('/rose/r1/edit')
     expect(screen.getByTestId('rose-edit-tab')).toBeInTheDocument()
+  })
+
+  it('an open edit draft does not follow navigation to another rose', () => {
+    localStorage.setItem(
+      ROSES_KEY,
+      JSON.stringify([baseRose, {...baseRose, id: 'r2', name: 'Żeńska róża'}]),
+    )
+    renderAt()
+
+    const dialog = openEditor('name', 'Zmień nazwę')
+    fireEvent.change(within(dialog).getByLabelText('Nazwa'), {
+      target: {value: 'Szkic dla r1'},
+    })
+
+    act(() => {
+      routerHistory.push('/rose/r2/edit')
+    })
+
+    // r2 opens fresh: no dialog carrying r1's draft that could save into r2
+    expect(
+      screen.queryByRole('dialog', {name: 'Zmień nazwę'}),
+    ).not.toBeInTheDocument()
+    expect(row('name')).toHaveTextContent('Żeńska róża')
+    expect(storedRoses().map((r) => r.name)).toEqual([
+      'Męska róża',
+      'Żeńska róża',
+    ])
   })
 })

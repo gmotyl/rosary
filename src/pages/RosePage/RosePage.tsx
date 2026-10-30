@@ -55,7 +55,9 @@ export const RosePage = () => {
   return (
     <>
       <Box sx={{pb: 8}}>
-        <Switch>
+        {/* Keyed by rose: same-tab navigation to another rose must not carry
+            tab state (edit drafts, celebration) over to it */}
+        <Switch key={id}>
           {TABS.map(({tab}) => (
             <Route key={tab} path={`${ERoutes.ROSE}/${tab}`}>
               {tab === 'pray' ? (
