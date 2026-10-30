@@ -121,7 +121,8 @@
     "license": "GPLv3"
   },
   "rose": {
-    "monthCounter": "{{prayed}} giorni su {{days}} {{month}}",
+    "monthCounter_one": "{{prayed}} giorno su {{days}} {{month}}",
+    "monthCounter_other": "{{prayed}} giorni su {{days}} {{month}}",
     "monthLocative": {
       "0": "in gennaio",
       "1": "in febbraio",

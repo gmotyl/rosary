@@ -7,10 +7,13 @@ import {TFunction} from 'i18next'
 export const monthLocative = (month: number, t: TFunction): string =>
   t(`rose.monthLocative.${month}`)
 
-// "23 z 31 dni w październiku" — shared by the celebration and the today card
+// "23 z 31 dni w październiku" — shared by the celebration and the today card.
+// count picks the plural form where the noun agrees with the prayed number
+// ("1 jour sur 31"); locales whose noun follows the days total keep a single
+// base key, which i18next falls back to
 export const formatMonthCounter = (
   prayed: number,
   days: number,
   month: string,
   t: TFunction,
-): string => t('rose.monthCounter', {prayed, days, month})
+): string => t('rose.monthCounter', {prayed, days, month, count: prayed})
