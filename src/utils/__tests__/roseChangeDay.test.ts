@@ -106,6 +106,11 @@ describe('advanceMystery', () => {
 })
 
 describe('toLocalDate', () => {
+  it('runs in a non-UTC timezone (pinned in vite.config.ts)', () => {
+    // Europe/Warsaw: UTC+1 in January
+    expect(new Date(2026, 0, 1).getTimezoneOffset()).toBe(-60)
+  })
+
   it('toLocalDate uses local calendar date', () => {
     // late evening: west of UTC the UTC date is already the next day
     expect(toLocalDate(new Date(2026, 9, 30, 23, 30))).toBe('2026-10-30')
