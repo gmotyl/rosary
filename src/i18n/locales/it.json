@@ -97,6 +97,9 @@
     "it": "Italiano",
     "de": "Deutsch"
   },
+  "hapticsSwitch": {
+    "label": "Vibrazione"
+  },
   "howItWorks": {
     "title": "Come pregare il Rosario",
     "intro": "Il Rosario è una meditazione sulla vita di Cristo attraverso gli occhi di Maria. Un Rosario completo è composto da cinque decine; ogni decina consiste in un Padre nostro, dieci Ave Maria e un Gloria, recitati meditando su un mistero.",

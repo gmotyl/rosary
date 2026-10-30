@@ -97,6 +97,9 @@
     "it": "Italiano",
     "de": "Deutsch"
   },
+  "hapticsSwitch": {
+    "label": "Wibracja"
+  },
   "howItWorks": {
     "title": "Jak odmawiać różaniec",
     "intro": "Różaniec jest medytacją nad życiem Chrystusa oczami Maryi. Pełny różaniec obejmuje pięć dziesiątek; każda dziesiątka składa się z jednego Ojcze nasz, dziesięciu Zdrowaś Maryjo i Chwały Ojcu, odmawianych podczas rozważania tajemnicy.",

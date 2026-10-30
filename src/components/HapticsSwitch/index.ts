@@ -1,0 +1,1 @@
+export {HapticsSwitch} from './HapticsSwitch'

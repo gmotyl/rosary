@@ -106,11 +106,80 @@ describe('PrayCard', () => {
     expect(getByText(/7/)).toBeTruthy()
   })
 
+  it('every click path in PrayCard vibrates once', () => {
+    window.localStorage.clear()
+    const vibrate = vi.fn(() => true)
+    Object.defineProperty(navigator, 'vibrate', {
+      configurable: true,
+      writable: true,
+      value: vibrate,
+    })
+    try {
+      mocks.intention.currentMystery = MysteryTypes.Luminous3
+      mocks.intention.currentBead = 4
+      const {getByTestId, getByText} = renderInRouter(<PrayCard id="test" />)
+      const clickPaths = [
+        () => fireEvent.click(getByText(/prayer\.next/)),
+        () => fireEvent.click(getByTestId('rosary-image')),
+        () => fireEvent.click(getByTestId('bead-5').querySelector('button')!),
+        () => fireEvent.click(getByTestId('bead-3').querySelector('button')!),
+      ]
+      for (const click of clickPaths) {
+        vibrate.mockClear()
+        click()
+        expect(vibrate).toHaveBeenCalledTimes(1)
+      }
+    } finally {
+      // jsdom has no navigator.vibrate; do not leak the stub
+      delete (navigator as {vibrate?: unknown}).vibrate
+    }
+  })
+
+  it('Enter on the focused Next button advances exactly once', () => {
+    mocks.intention.currentMystery = MysteryTypes.Luminous3
+    mocks.intention.currentBead = 4
+    const {getByTestId} = renderInRouter(<PrayCard id="test" />)
+    const next = getByTestId('pray-next-button')
+    next.focus()
+    expect(document.activeElement).toBe(next)
+    for (const key of ['Enter', ' ']) {
+      mocks.prayNext.mockClear()
+      // jsdom does not synthesize the native click a browser fires for
+      // Enter/Space on a button, so model both: the keydown (which the key
+      // hook must ignore) and the resulting click
+      fireEvent.keyDown(next, {key})
+      fireEvent.click(next)
+      expect(mocks.prayNext).toHaveBeenCalledTimes(1)
+    }
+  })
+
+  it('keys in the open group menu do not advance', () => {
+    mocks.intention.currentMystery = MysteryTypes.Luminous3
+    const {getByTestId} = renderInRouter(<PrayCard id="test" />)
+    fireEvent.click(getByTestId('rosary-header-trigger'))
+    const item = getByTestId('group-menu-glorious')
+    mocks.prayNext.mockClear()
+    for (const key of ['ArrowDown', 'PageDown', 'Enter', ' ']) {
+      fireEvent.keyDown(item, {key})
+    }
+    expect(mocks.prayNext).not.toHaveBeenCalled()
+  })
+
+  it('an advance key on the page body advances', () => {
+    mocks.intention.currentMystery = MysteryTypes.Luminous3
+    mocks.prayNext.mockClear()
+    renderInRouter(<PrayCard id="test" />)
+    fireEvent.keyDown(document.body, {key: 'ArrowRight'})
+    expect(mocks.prayNext).toHaveBeenCalledTimes(1)
+  })
+
   it('renders gilt verse block with mystery-verse and mystery-reference when not complete', () => {
     mocks.intention.currentMystery = MysteryTypes.Joyful1
     const {getByTestId} = renderInRouter(<PrayCard id="test" />)
     // t() returns keys as strings in test env; key for Joyful1 verse contains 'joyful1'
     expect(getByTestId('mystery-verse').textContent).toContain('joyful1')
-    expect(getByTestId('mystery-reference').textContent).toContain('joyful1.description')
+    expect(getByTestId('mystery-reference').textContent).toContain(
+      'joyful1.description',
+    )
   })
 })

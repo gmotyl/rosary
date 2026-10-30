@@ -1,4 +1,4 @@
-import {FC, SyntheticEvent} from 'react'
+import {FC, FormEvent} from 'react'
 import {
   Card,
   Container,
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 interface AddIntentionCardProps {
-  onSubmit: (e: SyntheticEvent) => void
+  onSubmit: (e: FormEvent<HTMLFormElement>) => void
 }
 export const AddIntentionCard: FC<AddIntentionCardProps> = ({onSubmit}) => {
   const classes = useStyles()

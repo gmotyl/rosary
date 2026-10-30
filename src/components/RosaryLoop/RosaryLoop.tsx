@@ -10,14 +10,27 @@ const HM_BEAD_SIZE = 22
 const OF_BEAD_SIZE = 30
 const IMAGE_SIZE = 200
 const TRANSITION = 'transform 400ms cubic-bezier(0.4, 0, 0.2, 1)'
+const SWIPE_MIN_DX = 50
+const SWIPE_AXIS_RATIO = 1.5
+
+// Movement beyond this many px (on either axis) is a drag, not a tap.
+const TAP_TOLERANCE = 10
+const isDragMove = (dx: number, dy: number) =>
+  Math.max(Math.abs(dx), Math.abs(dy)) > TAP_TOLERANCE
+
+// Swipe left = moved at least SWIPE_MIN_DX to the left, mostly horizontally.
+const isSwipeLeft = (dx: number, dy: number) =>
+  dx <= -SWIPE_MIN_DX && Math.abs(dx) > SWIPE_AXIS_RATIO * Math.abs(dy)
 
 // Slot 0 = OF, slot 1 = gap (between OF and HM1),
 // slots 2..11 = HM1..HM10, slot 12 = gap (between HM10 and OF — "Glory Be" position).
-const slotForBead = (beadIndex: number): number => (beadIndex === 0 ? 0 : beadIndex + 1)
+const slotForBead = (beadIndex: number): number =>
+  beadIndex === 0 ? 0 : beadIndex + 1
 
 // Slot 0 sits at the top (-π/2). Active bead lands at the bottom (+π/2).
 const baseAngle = (slot: number) => -Math.PI / 2 + slot * SLOT_ANGLE
-const rotationForActive = (activeSlot: number) => Math.PI / 2 - baseAngle(activeSlot)
+const rotationForActive = (activeSlot: number) =>
+  Math.PI / 2 - baseAngle(activeSlot)
 
 const pulse = keyframes`
   0%, 100% {
@@ -36,6 +49,7 @@ interface RosaryLoopProps {
   currentMystery: number
   onAdvance: () => void
   onRetreat: () => void
+  swipeEnabled?: boolean
 }
 
 export const RosaryLoop: React.FC<RosaryLoopProps> = ({
@@ -44,6 +58,7 @@ export const RosaryLoop: React.FC<RosaryLoopProps> = ({
   currentMystery,
   onAdvance,
   onRetreat,
+  swipeEnabled = true,
 }) => {
   const activeSlot = slotForBead(currentBead)
 
@@ -55,6 +70,8 @@ export const RosaryLoop: React.FC<RosaryLoopProps> = ({
   const [displayedSrc, setDisplayedSrc] = useState(imageSrc)
   const prevBeadRef = useRef(currentBead)
   const prevMysteryRef = useRef(currentMystery)
+  const swipeStartRef = useRef<{x: number; y: number} | null>(null)
+  const suppressClickRef = useRef(false)
 
   useEffect(() => {
     const prevBead = prevBeadRef.current
@@ -81,6 +98,7 @@ export const RosaryLoop: React.FC<RosaryLoopProps> = ({
       const id = requestAnimationFrame(() => setTransitionsOn(true))
       return () => cancelAnimationFrame(id)
     }
+    return undefined
   }, [currentBead, currentMystery])
 
   useEffect(() => {
@@ -93,6 +111,70 @@ export const RosaryLoop: React.FC<RosaryLoopProps> = ({
     return () => clearTimeout(t)
   }, [imageSrc, displayedSrc])
 
+  // Latest onAdvance for the window listeners, which outlive the render
+  // that registered them.
+  const onAdvanceRef = useRef(onAdvance)
+  onAdvanceRef.current = onAdvance
+  // Removes the window listeners of the gesture in progress, if any.
+  const endGestureRef = useRef<(() => void) | null>(null)
+
+  useEffect(() => () => endGestureRef.current?.(), [])
+
+  const handlePointerDown = (e: React.PointerEvent) => {
+    // A second finger must not overwrite the start point of the first
+    if (!e.isPrimary) return
+    // A new gesture clears any suppression left by a swipe with no trailing click.
+    suppressClickRef.current = false
+    endGestureRef.current?.()
+    if (!swipeEnabled) {
+      swipeStartRef.current = null
+      return
+    }
+    const start = {x: e.clientX, y: e.clientY}
+    swipeStartRef.current = start
+    const pointerId = e.pointerId
+
+    // Mouse has no implicit pointer capture, so a release outside the stage
+    // never reaches it. Capturing on the stage would retarget the click away
+    // from the beads, so listen on window for the end of this gesture instead.
+    const onUp = (ev: PointerEvent) => {
+      if (!ev.isPrimary || ev.pointerId !== pointerId) return
+      endGesture()
+      if (swipeStartRef.current !== start) return
+      swipeStartRef.current = null
+      const dx = ev.clientX - start.x
+      const dy = ev.clientY - start.y
+      // Any drag beyond tap tolerance is a gesture, not a tap: its trailing
+      // click must not advance, whether or not it qualified as a swipe.
+      if (isDragMove(dx, dy)) suppressClickRef.current = true
+      if (isSwipeLeft(dx, dy)) onAdvanceRef.current()
+    }
+    const onCancel = (ev: PointerEvent) => {
+      if (!ev.isPrimary || ev.pointerId !== pointerId) return
+      endGesture()
+      if (swipeStartRef.current === start) swipeStartRef.current = null
+    }
+    const endGesture = () => {
+      window.removeEventListener('pointerup', onUp)
+      window.removeEventListener('pointercancel', onCancel)
+      if (endGestureRef.current === endGesture) endGestureRef.current = null
+    }
+    window.addEventListener('pointerup', onUp)
+    window.addEventListener('pointercancel', onCancel)
+    endGestureRef.current = endGesture
+  }
+
+  // Capture phase: swallow the click that follows a swipe ending over the
+  // image or a bead, so the swipe does not advance twice.
+  // A touch swipe has no trailing click, so suppression can stay armed until
+  // the next pointerdown. Keyboard activation (Enter/Space) yields a click with
+  // detail 0 and no pointerdown, so such clicks always pass through.
+  const handleClickCapture = (e: React.MouseEvent) => {
+    if (e.detail === 0 || !suppressClickRef.current) return
+    suppressClickRef.current = false
+    e.stopPropagation()
+  }
+
   return (
     <Box
       sx={{
@@ -102,6 +184,14 @@ export const RosaryLoop: React.FC<RosaryLoopProps> = ({
         mx: 'auto',
         userSelect: 'none',
       }}
+      // pan-y keeps vertical scroll on touch; inline rather than sx because
+      // jsdom drops touch-action from stylesheets
+      style={{touchAction: 'pan-y'}}
+      onPointerDown={handlePointerDown}
+      onClickCapture={handleClickCapture}
+      // A native image drag on desktop would end the gesture with
+      // pointercancel instead of pointerup, losing the swipe
+      onDragStart={(e: React.DragEvent) => e.preventDefault()}
       data-testid="rosary-loop"
     >
       <Box
@@ -182,11 +272,16 @@ export const RosaryLoop: React.FC<RosaryLoopProps> = ({
                   borderRadius: '50%',
                   border: '2px solid',
                   borderColor: 'primary.main',
-                  backgroundColor: isPast || isActive ? 'primary.main' : 'background.paper',
+                  backgroundColor:
+                    isPast || isActive ? 'primary.main' : 'background.paper',
                   pointerEvents: clickable ? 'auto' : 'none',
                   cursor: clickable ? 'pointer' : 'default',
-                  animation: isActive ? `${pulse} 1.4s ease-in-out infinite` : 'none',
-                  boxShadow: isActive ? '0 0 0 4px rgba(136, 14, 79, 0.25)' : 'none',
+                  animation: isActive
+                    ? `${pulse} 1.4s ease-in-out infinite`
+                    : 'none',
+                  boxShadow: isActive
+                    ? '0 0 0 4px rgba(136, 14, 79, 0.25)'
+                    : 'none',
                 }}
               />
             </Box>

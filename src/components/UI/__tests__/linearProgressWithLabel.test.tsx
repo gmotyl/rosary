@@ -1,4 +1,3 @@
-import React from 'react'
 import {renderWithTheme} from 'src/tools/renderWithTheme'
 import {LinearProgressWithLabel} from '../LinearProgressWithLabel'
 

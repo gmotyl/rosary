@@ -16,6 +16,8 @@ import {useTranslation} from 'react-i18next'
 
 import {getMystery} from 'src/consts/rosary'
 import {useIntentions} from 'src/hooks'
+import {usePrayerNavigation} from 'src/hooks/usePrayerNavigation'
+import {useAdvanceKeys} from 'src/hooks/useAdvanceKeys'
 import {MysteryTypes} from 'src/consts/MysteryTypes'
 import {DecadeDots} from 'src/components/DecadeDots'
 import {RosaryHeader} from 'src/components/RosaryHeader'
@@ -37,111 +39,144 @@ interface PrayCardProps {
 
 export const PrayCard: React.ComponentType<PrayCardProps> = ({id}) => {
   const {t} = useTranslation()
-  const {getIntention, jumpToMystery, jumpToGroup, restart, prayNext, prayPrev} =
-    useIntentions()
+  const {
+    getIntention,
+    jumpToMystery,
+    jumpToGroup,
+    restart,
+    prayNext,
+    prayPrev,
+  } = useIntentions()
   const intention = getIntention(id)
   const classes = useStyles()
   const [resetOpen, setResetOpen] = useState(false)
   const [indexOpen, setIndexOpen] = useState(false)
-  const isComplete = intention.currentMystery === MysteryTypes.Complete
-  const displayMystery = isComplete ? MysteryTypes.Glorious5 : intention.currentMystery
+  const {advance, retreat, isComplete} = usePrayerNavigation(intention, {
+    prayNext,
+    prayPrev,
+  })
+  useAdvanceKeys(advance, !isComplete)
+  const displayMystery = isComplete
+    ? MysteryTypes.Glorious5
+    : intention.currentMystery
   const mystery = getMystery(displayMystery, t)
 
   return (
     <Box sx={{display: 'flex', flexDirection: 'column', pb: 8}}>
-    <Card className={classes.card}>
-      <CardContent sx={{pb: 0}}>
-        <RosaryHeader
-          currentMystery={displayMystery}
-          mysteryTitle={mystery.title}
-          onJumpToGroup={(group) => jumpToGroup(intention, group)}
-        />
-        <DecadeDots
-          currentMystery={displayMystery}
-          onJumpToMystery={(m) => jumpToMystery(intention, m)}
-        />
-      </CardContent>
-
-      {!isComplete && (
-        <RosaryLoop
-          imageSrc={mystery.image}
-          currentBead={intention.currentBead ?? 0}
-          currentMystery={intention.currentMystery}
-          onAdvance={() => prayNext(intention)}
-          onRetreat={() => prayPrev(intention)}
-        />
-      )}
-
-      {!isComplete && mystery.verse && (
-        <Box
-          sx={{
-            mx: 2, my: 1, px: 2.25, py: 2,
-            bgcolor: 'rgba(195,154,78,0.12)',
-            borderLeft: '3px solid', borderColor: 'secondary.main',
-            borderRadius: 1, textAlign: 'left',
-          }}
-        >
-          <Typography
-            data-testid="mystery-verse"
-            sx={{fontFamily: 'Georgia,serif', fontStyle: 'italic', fontSize: 16, lineHeight: 1.5}}
-          >
-            "{mystery.verse}"
-          </Typography>
-          <Typography
-            data-testid="mystery-reference"
-            sx={{mt: 1, fontSize: 11.5, letterSpacing: '0.16em', textTransform: 'uppercase',
-                 color: 'text.secondary', fontWeight: 700}}
-          >
-            {mystery.reference}
-          </Typography>
-        </Box>
-      )}
-
-      {(isComplete || (intention.completedRosaries ?? 0) > 0) && (
-        <CardContent sx={{textAlign: 'center', py: 1}}>
-          {isComplete && (
-            <Typography variant="h5" component="h2" sx={{color: 'primary.main'}}>
-              {t('prayer.rosaryCompleteTitle')}
-            </Typography>
-          )}
-          {(intention.completedRosaries ?? 0) > 0 && (
-            <Typography
-              variant="caption"
-              color="text.secondary"
-              data-testid="completed-rosaries"
-              sx={{display: 'block', mt: 1}}
-            >
-              {t('intentions.completedRosariesLabel')}: {intention.completedRosaries}
-            </Typography>
-          )}
+      <Card className={classes.card}>
+        <CardContent sx={{pb: 0}}>
+          <RosaryHeader
+            currentMystery={displayMystery}
+            mysteryTitle={mystery.title}
+            onJumpToGroup={(group) => jumpToGroup(intention, group)}
+          />
+          <DecadeDots
+            currentMystery={displayMystery}
+            onJumpToMystery={(m) => jumpToMystery(intention, m)}
+          />
         </CardContent>
-      )}
 
-      <CardActions sx={{justifyContent: 'center', pb: 2}}>
-        {isComplete ? (
-          <Button
-            size="large"
-            variant="contained"
-            color="primary"
-            data-testid="pray-reload-button"
-            onClick={() => restart(intention)}
-          >
-            {t('prayer.restart')} 🔁
-          </Button>
-        ) : (
-          <Button
-            size="large"
-            variant="contained"
-            color="primary"
-            data-testid="pray-next-button"
-            onClick={() => prayNext(intention)}
-            sx={{minWidth: 160, borderRadius: 6}}
-          >
-            {t('prayer.next')} ⏭
-          </Button>
+        {!isComplete && (
+          <RosaryLoop
+            imageSrc={mystery.image}
+            currentBead={intention.currentBead ?? 0}
+            currentMystery={intention.currentMystery}
+            onAdvance={advance}
+            onRetreat={retreat}
+          />
         )}
-      </CardActions>
-    </Card>
+
+        {!isComplete && mystery.verse && (
+          <Box
+            sx={{
+              mx: 2,
+              my: 1,
+              px: 2.25,
+              py: 2,
+              bgcolor: 'rgba(195,154,78,0.12)',
+              borderLeft: '3px solid',
+              borderColor: 'secondary.main',
+              borderRadius: 1,
+              textAlign: 'left',
+            }}
+          >
+            <Typography
+              data-testid="mystery-verse"
+              sx={{
+                fontFamily: 'Georgia,serif',
+                fontStyle: 'italic',
+                fontSize: 16,
+                lineHeight: 1.5,
+              }}
+            >
+              "{mystery.verse}"
+            </Typography>
+            <Typography
+              data-testid="mystery-reference"
+              sx={{
+                mt: 1,
+                fontSize: 11.5,
+                letterSpacing: '0.16em',
+                textTransform: 'uppercase',
+                color: 'text.secondary',
+                fontWeight: 700,
+              }}
+            >
+              {mystery.reference}
+            </Typography>
+          </Box>
+        )}
+
+        {(isComplete || (intention.completedRosaries ?? 0) > 0) && (
+          <CardContent sx={{textAlign: 'center', py: 1}}>
+            {isComplete && (
+              <Typography
+                variant="h5"
+                component="h2"
+                sx={{color: 'primary.main'}}
+              >
+                {t('prayer.rosaryCompleteTitle')}
+              </Typography>
+            )}
+            {(intention.completedRosaries ?? 0) > 0 && (
+              <Typography
+                variant="caption"
+                color="text.secondary"
+                data-testid="completed-rosaries"
+                sx={{display: 'block', mt: 1}}
+              >
+                {t('intentions.completedRosariesLabel')}:{' '}
+                {intention.completedRosaries}
+              </Typography>
+            )}
+          </CardContent>
+        )}
+
+        <CardActions sx={{justifyContent: 'center', pb: 2}}>
+          {isComplete ? (
+            <Button
+              size="large"
+              variant="contained"
+              color="primary"
+              data-testid="pray-reload-button"
+              onClick={() => restart(intention)}
+            >
+              {t('prayer.restart')} 🔁
+            </Button>
+          ) : (
+            <Button
+              size="large"
+              variant="contained"
+              color="primary"
+              data-testid="pray-next-button"
+              onClick={advance}
+              sx={{minWidth: 160, borderRadius: 6}}
+            >
+              {t('prayer.next')} ⏭
+            </Button>
+          )}
+        </CardActions>
+      </Card>
 
       <BottomNavigation
         showLabels

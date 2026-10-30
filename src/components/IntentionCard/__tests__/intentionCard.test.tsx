@@ -1,4 +1,3 @@
-import React from 'react'
 import IntentionCard from '../IntentionCard'
 import {renderWithRouter} from 'src/tools/renderWithRouter'
 import {fireEvent} from '@testing-library/react'
@@ -19,5 +18,3 @@ it('should display delete icon for ADMIN user in detailed view', () => {
   expect(onDeleteAction).toHaveBeenCalledTimes(1)
   expect(onDeleteAction).toBeCalledWith('123')
 })
-
-
