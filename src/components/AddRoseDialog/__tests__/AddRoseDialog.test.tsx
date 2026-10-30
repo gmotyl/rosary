@@ -215,4 +215,26 @@ describe('AddRoseDialog', () => {
       '15. dzień miesiąca',
     )
   })
+
+  it('suffixes the French day of month as an ordinal', () => {
+    const t = i18n.getFixedT('fr')
+    expect(formatChangeDay({kind: 'dayOfMonth', day: 1}, t)).toBe(
+      '1er jour du mois',
+    )
+    expect(formatChangeDay({kind: 'dayOfMonth', day: 2}, t)).toBe(
+      '2e jour du mois',
+    )
+    expect(formatChangeDay({kind: 'dayOfMonth', day: 21}, t)).toBe(
+      '21e jour du mois',
+    )
+  })
+
+  it('keeps the base day of month rule in locales without ordinal forms', () => {
+    expect(
+      formatChangeDay({kind: 'dayOfMonth', day: 1}, i18n.getFixedT('en')),
+    ).toBe('day 1 of the month')
+    expect(
+      formatChangeDay({kind: 'dayOfMonth', day: 2}, i18n.getFixedT('it')),
+    ).toBe('2° giorno del mese')
+  })
 })

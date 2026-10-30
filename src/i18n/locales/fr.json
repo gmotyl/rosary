@@ -224,7 +224,8 @@
         "sun": "dimanche"
       },
       "weekdayRule": "{{nth}} {{weekday}}",
-      "dayOfMonthRule": "{{day}}e jour du mois"
+      "dayOfMonthRule_ordinal_one": "{{day}}er jour du mois",
+      "dayOfMonthRule_ordinal_other": "{{day}}e jour du mois"
     }
   }
 }

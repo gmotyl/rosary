@@ -23,7 +23,13 @@ export const ordinalLabel = (nth: 1 | 2 | 3 | 4 | 'last', t: TFunction) =>
 // locales without gender agreement simply leave the map out.
 export const formatChangeDay = (rule: ChangeDay, t: TFunction): string => {
   if (rule.kind === 'dayOfMonth') {
-    return t('rose.changeDay.dayOfMonthRule', {day: rule.day})
+    // Ordinal plural lets a locale suffix the number ("1er" vs "2e" in fr);
+    // others fall back to the base key
+    return t('rose.changeDay.dayOfMonthRule', {
+      day: rule.day,
+      count: rule.day,
+      ordinal: true,
+    })
   }
   const context = t(`rose.changeDay.gender.${rule.weekday}`, {
     defaultValue: '',
