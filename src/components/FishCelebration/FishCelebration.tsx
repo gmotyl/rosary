@@ -65,15 +65,30 @@ export const FishCelebration: FC<FishCelebrationProps> = ({
     onCloseRef.current()
   }, [])
 
+  const overlayRef = useRef<HTMLDivElement>(null)
+
   useEffect(() => {
     if (!open) return undefined
     closedRef.current = false
     const timer = window.setTimeout(close, CELEBRATION_MS)
-    const onKeyDown = () => close()
-    window.addEventListener('keydown', onKeyDown)
+    // Window capture runs before anything else sees the key: the dismissing
+    // key must not also activate the control behind or advance a bead
+    const onKeyDown = (e: KeyboardEvent) => {
+      e.preventDefault()
+      e.stopPropagation()
+      close()
+    }
+    window.addEventListener('keydown', onKeyDown, true)
+    // Take focus off the page behind while covering it, hand it back after
+    const previous =
+      document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : null
+    overlayRef.current?.focus({preventScroll: true})
     return () => {
       window.clearTimeout(timer)
-      window.removeEventListener('keydown', onKeyDown)
+      window.removeEventListener('keydown', onKeyDown, true)
+      if (previous?.isConnected) previous.focus({preventScroll: true})
     }
   }, [open, close])
 
@@ -81,6 +96,8 @@ export const FishCelebration: FC<FishCelebrationProps> = ({
 
   return (
     <Box
+      ref={overlayRef}
+      tabIndex={-1}
       data-testid="fish-celebration"
       role="status"
       aria-live="polite"
@@ -93,6 +110,7 @@ export const FishCelebration: FC<FishCelebrationProps> = ({
         placeItems: 'center',
         textAlign: 'center',
         cursor: 'pointer',
+        outline: 'none',
         bgcolor: alpha(theme.palette.background.default, 0.94),
         animation: `${fade} ${CELEBRATION_MS}ms ${
           animated ? 'ease' : 'step-end'

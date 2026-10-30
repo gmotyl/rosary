@@ -123,4 +123,46 @@ describe('FishCelebration', () => {
     expect(fish.style.animation).toBe('')
     expect(getComputedStyle(fish).animationName || 'none').toMatch(/^(none|)$/)
   })
+
+  it('a dismissing key never reaches the page behind and focus moves in', () => {
+    const onClose = vi.fn()
+    const behindKey = vi.fn()
+    const behindClick = vi.fn()
+    const windowKey = vi.fn()
+    window.addEventListener('keydown', windowKey)
+    const ui = (open: boolean) => (
+      <StylesProvider>
+        <button onKeyDown={behindKey} onClick={behindClick}>
+          behind
+        </button>
+        <FishCelebration
+          open={open}
+          prayed={23}
+          daysInMonth={31}
+          monthLabel="w październiku"
+          onClose={onClose}
+        />
+      </StylesProvider>
+    )
+    const {rerender} = render(ui(false))
+    const behind = screen.getByRole('button', {name: 'behind'})
+    behind.focus()
+
+    rerender(ui(true))
+    // Focus left the control behind, so Enter cannot activate it
+    expect(screen.getByTestId('fish-celebration')).toHaveFocus()
+
+    // Even a key aimed at the control behind is consumed by the overlay
+    const notPrevented = fireEvent.keyDown(behind, {key: 'Enter'})
+    expect(notPrevented).toBe(false)
+    expect(onClose).toHaveBeenCalledTimes(1)
+    expect(behindKey).not.toHaveBeenCalled()
+    expect(windowKey).not.toHaveBeenCalled()
+    expect(behindClick).not.toHaveBeenCalled()
+
+    // Closing hands focus back to where it was
+    rerender(ui(false))
+    expect(behind).toHaveFocus()
+    window.removeEventListener('keydown', windowKey)
+  })
 })
