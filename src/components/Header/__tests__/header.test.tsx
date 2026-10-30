@@ -3,7 +3,8 @@ import {BrowserRouter as Router, MemoryRouter} from 'react-router-dom'
 import Header from '../index'
 import {renderWithTheme} from 'src/tools/renderWithTheme'
 import {MysteryTypes} from 'src/consts/MysteryTypes'
-import {ROSES_KEY} from 'src/hooks'
+import {act, renderHook} from '@testing-library/react-hooks'
+import {ROSES_KEY, useRoses} from 'src/hooks'
 
 beforeEach(() => {
   localStorage.clear()
@@ -50,5 +51,19 @@ it('header shows ROSARY outside rose mode', () => {
     </MemoryRouter>,
   )
   expect(getByText('ROSARY')).toBeInTheDocument()
+  expect(queryByText('Męska róża')).not.toBeInTheDocument()
+})
+
+it('header title follows a rename done through another useRoses instance', () => {
+  const {getByText, queryByText} = renderWithTheme(
+    <MemoryRouter initialEntries={['/rose/r1/calendar']}>
+      <Header />
+    </MemoryRouter>,
+  )
+  const other = renderHook(() => useRoses())
+
+  act(() => other.result.current.updateRose('r1', {name: 'Żeńska róża'}))
+
+  expect(getByText('Żeńska róża')).toBeInTheDocument()
   expect(queryByText('Męska róża')).not.toBeInTheDocument()
 })

@@ -260,6 +260,45 @@ describe('useRoses', () => {
     expect(renderHook(() => useRoses()).result.current.roses).toEqual([])
   })
 
+  it("separate hook instances share roses and never drop each other's writes", () => {
+    const a = renderHook(() => useRoses())
+    const b = renderHook(() => useRoses())
+
+    // P1: a rose added through B is visible through A
+    let idB = ''
+    act(() => {
+      idB = b.result.current.addRose({
+        name: 'B',
+        mystery: MysteryTypes.Joyful2,
+        changeDay: firstSunday,
+      }).id
+    })
+    expect(a.result.current.getRose(idB)?.name).toBe('B')
+
+    // P2: A's write must not overwrite B's rose with a stale list
+    let idA = ''
+    act(() => {
+      idA = a.result.current.addRose({
+        name: 'A',
+        mystery: MysteryTypes.Joyful1,
+        changeDay: firstSunday,
+      }).id
+    })
+    act(() => {
+      a.result.current.advanceBead(idA)
+    })
+    const stored = JSON.parse(localStorage.getItem(ROSES_KEY) ?? '[]')
+    expect(stored.map((r: {id: string}) => r.id)).toEqual([idB, idA])
+    expect(a.result.current.roses.map((r) => r.id)).toEqual([idB, idA])
+    expect(b.result.current.roses.map((r) => r.id)).toEqual([idB, idA])
+    expect(b.result.current.getRose(idA)?.currentBead).toBe(1)
+
+    // P3: a toggle through A re-renders B
+    act(() => a.result.current.toggleDay(idB, '2026-10-29'))
+    expect(b.result.current.getRose(idB)?.prayedDays).toEqual(['2026-10-29'])
+    expect(b.result.current.roses).toBe(a.result.current.roses)
+  })
+
   it('does not touch rosary-intentions', () => {
     localStorage.setItem('rosary-intentions', '"sentinel"')
     const getItem = vi.spyOn(Storage.prototype, 'getItem')

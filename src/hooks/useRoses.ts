@@ -1,5 +1,4 @@
-import {useRef, useState} from 'react'
-import {useLocalStorage} from 'react-use'
+import {useSyncExternalStore} from 'react'
 import {MysteryTypes} from 'src/consts/MysteryTypes'
 import {
   ChangeDay,
@@ -37,28 +36,71 @@ const today = (): string => toLocalDate(new Date())
 const newId = (): string =>
   `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`
 
+// One shared store for every useRoses() instance: Header, SideMenu and
+// RosePage are mounted together, so per-instance state would go stale and
+// overwrite each other's writes. localStorage is the source of truth; the
+// parsed list is cached by its raw string so the snapshot stays referentially
+// stable between writes (required by useSyncExternalStore).
+const listeners = new Set<() => void>()
+let cachedRaw: string | null | undefined
+let cachedList: IRose[] = []
+
+const parse = (raw: string | null): IRose[] => {
+  if (raw === null) return []
+  try {
+    const value: unknown = JSON.parse(raw)
+    return Array.isArray(value) ? (value as IRose[]) : []
+  } catch {
+    return []
+  }
+}
+
+const readRoses = (): IRose[] => {
+  const raw = localStorage.getItem(ROSES_KEY)
+  if (raw !== cachedRaw) {
+    cachedRaw = raw
+    cachedList = parse(raw)
+  }
+  return cachedList
+}
+
+const writeRoses = (next: IRose[]) => {
+  const raw = JSON.stringify(next)
+  localStorage.setItem(ROSES_KEY, raw)
+  cachedRaw = raw
+  cachedList = next
+  listeners.forEach((listener) => listener())
+}
+
+// Other tabs write the same key; re-read on their storage events
+const onStorage = (event: StorageEvent) => {
+  if (event.key === ROSES_KEY || event.key === null) {
+    listeners.forEach((listener) => listener())
+  }
+}
+
+const subscribe = (listener: () => void) => {
+  if (listeners.size === 0) window.addEventListener('storage', onStorage)
+  listeners.add(listener)
+  return () => {
+    listeners.delete(listener)
+    if (listeners.size === 0) window.removeEventListener('storage', onStorage)
+  }
+}
+
 export const useRoses = () => {
-  const [stored, saveStored] = useLocalStorage<IRose[]>(ROSES_KEY, [])
-  const [roses, setRoses] = useState<IRose[]>(
-    Array.isArray(stored) ? stored : [],
-  )
-  // Latest list, read synchronously so several mutations in one tick
-  // (and advanceBead's return value) never work on a stale snapshot
-  const latest = useRef(roses)
+  const roses = useSyncExternalStore(subscribe, readRoses)
 
-  const commit = (next: IRose[]) => {
-    latest.current = next
-    setRoses(next)
-    saveStored(next)
-  }
-
+  // Mutations always compute from the store's latest list, never from this
+  // render's snapshot, so several calls in one tick (or from different
+  // instances) compose instead of overwriting each other
   const updateOne = (id: string, fn: (rose: IRose) => IRose) => {
-    const list = latest.current
+    const list = readRoses()
     if (!list.some((r) => r.id === id)) return
-    commit(list.map((r) => (r.id === id ? fn(r) : r)))
+    writeRoses(list.map((r) => (r.id === id ? fn(r) : r)))
   }
 
-  const getRose = (id: string) => latest.current.find((r) => r.id === id)
+  const getRose = (id: string) => readRoses().find((r) => r.id === id)
 
   const addRose = (input: RoseInput): IRose => {
     const rose: IRose = {
@@ -71,7 +113,7 @@ export const useRoses = () => {
       showNewMysteryBanner: false,
       currentBead: 0,
     }
-    commit([...latest.current, rose])
+    writeRoses([...readRoses(), rose])
     return rose
   }
 
@@ -87,10 +129,10 @@ export const useRoses = () => {
     }))
 
   const deleteRose = (id: string) =>
-    commit(latest.current.filter((r) => r.id !== id))
+    writeRoses(readRoses().filter((r) => r.id !== id))
 
   const applyChangeDays = (id: string, day: string = today()) => {
-    const rose = latest.current.find((r) => r.id === id)
+    const rose = readRoses().find((r) => r.id === id)
     if (!rose) return
     const dates = changeDatesBetween(rose.changeDay, rose.lastChange, day)
     if (dates.length === 0) return
@@ -112,7 +154,7 @@ export const useRoses = () => {
     }))
 
   const advanceBead = (id: string): {completed: boolean} => {
-    const rose = latest.current.find((r) => r.id === id)
+    const rose = readRoses().find((r) => r.id === id)
     if (!rose) return {completed: false}
     if (rose.currentBead < LAST_BEAD) {
       updateOne(id, (r) => ({...r, currentBead: r.currentBead + 1}))
