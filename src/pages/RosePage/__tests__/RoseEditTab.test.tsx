@@ -68,8 +68,17 @@ const t = i18n.getFixedT('pl')
 const row = (id: 'name' | 'mystery' | 'changeDay') =>
   screen.getByTestId(`rose-edit-${id}`)
 
+// Each "Zmień" button is named after its row, e.g. "Zmień Nazwa"
+const changeButtonName = {
+  name: 'Zmień Nazwa',
+  mystery: 'Zmień Tajemnica',
+  changeDay: 'Zmień Dzień zmiany',
+}
+
 const openEditor = (id: 'name' | 'mystery' | 'changeDay', title: string) => {
-  fireEvent.click(within(row(id)).getByRole('button', {name: 'Zmień'}))
+  fireEvent.click(
+    within(row(id)).getByRole('button', {name: changeButtonName[id]}),
+  )
   return screen.getByRole('dialog', {name: title})
 }
 
@@ -103,9 +112,18 @@ describe('RoseEditTab', () => {
     expect(rows[1]).toHaveTextContent(`${label} — ${name}`)
     expect(rows[2]).toHaveTextContent('Dzień zmiany')
     expect(rows[2]).toHaveTextContent('Pierwsza niedziela miesiąca')
-    for (const r of rows) {
-      expect(within(r).getByRole('button', {name: 'Zmień'})).toBeInTheDocument()
-    }
+    // Three visible "Zmień" buttons, each with a distinct accessible name
+    // that still starts with its visible text (label in name)
+    const fields = ['name', 'mystery', 'changeDay'] as const
+    fields.forEach((field, i) => {
+      const button = within(rows[i]).getByRole('button', {
+        name: changeButtonName[field],
+      })
+      expect(button).toHaveTextContent(/^Zmień$/)
+    })
+    expect(
+      within(tab).queryAllByRole('button', {name: 'Zmień'}),
+    ).toHaveLength(0)
 
     // Visual order: Nazwa, Tajemnica, Dzień zmiany, then "Usuń różę"
     const order = [...rows, del]

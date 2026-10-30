@@ -90,6 +90,7 @@ export const RoseEditTab: React.FC<RoseEditTabProps> = ({id}) => {
         >
           <Box sx={{minWidth: 0}}>
             <Typography
+              id={`rose-edit-${r.field}-label`}
               component="span"
               sx={{display: 'block', fontSize: 12, color: 'text.secondary'}}
             >
@@ -99,7 +100,11 @@ export const RoseEditTab: React.FC<RoseEditTabProps> = ({id}) => {
               {r.value}
             </Typography>
           </Box>
+          {/* Three identical "Zmień" buttons: name each after its row
+              ("Zmień Nazwa"), keeping the visible text first in the name */}
           <Button
+            id={`rose-edit-${r.field}-change`}
+            aria-labelledby={`rose-edit-${r.field}-change rose-edit-${r.field}-label`}
             size="small"
             onClick={() => setEditing(r.field)}
             sx={{fontWeight: 600, flexShrink: 0, textTransform: 'none'}}
