@@ -299,6 +299,55 @@ describe('useRoses', () => {
     expect(b.result.current.roses).toBe(a.result.current.roses)
   })
 
+  it('storage events from another tab reach every instance', () => {
+    const first = renderHook(() => useRoses())
+    const second = renderHook(() => useRoses())
+    const fromOtherTab = {
+      id: 'other-tab',
+      name: 'Róża z innej karty',
+      mystery: MysteryTypes.Glorious3,
+      changeDay: firstSunday,
+      lastChange: '2026-10-04',
+      prayedDays: [],
+      showNewMysteryBanner: false,
+      currentBead: 0,
+    }
+
+    act(() => {
+      // Another tab writes the key; this tab only learns via the event
+      localStorage.setItem(ROSES_KEY, JSON.stringify([fromOtherTab]))
+      window.dispatchEvent(new StorageEvent('storage', {key: ROSES_KEY}))
+    })
+    expect(first.result.current.roses).toEqual([fromOtherTab])
+    expect(second.result.current.roses).toEqual([fromOtherTab])
+
+    act(() => {
+      // localStorage.clear() in another tab fires with key null
+      localStorage.clear()
+      window.dispatchEvent(new StorageEvent('storage', {key: null}))
+    })
+    expect(first.result.current.roses).toEqual([])
+    expect(second.result.current.roses).toEqual([])
+  })
+
+  it('subscribes to storage once and unsubscribes on the last unmount', () => {
+    const add = vi.spyOn(window, 'addEventListener')
+    const remove = vi.spyOn(window, 'removeEventListener')
+    const storageCalls = (spy: typeof add) =>
+      spy.mock.calls.filter(([type]) => type === 'storage')
+
+    const first = renderHook(() => useRoses())
+    const second = renderHook(() => useRoses())
+    expect(storageCalls(add)).toHaveLength(1)
+
+    first.unmount()
+    expect(storageCalls(remove)).toHaveLength(0)
+
+    second.unmount()
+    expect(storageCalls(remove)).toHaveLength(1)
+    expect(storageCalls(remove)[0][1]).toBe(storageCalls(add)[0][1])
+  })
+
   it('does not touch rosary-intentions', () => {
     localStorage.setItem('rosary-intentions', '"sentinel"')
     const getItem = vi.spyOn(Storage.prototype, 'getItem')
