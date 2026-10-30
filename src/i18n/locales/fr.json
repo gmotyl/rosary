@@ -125,6 +125,44 @@
       "pray": "Prière",
       "calendar": "Calendrier",
       "edit": "Modifier"
+    },
+    "menu": {
+      "rosary": "Rosaire",
+      "add": "Ajouter une rose",
+      "prayedToday": "Prié aujourd’hui"
+    },
+    "add": {
+      "title": "Ajouter une rose",
+      "name": "Nom",
+      "mystery": "Mon mystère",
+      "changeDay": "Jour de changement",
+      "cancel": "Annuler",
+      "submit": "Ajouter"
+    },
+    "changeDay": {
+      "modeWeekday": "Jour de la semaine",
+      "modeMonthDay": "Jour du mois",
+      "nthLabel": "Lequel",
+      "weekdayLabel": "Jour",
+      "dayLabel": "Jour (1–31)",
+      "ordinal": {
+        "1": "premier",
+        "2": "deuxième",
+        "3": "troisième",
+        "4": "quatrième",
+        "last": "dernier"
+      },
+      "weekday": {
+        "mon": "lundi",
+        "tue": "mardi",
+        "wed": "mercredi",
+        "thu": "jeudi",
+        "fri": "vendredi",
+        "sat": "samedi",
+        "sun": "dimanche"
+      },
+      "weekdayRule": "{{nth}} {{weekday}}",
+      "dayOfMonthRule": "{{day}}e jour du mois"
     }
   }
 }

@@ -125,6 +125,58 @@
       "pray": "Preghiera",
       "calendar": "Calendario",
       "edit": "Modifica"
+    },
+    "menu": {
+      "rosary": "Rosario",
+      "add": "Aggiungi rosa",
+      "prayedToday": "Pregato oggi"
+    },
+    "add": {
+      "title": "Aggiungi rosa",
+      "name": "Nome",
+      "mystery": "Il mio mistero",
+      "changeDay": "Giorno di cambio",
+      "cancel": "Annulla",
+      "submit": "Aggiungi"
+    },
+    "changeDay": {
+      "modeWeekday": "Giorno della settimana",
+      "modeMonthDay": "Giorno del mese",
+      "nthLabel": "Quale",
+      "weekdayLabel": "Giorno",
+      "dayLabel": "Giorno (1–31)",
+      "ordinal": {
+        "1": "primo",
+        "2": "secondo",
+        "3": "terzo",
+        "4": "quarto",
+        "last": "ultimo",
+        "1_f": "prima",
+        "2_f": "seconda",
+        "3_f": "terza",
+        "4_f": "quarta",
+        "last_f": "ultima"
+      },
+      "weekday": {
+        "mon": "lunedì",
+        "tue": "martedì",
+        "wed": "mercoledì",
+        "thu": "giovedì",
+        "fri": "venerdì",
+        "sat": "sabato",
+        "sun": "domenica"
+      },
+      "weekdayRule": "{{nth}} {{weekday}}",
+      "dayOfMonthRule": "{{day}}° giorno del mese",
+      "gender": {
+        "mon": "",
+        "tue": "",
+        "wed": "",
+        "thu": "",
+        "fri": "",
+        "sat": "",
+        "sun": "f"
+      }
     }
   }
 }

@@ -125,6 +125,58 @@
       "pray": "Modlitwa",
       "calendar": "Kalendarz",
       "edit": "Zmień"
+    },
+    "menu": {
+      "rosary": "Różaniec",
+      "add": "Dodaj różę",
+      "prayedToday": "Dziś odmówione"
+    },
+    "add": {
+      "title": "Dodaj różę",
+      "name": "Nazwa",
+      "mystery": "Moja tajemnica",
+      "changeDay": "Dzień zmiany",
+      "cancel": "Anuluj",
+      "submit": "Dodaj"
+    },
+    "changeDay": {
+      "modeWeekday": "Dzień tygodnia",
+      "modeMonthDay": "Dzień miesiąca",
+      "nthLabel": "Który",
+      "weekdayLabel": "Dzień",
+      "dayLabel": "Dzień (1–31)",
+      "ordinal": {
+        "1": "pierwsza",
+        "2": "druga",
+        "3": "trzecia",
+        "4": "czwarta",
+        "last": "ostatnia",
+        "1_m": "pierwszy",
+        "2_m": "drugi",
+        "3_m": "trzeci",
+        "4_m": "czwarty",
+        "last_m": "ostatni"
+      },
+      "weekday": {
+        "mon": "poniedziałek",
+        "tue": "wtorek",
+        "wed": "środa",
+        "thu": "czwartek",
+        "fri": "piątek",
+        "sat": "sobota",
+        "sun": "niedziela"
+      },
+      "weekdayRule": "{{nth}} {{weekday}}",
+      "dayOfMonthRule": "{{day}}. dzień miesiąca",
+      "gender": {
+        "mon": "m",
+        "tue": "m",
+        "wed": "",
+        "thu": "m",
+        "fri": "m",
+        "sat": "",
+        "sun": ""
+      }
     }
   }
 }

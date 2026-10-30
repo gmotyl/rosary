@@ -1,10 +1,14 @@
 import {BrowserRouter as Router, MemoryRouter} from 'react-router-dom'
+import {screen, within} from '@testing-library/react'
 
 import Header from '../index'
 import {renderWithTheme} from 'src/tools/renderWithTheme'
 import {MysteryTypes} from 'src/consts/MysteryTypes'
 import {act, renderHook} from '@testing-library/react-hooks'
 import {ROSES_KEY, useRoses} from 'src/hooks'
+
+// The side menu (in the drawer) lists rose names too; assert on the app bar
+const appBar = () => within(screen.getByRole('banner'))
 
 beforeEach(() => {
   localStorage.clear()
@@ -35,31 +39,34 @@ it('renders the app title', () => {
 })
 
 it('header shows the rose name in rose mode', () => {
-  const {getByText, queryByText} = renderWithTheme(
+  renderWithTheme(
     <MemoryRouter initialEntries={['/rose/r1/calendar']}>
       <Header />
     </MemoryRouter>,
   )
+  const {getByText, queryByText} = appBar()
   expect(getByText('Męska róża')).toBeInTheDocument()
   expect(queryByText('ROSARY')).not.toBeInTheDocument()
 })
 
 it('header shows ROSARY outside rose mode', () => {
-  const {getByText, queryByText} = renderWithTheme(
+  renderWithTheme(
     <MemoryRouter initialEntries={['/how-it-works']}>
       <Header />
     </MemoryRouter>,
   )
+  const {getByText, queryByText} = appBar()
   expect(getByText('ROSARY')).toBeInTheDocument()
   expect(queryByText('Męska róża')).not.toBeInTheDocument()
 })
 
 it('header title follows a rename done through another useRoses instance', () => {
-  const {getByText, queryByText} = renderWithTheme(
+  renderWithTheme(
     <MemoryRouter initialEntries={['/rose/r1/calendar']}>
       <Header />
     </MemoryRouter>,
   )
+  const {getByText, queryByText} = appBar()
   const other = renderHook(() => useRoses())
 
   act(() => other.result.current.updateRose('r1', {name: 'Żeńska róża'}))
