@@ -171,6 +171,22 @@
       "changeDay": "Dzień zmiany",
       "change": "Zmień"
     },
+    "edit": {
+      "name": "Nazwa",
+      "mystery": "Tajemnica",
+      "changeDay": "Dzień zmiany",
+      "change": "Zmień",
+      "monthlyRule": "{{rule}} miesiąca",
+      "renameTitle": "Zmień nazwę",
+      "mysteryTitle": "Zmień tajemnicę",
+      "changeDayTitle": "Zmień dzień zmiany",
+      "save": "Zapisz",
+      "cancel": "Anuluj",
+      "delete": "Usuń różę",
+      "deleteConfirmTitle": "Usunąć różę?",
+      "deleteConfirmBody": "Róża „{{name}}” i jej kalendarz zostaną usunięte. Tego nie można cofnąć.",
+      "deleteConfirm": "Usuń"
+    },
     "menu": {
       "rosary": "Różaniec",
       "add": "Dodaj różę",

@@ -171,6 +171,22 @@
       "changeDay": "Día de cambio",
       "change": "Cambiar"
     },
+    "edit": {
+      "name": "Nombre",
+      "mystery": "Misterio",
+      "changeDay": "Día de cambio",
+      "change": "Cambiar",
+      "monthlyRule": "{{rule}} del mes",
+      "renameTitle": "Cambiar nombre",
+      "mysteryTitle": "Cambiar misterio",
+      "changeDayTitle": "Cambiar día de cambio",
+      "save": "Guardar",
+      "cancel": "Cancelar",
+      "delete": "Eliminar rosa",
+      "deleteConfirmTitle": "¿Eliminar la rosa?",
+      "deleteConfirmBody": "La rosa «{{name}}» y su calendario se eliminarán. No se puede deshacer.",
+      "deleteConfirm": "Eliminar"
+    },
     "menu": {
       "rosary": "Rosario",
       "add": "Añadir rosa",

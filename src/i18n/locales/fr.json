@@ -171,6 +171,22 @@
       "changeDay": "Jour de changement",
       "change": "Modifier"
     },
+    "edit": {
+      "name": "Nom",
+      "mystery": "Mystère",
+      "changeDay": "Jour de changement",
+      "change": "Modifier",
+      "monthlyRule": "{{rule}} du mois",
+      "renameTitle": "Renommer",
+      "mysteryTitle": "Changer de mystère",
+      "changeDayTitle": "Changer le jour de changement",
+      "save": "Enregistrer",
+      "cancel": "Annuler",
+      "delete": "Supprimer la rose",
+      "deleteConfirmTitle": "Supprimer la rose ?",
+      "deleteConfirmBody": "La rose « {{name}} » et son calendrier seront supprimés. Cette action est irréversible.",
+      "deleteConfirm": "Supprimer"
+    },
     "menu": {
       "rosary": "Rosaire",
       "add": "Ajouter une rose",

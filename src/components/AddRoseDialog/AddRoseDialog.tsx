@@ -13,22 +13,10 @@ import {useTranslation} from 'react-i18next'
 
 import {useRoses} from 'src/hooks'
 import type {IRose} from 'src/hooks'
-import {getMystery} from 'src/consts/rosary'
 import {MysteryTypes} from 'src/consts/MysteryTypes'
-import {MysteryGroup} from 'src/utils/rosaryGroups'
 import {ChangeDay} from 'src/utils/roseChangeDay'
 import {ChangeDayInput} from './ChangeDayInput'
-
-// The 20 mysteries in prayer order, five per part
-const MYSTERY_GROUPS = [
-  MysteryGroup.Joyful,
-  MysteryGroup.Luminous,
-  MysteryGroup.Sorrowful,
-  MysteryGroup.Glorious,
-].map((group, g) => ({
-  group,
-  mysteries: [1, 2, 3, 4, 5].map((i) => (g * 5 + i) as MysteryTypes),
-}))
+import {MysterySelect} from './MysterySelect'
 
 // Mockup default: first Sunday of the month
 const DEFAULT_RULE: ChangeDay = {kind: 'nthWeekday', nth: 1, weekday: 'sun'}
@@ -100,25 +88,12 @@ const AddRoseForm = ({
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          <TextField
-            select
-            fullWidth
+          <MysterySelect
             id="add-rose-mystery"
             label={t('rose.add.mystery')}
-            value={String(mystery)}
-            onChange={(e) => setMystery(Number(e.target.value) as MysteryTypes)}
-            SelectProps={{native: true}}
-          >
-            {MYSTERY_GROUPS.map(({group, mysteries}) => (
-              <optgroup key={group} label={t(`mysteries.groupTitle.${group}`)}>
-                {mysteries.map((type) => (
-                  <option key={type} value={String(type)}>
-                    {getMystery(type, t).title}
-                  </option>
-                ))}
-              </optgroup>
-            ))}
-          </TextField>
+            value={mystery}
+            onChange={setMystery}
+          />
           <FormControl component="fieldset" fullWidth>
             <FormLabel component="legend" sx={{mb: 1, fontSize: 12}}>
               {t('rose.add.changeDay')}

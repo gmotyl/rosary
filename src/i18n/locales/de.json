@@ -171,6 +171,22 @@
       "changeDay": "Wechseltag",
       "change": "Ändern"
     },
+    "edit": {
+      "name": "Name",
+      "mystery": "Geheimnis",
+      "changeDay": "Wechseltag",
+      "change": "Ändern",
+      "monthlyRule": "{{rule}} im Monat",
+      "renameTitle": "Umbenennen",
+      "mysteryTitle": "Geheimnis ändern",
+      "changeDayTitle": "Wechseltag ändern",
+      "save": "Speichern",
+      "cancel": "Abbrechen",
+      "delete": "Rose löschen",
+      "deleteConfirmTitle": "Rose löschen?",
+      "deleteConfirmBody": "Die Rose „{{name}}“ und ihr Kalender werden gelöscht. Dies kann nicht rückgängig gemacht werden.",
+      "deleteConfirm": "Löschen"
+    },
     "menu": {
       "rosary": "Rosenkranz",
       "add": "Rose hinzufügen",

@@ -171,6 +171,22 @@
       "changeDay": "Change day",
       "change": "Change"
     },
+    "edit": {
+      "name": "Name",
+      "mystery": "Mystery",
+      "changeDay": "Change day",
+      "change": "Change",
+      "monthlyRule": "{{rule}} of the month",
+      "renameTitle": "Rename",
+      "mysteryTitle": "Change mystery",
+      "changeDayTitle": "Change the change day",
+      "save": "Save",
+      "cancel": "Cancel",
+      "delete": "Delete rose",
+      "deleteConfirmTitle": "Delete rose?",
+      "deleteConfirmBody": "The rose “{{name}}” and its calendar will be deleted. This cannot be undone.",
+      "deleteConfirm": "Delete"
+    },
     "menu": {
       "rosary": "Rosary",
       "add": "Add rose",
