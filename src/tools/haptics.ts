@@ -4,9 +4,9 @@ export type PulseKind = 'bead' | 'decade' | 'rosary'
 export const HAPTICS_STORAGE_KEY = 'rosary-haptics'
 
 export const PULSE_PATTERNS: Record<PulseKind, number | number[]> = {
-  bead: 15,
-  decade: [30, 60, 30],
-  rosary: [30, 60, 30, 60, 30],
+  bead: 30,
+  decade: [60, 60, 60],
+  rosary: [60, 60, 60, 60, 60],
 }
 
 export const isHapticsSupported = (): boolean =>
