@@ -154,25 +154,46 @@ describe('RosaryLoop', () => {
     expect(onAdvance).not.toHaveBeenCalled()
   })
 
-  it('horizontal swipe left advances', () => {
+  it('swipe in any direction advances', () => {
     const onAdvance = vi.fn()
+    const onRetreat = vi.fn()
     const {getByTestId} = render(
-      <RosaryLoop {...baseProps} onAdvance={onAdvance} currentBead={2} />,
+      <RosaryLoop
+        {...baseProps}
+        onAdvance={onAdvance}
+        onRetreat={onRetreat}
+        currentBead={2}
+      />,
     )
     const stage = getByTestId('rosary-loop')
-    drag(stage, stage, -80, 10)
-    expect(onAdvance).toHaveBeenCalledTimes(1)
+    const image = getByTestId('rosary-image')
+    const directions: Array<[string, number, number]> = [
+      ['left', -80, 10],
+      ['right', 80, 0],
+      ['up', 0, -80],
+      ['down', 0, 80],
+      ['diagonal', 40, 40],
+    ]
+    directions.forEach(([, dx, dy], i) => {
+      drag(stage, stage, dx, dy)
+      expect(onAdvance).toHaveBeenCalledTimes(2 * i + 1)
+      // A trailing pointer click is suppressed, so each gesture advances once.
+      drag(image, image, dx, dy)
+      fireEvent.click(image, {detail: 1})
+      expect(onAdvance).toHaveBeenCalledTimes(2 * i + 2)
+    })
+    expect(onRetreat).not.toHaveBeenCalled()
   })
 
-  it('short or vertical drags do not advance', () => {
+  it('short drags do not advance', () => {
     const onAdvance = vi.fn()
     const {getByTestId} = render(
       <RosaryLoop {...baseProps} onAdvance={onAdvance} currentBead={2} />,
     )
     const stage = getByTestId('rosary-loop')
     drag(stage, stage, -30, 0)
-    drag(stage, stage, -60, 60)
-    drag(stage, stage, 80, 0)
+    drag(stage, stage, 0, 40)
+    drag(stage, stage, 30, -30)
     expect(onAdvance).not.toHaveBeenCalled()
   })
 
@@ -239,18 +260,18 @@ describe('RosaryLoop', () => {
     expect(onAdvance).toHaveBeenCalledTimes(1)
   })
 
-  it('moved drags that are not swipes do not click through', () => {
+  it('moved drags below the swipe threshold do not click through', () => {
     const onAdvance = vi.fn()
     const {getByTestId} = render(
       <RosaryLoop {...baseProps} onAdvance={onAdvance} currentBead={2} />,
     )
     const image = getByTestId('rosary-image')
     // detail: 1 marks a pointer-generated click, as browsers report it
-    drag(image, image, 0, 80) // vertical
+    drag(image, image, -30, 0) // leftward
     fireEvent.click(image, {detail: 1})
-    drag(image, image, 80, 0) // rightward
+    drag(image, image, 0, 40) // vertical
     fireEvent.click(image, {detail: 1})
-    drag(image, image, -30, 0) // too short
+    drag(image, image, 25, -25) // diagonal
     fireEvent.click(image, {detail: 1})
     expect(onAdvance).not.toHaveBeenCalled()
   })
@@ -332,11 +353,11 @@ describe('RosaryLoop', () => {
     expect(notPrevented).toBe(false)
   })
 
-  it('stage allows vertical panning', () => {
+  it('stage captures touch gestures', () => {
     const {getByTestId} = render(<RosaryLoop {...baseProps} currentBead={2} />)
     // jsdom's CSS parser ignores touch-action, so read the inline style property.
     expect((getByTestId('rosary-loop') as HTMLElement).style.touchAction).toBe(
-      'pan-y',
+      'none',
     )
   })
 })

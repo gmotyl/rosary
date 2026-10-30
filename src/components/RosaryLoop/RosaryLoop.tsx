@@ -10,17 +10,16 @@ const HM_BEAD_SIZE = 22
 const OF_BEAD_SIZE = 30
 const IMAGE_SIZE = 200
 const TRANSITION = 'transform 400ms cubic-bezier(0.4, 0, 0.2, 1)'
-const SWIPE_MIN_DX = 50
-const SWIPE_AXIS_RATIO = 1.5
+const SWIPE_MIN_DISTANCE = 50
 
 // Movement beyond this many px (on either axis) is a drag, not a tap.
 const TAP_TOLERANCE = 10
 const isDragMove = (dx: number, dy: number) =>
   Math.max(Math.abs(dx), Math.abs(dy)) > TAP_TOLERANCE
 
-// Swipe left = moved at least SWIPE_MIN_DX to the left, mostly horizontally.
-const isSwipeLeft = (dx: number, dy: number) =>
-  dx <= -SWIPE_MIN_DX && Math.abs(dx) > SWIPE_AXIS_RATIO * Math.abs(dy)
+// Swipe = moved at least SWIPE_MIN_DISTANCE in any direction; it always advances.
+const isSwipe = (dx: number, dy: number) =>
+  Math.hypot(dx, dy) >= SWIPE_MIN_DISTANCE
 
 // Slot 0 = OF, slot 1 = gap (between OF and HM1),
 // slots 2..11 = HM1..HM10, slot 12 = gap (between HM10 and OF — "Glory Be" position).
@@ -147,7 +146,7 @@ export const RosaryLoop: React.FC<RosaryLoopProps> = ({
       // Any drag beyond tap tolerance is a gesture, not a tap: its trailing
       // click must not advance, whether or not it qualified as a swipe.
       if (isDragMove(dx, dy)) suppressClickRef.current = true
-      if (isSwipeLeft(dx, dy)) onAdvanceRef.current()
+      if (isSwipe(dx, dy)) onAdvanceRef.current()
     }
     const onCancel = (ev: PointerEvent) => {
       if (!ev.isPrimary || ev.pointerId !== pointerId) return
@@ -184,9 +183,11 @@ export const RosaryLoop: React.FC<RosaryLoopProps> = ({
         mx: 'auto',
         userSelect: 'none',
       }}
-      // pan-y keeps vertical scroll on touch; inline rather than sx because
-      // jsdom drops touch-action from stylesheets
-      style={{touchAction: 'pan-y'}}
+      // none so vertical swipes reach us instead of starting a browser scroll
+      // (which would end the gesture with pointercancel); page scroll must start
+      // outside the stage. Inline rather than sx because jsdom drops
+      // touch-action from stylesheets
+      style={{touchAction: 'none'}}
       onPointerDown={handlePointerDown}
       onClickCapture={handleClickCapture}
       // A native image drag on desktop would end the gesture with
