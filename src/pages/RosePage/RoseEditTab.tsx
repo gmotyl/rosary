@@ -21,11 +21,9 @@ import {ChangeDay} from 'src/utils/roseChangeDay'
 import {
   ChangeDayInput,
   MysterySelect,
-  formatChangeDay,
+  formatChangeDayLong,
 } from 'src/components/AddRoseDialog'
 import {splitTitle} from './RosePrayTab'
-
-const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1)
 
 type Field = 'name' | 'mystery' | 'changeDay'
 
@@ -51,7 +49,6 @@ export const RoseEditTab: React.FC<RoseEditTabProps> = ({id}) => {
   if (!rose) return null
 
   const {label, name} = splitTitle(getMystery(rose.mystery, t).title)
-  const ruleText = capitalize(formatChangeDay(rose.changeDay, t))
 
   const rows: {field: Field; label: string; value: string}[] = [
     {field: 'name', label: t('rose.edit.name'), value: rose.name},
@@ -63,10 +60,7 @@ export const RoseEditTab: React.FC<RoseEditTabProps> = ({id}) => {
     {
       field: 'changeDay',
       label: t('rose.edit.changeDay'),
-      value:
-        rose.changeDay.kind === 'nthWeekday'
-          ? t('rose.edit.monthlyRule', {rule: ruleText})
-          : ruleText,
+      value: formatChangeDayLong(rose.changeDay, t),
     },
   ]
 

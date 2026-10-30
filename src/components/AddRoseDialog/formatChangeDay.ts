@@ -39,3 +39,15 @@ export const formatChangeDay = (rule: ChangeDay, t: TFunction): string => {
     weekday: t(`rose.changeDay.weekday.${rule.weekday}`),
   })
 }
+
+const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1)
+
+// Rule as a standalone label: "Pierwsza niedziela miesiąca", "15. dzień
+// miesiąca". The day-of-month rule already names the month, so the monthly
+// suffix (rose.edit.monthlyRule) applies to the weekday rule only.
+export const formatChangeDayLong = (rule: ChangeDay, t: TFunction): string => {
+  const text = capitalize(formatChangeDay(rule, t))
+  return rule.kind === 'nthWeekday'
+    ? t('rose.edit.monthlyRule', {rule: text})
+    : text
+}

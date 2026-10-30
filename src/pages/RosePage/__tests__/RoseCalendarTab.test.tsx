@@ -112,7 +112,7 @@ describe('RoseCalendarTab', () => {
     ).toBeInTheDocument()
 
     expect(changeCard).toHaveTextContent('Dzień zmiany')
-    expect(changeCard).toHaveTextContent('Pierwsza niedziela')
+    expect(changeCard).toHaveTextContent('Pierwsza niedziela miesiąca')
     fireEvent.click(within(changeCard).getByRole('link', {name: 'Zmień'}))
     expect(screen.getByTestId('location')).toHaveTextContent('/rose/r1/edit')
   })

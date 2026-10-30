@@ -10,7 +10,12 @@ import {MysteryTypes} from 'src/consts/MysteryTypes'
 import {ROSES_KEY} from 'src/hooks'
 import type {IRose} from 'src/hooks'
 import {ChangeDay} from 'src/utils/roseChangeDay'
-import {AddRoseDialog, ChangeDayInput, formatChangeDay} from '..'
+import {
+  AddRoseDialog,
+  ChangeDayInput,
+  formatChangeDay,
+  formatChangeDayLong,
+} from '..'
 
 // Rose strings are asserted in Polish, so use the real i18n instance
 vi.unmock('react-i18next')
@@ -212,6 +217,16 @@ describe('AddRoseDialog', () => {
       formatChangeDay({kind: 'nthWeekday', nth: 'last', weekday: 'fri'}, t),
     ).toBe('ostatni piątek')
     expect(formatChangeDay({kind: 'dayOfMonth', day: 15}, t)).toBe(
+      '15. dzień miesiąca',
+    )
+  })
+
+  it('formats change day rules as a capitalized standalone label', () => {
+    const t = i18n.getFixedT('pl')
+    expect(
+      formatChangeDayLong({kind: 'nthWeekday', nth: 1, weekday: 'sun'}, t),
+    ).toBe('Pierwsza niedziela miesiąca')
+    expect(formatChangeDayLong({kind: 'dayOfMonth', day: 15}, t)).toBe(
       '15. dzień miesiąca',
     )
   })

@@ -9,7 +9,7 @@ import {getMystery} from 'src/consts/rosary'
 import {useRoses} from 'src/hooks'
 import {changeDateInMonth, toLocalDate} from 'src/utils/roseChangeDay'
 import {formatMonthCounter, monthLocative} from 'src/components/FishCelebration'
-import {formatChangeDay, WEEKDAYS} from 'src/components/AddRoseDialog'
+import {formatChangeDayLong, WEEKDAYS} from 'src/components/AddRoseDialog'
 import {FishIcon} from 'src/components/Icons'
 import {splitTitle} from './RosePrayTab'
 
@@ -290,7 +290,7 @@ export const RoseCalendarTab: React.FC<RoseCalendarTabProps> = ({id}) => {
             {t('rose.calendar.changeDay')}
           </Typography>
           <Typography component="span" sx={{fontSize: 14}}>
-            {capitalize(formatChangeDay(rose.changeDay, t))}
+            {formatChangeDayLong(rose.changeDay, t)}
           </Typography>
         </Box>
         <Link

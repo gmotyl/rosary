@@ -3,4 +3,10 @@ export {ChangeDayInput} from './ChangeDayInput'
 export type {ChangeDayInputProps} from './ChangeDayInput'
 export {MysterySelect} from './MysterySelect'
 export type {MysterySelectProps} from './MysterySelect'
-export {formatChangeDay, ordinalLabel, NTHS, WEEKDAYS} from './formatChangeDay'
+export {
+  formatChangeDay,
+  formatChangeDayLong,
+  ordinalLabel,
+  NTHS,
+  WEEKDAYS,
+} from './formatChangeDay'
