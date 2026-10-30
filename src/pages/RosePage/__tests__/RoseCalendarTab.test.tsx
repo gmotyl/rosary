@@ -237,9 +237,8 @@ describe('RoseCalendarTab', () => {
     expect(
       within(screen.getByTestId('rose-calendar-grid')).getAllByRole('button'),
     ).toHaveLength(30)
-    expect(counter()).toHaveTextContent(
-      `2 z 30 dni w ${t('rose.monthLocative.8')}`,
-    )
+    // "we" before the "wrz-" cluster, not "w"
+    expect(counter()).toHaveTextContent('2 z 30 dni we wrześniu')
 
     fireEvent.click(next)
     expect(header).toHaveTextContent('Październik 2026')

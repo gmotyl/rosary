@@ -1,7 +1,9 @@
 import {TFunction} from 'i18next'
 
-// Month name as used after "w"/"in" in the month counter ("październiku",
-// "October"); month is 0-11 as in Date#getMonth
+// Month with its preposition as it ends the month counter ("w październiku",
+// "we wrześniu", "in October"). The preposition lives in the value, not the
+// template, because Polish switches "w" to "we" before some months;
+// month is 0-11 as in Date#getMonth
 export const monthLocative = (month: number, t: TFunction): string =>
   t(`rose.monthLocative.${month}`)
 

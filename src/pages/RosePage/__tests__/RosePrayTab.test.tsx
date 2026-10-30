@@ -26,7 +26,7 @@ const rule: ChangeDay = {kind: 'dayOfMonth', day: 1}
 const now = new Date()
 const today = toLocalDate(now)
 const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate()
-// Polish locative of the current month, as the celebration prints it
+// Polish "w <locative>" of the current month, as the celebration prints it
 const monthLabel = () =>
   i18n.t(`rose.monthLocative.${now.getMonth()}`, {lng: 'pl'})
 
@@ -130,7 +130,7 @@ describe('RosePrayTab', () => {
 
     const celebration = screen.getByTestId('fish-celebration')
     expect(celebration).toHaveTextContent(
-      `1 z ${daysInMonth} dni w ${monthLabel()}`,
+      `1 z ${daysInMonth} dni ${monthLabel()}`,
     )
     expect(screen.queryByTestId('rose-new-mystery-banner')).toBeNull()
     expect(screen.getByTestId('rose-today-status')).toHaveTextContent(
@@ -157,7 +157,7 @@ describe('RosePrayTab', () => {
     expect(stored().currentBead).toBe(0)
     expect(stored().prayedDays).toEqual([today])
     expect(screen.getByTestId('fish-celebration')).toHaveTextContent(
-      `1 z ${daysInMonth} dni w ${monthLabel()}`,
+      `1 z ${daysInMonth} dni ${monthLabel()}`,
     )
   })
 

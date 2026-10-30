@@ -121,20 +121,20 @@
     "license": "GPLv3"
   },
   "rose": {
-    "monthCounter": "{{prayed}} z {{days}} dni w {{month}}",
+    "monthCounter": "{{prayed}} z {{days}} dni {{month}}",
     "monthLocative": {
-      "0": "styczniu",
-      "1": "lutym",
-      "2": "marcu",
-      "3": "kwietniu",
-      "4": "maju",
-      "5": "czerwcu",
-      "6": "lipcu",
-      "7": "sierpniu",
-      "8": "wrześniu",
-      "9": "październiku",
-      "10": "listopadzie",
-      "11": "grudniu"
+      "0": "w styczniu",
+      "1": "w lutym",
+      "2": "w marcu",
+      "3": "w kwietniu",
+      "4": "w maju",
+      "5": "w czerwcu",
+      "6": "w lipcu",
+      "7": "w sierpniu",
+      "8": "we wrześniu",
+      "9": "w październiku",
+      "10": "w listopadzie",
+      "11": "w grudniu"
     },
     "celebration": {
       "praise": "Chwała Panu!\nDziesiątka odmówiona.",

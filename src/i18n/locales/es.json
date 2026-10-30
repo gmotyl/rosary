@@ -121,20 +121,20 @@
     "license": "GPLv3"
   },
   "rose": {
-    "monthCounter": "{{prayed}} de {{days}} días en {{month}}",
+    "monthCounter": "{{prayed}} de {{days}} días {{month}}",
     "monthLocative": {
-      "0": "enero",
-      "1": "febrero",
-      "2": "marzo",
-      "3": "abril",
-      "4": "mayo",
-      "5": "junio",
-      "6": "julio",
-      "7": "agosto",
-      "8": "septiembre",
-      "9": "octubre",
-      "10": "noviembre",
-      "11": "diciembre"
+      "0": "en enero",
+      "1": "en febrero",
+      "2": "en marzo",
+      "3": "en abril",
+      "4": "en mayo",
+      "5": "en junio",
+      "6": "en julio",
+      "7": "en agosto",
+      "8": "en septiembre",
+      "9": "en octubre",
+      "10": "en noviembre",
+      "11": "en diciembre"
     },
     "celebration": {
       "praise": "¡Gloria al Señor!\nDecena rezada.",

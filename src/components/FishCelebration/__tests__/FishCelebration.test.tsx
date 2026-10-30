@@ -31,7 +31,7 @@ const renderCelebration = (onClose = vi.fn()) => {
         open
         prayed={23}
         daysInMonth={31}
-        monthLabel="październiku"
+        monthLabel="w październiku"
         onClose={onClose}
       />
     </StylesProvider>,
