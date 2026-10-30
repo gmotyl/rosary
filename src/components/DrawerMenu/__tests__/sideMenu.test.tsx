@@ -1,4 +1,4 @@
-import {fireEvent, screen, within} from '@testing-library/react'
+import {act, fireEvent, screen, within} from '@testing-library/react'
 import {MemoryRouter, Route} from 'react-router-dom'
 import {afterEach, vi} from 'vitest'
 import '@testing-library/jest-dom'
@@ -179,6 +179,33 @@ describe('sideMenu', () => {
       ).toBeInTheDocument()
       expect(within(dialog).getByText('Dzień zmiany')).toBeInTheDocument()
       expect(setOpen).not.toHaveBeenCalledWith(false)
+    })
+
+    it('fish badge follows the new day at midnight while mounted', () => {
+      vi.useFakeTimers({toFake: ['Date', 'setTimeout', 'clearTimeout']})
+      try {
+        vi.setSystemTime(new Date(2026, 9, 29, 23, 59, 0))
+        localStorage.setItem(
+          ROSES_KEY,
+          JSON.stringify([makeRose('r1', 'Męska róża', ['2026-10-29'])]),
+        )
+        renderMenu()
+        const row = screen.getByRole('link', {name: /Męska róża/})
+        expect(within(row).getByRole('img', {name: 'Dziś odmówione'})).toBeTruthy()
+
+        act(() => {
+          vi.advanceTimersByTime(2 * 60 * 1000)
+        })
+
+        // Prayed yesterday: no fish on the new day, no remount
+        expect(
+          within(screen.getByRole('link', {name: /Męska róża/})).queryByRole(
+            'img',
+          ),
+        ).toBeNull()
+      } finally {
+        vi.useRealTimers()
+      }
     })
   })
 })

@@ -7,8 +7,8 @@ import {useTranslation} from 'react-i18next'
 import {getMystery} from 'src/consts/rosary'
 import {useRoses} from 'src/hooks'
 import {useAdvanceKeys} from 'src/hooks/useAdvanceKeys'
+import {useLocalToday} from 'src/hooks/useLocalToday'
 import {pulse} from 'src/tools/haptics'
-import {toLocalDate} from 'src/utils/roseChangeDay'
 import {RosaryLoop} from 'src/components/RosaryLoop'
 import {FishCelebration, monthLocative} from 'src/components/FishCelebration'
 import {FishIcon} from 'src/components/Icons'
@@ -30,6 +30,8 @@ export const RosePrayTab: React.FC<RosePrayTabProps> = ({id}) => {
   const {t} = useTranslation()
   const {getRose, advanceBead, retreatBead, dismissBanner} = useRoses()
   const rose = getRose(id)
+  // Re-renders at local midnight, so the status follows the new day
+  const today = useLocalToday()
   const [celebrating, setCelebrating] = useState(false)
   // Read synchronously by advance: a key that closes the celebration must not
   // also advance a bead, even before the re-render disables the key listener
@@ -60,17 +62,13 @@ export const RosePrayTab: React.FC<RosePrayTabProps> = ({id}) => {
   const mystery = getMystery(rose.mystery, t)
   const {label, name} = splitTitle(mystery.title)
 
-  const now = new Date()
-  const today = toLocalDate(now)
+  const year = Number(today.slice(0, 4))
+  const month = Number(today.slice(5, 7)) - 1
   const monthPrefix = today.slice(0, 7)
   const prayedThisMonth = rose.prayedDays.filter((d) =>
     d.startsWith(monthPrefix),
   ).length
-  const daysInMonth = new Date(
-    now.getFullYear(),
-    now.getMonth() + 1,
-    0,
-  ).getDate()
+  const daysInMonth = new Date(year, month + 1, 0).getDate()
   const prayedToday = rose.prayedDays.includes(today)
 
   return (
@@ -170,7 +168,7 @@ export const RosePrayTab: React.FC<RosePrayTabProps> = ({id}) => {
         open={celebrating}
         prayed={prayedThisMonth}
         daysInMonth={daysInMonth}
-        monthLabel={monthLocative(now.getMonth(), t)}
+        monthLabel={monthLocative(month, t)}
         onClose={() => setCelebrating(false)}
       />
     </Box>

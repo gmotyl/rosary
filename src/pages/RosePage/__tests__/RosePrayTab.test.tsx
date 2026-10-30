@@ -1,10 +1,11 @@
-import {fireEvent, screen, within} from '@testing-library/react'
+import {act, fireEvent, screen, within} from '@testing-library/react'
 import {MemoryRouter, Route, Switch} from 'react-router-dom'
 import {vi} from 'vitest'
 import '@testing-library/jest-dom'
 
 import i18n from 'src/i18n'
 import {RosePage} from '../RosePage'
+import {RosePrayTab} from '../RosePrayTab'
 import {renderWithTheme} from 'src/tools/renderWithTheme'
 import {ERoutes} from 'src/app/config/routes'
 import {MysteryTypes} from 'src/consts/MysteryTypes'
@@ -213,5 +214,37 @@ describe('RosePrayTab', () => {
     expect(screen.getByTestId('rose-mystery-heading')).toBeInTheDocument()
     expect(screen.queryByTestId('rose-new-mystery-banner')).toBeNull()
     expect(stored().mystery).toBe(MysteryTypes.Joyful1)
+  })
+
+  it('today status follows the new day at midnight while mounted', () => {
+    vi.useFakeTimers({toFake: ['Date', 'setTimeout', 'clearTimeout']})
+    try {
+      vi.setSystemTime(new Date(2026, 9, 29, 23, 59, 0))
+      seed({
+        prayedDays: ['2026-10-29'],
+        lastChange: latestChangeDateOnOrBefore(rule, '2026-10-29'),
+      })
+      // Rendered without RosePage, whose own midnight re-render would mask
+      // a tab that does not track today itself
+      renderWithTheme(
+        <MemoryRouter>
+          <RosePrayTab id="r1" />
+        </MemoryRouter>,
+      )
+      expect(screen.getByTestId('rose-today-status')).toHaveTextContent(
+        'Dziś: odmówione',
+      )
+
+      act(() => {
+        vi.advanceTimersByTime(2 * 60 * 1000)
+      })
+
+      // Prayed yesterday: the new day starts as not prayed, no remount
+      expect(screen.getByTestId('rose-today-status')).toHaveTextContent(
+        'Dziś: jeszcze nie odmówiono',
+      )
+    } finally {
+      vi.useRealTimers()
+    }
   })
 })

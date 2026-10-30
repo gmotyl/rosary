@@ -25,7 +25,7 @@ import {navigation, NavLinkItem} from 'src/app/config/navigation'
 import {useColorMode} from 'src/app/ColorModeContext'
 import {ERoutes} from 'src/app/config/routes'
 import {useRoses} from 'src/hooks'
-import {toLocalDate} from 'src/utils/roseChangeDay'
+import {useLocalToday} from 'src/hooks/useLocalToday'
 
 const useStyles = makeStyles((theme) => ({
   list: {
@@ -58,7 +58,8 @@ export const SideMenu: React.FC<SideMenuProps> = ({setOpen}) => {
   const {pathname} = useLocation()
   const {roses} = useRoses()
   const [addOpen, setAddOpen] = useState(false)
-  const today = toLocalDate(new Date())
+  // Re-renders at local midnight, so the fish badges follow the new day
+  const today = useLocalToday()
   const close = () => setOpen(false)
 
   return (
