@@ -412,7 +412,7 @@ describe('useRoses', () => {
       .mockImplementation(() => {
         throw new DOMException('full', 'QuotaExceededError')
       })
-    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined)
 
     act(() => {
       expect(() => result.current.advanceBead(id)).not.toThrow()
