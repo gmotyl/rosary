@@ -85,8 +85,12 @@ const writeRoses = (next: IRose[]) => {
     // Quota or blocked storage: keep the change in memory for this session.
     // Pinning cachedRaw to what storage still holds makes readRoses keep
     // serving `next` until storage really changes (e.g. another tab writes).
+    // If that read throws too, keep the last known baseline: dropping it to
+    // undefined would make the unchanged persisted value look new once
+    // storage recovers, replacing these in-memory changes with stale data.
     console.warn('rosary: could not persist roses', error)
-    cachedRaw = readStoredRaw()
+    const stored = readStoredRaw()
+    if (stored !== undefined) cachedRaw = stored
   }
   cachedList = next
   listeners.forEach((listener) => listener())

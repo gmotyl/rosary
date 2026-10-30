@@ -427,6 +427,55 @@ describe('useRoses', () => {
     expect(localStorage.getItem(ROSES_KEY)).toBe(persisted)
   })
 
+  it('keeps in-memory mutations when storage recovers after a full block', () => {
+    const {result, rerender} = renderHook(() => useRoses())
+    let id = ''
+    act(() => {
+      id = result.current.addRose({
+        name: 'A',
+        mystery: MysteryTypes.Joyful1,
+        changeDay: firstSunday,
+      }).id
+    })
+    const persisted = localStorage.getItem(ROSES_KEY)
+    // Temporarily blocked storage: both the write and the fallback read throw
+    const setItem = vi
+      .spyOn(Storage.prototype, 'setItem')
+      .mockImplementation(() => {
+        throw new DOMException('denied', 'SecurityError')
+      })
+    const getItem = vi
+      .spyOn(Storage.prototype, 'getItem')
+      .mockImplementation(() => {
+        throw new DOMException('denied', 'SecurityError')
+      })
+    vi.spyOn(console, 'warn').mockImplementation(() => undefined)
+
+    act(() => {
+      result.current.advanceBead(id)
+      result.current.advanceBead(id)
+    })
+    expect(setItem).toHaveBeenCalled()
+    expect(getItem).toHaveBeenCalled()
+    expect(result.current.getRose(id)?.currentBead).toBe(2)
+
+    // Storage readable again, still holding the pre-block value
+    setItem.mockRestore()
+    getItem.mockRestore()
+    expect(localStorage.getItem(ROSES_KEY)).toBe(persisted)
+    rerender()
+
+    expect(result.current.roses[0].currentBead).toBe(2)
+    expect(result.current.getRose(id)?.currentBead).toBe(2)
+
+    // The next successful write persists the in-memory changes
+    act(() => {
+      result.current.advanceBead(id)
+    })
+    const stored = JSON.parse(localStorage.getItem(ROSES_KEY) ?? '[]')
+    expect(stored[0].currentBead).toBe(3)
+  })
+
   it('changing the mystery restarts the decade, same mystery keeps it', () => {
     const {result} = renderHook(() => useRoses())
     let id = ''
