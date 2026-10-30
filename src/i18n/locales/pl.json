@@ -145,6 +145,14 @@
       "calendar": "Kalendarz",
       "edit": "Zmień"
     },
+    "pray": {
+      "yourMystery": "Twoja tajemnica w tej róży",
+      "newMystery": "Nowa tajemnica:",
+      "change": "Zmień",
+      "dismiss": "Zamknij",
+      "todayNotPrayed": "Dziś: jeszcze nie odmówiono",
+      "todayPrayed": "Dziś: odmówione"
+    },
     "menu": {
       "rosary": "Różaniec",
       "add": "Dodaj różę",

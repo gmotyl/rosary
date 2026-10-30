@@ -145,6 +145,14 @@
       "calendar": "Calendrier",
       "edit": "Modifier"
     },
+    "pray": {
+      "yourMystery": "Ton mystère dans cette rose",
+      "newMystery": "Nouveau mystère :",
+      "change": "Modifier",
+      "dismiss": "Fermer",
+      "todayNotPrayed": "Aujourd’hui : pas encore prié",
+      "todayPrayed": "Aujourd’hui : prié"
+    },
     "menu": {
       "rosary": "Rosaire",
       "add": "Ajouter une rose",

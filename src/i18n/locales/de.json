@@ -145,6 +145,14 @@
       "calendar": "Kalender",
       "edit": "Ändern"
     },
+    "pray": {
+      "yourMystery": "Dein Geheimnis in dieser Rose",
+      "newMystery": "Neues Geheimnis:",
+      "change": "Ändern",
+      "dismiss": "Schließen",
+      "todayNotPrayed": "Heute: noch nicht gebetet",
+      "todayPrayed": "Heute: gebetet"
+    },
     "menu": {
       "rosary": "Rosenkranz",
       "add": "Rose hinzufügen",

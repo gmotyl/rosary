@@ -145,6 +145,14 @@
       "calendar": "Calendario",
       "edit": "Cambiar"
     },
+    "pray": {
+      "yourMystery": "Tu misterio en esta rosa",
+      "newMystery": "Nuevo misterio:",
+      "change": "Cambiar",
+      "dismiss": "Cerrar",
+      "todayNotPrayed": "Hoy: aún sin rezar",
+      "todayPrayed": "Hoy: rezado"
+    },
     "menu": {
       "rosary": "Rosario",
       "add": "Añadir rosa",
