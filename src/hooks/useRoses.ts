@@ -55,8 +55,20 @@ const parse = (raw: string | null): IRose[] => {
   }
 }
 
+// undefined = storage unreadable (blocked site data throws SecurityError on
+// access); callers then keep the in-memory list instead of crashing the
+// render, since Header reads roses on every route
+const readStoredRaw = (): string | null | undefined => {
+  try {
+    return localStorage.getItem(ROSES_KEY)
+  } catch {
+    return undefined
+  }
+}
+
 const readRoses = (): IRose[] => {
-  const raw = localStorage.getItem(ROSES_KEY)
+  const raw = readStoredRaw()
+  if (raw === undefined) return cachedList
   if (raw !== cachedRaw) {
     cachedRaw = raw
     cachedList = parse(raw)

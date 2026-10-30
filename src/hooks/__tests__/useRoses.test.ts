@@ -372,4 +372,27 @@ describe('useRoses', () => {
     ).toBe(false)
     expect(localStorage.getItem('rosary-intentions')).toBe('"sentinel"')
   })
+
+  it('keeps working on a stable snapshot when storage reads throw', () => {
+    const {result, rerender} = renderHook(() => useRoses())
+    act(() => {
+      result.current.addRose({
+        name: 'A',
+        mystery: MysteryTypes.Joyful1,
+        changeDay: firstSunday,
+      })
+    })
+    const before = result.current.roses
+    // Blocked storage (privacy mode, disabled site data) throws SecurityError
+    const getItem = vi
+      .spyOn(Storage.prototype, 'getItem')
+      .mockImplementation(() => {
+        throw new DOMException('denied', 'SecurityError')
+      })
+
+    expect(() => rerender()).not.toThrow()
+    expect(getItem).toHaveBeenCalled()
+    expect(result.current.roses).toBe(before)
+    expect(result.current.getRose(before[0].id)).toEqual(before[0])
+  })
 })
