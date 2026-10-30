@@ -14,27 +14,34 @@ export const useLocalToday = (): string => {
   useEffect(() => {
     // Same string bails out of the re-render
     const refresh = () => setToday(toLocalDate(new Date()))
-    let timer: number
+    let timer: number | undefined
     const schedule = () => {
+      window.clearTimeout(timer)
       // A second past midnight, so a slightly early timer still lands on it
       timer = window.setTimeout(() => {
         refresh()
         schedule()
       }, msUntilNextMidnight(new Date()) + 1000)
     }
+    // A clock or time zone change while asleep leaves the pending timer
+    // aimed at the old midnight, so re-arm it on every resume
+    const resume = () => {
+      refresh()
+      schedule()
+    }
     const onVisibility = () => {
-      if (document.visibilityState === 'visible') refresh()
+      if (document.visibilityState === 'visible') resume()
     }
 
     schedule()
     // The day may have changed between the first render and this effect
     refresh()
     document.addEventListener('visibilitychange', onVisibility)
-    window.addEventListener('focus', refresh)
+    window.addEventListener('focus', resume)
     return () => {
       window.clearTimeout(timer)
       document.removeEventListener('visibilitychange', onVisibility)
-      window.removeEventListener('focus', refresh)
+      window.removeEventListener('focus', resume)
     }
   }, [])
 
