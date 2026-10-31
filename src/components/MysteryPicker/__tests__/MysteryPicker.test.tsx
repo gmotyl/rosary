@@ -30,7 +30,7 @@ const Harness = ({
 }
 
 const pickPart = (part: string) => {
-  fireEvent.click(screen.getByRole('button', {name: 'Zmień grupę tajemnic'}))
+  fireEvent.click(screen.getByRole('button', {name: /Zmień grupę tajemnic/}))
   fireEvent.click(screen.getByRole('menuitem', {name: part}))
 }
 
@@ -75,5 +75,28 @@ describe('MysteryPicker', () => {
     expect(screen.getByTestId('rosary-header-subtitle')).toHaveTextContent(
       'Biczowanie Pana Jezusa',
     )
+  })
+
+  it('choosing the already selected part keeps the mystery', () => {
+    const onChange = vi.fn()
+    render(<Harness initial={MysteryTypes.Sorrowful3} onChange={onChange} />)
+    pickPart('Tajemnice bolesne')
+    expect(onChange).not.toHaveBeenCalled()
+    expect(screen.getByTestId('decade-dot-3')).toHaveAttribute('aria-current', 'true')
+  })
+
+  it('does not show the dots before the selection as prayed', () => {
+    render(<Harness initial={MysteryTypes.Joyful3} onChange={vi.fn()} />)
+    expect(screen.getByTestId('decade-dot-1')).toHaveAttribute('data-state', 'future')
+    expect(screen.getByTestId('decade-dot-2')).toHaveAttribute('data-state', 'future')
+  })
+
+  it("names the part trigger after the selected part", () => {
+    render(<Harness initial={MysteryTypes.Glorious2} onChange={vi.fn()} />)
+    expect(
+      screen.getByRole('button', {
+        name: 'Tajemnice chwalebne – Zmień grupę tajemnic',
+      }),
+    ).toBeInTheDocument()
   })
 })

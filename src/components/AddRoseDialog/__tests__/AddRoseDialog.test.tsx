@@ -42,7 +42,7 @@ const storedRoses = (): IRose[] =>
 // Part from the header menu, then the mystery from its dot
 const pickMystery = (dialog: HTMLElement, part: string, mystery: string) => {
   fireEvent.click(
-    within(dialog).getByRole('button', {name: 'Zmień grupę tajemnic'}),
+    within(dialog).getByRole('button', {name: /Zmień grupę tajemnic/}),
   )
   fireEvent.click(screen.getByRole('menuitem', {name: part}))
   fireEvent.click(within(dialog).getByRole('button', {name: mystery}))
@@ -66,7 +66,7 @@ describe('AddRoseDialog', () => {
     // Same two-step picker as the normal rosary: part menu, then the dots
     const mystery = within(dialog).getByRole('group', {name: 'Moja tajemnica'})
     expect(
-      within(mystery).getByRole('button', {name: 'Zmień grupę tajemnic'}),
+      within(mystery).getByRole('button', {name: /Zmień grupę tajemnic/}),
     ).toHaveTextContent('Tajemnice radosne')
     expect(within(mystery).getAllByTestId(/^decade-dot-\d$/)).toHaveLength(5)
     expect(

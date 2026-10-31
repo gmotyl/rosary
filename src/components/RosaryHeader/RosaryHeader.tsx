@@ -35,6 +35,7 @@ export const RosaryHeader: React.FC<RosaryHeaderProps> = ({
   const {t} = useTranslation()
   const [anchor, setAnchor] = useState<HTMLElement | null>(null)
   const currentGroup = groupOf(currentMystery)
+  const groupTitle = t(`mysteries.groupTitle.${currentGroup}`)
 
   const open = (e: React.MouseEvent<HTMLElement>) => setAnchor(e.currentTarget)
   // A Box with role="button" gets no native key activation, so add it
@@ -53,7 +54,8 @@ export const RosaryHeader: React.FC<RosaryHeaderProps> = ({
     <Box sx={{textAlign: 'center', pt: 1, pb: 2}} data-testid="rosary-header">
       <Box
         role="button"
-        aria-label={t('prayer.changeGroup')}
+        // Lead with the visible part so the name says what is selected
+        aria-label={`${groupTitle} – ${t('prayer.changeGroup')}`}
         aria-haspopup="menu"
         tabIndex={0}
         // Keep a pointer press from focusing the trigger: the menu restores
@@ -82,7 +84,7 @@ export const RosaryHeader: React.FC<RosaryHeaderProps> = ({
           component="h2"
           sx={{color: 'primary.main', fontWeight: 600, lineHeight: 1.2}}
         >
-          {t(`mysteries.groupTitle.${currentGroup}`)}
+          {groupTitle}
         </Typography>
         <ExpandMoreIcon sx={{color: 'primary.main'}} />
       </Box>

@@ -169,7 +169,7 @@ describe('RoseEditTab', () => {
     // Same two-step picker as the normal rosary, preselected on the rose's mystery
     const picker = within(dialog).getByRole('group', {name: 'Tajemnica'})
     const partButton = within(picker).getByRole('button', {
-      name: 'Zmień grupę tajemnic',
+      name: /Zmień grupę tajemnic/,
     })
     expect(partButton).toHaveTextContent('Tajemnice radosne')
     expect(within(picker).getByTestId('decade-dot-3')).toHaveAttribute(

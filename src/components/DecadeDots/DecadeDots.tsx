@@ -14,11 +14,15 @@ const LINE_MAX_WIDTH = 36
 interface DecadeDotsProps {
   currentMystery: MysteryTypes
   onJumpToMystery: (mystery: MysteryTypes) => void
+  // False when the dots pick a mystery rather than track prayer progress:
+  // dots and connectors before the active one then stay unfilled
+  showProgress?: boolean
 }
 
 export const DecadeDots: React.FC<DecadeDotsProps> = ({
   currentMystery,
   onJumpToMystery,
+  showProgress = true,
 }) => {
   const {t} = useTranslation()
   const group = groupOf(currentMystery)
@@ -39,7 +43,13 @@ export const DecadeDots: React.FC<DecadeDotsProps> = ({
     >
       {decades.map((idx, i) => {
         const mystery = (groupStart + idx - 1) as MysteryTypes
-        const state = idx < activeDecade ? 'past' : idx === activeDecade ? 'active' : 'future'
+        const state =
+          idx === activeDecade
+            ? 'active'
+            : idx < activeDecade && showProgress
+              ? 'past'
+              : 'future'
+        const lineFilled = showProgress && idx < activeDecade
         return (
           <Box
             key={idx}
@@ -78,11 +88,13 @@ export const DecadeDots: React.FC<DecadeDotsProps> = ({
             </ButtonBase>
             {i < decades.length - 1 && (
               <Box
+                data-testid={`decade-line-${idx}`}
+                data-filled={lineFilled ? 'true' : 'false'}
                 sx={{
                   flex: 1,
                   maxWidth: LINE_MAX_WIDTH,
                   height: LINE_HEIGHT,
-                  backgroundColor: idx < activeDecade ? 'primary.main' : 'divider',
+                  backgroundColor: lineFilled ? 'primary.main' : 'divider',
                   mx: 0.5,
                 }}
               />

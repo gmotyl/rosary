@@ -83,4 +83,19 @@ describe('RosaryHeader', () => {
     fireEvent.keyDown(trigger, {key: 'Enter'})
     expect(getByRole('menu')).toBeTruthy()
   })
+
+  it('names the trigger after the selected group as well as its action', () => {
+    const {getByRole} = render(
+      <RosaryHeader
+        currentMystery={MysteryTypes.Sorrowful2}
+        mysteryTitle="t"
+        onJumpToGroup={vi.fn()}
+      />,
+    )
+    expect(
+      getByRole('button', {
+        name: 'mysteries.groupTitle.sorrowful – prayer.changeGroup',
+      }),
+    ).toBeTruthy()
+  })
 })
