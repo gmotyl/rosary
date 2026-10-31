@@ -1,8 +1,8 @@
 import {useState} from 'react'
-import {Box, ButtonBase, IconButton, Link, Typography} from '@mui/material'
+import {Box, ButtonBase, IconButton, Typography} from '@mui/material'
+import type {SxProps, Theme} from '@mui/material/styles'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import {Link as RouterLink} from 'react-router-dom'
 import {useTranslation} from 'react-i18next'
 
 import {getMystery} from 'src/consts/rosary'
@@ -16,6 +16,24 @@ import {splitTitle} from './RosePrayTab'
 const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1)
 
 type DayState = 'prayed' | 'unprayed' | 'future'
+
+// Change-day accent: a 2px primary ring drawn inside the cell (box-shadow, so
+// it never collides with the secondary focus outline) plus a corner badge.
+// The legend swatch reuses both, so the key matches the grid exactly.
+const changeRing = (theme: Theme) =>
+  `inset 0 0 0 2px ${theme.palette.primary.main}`
+
+const changeBadgeSx = (size: number, offset: number): SxProps<Theme> => ({
+  position: 'absolute',
+  top: offset,
+  right: offset,
+  width: size,
+  height: size,
+  borderRadius: '50%',
+  bgcolor: 'primary.main',
+  // Halo in the page colour lifts the badge off the ring and the today tint
+  boxShadow: (theme) => `0 0 0 2px ${theme.palette.background.default}`,
+})
 
 interface RoseCalendarTabProps {
   id: string
@@ -212,7 +230,11 @@ export const RoseCalendarTab: React.FC<RoseCalendarTabProps> = ({id}) => {
                 color: isToday ? 'text.primary' : 'text.secondary',
                 fontWeight: isToday ? 700 : 400,
                 bgcolor: isToday ? 'rgba(195,154,78,0.22)' : 'transparent',
-                '&.Mui-disabled': {opacity: 0.4},
+                boxShadow: isChange ? changeRing : 'none',
+                // Dim only the content of a disabled (future) day, so a future
+                // change day keeps its ring and badge at full strength
+                '&.Mui-disabled > :not([data-testid="rose-calendar-change-dot"])':
+                  {opacity: 0.4},
                 '&.Mui-focusVisible': {
                   outline: 2,
                   outlineColor: 'secondary.main',
@@ -230,15 +252,7 @@ export const RoseCalendarTab: React.FC<RoseCalendarTabProps> = ({id}) => {
                 <Box
                   component="span"
                   data-testid="rose-calendar-change-dot"
-                  sx={{
-                    position: 'absolute',
-                    top: 4,
-                    right: 6,
-                    width: 6,
-                    height: 6,
-                    borderRadius: '50%',
-                    bgcolor: 'secondary.main',
-                  }}
+                  sx={changeBadgeSx(9, 4)}
                 />
               )}
             </ButtonBase>
@@ -262,13 +276,17 @@ export const RoseCalendarTab: React.FC<RoseCalendarTabProps> = ({id}) => {
         >
           <Box
             component="span"
+            data-testid="rose-calendar-legend-change"
             sx={{
-              width: 6,
-              height: 6,
-              borderRadius: '50%',
-              bgcolor: 'secondary.main',
+              position: 'relative',
+              width: 16,
+              height: 16,
+              borderRadius: '5px',
+              boxShadow: changeRing,
             }}
-          />
+          >
+            <Box component="span" sx={changeBadgeSx(6, 2)} />
+          </Box>
           {t('rose.calendar.changeDayMark')}
         </Box>
         <span>{t('rose.calendar.tapHint')}</span>
@@ -279,8 +297,6 @@ export const RoseCalendarTab: React.FC<RoseCalendarTabProps> = ({id}) => {
         sx={{
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: 1,
           mt: 1.5,
           px: 0.5,
           py: 1.5,
@@ -300,13 +316,6 @@ export const RoseCalendarTab: React.FC<RoseCalendarTabProps> = ({id}) => {
             {formatChangeDayLong(rose.changeDay, t)}
           </Typography>
         </Box>
-        <Link
-          component={RouterLink}
-          to={`/rose/${id}/edit`}
-          sx={{fontWeight: 600, fontSize: 13}}
-        >
-          {t('rose.calendar.change')}
-        </Link>
       </Box>
     </Box>
   )

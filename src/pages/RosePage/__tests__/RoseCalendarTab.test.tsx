@@ -113,8 +113,9 @@ describe('RoseCalendarTab', () => {
 
     expect(changeCard).toHaveTextContent('Dzień zmiany')
     expect(changeCard).toHaveTextContent('Pierwsza niedziela miesiąca')
-    fireEvent.click(within(changeCard).getByRole('link', {name: 'Zmień'}))
-    expect(screen.getByTestId('location')).toHaveTextContent('/rose/r1/edit')
+    // Editing lives in the bottom navigation, the card only shows the rule
+    expect(within(changeCard).queryByRole('link')).toBeNull()
+    expect(changeCard).not.toHaveTextContent('Zmień')
   })
 
   it('grid starts on Monday', () => {
@@ -175,6 +176,24 @@ describe('RoseCalendarTab', () => {
       within(change).getByTestId('rose-calendar-change-dot'),
     ).toBeInTheDocument()
     expect(day(5)).not.toHaveAttribute('data-change-day')
+    expect(
+      within(day(5)).queryByTestId('rose-calendar-change-dot'),
+    ).toBeNull()
+  })
+
+  it('accents the change-day cell with a primary ring, matched by the legend', () => {
+    seed()
+    renderAt()
+
+    // A 2px inset ring in the theme's primary colour (the test harness renders
+    // with MUI's default theme, so compare shape and cell/legend equality)
+    const ring = getComputedStyle(day(4)).boxShadow
+    expect(ring).toMatch(/^inset 0 0 0 2px #/)
+    expect(getComputedStyle(day(5)).boxShadow).toBe('none')
+    expect(
+      getComputedStyle(screen.getByTestId('rose-calendar-legend-change'))
+        .boxShadow,
+    ).toBe(ring)
   })
 
   it('tapping a past day toggles it and updates the counter', () => {

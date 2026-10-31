@@ -168,8 +168,7 @@
       "prayed": "prayed",
       "changeDayMark": "change day",
       "tapHint": "tap a day to mark it by hand",
-      "changeDay": "Change day",
-      "change": "Change"
+      "changeDay": "Change day"
     },
     "edit": {
       "name": "Name",

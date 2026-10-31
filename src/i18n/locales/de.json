@@ -168,8 +168,7 @@
       "prayed": "gebetet",
       "changeDayMark": "Wechseltag",
       "tapHint": "tippe auf einen Tag, um ihn von Hand zu markieren",
-      "changeDay": "Wechseltag",
-      "change": "Ändern"
+      "changeDay": "Wechseltag"
     },
     "edit": {
       "name": "Name",
