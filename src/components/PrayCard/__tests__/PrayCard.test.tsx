@@ -190,6 +190,24 @@ describe('PrayCard', () => {
     expect(mocks.prayNext).toHaveBeenCalledTimes(1)
   })
 
+  it('a full Space press on the focused group trigger opens the menu without changing progress', () => {
+    mocks.intention.currentMystery = MysteryTypes.Luminous3
+    mocks.intention.currentBead = 4
+    const {getByTestId, getByRole} = renderInRouter(<PrayCard id="test" />)
+    const trigger = getByTestId('rosary-header-trigger')
+    trigger.focus()
+    mocks.jumpToGroup.mockClear()
+    mocks.jumpToMystery.mockClear()
+    mocks.prayNext.mockClear()
+    // The keyup lands wherever focus is on release, which the opening menu moves
+    fireEvent.keyDown(document.activeElement!, {key: ' '})
+    fireEvent.keyUp(document.activeElement!, {key: ' '})
+    expect(getByRole('menu')).toBeTruthy()
+    expect(mocks.jumpToGroup).not.toHaveBeenCalled()
+    expect(mocks.jumpToMystery).not.toHaveBeenCalled()
+    expect(mocks.prayNext).not.toHaveBeenCalled()
+  })
+
   it('an advance key on the page body advances', () => {
     mocks.intention.currentMystery = MysteryTypes.Luminous3
     mocks.prayNext.mockClear()

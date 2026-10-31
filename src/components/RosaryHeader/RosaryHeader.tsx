@@ -1,7 +1,7 @@
 import {Box, Menu, MenuItem, Typography} from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import CheckIcon from '@mui/icons-material/Check'
-import {useState} from 'react'
+import {useRef, useState} from 'react'
 import {useTranslation} from 'react-i18next'
 
 import {MysteryTypes} from 'src/consts/MysteryTypes'
@@ -38,9 +38,25 @@ export const RosaryHeader: React.FC<RosaryHeaderProps> = ({
   const groupTitle = t(`mysteries.groupTitle.${currentGroup}`)
 
   const open = (e: React.MouseEvent<HTMLElement>) => setAnchor(e.currentTarget)
-  // A Box with role="button" gets no native key activation, so add it
-  const openFromKey = (e: React.KeyboardEvent<HTMLElement>) => {
-    if (e.key !== 'Enter' && e.key !== ' ') return
+  // A Box with role="button" gets no native key activation, so add it the way
+  // a native button does: Enter on keydown, Space on keyup. Opening on Space
+  // keydown would move focus into the menu, and MUI's MenuItem (a non-native
+  // ButtonBase) treats the Space keyup it then receives as a click — picking
+  // the current group without the user choosing it.
+  const spaceDownOnTrigger = useRef(false)
+  const onTriggerKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      setAnchor(e.currentTarget)
+    } else if (e.key === ' ') {
+      // Keep the page from scrolling and the advance-key hook from acting
+      e.preventDefault()
+      spaceDownOnTrigger.current = true
+    }
+  }
+  const onTriggerKeyUp = (e: React.KeyboardEvent<HTMLElement>) => {
+    if (e.key !== ' ' || !spaceDownOnTrigger.current) return
+    spaceDownOnTrigger.current = false
     e.preventDefault()
     setAnchor(e.currentTarget)
   }
@@ -64,7 +80,12 @@ export const RosaryHeader: React.FC<RosaryHeaderProps> = ({
         // Tab still reaches it for keyboard users.
         onMouseDown={(e) => e.preventDefault()}
         onClick={open}
-        onKeyDown={openFromKey}
+        onKeyDown={onTriggerKeyDown}
+        onKeyUp={onTriggerKeyUp}
+        // A Space released elsewhere must not open the menu later
+        onBlur={() => {
+          spaceDownOnTrigger.current = false
+        }}
         data-testid="rosary-header-trigger"
         sx={{
           display: 'inline-flex',
