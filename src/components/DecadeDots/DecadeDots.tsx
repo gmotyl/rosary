@@ -1,5 +1,7 @@
 import {Box, ButtonBase} from '@mui/material'
+import {useTranslation} from 'react-i18next'
 
+import {getMystery} from 'src/consts/rosary'
 import {MysteryTypes} from 'src/consts/MysteryTypes'
 import {decadeIndex, firstMysteryOfGroup, groupOf} from 'src/utils/rosaryGroups'
 
@@ -12,12 +14,17 @@ const LINE_MAX_WIDTH = 36
 interface DecadeDotsProps {
   currentMystery: MysteryTypes
   onJumpToMystery: (mystery: MysteryTypes) => void
+  // False when the dots pick a mystery rather than track prayer progress:
+  // dots and connectors before the active one then stay unfilled
+  showProgress?: boolean
 }
 
 export const DecadeDots: React.FC<DecadeDotsProps> = ({
   currentMystery,
   onJumpToMystery,
+  showProgress = true,
 }) => {
+  const {t} = useTranslation()
   const group = groupOf(currentMystery)
   const groupStart = firstMysteryOfGroup(group)
   const activeDecade = decadeIndex(currentMystery) // 1..5
@@ -36,7 +43,13 @@ export const DecadeDots: React.FC<DecadeDotsProps> = ({
     >
       {decades.map((idx, i) => {
         const mystery = (groupStart + idx - 1) as MysteryTypes
-        const state = idx < activeDecade ? 'past' : idx === activeDecade ? 'active' : 'future'
+        const state =
+          idx === activeDecade
+            ? 'active'
+            : idx < activeDecade && showProgress
+              ? 'past'
+              : 'future'
+        const lineFilled = showProgress && idx < activeDecade
         return (
           <Box
             key={idx}
@@ -45,6 +58,9 @@ export const DecadeDots: React.FC<DecadeDotsProps> = ({
             <ButtonBase
               data-testid={`decade-dot-${idx}`}
               data-state={state}
+              // Dots carry no text: name each after its mystery
+              aria-label={getMystery(mystery, t).title}
+              aria-current={state === 'active' ? 'true' : undefined}
               onClick={() => onJumpToMystery(mystery)}
               focusRipple
               sx={{
@@ -72,11 +88,13 @@ export const DecadeDots: React.FC<DecadeDotsProps> = ({
             </ButtonBase>
             {i < decades.length - 1 && (
               <Box
+                data-testid={`decade-line-${idx}`}
+                data-filled={lineFilled ? 'true' : 'false'}
                 sx={{
                   flex: 1,
                   maxWidth: LINE_MAX_WIDTH,
                   height: LINE_HEIGHT,
-                  backgroundColor: idx < activeDecade ? 'primary.main' : 'divider',
+                  backgroundColor: lineFilled ? 'primary.main' : 'divider',
                   mx: 0.5,
                 }}
               />

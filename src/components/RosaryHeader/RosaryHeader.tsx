@@ -1,7 +1,7 @@
 import {Box, Menu, MenuItem, Typography} from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import CheckIcon from '@mui/icons-material/Check'
-import {useState} from 'react'
+import {useRef, useState} from 'react'
 import {useTranslation} from 'react-i18next'
 
 import {MysteryTypes} from 'src/consts/MysteryTypes'
@@ -35,8 +35,31 @@ export const RosaryHeader: React.FC<RosaryHeaderProps> = ({
   const {t} = useTranslation()
   const [anchor, setAnchor] = useState<HTMLElement | null>(null)
   const currentGroup = groupOf(currentMystery)
+  const groupTitle = t(`mysteries.groupTitle.${currentGroup}`)
 
   const open = (e: React.MouseEvent<HTMLElement>) => setAnchor(e.currentTarget)
+  // A Box with role="button" gets no native key activation, so add it the way
+  // a native button does: Enter on keydown, Space on keyup. Opening on Space
+  // keydown would move focus into the menu, and MUI's MenuItem (a non-native
+  // ButtonBase) treats the Space keyup it then receives as a click — picking
+  // the current group without the user choosing it.
+  const spaceDownOnTrigger = useRef(false)
+  const onTriggerKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      setAnchor(e.currentTarget)
+    } else if (e.key === ' ') {
+      // Keep the page from scrolling and the advance-key hook from acting
+      e.preventDefault()
+      spaceDownOnTrigger.current = true
+    }
+  }
+  const onTriggerKeyUp = (e: React.KeyboardEvent<HTMLElement>) => {
+    if (e.key !== ' ' || !spaceDownOnTrigger.current) return
+    spaceDownOnTrigger.current = false
+    e.preventDefault()
+    setAnchor(e.currentTarget)
+  }
   const close = () => setAnchor(null)
   const select = (group: MysteryGroup) => {
     close()
@@ -47,9 +70,22 @@ export const RosaryHeader: React.FC<RosaryHeaderProps> = ({
     <Box sx={{textAlign: 'center', pt: 1, pb: 2}} data-testid="rosary-header">
       <Box
         role="button"
-        aria-label={t('prayer.changeGroup')}
+        // Lead with the visible part so the name says what is selected
+        aria-label={`${groupTitle} – ${t('prayer.changeGroup')}`}
         aria-haspopup="menu"
+        tabIndex={0}
+        // Keep a pointer press from focusing the trigger: the menu restores
+        // focus to whatever was focused when it opened, and a focused trigger
+        // would swallow the next Space/Enter meant to advance the prayer.
+        // Tab still reaches it for keyboard users.
+        onMouseDown={(e) => e.preventDefault()}
         onClick={open}
+        onKeyDown={onTriggerKeyDown}
+        onKeyUp={onTriggerKeyUp}
+        // A Space released elsewhere must not open the menu later
+        onBlur={() => {
+          spaceDownOnTrigger.current = false
+        }}
         data-testid="rosary-header-trigger"
         sx={{
           display: 'inline-flex',
@@ -69,7 +105,7 @@ export const RosaryHeader: React.FC<RosaryHeaderProps> = ({
           component="h2"
           sx={{color: 'primary.main', fontWeight: 600, lineHeight: 1.2}}
         >
-          {t(`mysteries.groupTitle.${currentGroup}`)}
+          {groupTitle}
         </Typography>
         <ExpandMoreIcon sx={{color: 'primary.main'}} />
       </Box>

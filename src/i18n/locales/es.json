@@ -119,5 +119,110 @@
   "about": {
     "openSource": "Proyecto de código abierto",
     "license": "GPLv3"
+  },
+  "rose": {
+    "monthCounter": "{{prayed}} de {{days}} días {{month}}",
+    "monthLocative": {
+      "0": "en enero",
+      "1": "en febrero",
+      "2": "en marzo",
+      "3": "en abril",
+      "4": "en mayo",
+      "5": "en junio",
+      "6": "en julio",
+      "7": "en agosto",
+      "8": "en septiembre",
+      "9": "en octubre",
+      "10": "en noviembre",
+      "11": "en diciembre"
+    },
+    "celebration": {
+      "praise": "¡Gloria al Señor!\nDecena rezada.",
+      "hint": "toca para cerrar"
+    },
+    "tabs": {
+      "pray": "Oración",
+      "calendar": "Calendario",
+      "edit": "Cambiar"
+    },
+    "pray": {
+      "yourMystery": "Tu misterio en esta rosa",
+      "newMystery": "Nuevo misterio:",
+      "change": "Cambiar",
+      "dismiss": "Cerrar",
+      "todayNotPrayed": "Hoy: aún sin rezar",
+      "todayPrayed": "Hoy: rezado"
+    },
+    "calendar": {
+      "prevMonth": "Mes anterior",
+      "nextMonth": "Mes siguiente",
+      "weekdayShort": {
+        "mon": "Lu",
+        "tue": "Ma",
+        "wed": "Mi",
+        "thu": "Ju",
+        "fri": "Vi",
+        "sat": "Sá",
+        "sun": "Do"
+      },
+      "prayed": "rezado",
+      "changeDayMark": "día de cambio",
+      "tapHint": "toca un día para marcarlo a mano",
+      "changeDay": "Día de cambio"
+    },
+    "edit": {
+      "name": "Nombre",
+      "mystery": "Misterio",
+      "changeDay": "Día de cambio",
+      "change": "Cambiar",
+      "monthlyRule": "{{rule}} del mes",
+      "renameTitle": "Cambiar nombre",
+      "mysteryTitle": "Cambiar misterio",
+      "changeDayTitle": "Cambiar día de cambio",
+      "save": "Guardar",
+      "cancel": "Cancelar",
+      "delete": "Eliminar rosa",
+      "deleteConfirmTitle": "¿Eliminar la rosa?",
+      "deleteConfirmBody": "La rosa «{{name}}» y su calendario se eliminarán. No se puede deshacer.",
+      "deleteConfirm": "Eliminar"
+    },
+    "menu": {
+      "rosary": "Rosario",
+      "add": "Añadir rosa",
+      "prayedToday": "Rezado hoy"
+    },
+    "add": {
+      "title": "Añadir rosa",
+      "name": "Nombre",
+      "mystery": "Mi misterio",
+      "changeDay": "Día de cambio",
+      "cancel": "Cancelar",
+      "submit": "Añadir"
+    },
+    "changeDay": {
+      "modeWeekday": "Día de la semana",
+      "modeMonthDay": "Día del mes",
+      "nthLabel": "Cuál",
+      "weekdayLabel": "Día",
+      "dayLabel": "Día (1–31)",
+      "ordinal": {
+        "1": "primer",
+        "2": "segundo",
+        "3": "tercer",
+        "4": "cuarto",
+        "last": "último"
+      },
+      "weekday": {
+        "mon": "lunes",
+        "tue": "martes",
+        "wed": "miércoles",
+        "thu": "jueves",
+        "fri": "viernes",
+        "sat": "sábado",
+        "sun": "domingo"
+      },
+      "weekdayRule": "{{nth}} {{weekday}}",
+      "dayOfMonthRule": "día {{day}} del mes"
+    }
   }
 }

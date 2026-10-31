@@ -119,5 +119,112 @@
   "about": {
     "openSource": "Projet Open Source",
     "license": "GPLv3"
+  },
+  "rose": {
+    "monthCounter_one": "{{prayed}} jour sur {{days}} {{month}}",
+    "monthCounter_other": "{{prayed}} jours sur {{days}} {{month}}",
+    "monthLocative": {
+      "0": "en janvier",
+      "1": "en février",
+      "2": "en mars",
+      "3": "en avril",
+      "4": "en mai",
+      "5": "en juin",
+      "6": "en juillet",
+      "7": "en août",
+      "8": "en septembre",
+      "9": "en octobre",
+      "10": "en novembre",
+      "11": "en décembre"
+    },
+    "celebration": {
+      "praise": "Gloire au Seigneur !\nDizaine priée.",
+      "hint": "touchez pour fermer"
+    },
+    "tabs": {
+      "pray": "Prière",
+      "calendar": "Calendrier",
+      "edit": "Modifier"
+    },
+    "pray": {
+      "yourMystery": "Ton mystère dans cette rose",
+      "newMystery": "Nouveau mystère :",
+      "change": "Modifier",
+      "dismiss": "Fermer",
+      "todayNotPrayed": "Aujourd’hui : pas encore prié",
+      "todayPrayed": "Aujourd’hui : prié"
+    },
+    "calendar": {
+      "prevMonth": "Mois précédent",
+      "nextMonth": "Mois suivant",
+      "weekdayShort": {
+        "mon": "Lu",
+        "tue": "Ma",
+        "wed": "Me",
+        "thu": "Je",
+        "fri": "Ve",
+        "sat": "Sa",
+        "sun": "Di"
+      },
+      "prayed": "prié",
+      "changeDayMark": "jour de changement",
+      "tapHint": "touche un jour pour le marquer à la main",
+      "changeDay": "Jour de changement"
+    },
+    "edit": {
+      "name": "Nom",
+      "mystery": "Mystère",
+      "changeDay": "Jour de changement",
+      "change": "Modifier",
+      "monthlyRule": "{{rule}} du mois",
+      "renameTitle": "Renommer",
+      "mysteryTitle": "Changer de mystère",
+      "changeDayTitle": "Changer le jour de changement",
+      "save": "Enregistrer",
+      "cancel": "Annuler",
+      "delete": "Supprimer la rose",
+      "deleteConfirmTitle": "Supprimer la rose ?",
+      "deleteConfirmBody": "La rose « {{name}} » et son calendrier seront supprimés. Cette action est irréversible.",
+      "deleteConfirm": "Supprimer"
+    },
+    "menu": {
+      "rosary": "Rosaire",
+      "add": "Ajouter une rose",
+      "prayedToday": "Prié aujourd’hui"
+    },
+    "add": {
+      "title": "Ajouter une rose",
+      "name": "Nom",
+      "mystery": "Mon mystère",
+      "changeDay": "Jour de changement",
+      "cancel": "Annuler",
+      "submit": "Ajouter"
+    },
+    "changeDay": {
+      "modeWeekday": "Jour de la semaine",
+      "modeMonthDay": "Jour du mois",
+      "nthLabel": "Lequel",
+      "weekdayLabel": "Jour",
+      "dayLabel": "Jour (1–31)",
+      "ordinal": {
+        "1": "premier",
+        "2": "deuxième",
+        "3": "troisième",
+        "4": "quatrième",
+        "last": "dernier"
+      },
+      "weekday": {
+        "mon": "lundi",
+        "tue": "mardi",
+        "wed": "mercredi",
+        "thu": "jeudi",
+        "fri": "vendredi",
+        "sat": "samedi",
+        "sun": "dimanche"
+      },
+      "weekdayRule": "{{nth}} {{weekday}}",
+      "dayOfMonthRule_ordinal_one": "{{day}}er jour du mois",
+      "dayOfMonthRule_ordinal_other": "{{day}}e jour du mois"
+    }
   }
 }

@@ -3,6 +3,11 @@ import react from '@vitejs/plugin-react'
 import {VitePWA} from 'vite-plugin-pwa'
 import {fileURLToPath} from 'node:url'
 
+// Run tests east of UTC so local-date logic (toLocalDate, day boundaries)
+// can't pass by accident on a UTC CI box. Set here, before the test workers
+// spawn, so every worker starts with it.
+if (process.env.VITEST) process.env.TZ = 'Europe/Warsaw'
+
 export default defineConfig({
   plugins: [
     react(),

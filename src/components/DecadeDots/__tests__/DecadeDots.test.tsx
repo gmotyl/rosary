@@ -43,4 +43,30 @@ describe('DecadeDots', () => {
     fireEvent.click(getByTestId('decade-dot-4'))
     expect(onJumpToMystery).toHaveBeenCalledWith(MysteryTypes.Glorious4)
   })
+
+  it('fills the connectors before the active dot by default', () => {
+    const {getByTestId} = render(
+      <DecadeDots currentMystery={MysteryTypes.Joyful3} onJumpToMystery={vi.fn()} />,
+    )
+    expect(getByTestId('decade-line-1')).toHaveAttribute('data-filled', 'true')
+    expect(getByTestId('decade-line-2')).toHaveAttribute('data-filled', 'true')
+    expect(getByTestId('decade-line-3')).toHaveAttribute('data-filled', 'false')
+  })
+
+  it('without progress, dots before the active one read as unprayed', () => {
+    const {getByTestId} = render(
+      <DecadeDots
+        currentMystery={MysteryTypes.Joyful3}
+        onJumpToMystery={vi.fn()}
+        showProgress={false}
+      />,
+    )
+    expect(getByTestId('decade-dot-1')).toHaveAttribute('data-state', 'future')
+    expect(getByTestId('decade-dot-2')).toHaveAttribute('data-state', 'future')
+    expect(getByTestId('decade-dot-3')).toHaveAttribute('data-state', 'active')
+    expect(getByTestId('decade-dot-3')).toHaveAttribute('aria-current', 'true')
+    for (const n of [1, 2, 3, 4]) {
+      expect(getByTestId(`decade-line-${n}`)).toHaveAttribute('data-filled', 'false')
+    }
+  })
 })

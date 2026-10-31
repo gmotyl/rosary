@@ -69,4 +69,54 @@ describe('RosaryHeader', () => {
     fireEvent.click(getByTestId('group-menu-sorrowful'))
     expect(onJumpToGroup).toHaveBeenCalledWith(MysteryGroup.Sorrowful)
   })
+
+  it('opens the group menu from the keyboard', () => {
+    const {getByTestId, getByRole} = render(
+      <RosaryHeader
+        currentMystery={MysteryTypes.Joyful1}
+        mysteryTitle="1st Joyful Mystery: The Annunciation"
+        onJumpToGroup={vi.fn()}
+      />,
+    )
+    const trigger = getByTestId('rosary-header-trigger')
+    expect(trigger).toHaveAttribute('tabindex', '0')
+    fireEvent.keyDown(trigger, {key: 'Enter'})
+    expect(getByRole('menu')).toBeTruthy()
+  })
+
+  it('opens the group menu with a full Space press without picking a group', () => {
+    const onJumpToGroup = vi.fn()
+    const {getByTestId, getByRole} = render(
+      <RosaryHeader
+        currentMystery={MysteryTypes.Joyful1}
+        mysteryTitle="t"
+        onJumpToGroup={onJumpToGroup}
+      />,
+    )
+    const trigger = getByTestId('rosary-header-trigger')
+    trigger.focus()
+    // Browsers deliver the keyup to whatever holds focus on release, so
+    // follow focus between the two halves of the press
+    const down = fireEvent.keyDown(document.activeElement!, {key: ' '})
+    // Default prevented: no page scroll, and the advance-key hook stays out
+    expect(down).toBe(false)
+    fireEvent.keyUp(document.activeElement!, {key: ' '})
+    expect(getByRole('menu')).toBeTruthy()
+    expect(onJumpToGroup).not.toHaveBeenCalled()
+  })
+
+  it('names the trigger after the selected group as well as its action', () => {
+    const {getByRole} = render(
+      <RosaryHeader
+        currentMystery={MysteryTypes.Sorrowful2}
+        mysteryTitle="t"
+        onJumpToGroup={vi.fn()}
+      />,
+    )
+    expect(
+      getByRole('button', {
+        name: 'mysteries.groupTitle.sorrowful – prayer.changeGroup',
+      }),
+    ).toBeTruthy()
+  })
 })

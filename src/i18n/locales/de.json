@@ -119,5 +119,110 @@
   "about": {
     "openSource": "Open-Source-Projekt",
     "license": "GPLv3"
+  },
+  "rose": {
+    "monthCounter": "{{prayed}} von {{days}} Tagen {{month}}",
+    "monthLocative": {
+      "0": "im Januar",
+      "1": "im Februar",
+      "2": "im März",
+      "3": "im April",
+      "4": "im Mai",
+      "5": "im Juni",
+      "6": "im Juli",
+      "7": "im August",
+      "8": "im September",
+      "9": "im Oktober",
+      "10": "im November",
+      "11": "im Dezember"
+    },
+    "celebration": {
+      "praise": "Gelobt sei der Herr!\nGesätz gebetet.",
+      "hint": "zum Schließen tippen"
+    },
+    "tabs": {
+      "pray": "Gebet",
+      "calendar": "Kalender",
+      "edit": "Ändern"
+    },
+    "pray": {
+      "yourMystery": "Dein Geheimnis in dieser Rose",
+      "newMystery": "Neues Geheimnis:",
+      "change": "Ändern",
+      "dismiss": "Schließen",
+      "todayNotPrayed": "Heute: noch nicht gebetet",
+      "todayPrayed": "Heute: gebetet"
+    },
+    "calendar": {
+      "prevMonth": "Vorheriger Monat",
+      "nextMonth": "Nächster Monat",
+      "weekdayShort": {
+        "mon": "Mo",
+        "tue": "Di",
+        "wed": "Mi",
+        "thu": "Do",
+        "fri": "Fr",
+        "sat": "Sa",
+        "sun": "So"
+      },
+      "prayed": "gebetet",
+      "changeDayMark": "Wechseltag",
+      "tapHint": "tippe auf einen Tag, um ihn von Hand zu markieren",
+      "changeDay": "Wechseltag"
+    },
+    "edit": {
+      "name": "Name",
+      "mystery": "Geheimnis",
+      "changeDay": "Wechseltag",
+      "change": "Ändern",
+      "monthlyRule": "{{rule}} im Monat",
+      "renameTitle": "Umbenennen",
+      "mysteryTitle": "Geheimnis ändern",
+      "changeDayTitle": "Wechseltag ändern",
+      "save": "Speichern",
+      "cancel": "Abbrechen",
+      "delete": "Rose löschen",
+      "deleteConfirmTitle": "Rose löschen?",
+      "deleteConfirmBody": "Die Rose „{{name}}“ und ihr Kalender werden gelöscht. Dies kann nicht rückgängig gemacht werden.",
+      "deleteConfirm": "Löschen"
+    },
+    "menu": {
+      "rosary": "Rosenkranz",
+      "add": "Rose hinzufügen",
+      "prayedToday": "Heute gebetet"
+    },
+    "add": {
+      "title": "Rose hinzufügen",
+      "name": "Name",
+      "mystery": "Mein Geheimnis",
+      "changeDay": "Wechseltag",
+      "cancel": "Abbrechen",
+      "submit": "Hinzufügen"
+    },
+    "changeDay": {
+      "modeWeekday": "Wochentag",
+      "modeMonthDay": "Tag im Monat",
+      "nthLabel": "Welcher",
+      "weekdayLabel": "Tag",
+      "dayLabel": "Tag (1–31)",
+      "ordinal": {
+        "1": "erster",
+        "2": "zweiter",
+        "3": "dritter",
+        "4": "vierter",
+        "last": "letzter"
+      },
+      "weekday": {
+        "mon": "Montag",
+        "tue": "Dienstag",
+        "wed": "Mittwoch",
+        "thu": "Donnerstag",
+        "fri": "Freitag",
+        "sat": "Samstag",
+        "sun": "Sonntag"
+      },
+      "weekdayRule": "{{nth}} {{weekday}}",
+      "dayOfMonthRule": "{{day}}. Tag des Monats"
+    }
   }
 }

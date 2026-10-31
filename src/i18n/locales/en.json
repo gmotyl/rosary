@@ -119,5 +119,110 @@
   "about": {
     "openSource": "Open Source project",
     "license": "GPLv3"
+  },
+  "rose": {
+    "monthCounter": "{{prayed}} of {{days}} days {{month}}",
+    "monthLocative": {
+      "0": "in January",
+      "1": "in February",
+      "2": "in March",
+      "3": "in April",
+      "4": "in May",
+      "5": "in June",
+      "6": "in July",
+      "7": "in August",
+      "8": "in September",
+      "9": "in October",
+      "10": "in November",
+      "11": "in December"
+    },
+    "celebration": {
+      "praise": "Praise the Lord!\nDecade prayed.",
+      "hint": "tap to close"
+    },
+    "tabs": {
+      "pray": "Prayer",
+      "calendar": "Calendar",
+      "edit": "Edit"
+    },
+    "pray": {
+      "yourMystery": "Your mystery in this rose",
+      "newMystery": "New mystery:",
+      "change": "Change",
+      "dismiss": "Dismiss",
+      "todayNotPrayed": "Today: not prayed yet",
+      "todayPrayed": "Today: prayed"
+    },
+    "calendar": {
+      "prevMonth": "Previous month",
+      "nextMonth": "Next month",
+      "weekdayShort": {
+        "mon": "Mo",
+        "tue": "Tu",
+        "wed": "We",
+        "thu": "Th",
+        "fri": "Fr",
+        "sat": "Sa",
+        "sun": "Su"
+      },
+      "prayed": "prayed",
+      "changeDayMark": "change day",
+      "tapHint": "tap a day to mark it by hand",
+      "changeDay": "Change day"
+    },
+    "edit": {
+      "name": "Name",
+      "mystery": "Mystery",
+      "changeDay": "Change day",
+      "change": "Change",
+      "monthlyRule": "{{rule}} of the month",
+      "renameTitle": "Rename",
+      "mysteryTitle": "Change mystery",
+      "changeDayTitle": "Edit change day",
+      "save": "Save",
+      "cancel": "Cancel",
+      "delete": "Delete rose",
+      "deleteConfirmTitle": "Delete rose?",
+      "deleteConfirmBody": "The rose “{{name}}” and its calendar will be deleted. This cannot be undone.",
+      "deleteConfirm": "Delete"
+    },
+    "menu": {
+      "rosary": "Rosary",
+      "add": "Add rose",
+      "prayedToday": "Prayed today"
+    },
+    "add": {
+      "title": "Add rose",
+      "name": "Name",
+      "mystery": "My mystery",
+      "changeDay": "Change day",
+      "cancel": "Cancel",
+      "submit": "Add"
+    },
+    "changeDay": {
+      "modeWeekday": "Day of week",
+      "modeMonthDay": "Day of month",
+      "nthLabel": "Which",
+      "weekdayLabel": "Day",
+      "dayLabel": "Day (1–31)",
+      "ordinal": {
+        "1": "first",
+        "2": "second",
+        "3": "third",
+        "4": "fourth",
+        "last": "last"
+      },
+      "weekday": {
+        "mon": "Monday",
+        "tue": "Tuesday",
+        "wed": "Wednesday",
+        "thu": "Thursday",
+        "fri": "Friday",
+        "sat": "Saturday",
+        "sun": "Sunday"
+      },
+      "weekdayRule": "{{nth}} {{weekday}}",
+      "dayOfMonthRule": "day {{day}} of the month"
+    }
   }
 }

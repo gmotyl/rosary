@@ -119,5 +119,124 @@
   "about": {
     "openSource": "Projekt Open Source",
     "license": "GPLv3"
+  },
+  "rose": {
+    "monthCounter": "{{prayed}} z {{days}} dni {{month}}",
+    "monthLocative": {
+      "0": "w styczniu",
+      "1": "w lutym",
+      "2": "w marcu",
+      "3": "w kwietniu",
+      "4": "w maju",
+      "5": "w czerwcu",
+      "6": "w lipcu",
+      "7": "w sierpniu",
+      "8": "we wrześniu",
+      "9": "w październiku",
+      "10": "w listopadzie",
+      "11": "w grudniu"
+    },
+    "celebration": {
+      "praise": "Chwała Panu!\nDziesiątka odmówiona.",
+      "hint": "dotknij, aby zamknąć"
+    },
+    "tabs": {
+      "pray": "Modlitwa",
+      "calendar": "Kalendarz",
+      "edit": "Zmień"
+    },
+    "pray": {
+      "yourMystery": "Twoja tajemnica w tej róży",
+      "newMystery": "Nowa tajemnica:",
+      "change": "Zmień",
+      "dismiss": "Zamknij",
+      "todayNotPrayed": "Dziś: jeszcze nie odmówiono",
+      "todayPrayed": "Dziś: odmówione"
+    },
+    "calendar": {
+      "prevMonth": "Poprzedni miesiąc",
+      "nextMonth": "Następny miesiąc",
+      "weekdayShort": {
+        "mon": "Pn",
+        "tue": "Wt",
+        "wed": "Śr",
+        "thu": "Cz",
+        "fri": "Pt",
+        "sat": "So",
+        "sun": "Nd"
+      },
+      "prayed": "odmówione",
+      "changeDayMark": "dzień zmiany",
+      "tapHint": "dotknij dnia, by zaznaczyć ręcznie",
+      "changeDay": "Dzień zmiany"
+    },
+    "edit": {
+      "name": "Nazwa",
+      "mystery": "Tajemnica",
+      "changeDay": "Dzień zmiany",
+      "change": "Zmień",
+      "monthlyRule": "{{rule}} miesiąca",
+      "renameTitle": "Zmień nazwę",
+      "mysteryTitle": "Zmień tajemnicę",
+      "changeDayTitle": "Zmień dzień zmiany",
+      "save": "Zapisz",
+      "cancel": "Anuluj",
+      "delete": "Usuń różę",
+      "deleteConfirmTitle": "Usunąć różę?",
+      "deleteConfirmBody": "Róża „{{name}}” i jej kalendarz zostaną usunięte. Tego nie można cofnąć.",
+      "deleteConfirm": "Usuń"
+    },
+    "menu": {
+      "rosary": "Różaniec",
+      "add": "Dodaj różę",
+      "prayedToday": "Dziś odmówione"
+    },
+    "add": {
+      "title": "Dodaj różę",
+      "name": "Nazwa",
+      "mystery": "Moja tajemnica",
+      "changeDay": "Dzień zmiany",
+      "cancel": "Anuluj",
+      "submit": "Dodaj"
+    },
+    "changeDay": {
+      "modeWeekday": "Dzień tygodnia",
+      "modeMonthDay": "Dzień miesiąca",
+      "nthLabel": "Który",
+      "weekdayLabel": "Dzień",
+      "dayLabel": "Dzień (1–31)",
+      "ordinal": {
+        "1": "pierwsza",
+        "2": "druga",
+        "3": "trzecia",
+        "4": "czwarta",
+        "last": "ostatnia",
+        "1_m": "pierwszy",
+        "2_m": "drugi",
+        "3_m": "trzeci",
+        "4_m": "czwarty",
+        "last_m": "ostatni"
+      },
+      "weekday": {
+        "mon": "poniedziałek",
+        "tue": "wtorek",
+        "wed": "środa",
+        "thu": "czwartek",
+        "fri": "piątek",
+        "sat": "sobota",
+        "sun": "niedziela"
+      },
+      "weekdayRule": "{{nth}} {{weekday}}",
+      "dayOfMonthRule": "{{day}}. dzień miesiąca",
+      "gender": {
+        "mon": "m",
+        "tue": "m",
+        "wed": "",
+        "thu": "m",
+        "fri": "m",
+        "sat": "",
+        "sun": ""
+      }
+    }
   }
 }
