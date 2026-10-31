@@ -194,6 +194,31 @@ describe('RoseCalendarTab', () => {
       getComputedStyle(screen.getByTestId('rose-calendar-legend-change'))
         .boxShadow,
     ).toBe(ring)
+    // Round swatch, like the near-circular grid cells
+    expect(
+      getComputedStyle(screen.getByTestId('rose-calendar-legend-change'))
+        .borderRadius,
+    ).toBe('50%')
+  })
+
+  it('a future change day keeps its ring and badge while the day number dims', () => {
+    // Friday 2 October: the change day (Sunday the 4th) is still ahead
+    vi.setSystemTime(new Date(2026, 9, 2, 12, 0, 0))
+    seed({lastChange: '2026-09-06'})
+    renderAt()
+
+    const change = day(4)
+    expect(change).toHaveAttribute('data-state', 'future')
+    expect(change).toHaveAttribute('data-change-day', 'true')
+    expect(change).toBeDisabled()
+    expect(getComputedStyle(change).boxShadow).toMatch(/^inset 0 0 0 2px #/)
+
+    const badge = within(change).getByTestId('rose-calendar-change-dot')
+    expect(badge).toHaveAttribute('data-change-badge')
+    expect(getComputedStyle(badge).opacity).not.toBe('0.4')
+
+    const dayNumber = within(change).getByText('4')
+    expect(getComputedStyle(dayNumber).opacity).toBe('0.4')
   })
 
   it('tapping a past day toggles it and updates the counter', () => {

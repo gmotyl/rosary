@@ -233,7 +233,7 @@ export const RoseCalendarTab: React.FC<RoseCalendarTabProps> = ({id}) => {
                 boxShadow: isChange ? changeRing : 'none',
                 // Dim only the content of a disabled (future) day, so a future
                 // change day keeps its ring and badge at full strength
-                '&.Mui-disabled > :not([data-testid="rose-calendar-change-dot"])':
+                '&.Mui-disabled > :not([data-change-badge])':
                   {opacity: 0.4},
                 '&.Mui-focusVisible': {
                   outline: 2,
@@ -251,6 +251,7 @@ export const RoseCalendarTab: React.FC<RoseCalendarTabProps> = ({id}) => {
               {isChange && (
                 <Box
                   component="span"
+                  data-change-badge=""
                   data-testid="rose-calendar-change-dot"
                   sx={changeBadgeSx(9, 4)}
                 />
@@ -281,7 +282,7 @@ export const RoseCalendarTab: React.FC<RoseCalendarTabProps> = ({id}) => {
               position: 'relative',
               width: 16,
               height: 16,
-              borderRadius: '5px',
+              borderRadius: '50%',
               boxShadow: changeRing,
             }}
           >
