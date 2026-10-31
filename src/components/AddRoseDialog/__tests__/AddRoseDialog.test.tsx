@@ -39,6 +39,15 @@ const renderDialog = (onClose = vi.fn()) =>
 const storedRoses = (): IRose[] =>
   JSON.parse(localStorage.getItem(ROSES_KEY) ?? '[]')
 
+// Part from the header menu, then the mystery from its dot
+const pickMystery = (dialog: HTMLElement, part: string, mystery: string) => {
+  fireEvent.click(
+    within(dialog).getByRole('button', {name: 'Zmień grupę tajemnic'}),
+  )
+  fireEvent.click(screen.getByRole('menuitem', {name: part}))
+  fireEvent.click(within(dialog).getByRole('button', {name: mystery}))
+}
+
 describe('AddRoseDialog', () => {
   beforeAll(async () => {
     await i18n.changeLanguage('pl')
@@ -54,19 +63,17 @@ describe('AddRoseDialog', () => {
 
     expect(within(dialog).getByLabelText('Nazwa')).toBeInTheDocument()
 
-    const mystery = within(dialog).getByLabelText('Moja tajemnica')
-    expect(within(mystery).getAllByRole('option')).toHaveLength(20)
-    // Grouped by part, five mysteries each
-    const groups = within(mystery).getAllByRole('group')
-    expect(groups.map((g) => g.getAttribute('label'))).toEqual([
-      'Tajemnice radosne',
-      'Tajemnice światła',
-      'Tajemnice bolesne',
-      'Tajemnice chwalebne',
-    ])
-    groups.forEach((g) =>
-      expect(within(g).getAllByRole('option')).toHaveLength(5),
-    )
+    // Same two-step picker as the normal rosary: part menu, then the dots
+    const mystery = within(dialog).getByRole('group', {name: 'Moja tajemnica'})
+    expect(
+      within(mystery).getByRole('button', {name: 'Zmień grupę tajemnic'}),
+    ).toHaveTextContent('Tajemnice radosne')
+    expect(within(mystery).getAllByTestId(/^decade-dot-\d$/)).toHaveLength(5)
+    expect(
+      within(mystery).getByRole('button', {
+        name: '1 tajemnica radosna: Zwiastowanie Najświętszej Maryi Pannie',
+      }),
+    ).toHaveAttribute('aria-current', 'true')
 
     expect(within(dialog).getByText('Dzień zmiany')).toBeInTheDocument()
     expect(
@@ -142,9 +149,7 @@ describe('AddRoseDialog', () => {
     fireEvent.change(within(dialog).getByLabelText('Nazwa'), {
       target: {value: '  Męska róża  '},
     })
-    fireEvent.change(within(dialog).getByLabelText('Moja tajemnica'), {
-      target: {value: String(MysteryTypes.Sorrowful2)},
-    })
+    pickMystery(dialog, 'Tajemnice bolesne', '2 tajemnica bolesna: Biczowanie Pana Jezusa')
     fireEvent.change(within(dialog).getByLabelText('Który'), {
       target: {value: '2'},
     })

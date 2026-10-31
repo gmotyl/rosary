@@ -1,5 +1,7 @@
 import {Box, ButtonBase} from '@mui/material'
+import {useTranslation} from 'react-i18next'
 
+import {getMystery} from 'src/consts/rosary'
 import {MysteryTypes} from 'src/consts/MysteryTypes'
 import {decadeIndex, firstMysteryOfGroup, groupOf} from 'src/utils/rosaryGroups'
 
@@ -18,6 +20,7 @@ export const DecadeDots: React.FC<DecadeDotsProps> = ({
   currentMystery,
   onJumpToMystery,
 }) => {
+  const {t} = useTranslation()
   const group = groupOf(currentMystery)
   const groupStart = firstMysteryOfGroup(group)
   const activeDecade = decadeIndex(currentMystery) // 1..5
@@ -45,6 +48,9 @@ export const DecadeDots: React.FC<DecadeDotsProps> = ({
             <ButtonBase
               data-testid={`decade-dot-${idx}`}
               data-state={state}
+              // Dots carry no text: name each after its mystery
+              aria-label={getMystery(mystery, t).title}
+              aria-current={state === 'active' ? 'true' : undefined}
               onClick={() => onJumpToMystery(mystery)}
               focusRipple
               sx={{

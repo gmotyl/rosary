@@ -69,4 +69,18 @@ describe('RosaryHeader', () => {
     fireEvent.click(getByTestId('group-menu-sorrowful'))
     expect(onJumpToGroup).toHaveBeenCalledWith(MysteryGroup.Sorrowful)
   })
+
+  it('opens the group menu from the keyboard', () => {
+    const {getByTestId, getByRole} = render(
+      <RosaryHeader
+        currentMystery={MysteryTypes.Joyful1}
+        mysteryTitle="1st Joyful Mystery: The Annunciation"
+        onJumpToGroup={vi.fn()}
+      />,
+    )
+    const trigger = getByTestId('rosary-header-trigger')
+    expect(trigger).toHaveAttribute('tabindex', '0')
+    fireEvent.keyDown(trigger, {key: 'Enter'})
+    expect(getByRole('menu')).toBeTruthy()
+  })
 })

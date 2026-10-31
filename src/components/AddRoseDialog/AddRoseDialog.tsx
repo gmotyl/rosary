@@ -15,8 +15,8 @@ import {useRoses} from 'src/hooks'
 import type {IRose} from 'src/hooks'
 import {MysteryTypes} from 'src/consts/MysteryTypes'
 import {ChangeDay} from 'src/utils/roseChangeDay'
+import {MysteryPicker} from 'src/components/MysteryPicker'
 import {ChangeDayInput} from './ChangeDayInput'
-import {MysterySelect} from './MysterySelect'
 
 // Mockup default: first Sunday of the month
 const DEFAULT_RULE: ChangeDay = {kind: 'nthWeekday', nth: 1, weekday: 'sun'}
@@ -88,8 +88,7 @@ const AddRoseForm = ({
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          <MysterySelect
-            id="add-rose-mystery"
+          <MysteryPicker
             label={t('rose.add.mystery')}
             value={mystery}
             onChange={setMystery}

@@ -1,8 +1,6 @@
 export {AddRoseDialog} from './AddRoseDialog'
 export {ChangeDayInput} from './ChangeDayInput'
 export type {ChangeDayInputProps} from './ChangeDayInput'
-export {MysterySelect} from './MysterySelect'
-export type {MysterySelectProps} from './MysterySelect'
 export {
   formatChangeDay,
   formatChangeDayLong,

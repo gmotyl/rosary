@@ -37,6 +37,12 @@ export const RosaryHeader: React.FC<RosaryHeaderProps> = ({
   const currentGroup = groupOf(currentMystery)
 
   const open = (e: React.MouseEvent<HTMLElement>) => setAnchor(e.currentTarget)
+  // A Box with role="button" gets no native key activation, so add it
+  const openFromKey = (e: React.KeyboardEvent<HTMLElement>) => {
+    if (e.key !== 'Enter' && e.key !== ' ') return
+    e.preventDefault()
+    setAnchor(e.currentTarget)
+  }
   const close = () => setAnchor(null)
   const select = (group: MysteryGroup) => {
     close()
@@ -49,7 +55,9 @@ export const RosaryHeader: React.FC<RosaryHeaderProps> = ({
         role="button"
         aria-label={t('prayer.changeGroup')}
         aria-haspopup="menu"
+        tabIndex={0}
         onClick={open}
+        onKeyDown={openFromKey}
         data-testid="rosary-header-trigger"
         sx={{
           display: 'inline-flex',

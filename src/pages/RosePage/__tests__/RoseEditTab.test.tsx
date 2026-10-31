@@ -166,11 +166,23 @@ describe('RoseEditTab', () => {
     const {unmount} = renderAt()
 
     const dialog = openEditor('mystery', 'Zmień tajemnicę')
-    const select = within(dialog).getByLabelText('Tajemnica')
-    expect(within(select).getAllByRole('option')).toHaveLength(20)
-    fireEvent.change(select, {
-      target: {value: String(MysteryTypes.Sorrowful2)},
+    // Same two-step picker as the normal rosary, preselected on the rose's mystery
+    const picker = within(dialog).getByRole('group', {name: 'Tajemnica'})
+    const partButton = within(picker).getByRole('button', {
+      name: 'Zmień grupę tajemnic',
     })
+    expect(partButton).toHaveTextContent('Tajemnice radosne')
+    expect(within(picker).getByTestId('decade-dot-3')).toHaveAttribute(
+      'aria-current',
+      'true',
+    )
+    fireEvent.click(partButton)
+    fireEvent.click(screen.getByRole('menuitem', {name: 'Tajemnice bolesne'}))
+    fireEvent.click(
+      within(picker).getByRole('button', {
+        name: '2 tajemnica bolesna: Biczowanie Pana Jezusa',
+      }),
+    )
     fireEvent.click(within(dialog).getByRole('button', {name: 'Zapisz'}))
 
     expect(stored().mystery).toBe(MysteryTypes.Sorrowful2)

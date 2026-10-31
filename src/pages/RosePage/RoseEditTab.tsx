@@ -20,9 +20,9 @@ import {useRoses} from 'src/hooks'
 import {ChangeDay} from 'src/utils/roseChangeDay'
 import {
   ChangeDayInput,
-  MysterySelect,
   formatChangeDayLong,
 } from 'src/components/AddRoseDialog'
+import {MysteryPicker} from 'src/components/MysteryPicker'
 import {splitTitle} from './RosePrayTab'
 
 type Field = 'name' | 'mystery' | 'changeDay'
@@ -151,8 +151,7 @@ export const RoseEditTab: React.FC<RoseEditTabProps> = ({id}) => {
         onClose={close}
         onSave={(value) => updateRose(id, {mystery: value})}
         render={(value, setValue) => (
-          <MysterySelect
-            id="rose-edit-mystery-input"
+          <MysteryPicker
             label={t('rose.edit.mystery')}
             value={value}
             onChange={setValue}
