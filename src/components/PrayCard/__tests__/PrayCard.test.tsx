@@ -1,5 +1,5 @@
 import {vi, describe, it, expect} from 'vitest'
-import {render, fireEvent} from '@testing-library/react'
+import {render, fireEvent, waitFor} from '@testing-library/react'
 import {BrowserRouter} from 'react-router-dom'
 import {MysteryTypes} from 'src/consts/MysteryTypes'
 import {PrayCard} from '../PrayCard'
@@ -163,6 +163,31 @@ describe('PrayCard', () => {
       fireEvent.keyDown(item, {key})
     }
     expect(mocks.prayNext).not.toHaveBeenCalled()
+  })
+
+  it('Space after picking a part with the mouse advances instead of reopening the menu', async () => {
+    mocks.intention.currentMystery = MysteryTypes.Luminous3
+    const {getByTestId, queryByRole} = renderInRouter(<PrayCard id="test" />)
+    // jsdom does not focus on mousedown; model the browser: a mousedown
+    // focuses its focusable target unless its default is prevented
+    const pointerClick = (el: HTMLElement) => {
+      if (fireEvent.mouseDown(el)) {
+        el.closest<HTMLElement>('[tabindex]')?.focus()
+      }
+      fireEvent.mouseUp(el)
+      fireEvent.click(el)
+    }
+    pointerClick(getByTestId('rosary-header-trigger'))
+    pointerClick(getByTestId('group-menu-glorious'))
+    // Wait out the exit transition: the menu unmounts and restores focus
+    await waitFor(() =>
+      expect(document.querySelector('[role="menu"]')).toBeNull(),
+    )
+    mocks.prayNext.mockClear()
+    const target = (document.activeElement ?? document.body) as HTMLElement
+    fireEvent.keyDown(target, {key: ' '})
+    expect(queryByRole('menu')).toBeNull()
+    expect(mocks.prayNext).toHaveBeenCalledTimes(1)
   })
 
   it('an advance key on the page body advances', () => {

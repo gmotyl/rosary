@@ -56,6 +56,11 @@ export const RosaryHeader: React.FC<RosaryHeaderProps> = ({
         aria-label={t('prayer.changeGroup')}
         aria-haspopup="menu"
         tabIndex={0}
+        // Keep a pointer press from focusing the trigger: the menu restores
+        // focus to whatever was focused when it opened, and a focused trigger
+        // would swallow the next Space/Enter meant to advance the prayer.
+        // Tab still reaches it for keyboard users.
+        onMouseDown={(e) => e.preventDefault()}
         onClick={open}
         onKeyDown={openFromKey}
         data-testid="rosary-header-trigger"
