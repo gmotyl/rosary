@@ -28,7 +28,7 @@ Vite, ESLint and Vitest setup does not touch this folder.
 | Swipe up / down / left | Next bead |
 | Swipe right | System default (leave the app) |
 | Select or Down button | Next bead |
-| Up button | Back one bead |
+| Up button | Asks "Reset?"; confirm starts the rosary over |
 
 A 40 ms buzz on every Hail Mary and one light tick when a decade is done, picked by feel on
 the watch (see `spikes/zepp-trex-spike/vibration`, Vibe Lab variants 13 and 1).

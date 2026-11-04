@@ -24,3 +24,6 @@ msgstr "Różaniec ukończony"
 
 msgid "gloryToLord"
 msgstr "Chwała Panu!"
+
+msgid "resetQuestion"
+msgstr "Reset?"

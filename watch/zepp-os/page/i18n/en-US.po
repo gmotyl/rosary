@@ -24,3 +24,6 @@ msgstr "Rosary complete"
 
 msgid "gloryToLord"
 msgstr "Glory to the Lord!"
+
+msgid "resetQuestion"
+msgstr "Reset?"

@@ -10,6 +10,8 @@ import {
 import {
   onKey,
   offKey,
+  createModal,
+  MODAL_CONFIRM,
   onGesture,
   offGesture,
   KEY_SELECT,
@@ -31,7 +33,6 @@ import {
   DECADES,
   HAIL_MARYS,
   advance,
-  back,
   beadAngle,
   ease,
   nextDecade,
@@ -39,7 +40,6 @@ import {
   restore,
   rotationForActive,
   slotForBead,
-  stepBack,
   stepForward,
 } from './rosary'
 
@@ -283,13 +283,7 @@ function onAdvance() {
   const prev = state
   const next = advance(state)
   if (next.event === 'restart') {
-    clearFishTimers()
-    hideCheer()
-    state = {bead: 0, decades: 0}
-    rotation = rotationForActive(slotForBead(0))
-    layout()
-    paint()
-    save()
+    resetRosary()
     return
   }
   if (next.event === 'step') {
@@ -311,16 +305,38 @@ function onAdvance() {
   playFish(final)
 }
 
-function onBack() {
-  keepAwake()
-  if (celebrating) return
-  const prev = state
-  const next = back(state)
-  if (next.bead === prev.bead) return
-  state = next
-  turn(stepBack(prev.bead))
+// Back to the first Our Father of the first decade.
+function resetRosary() {
+  if (turnTimer) {
+    clearInterval(turnTimer)
+    turnTimer = null
+  }
+  clearFishTimers()
+  hideCheer()
+  celebrating = false
+  state = {bead: 0, decades: 0}
+  rotation = rotationForActive(slotForBead(0))
+  layout()
   paint()
   save()
+}
+
+let resetModal = null
+
+// Up button asks "Reset?" before throwing the progress away.
+function askReset() {
+  keepAwake()
+  if (!resetModal) {
+    resetModal = createModal({
+      content: getText('resetQuestion'),
+      autoHide: true,
+      show: false,
+      onClick: ({type}) => {
+        if (type === MODAL_CONFIRM) resetRosary()
+      },
+    })
+  }
+  resetModal.show(true)
 }
 
 Page({
@@ -384,7 +400,7 @@ Page({
     const touch = createWidget(widget.FILL_RECT, {x: 0, y: 0, w: W, h: H, color: BLACK, alpha: 0})
     touch.addEventListener(event.CLICK_UP, onAdvance)
 
-    // Physical buttons: select / down advance, up goes back one bead.
+    // Physical buttons: select / down advance, up asks to reset.
     onKey({
       callback: (key, keyEvent) => {
         if (keyEvent !== KEY_EVENT_CLICK) return false
@@ -393,7 +409,7 @@ Page({
           return true
         }
         if (key === KEY_UP) {
-          onBack()
+          askReset()
           return true
         }
         return false
