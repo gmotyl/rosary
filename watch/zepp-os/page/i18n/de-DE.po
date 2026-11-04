@@ -1,0 +1,32 @@
+msgid "appName"
+msgstr "ROSENKRANZ"
+
+msgid "decade"
+msgstr "GESÄTZ"
+
+msgid "ourFather"
+msgstr "Vaterunser"
+
+msgid "hailMary"
+msgstr "Gegrüßet seist du, Maria"
+
+msgid "decadeDone"
+msgstr "Gebetet"
+
+msgid "rosaryDone"
+msgstr "Rosenkranz beendet"
+
+msgid "gloryToLord"
+msgstr "Gelobt sei der Herr!"
+
+msgid "resetQuestion"
+msgstr "Zurücksetzen?"
+
+msgid "gloryBe"
+msgstr "Ehre sei dem Vater"
+
+msgid "fatimaPrayer"
+msgstr "O mein Jesus"
+
+msgid "resetHint"
+msgstr "Oben nochmal = ja, Tippen = nein"

@@ -8,7 +8,8 @@ Vite, ESLint and Vitest setup does not touch this folder.
 
 - A ring of 11 beads around the screen edge: one Our Father bead and ten Hail Marys, with a
   two-slot gap on each side of the Our Father.
-- Same motion as the web `RosaryLoop`: each tap turns the whole ring one slot in 400 ms
+- Same motion as the web `RosaryLoop`: each tap turns the ring in 400 ms to bring the next bead
+  to the bottom, moving through the wider Our Father gaps when it gets there
   (`cubic-bezier(0.4, 0, 0.2, 1)`), the current bead always sits at the bottom and pulses
   (1.18×, 1.4 s). Prayed beads are filled claret, beads still to pray are outlined.
 - The centre shows the decade being prayed (`1 / 5` … `5 / 5`) and names the current prayer.

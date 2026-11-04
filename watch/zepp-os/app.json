@@ -47,6 +47,18 @@
     },
     "pl-PL": {
       "appName": "RÓŻANIEC"
+    },
+    "de-DE": {
+      "appName": "ROSENKRANZ"
+    },
+    "es-ES": {
+      "appName": "ROSARIO"
+    },
+    "fr-FR": {
+      "appName": "ROSAIRE"
+    },
+    "it-IT": {
+      "appName": "ROSARIO"
     }
   },
   "defaultLanguage": "en-US"

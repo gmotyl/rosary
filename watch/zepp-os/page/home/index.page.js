@@ -73,7 +73,8 @@ const storage = new LocalStorage()
 const vibrator = new Vibrator()
 
 let state = {bead: 0, decades: 0}
-let rotation = 0
+let rotation = 0 // angle drawn right now (mid-tween while turning)
+let targetRotation = 0 // angle the ring is heading to; steps add to this
 let beads = [] // {halo, outer, inner, r}
 let texts = {}
 let fish = null
@@ -88,8 +89,22 @@ let phase = null
 
 const radiusOf = (i) => (i === 0 ? OF_R : HM_R)
 
+// While the cross or the fish is up, the decade is already done but the in-memory bead is still
+// 10: save the start of the next decade, or reopening would count the same decade twice.
 function save() {
-  storage.setItem(STORAGE_KEY, {bead: state.bead, decades: state.decades})
+  const midTransition = (phase === 'prayers' || phase === 'fish') && state.decades < DECADES
+  const s = midTransition ? nextDecade(state) : state
+  storage.setItem(STORAGE_KEY, {bead: s.bead, decades: s.decades})
+}
+
+// Jump the ring to an angle with no tween (start, reset).
+function setRotation(deg) {
+  if (turnTimer) {
+    clearInterval(turnTimer)
+    turnTimer = null
+  }
+  rotation = deg
+  targetRotation = deg
 }
 
 // Patterns picked by feel on the T-Rex 3 Pro with the Vibe Lab spike
@@ -207,8 +222,11 @@ function turn(delta) {
     clearInterval(turnTimer)
     turnTimer = null
   }
+  // Step from the target, not the drawn angle: a quick second tap mid-turn must not
+  // drop the unfinished part of the first turn.
   const from = rotation
-  const to = rotation + delta
+  targetRotation += delta
+  const to = targetRotation
   const start = Date.now()
   turnTimer = setInterval(() => {
     const t = Math.min(1, (Date.now() - start) / TURN_MS)
@@ -387,7 +405,7 @@ function resetRosary() {
   phase = null
   hidePrayers()
   state = {bead: 0, decades: 0}
-  rotation = rotationForActive(slotForBead(0))
+  setRotation(rotationForActive(slotForBead(0)))
   layout()
   paint()
   save()
@@ -433,7 +451,7 @@ Page({
     state = restore(storage.getItem(STORAGE_KEY))
     // A rosary that was completed earlier starts fresh on the next open.
     if (state.decades >= DECADES) state = {bead: 0, decades: 0}
-    rotation = rotationForActive(slotForBead(state.bead))
+    setRotation(rotationForActive(slotForBead(state.bead)))
   },
 
   build() {

@@ -1,0 +1,32 @@
+msgid "appName"
+msgstr "ROSAIRE"
+
+msgid "decade"
+msgstr "DIZAINE"
+
+msgid "ourFather"
+msgstr "Notre Père"
+
+msgid "hailMary"
+msgstr "Je vous salue Marie"
+
+msgid "decadeDone"
+msgstr "Priée"
+
+msgid "rosaryDone"
+msgstr "Rosaire terminé"
+
+msgid "gloryToLord"
+msgstr "Loué soit le Seigneur !"
+
+msgid "resetQuestion"
+msgstr "Réinitialiser ?"
+
+msgid "gloryBe"
+msgstr "Gloire au Père"
+
+msgid "fatimaPrayer"
+msgstr "Ô mon Jésus"
+
+msgid "resetHint"
+msgstr "Haut encore = oui, toucher = non"
