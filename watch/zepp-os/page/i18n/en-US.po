@@ -11,13 +11,7 @@ msgid "hailMary"
 msgstr "Hail Mary"
 
 msgid "decadeDone"
-msgstr "Decade done!"
-
-msgid "left"
-msgstr "To go:"
-
-msgid "lastOne"
-msgstr "One more to go"
+msgstr "Prayed"
 
 msgid "rosaryDone"
 msgstr "Rosary complete"

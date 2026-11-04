@@ -11,13 +11,7 @@ msgid "hailMary"
 msgstr "Zdrowaś Maryjo"
 
 msgid "decadeDone"
-msgstr "Dziesiątek!"
-
-msgid "left"
-msgstr "Jeszcze"
-
-msgid "lastOne"
-msgstr "Został ostatni"
+msgstr "Odmówione"
 
 msgid "rosaryDone"
 msgstr "Różaniec ukończony"

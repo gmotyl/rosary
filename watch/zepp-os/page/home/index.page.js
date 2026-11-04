@@ -80,6 +80,7 @@ let beads = [] // {halo, outer, inner, r}
 let texts = {}
 let fish = null
 let cross = null
+let prayersTimer = null
 let turnTimer = null
 let pulseTimer = null
 let fishTimers = []
@@ -222,22 +223,35 @@ function turn(delta) {
   }, FRAME_MS)
 }
 
+const CHEER_Y = CY + px(60)
+const CHEER_SUB_Y = CY + px(104)
+const CHEER_RISE = px(30)
+const CHEER_RISE_MS = 500
+
+// "Prayed / Glory to the Lord!" (or "Rosary complete" at the end) rises in under the fish.
 function showCheer(final) {
-  const left = DECADES - state.decades
-  texts.cheer.setProperty(
-    prop.TEXT,
-    final ? getText('rosaryDone') : getText('decadeDone'),
-  )
-  texts.cheerSub.setProperty(
-    prop.TEXT,
-    final
-      ? getText('gloryToLord')
-      : left === 1
-      ? getText('lastOne')
-      : `${getText('left')} ${left}`,
-  )
-  texts.cheer.setProperty(prop.VISIBLE, true)
-  texts.cheerSub.setProperty(prop.VISIBLE, true)
+  texts.cheer.setProperty(prop.TEXT, final ? getText('rosaryDone') : getText('decadeDone'))
+  texts.cheerSub.setProperty(prop.TEXT, getText('gloryToLord'))
+  ;[
+    [texts.cheer, CHEER_Y],
+    [texts.cheerSub, CHEER_SUB_Y],
+  ].forEach(([t, y], i) => {
+    t.setProperty(prop.Y, y + CHEER_RISE)
+    t.setProperty(prop.VISIBLE, true)
+    t.setProperty(prop.ANIM, {
+      anim_steps: [
+        {
+          anim_prop: prop.Y,
+          anim_from: y + CHEER_RISE,
+          anim_to: y,
+          anim_rate: 'easeout',
+          anim_duration: CHEER_RISE_MS,
+          anim_offset: i * 150,
+        },
+      ],
+      anim_fps: 30,
+    })
+  })
 }
 
 function hideCheer() {
@@ -267,15 +281,18 @@ function showPrayers() {
     ],
     anim_fps: 30,
   })
-  fishTimers.push(
-    setTimeout(() => {
-      texts.gloryBe.setProperty(prop.VISIBLE, true)
-      texts.fatima.setProperty(prop.VISIBLE, true)
-    }, CROSS_FADE_MS / 2),
-  )
+  prayersTimer = setTimeout(() => {
+    prayersTimer = null
+    texts.gloryBe.setProperty(prop.VISIBLE, true)
+    texts.fatima.setProperty(prop.VISIBLE, true)
+  }, CROSS_FADE_MS / 2)
 }
 
 function hidePrayers() {
+  if (prayersTimer) {
+    clearTimeout(prayersTimer)
+    prayersTimer = null
+  }
   cross.setProperty(prop.VISIBLE, false)
   texts.gloryBe.setProperty(prop.VISIBLE, false)
   texts.fatima.setProperty(prop.VISIBLE, false)
@@ -443,10 +460,6 @@ Page({
 
     fish = createWidget(widget.IMG, {x: -FISH_W, y: 0, w: FISH_W, h: FISH_H, src: 'fish.png'})
     fish.setProperty(prop.VISIBLE, false)
-    texts.cheer = createWidget(widget.TEXT, textBox(CY + px(60), px(44), px(32), INK))
-    texts.cheerSub = createWidget(widget.TEXT, textBox(CY + px(104), px(36), px(24), INK_MUTED))
-    texts.cheer.setProperty(prop.VISIBLE, false)
-    texts.cheerSub.setProperty(prop.VISIBLE, false)
 
     cross = createWidget(widget.IMG, {
       x: Math.round(CX - CROSS_W / 2),
@@ -467,6 +480,12 @@ Page({
     })
     texts.gloryBe.setProperty(prop.VISIBLE, false)
     texts.fatima.setProperty(prop.VISIBLE, false)
+
+    // Created last so nothing covers them.
+    texts.cheer = createWidget(widget.TEXT, textBox(CHEER_Y, px(44), px(34), INK))
+    texts.cheerSub = createWidget(widget.TEXT, textBox(CHEER_SUB_Y, px(40), px(28), GILT))
+    texts.cheer.setProperty(prop.VISIBLE, false)
+    texts.cheerSub.setProperty(prop.VISIBLE, false)
 
     // Transparent layer on top: a tap anywhere advances.
     const touch = createWidget(widget.FILL_RECT, {x: 0, y: 0, w: W, h: H, color: BLACK, alpha: 0})
@@ -513,6 +532,7 @@ Page({
     if (pulseTimer) clearInterval(pulseTimer)
     if (turnTimer) clearInterval(turnTimer)
     clearFishTimers()
+    if (prayersTimer) clearTimeout(prayersTimer)
     vibrator.stop()
     offKey()
     offGesture()

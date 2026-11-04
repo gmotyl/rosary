@@ -14,7 +14,7 @@ Vite, ESLint and Vitest setup does not touch this folder.
 - The centre counts finished decades (`n / 5`) and names the current prayer.
 - After the tenth Hail Mary the ring dims and a cross fades in with "Glory Be" and "O my Jesus"
   under it; the app waits for a tap while you pray them. The next tap brings in the fish
-  (ichthys) with a short message, then the ring turns on to the next Our Father. After the fifth
+  (ichthys) while "Odmówione / Chwała Panu!" rises in under it, then the ring turns on to the next Our Father. After the fifth
   decade the fish stays with "Różaniec ukończony / Chwała Panu!"; the next tap starts over.
 - Progress is saved in `localStorage`, so leaving the app keeps your place.
 - The screen stays lit for 5 minutes after every input, lowering the wrist does not switch it
