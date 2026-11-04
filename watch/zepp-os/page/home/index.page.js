@@ -6,7 +6,6 @@ import {LocalStorage} from '@zos/storage'
 import {
   Vibrator,
   VIBRATOR_SCENE_SHORT_LIGHT,
-  VIBRATOR_SCENE_SHORT_STRONG,
 } from '@zos/sensor'
 import {
   onKey,
@@ -87,34 +86,47 @@ function save() {
   storage.setItem(STORAGE_KEY, {bead: state.bead, decades: state.decades})
 }
 
-function buzz(mode) {
+// Patterns picked by feel on the T-Rex 3 Pro with the Vibe Lab spike
+// (spikes/zepp-trex-spike/vibration). The intuitive choices were wrong there:
+// start({mode}) played four pulses for a "short" scene, and the built-in
+// multi-pulse scenes felt far too long.
+const BEAD_BUZZ_MS = 40
+
+function vibrate(play) {
   try {
-    // start({mode}) gave the wrong pattern on the T-Rex 3 Pro (four pulses for a short
-    // scene); the documented setMode() + start() pair is used instead.
     vibrator.stop()
-    vibrator.setMode(mode)
-    vibrator.start()
+    play()
   } catch (e) {
     // Vibration is a nicety; never let it break the prayer flow.
   }
 }
 
-// The built-in multi-pulse scenes (NOTIFICATION, STRONG_REMINDER) felt far too long on the
-// watch, so the end of a decade is a few short strong pulses timed by hand.
-const DECADE_PULSES = 3
-const DECADE_PULSE_GAP_MS = 180
-let buzzTimers = []
-
-function clearBuzzTimers() {
-  buzzTimers.forEach((t) => clearTimeout(t))
-  buzzTimers = []
+// Plain short tick: setMode() + start() (the pair the docs show).
+function buzzMode(mode) {
+  vibrate(() => {
+    vibrator.setMode(mode)
+    vibrator.start()
+  })
 }
 
-function buzzDecade() {
-  clearBuzzTimers()
-  for (let i = 0; i < DECADE_PULSES; i++) {
-    buzzTimers.push(setTimeout(() => buzz(VIBRATOR_SCENE_SHORT_STRONG), i * DECADE_PULSE_GAP_MS))
+// Hail Mary: a 40 ms continuous scene (API_LEVEL 3.6 scene list); falls back to the light tick.
+function buzzBead() {
+  let types = null
+  try {
+    types = vibrator.getType()
+  } catch (e) {
+    types = null
   }
+  if (!types || types.CONTINUOUS === undefined) {
+    buzzMode(VIBRATOR_SCENE_SHORT_LIGHT)
+    return
+  }
+  vibrate(() => vibrator.start([{type: types.CONTINUOUS, duration: BEAD_BUZZ_MS}]))
+}
+
+// End of a decade: one light tick, so it does not drown the fish.
+function buzzDecade() {
+  buzzMode(VIBRATOR_SCENE_SHORT_LIGHT)
 }
 
 // prop.MORE works like createWidget's option: pass the full set every time
@@ -282,7 +294,7 @@ function onAdvance() {
   }
   if (next.event === 'step') {
     state = {bead: next.bead, decades: next.decades}
-    buzz(VIBRATOR_SCENE_SHORT_LIGHT) // one light tick per bead
+    buzzBead()
     turn(stepForward(prev.bead))
     paint()
     save()
@@ -413,7 +425,6 @@ Page({
     if (pulseTimer) clearInterval(pulseTimer)
     if (turnTimer) clearInterval(turnTimer)
     clearFishTimers()
-    clearBuzzTimers()
     vibrator.stop()
     offKey()
     offGesture()
