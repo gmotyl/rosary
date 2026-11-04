@@ -27,3 +27,6 @@ msgstr "Chwała Ojcu"
 
 msgid "fatimaPrayer"
 msgstr "O mój Jezu"
+
+msgid "resetHint"
+msgstr "Góra ponownie = tak, tap = nie"

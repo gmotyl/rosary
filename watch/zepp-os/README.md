@@ -29,7 +29,7 @@ Vite, ESLint and Vitest setup does not touch this folder.
 | Swipe up / down / left | Next bead |
 | Swipe right | System default (leave the app) |
 | Select or Down button | Next bead |
-| Up button | Asks "Reset?"; confirm starts the rosary over |
+| Up button | Shows "Reset?"; Up again goes back to the first Our Father of the first decade, any other input (or 5 s) cancels |
 
 A 40 ms buzz on every Hail Mary, a light tick when the cross appears (so it feels different
 from a bead), and the notification double buzz when the fish swims in; picked by feel on the

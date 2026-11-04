@@ -11,8 +11,6 @@ import {
 import {
   onKey,
   offKey,
-  createModal,
-  MODAL_CONFIRM,
   onGesture,
   offGesture,
   KEY_SELECT,
@@ -179,7 +177,7 @@ function paint() {
     b.haloAlpha = 0
     drawBead(b)
   })
-  const centre = phase === null && !finished
+  const centre = phase === null && !finished && !confirmingReset
   texts.label.setProperty(prop.VISIBLE, centre)
   texts.count.setProperty(prop.VISIBLE, centre)
   texts.prayer.setProperty(prop.VISIBLE, centre)
@@ -335,6 +333,10 @@ function playFish(final) {
 
 function onAdvance() {
   keepAwake()
+  if (confirmingReset) {
+    showResetPrompt(false) // any other input cancels the reset
+    return
+  }
   if (phase === 'fish') return
   if (phase === 'done') {
     resetRosary()
@@ -390,22 +392,39 @@ function resetRosary() {
   save()
 }
 
-let resetModal = null
+// Reset is confirmed in-app: Up shows "Reset?", Up again resets, anything else cancels.
+// (The system createModal lost its confirm on the watch: our own key handler takes Select.)
+const RESET_CONFIRM_MS = 5000
+let confirmingReset = false
+let resetTimer = null
 
-// Up button asks "Reset?" before throwing the progress away.
-function askReset() {
-  keepAwake()
-  if (!resetModal) {
-    resetModal = createModal({
-      content: getText('resetQuestion'),
-      autoHide: true,
-      show: false,
-      onClick: ({type}) => {
-        if (type === MODAL_CONFIRM) resetRosary()
-      },
-    })
+function showResetPrompt(on) {
+  confirmingReset = on
+  if (resetTimer) {
+    clearTimeout(resetTimer)
+    resetTimer = null
   }
-  resetModal.show(true)
+  texts.resetQ.setProperty(prop.VISIBLE, on)
+  texts.resetHint.setProperty(prop.VISIBLE, on)
+  // The prompt takes the screen centre; the cross and its prayers step aside meanwhile.
+  if (phase === 'prayers') {
+    cross.setProperty(prop.VISIBLE, !on)
+    texts.gloryBe.setProperty(prop.VISIBLE, !on)
+    texts.fatima.setProperty(prop.VISIBLE, !on)
+  }
+  if (on) resetTimer = setTimeout(() => showResetPrompt(false), RESET_CONFIRM_MS)
+  paint()
+}
+
+function onUp() {
+  keepAwake()
+  if (confirmingReset) {
+    showResetPrompt(false)
+    resetRosary()
+    buzzMode(VIBRATOR_SCENE_SHORT_LIGHT)
+    return
+  }
+  showResetPrompt(true)
 }
 
 Page({
@@ -481,6 +500,17 @@ Page({
     texts.gloryBe.setProperty(prop.VISIBLE, false)
     texts.fatima.setProperty(prop.VISIBLE, false)
 
+    texts.resetQ = createWidget(widget.TEXT, {
+      ...textBox(CY - px(50), px(70), px(56), INK),
+      text: getText('resetQuestion'),
+    })
+    texts.resetHint = createWidget(widget.TEXT, {
+      ...textBox(CY + px(30), px(40), px(24), INK_MUTED),
+      text: getText('resetHint'),
+    })
+    texts.resetQ.setProperty(prop.VISIBLE, false)
+    texts.resetHint.setProperty(prop.VISIBLE, false)
+
     // Created last so nothing covers them.
     texts.cheer = createWidget(widget.TEXT, textBox(CHEER_Y, px(44), px(34), INK))
     texts.cheerSub = createWidget(widget.TEXT, textBox(CHEER_SUB_Y, px(40), px(28), GILT))
@@ -500,7 +530,7 @@ Page({
           return true
         }
         if (key === KEY_UP) {
-          askReset()
+          onUp()
           return true
         }
         return false
@@ -533,6 +563,7 @@ Page({
     if (turnTimer) clearInterval(turnTimer)
     clearFishTimers()
     if (prayersTimer) clearTimeout(prayersTimer)
+    if (resetTimer) clearTimeout(resetTimer)
     vibrator.stop()
     offKey()
     offGesture()

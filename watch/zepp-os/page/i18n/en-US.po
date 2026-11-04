@@ -27,3 +27,6 @@ msgstr "Glory Be"
 
 msgid "fatimaPrayer"
 msgstr "O my Jesus"
+
+msgid "resetHint"
+msgstr "Up again = yes, tap = no"
