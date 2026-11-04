@@ -181,7 +181,8 @@ function paint() {
   texts.label.setProperty(prop.VISIBLE, centre)
   texts.count.setProperty(prop.VISIBLE, centre)
   texts.prayer.setProperty(prop.VISIBLE, centre)
-  texts.count.setProperty(prop.TEXT, `${state.decades} / ${DECADES}`)
+  // The decade being prayed (1..5), not the finished ones: there is no decade 0.
+  texts.count.setProperty(prop.TEXT, `${Math.min(state.decades + 1, DECADES)} / ${DECADES}`)
   texts.prayer.setProperty(
     prop.TEXT,
     state.bead === 0

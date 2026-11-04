@@ -11,7 +11,7 @@ Vite, ESLint and Vitest setup does not touch this folder.
 - Same motion as the web `RosaryLoop`: each tap turns the whole ring one slot in 400 ms
   (`cubic-bezier(0.4, 0, 0.2, 1)`), the current bead always sits at the bottom and pulses
   (1.18×, 1.4 s). Prayed beads are filled claret, beads still to pray are outlined.
-- The centre counts finished decades (`n / 5`) and names the current prayer.
+- The centre shows the decade being prayed (`1 / 5` … `5 / 5`) and names the current prayer.
 - After the tenth Hail Mary the ring dims and a cross fades in with "Glory Be" and "O my Jesus"
   under it; the app waits for a tap while you pray them. The next tap brings in the fish
   (ichthys) while "Odmówione / Chwała Panu!" rises in under it, then the ring turns on to the next Our Father. After the fifth
