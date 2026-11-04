@@ -31,9 +31,9 @@ Vite, ESLint and Vitest setup does not touch this folder.
 | Select or Down button | Next bead |
 | Up button | Asks "Reset?"; confirm starts the rosary over |
 
-A 40 ms buzz on every Hail Mary, one light tick when the decade's beads are done, and the
-notification double buzz when the fish swims in; picked by feel on the watch (see
-`spikes/zepp-trex-spike/vibration`, Vibe Lab variants 13, 1 and 24).
+A 40 ms buzz on every Hail Mary (the tenth included) and the notification double buzz when
+the fish swims in; picked by feel on the watch (see `spikes/zepp-trex-spike/vibration`, Vibe
+Lab variants 13 and 24).
 
 ## Develop
 

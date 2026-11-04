@@ -131,10 +131,6 @@ function buzzBead() {
   vibrate(() => vibrator.start([{type: types.CONTINUOUS, duration: BEAD_BUZZ_MS}]))
 }
 
-// End of a decade: one light tick, so it does not drown the fish.
-function buzzDecade() {
-  buzzMode(VIBRATOR_SCENE_SHORT_LIGHT)
-}
 
 // prop.MORE works like createWidget's option: pass the full set every time
 // (a partial set left the circles without radius/colour on the device), as integers.
@@ -354,7 +350,7 @@ function onAdvance() {
   state = {bead: next.bead, decades: next.decades}
   // Persist the start of the next decade now, so leaving mid-fish loses nothing.
   storage.setItem(STORAGE_KEY, final ? state : nextDecade(state))
-  buzzDecade()
+  buzzBead() // the tenth Hail Mary gets the same 40 ms buzz as the others
   phase = 'prayers'
   paint() // dims the ring and hides the counter
   showPrayers()
