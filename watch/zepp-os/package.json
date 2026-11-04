@@ -9,7 +9,7 @@
     "dev": "zeus dev",
     "bridge": "zeus bridge",
     "test": "node --test test/*.test.mjs",
-    "fish": "node scripts/gen-fish.mjs"
+    "images": "node scripts/gen-images.mjs"
   },
   "devDependencies": {
     "@zeppos/device-types": "^3.0.0",

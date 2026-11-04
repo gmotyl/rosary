@@ -27,3 +27,9 @@ msgstr "Glory to the Lord!"
 
 msgid "resetQuestion"
 msgstr "Reset?"
+
+msgid "gloryBe"
+msgstr "Glory Be"
+
+msgid "fatimaPrayer"
+msgstr "O my Jesus"

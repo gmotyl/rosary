@@ -27,3 +27,9 @@ msgstr "Chwała Panu!"
 
 msgid "resetQuestion"
 msgstr "Reset?"
+
+msgid "gloryBe"
+msgstr "Chwała Ojcu"
+
+msgid "fatimaPrayer"
+msgstr "O mój Jezu"

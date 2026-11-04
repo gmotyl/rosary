@@ -6,6 +6,7 @@ import {LocalStorage} from '@zos/storage'
 import {
   Vibrator,
   VIBRATOR_SCENE_SHORT_LIGHT,
+  VIBRATOR_SCENE_NOTIFICATION,
 } from '@zos/sensor'
 import {
   onKey,
@@ -56,6 +57,9 @@ const FRAME_MS = 25
 const FISH_MS = 2600
 const FISH_W = 200
 const FISH_H = 120
+const CROSS_W = 100
+const CROSS_H = 140
+const CROSS_FADE_MS = 700
 const BRIGHT_MS = 5 * 60 * 1000
 
 const {width: W, height: H} = getDeviceInfo()
@@ -75,10 +79,13 @@ let rotation = 0
 let beads = [] // {halo, outer, inner, r}
 let texts = {}
 let fish = null
+let cross = null
 let turnTimer = null
 let pulseTimer = null
 let fishTimers = []
-let celebrating = false
+// After the tenth Hail Mary: 'prayers' (cross, Glory Be + O my Jesus, waits for a tap),
+// then 'fish' (the swim), then back to null; after the fifth decade the fish ends in 'done'.
+let phase = null
 
 const radiusOf = (i) => (i === 0 ? OF_R : HM_R)
 
@@ -166,17 +173,19 @@ function layout() {
 function paint() {
   const finished = state.decades >= DECADES
   beads.forEach((b, i) => {
-    const filled = celebrating || finished || i <= state.bead
+    const dim = phase !== null || finished
+    const filled = dim || i <= state.bead
     b.outerR = b.r
-    b.outerAlpha = celebrating || finished ? 40 : 255
+    b.outerAlpha = dim ? 40 : 255
     b.innerAlpha = filled ? 0 : 255
     b.haloR = b.r + HALO_PAD
     b.haloAlpha = 0
     drawBead(b)
   })
-  texts.label.setProperty(prop.VISIBLE, !celebrating && !finished)
-  texts.count.setProperty(prop.VISIBLE, !celebrating && !finished)
-  texts.prayer.setProperty(prop.VISIBLE, !celebrating && !finished)
+  const centre = phase === null && !finished
+  texts.label.setProperty(prop.VISIBLE, centre)
+  texts.count.setProperty(prop.VISIBLE, centre)
+  texts.prayer.setProperty(prop.VISIBLE, centre)
   texts.count.setProperty(prop.TEXT, `${state.decades} / ${DECADES}`)
   texts.prayer.setProperty(
     prop.TEXT,
@@ -188,7 +197,7 @@ function paint() {
 
 // Same 1.4 s pulse as the web: current bead grows to 1.18×, halo breathes.
 function pulse() {
-  if (celebrating || state.decades >= DECADES) return
+  if (phase !== null || state.decades >= DECADES) return
   const b = beads[state.bead]
   const s = pulseAt(Date.now())
   b.outerR = b.r * (1 + 0.18 * s)
@@ -246,6 +255,36 @@ function clearFishTimers() {
   fishTimers = []
 }
 
+// Glory Be + O my Jesus: the cross fades in with both prayers under it.
+function showPrayers() {
+  clearFishTimers()
+  cross.setProperty(prop.VISIBLE, true)
+  cross.setProperty(prop.ANIM, {
+    anim_steps: [
+      {
+        anim_prop: prop.ALPHA,
+        anim_from: 0,
+        anim_to: 255,
+        anim_rate: 'easeout',
+        anim_duration: CROSS_FADE_MS,
+      },
+    ],
+    anim_fps: 30,
+  })
+  fishTimers.push(
+    setTimeout(() => {
+      texts.gloryBe.setProperty(prop.VISIBLE, true)
+      texts.fatima.setProperty(prop.VISIBLE, true)
+    }, CROSS_FADE_MS / 2),
+  )
+}
+
+function hidePrayers() {
+  cross.setProperty(prop.VISIBLE, false)
+  texts.gloryBe.setProperty(prop.VISIBLE, false)
+  texts.fatima.setProperty(prop.VISIBLE, false)
+}
+
 // Fish swims across left → right, the cheer shows in the middle of the swim.
 function playFish(final) {
   clearFishTimers()
@@ -265,11 +304,15 @@ function playFish(final) {
     anim_fps: 30,
   })
   fishTimers.push(setTimeout(() => showCheer(final), FISH_MS * 0.3))
-  if (final) return // fish and message stay until the next tap
+  if (final) {
+    // Fish and message stay; once the swim is over the next tap starts over.
+    fishTimers.push(setTimeout(() => (phase = 'done'), FISH_MS / 2))
+    return
+  }
   fishTimers.push(
     setTimeout(() => {
       hideCheer()
-      celebrating = false
+      phase = null
       state = nextDecade(state)
       turn(stepForward(HAIL_MARYS))
       paint()
@@ -279,7 +322,19 @@ function playFish(final) {
 
 function onAdvance() {
   keepAwake()
-  if (celebrating) return
+  if (phase === 'fish') return
+  if (phase === 'done') {
+    resetRosary()
+    return
+  }
+  if (phase === 'prayers') {
+    // Prayers said: the fish swims in.
+    hidePrayers()
+    phase = 'fish'
+    buzzMode(VIBRATOR_SCENE_NOTIFICATION)
+    playFish(state.decades >= DECADES)
+    return
+  }
   const prev = state
   const next = advance(state)
   if (next.event === 'restart') {
@@ -300,9 +355,9 @@ function onAdvance() {
   // Persist the start of the next decade now, so leaving mid-fish loses nothing.
   storage.setItem(STORAGE_KEY, final ? state : nextDecade(state))
   buzzDecade()
-  celebrating = !final
-  paint() // dims the ring for the swim (and keeps it dimmed after the last decade)
-  playFish(final)
+  phase = 'prayers'
+  paint() // dims the ring and hides the counter
+  showPrayers()
 }
 
 // Back to the first Our Father of the first decade.
@@ -313,7 +368,8 @@ function resetRosary() {
   }
   clearFishTimers()
   hideCheer()
-  celebrating = false
+  phase = null
+  hidePrayers()
   state = {bead: 0, decades: 0}
   rotation = rotationForActive(slotForBead(0))
   layout()
@@ -395,6 +451,26 @@ Page({
     texts.cheerSub = createWidget(widget.TEXT, textBox(CY + px(104), px(36), px(24), INK_MUTED))
     texts.cheer.setProperty(prop.VISIBLE, false)
     texts.cheerSub.setProperty(prop.VISIBLE, false)
+
+    cross = createWidget(widget.IMG, {
+      x: Math.round(CX - CROSS_W / 2),
+      y: Math.round(CY - CROSS_H - px(10)),
+      w: CROSS_W,
+      h: CROSS_H,
+      src: 'cross.png',
+      alpha: 0,
+    })
+    cross.setProperty(prop.VISIBLE, false)
+    texts.gloryBe = createWidget(widget.TEXT, {
+      ...textBox(CY + px(14), px(44), px(32), GILT),
+      text: getText('gloryBe'),
+    })
+    texts.fatima = createWidget(widget.TEXT, {
+      ...textBox(CY + px(60), px(44), px(32), GILT),
+      text: getText('fatimaPrayer'),
+    })
+    texts.gloryBe.setProperty(prop.VISIBLE, false)
+    texts.fatima.setProperty(prop.VISIBLE, false)
 
     // Transparent layer on top: a tap anywhere advances.
     const touch = createWidget(widget.FILL_RECT, {x: 0, y: 0, w: W, h: H, color: BLACK, alpha: 0})
