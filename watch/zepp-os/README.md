@@ -30,7 +30,7 @@ Vite, ESLint and Vitest setup does not touch this folder.
 | Select or Down button | Next bead |
 | Up button | Back one bead |
 
-One short vibration on every bead; four strong pulses when a decade is done.
+A light tick on every bead; three short strong pulses when a decade is done.
 
 ## Develop
 

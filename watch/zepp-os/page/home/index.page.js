@@ -5,8 +5,8 @@ import {getText} from '@zos/i18n'
 import {LocalStorage} from '@zos/storage'
 import {
   Vibrator,
-  VIBRATOR_SCENE_SHORT_MIDDLE,
-  VIBRATOR_SCENE_STRONG_REMINDER,
+  VIBRATOR_SCENE_SHORT_LIGHT,
+  VIBRATOR_SCENE_SHORT_STRONG,
 } from '@zos/sensor'
 import {
   onKey,
@@ -96,6 +96,24 @@ function buzz(mode) {
     vibrator.start()
   } catch (e) {
     // Vibration is a nicety; never let it break the prayer flow.
+  }
+}
+
+// The built-in multi-pulse scenes (NOTIFICATION, STRONG_REMINDER) felt far too long on the
+// watch, so the end of a decade is a few short strong pulses timed by hand.
+const DECADE_PULSES = 3
+const DECADE_PULSE_GAP_MS = 180
+let buzzTimers = []
+
+function clearBuzzTimers() {
+  buzzTimers.forEach((t) => clearTimeout(t))
+  buzzTimers = []
+}
+
+function buzzDecade() {
+  clearBuzzTimers()
+  for (let i = 0; i < DECADE_PULSES; i++) {
+    buzzTimers.push(setTimeout(() => buzz(VIBRATOR_SCENE_SHORT_STRONG), i * DECADE_PULSE_GAP_MS))
   }
 }
 
@@ -264,7 +282,7 @@ function onAdvance() {
   }
   if (next.event === 'step') {
     state = {bead: next.bead, decades: next.decades}
-    buzz(VIBRATOR_SCENE_SHORT_MIDDLE) // one short pulse per bead
+    buzz(VIBRATOR_SCENE_SHORT_LIGHT) // one light tick per bead
     turn(stepForward(prev.bead))
     paint()
     save()
@@ -275,7 +293,7 @@ function onAdvance() {
   state = {bead: next.bead, decades: next.decades}
   // Persist the start of the next decade now, so leaving mid-fish loses nothing.
   storage.setItem(STORAGE_KEY, final ? state : nextDecade(state))
-  buzz(VIBRATOR_SCENE_STRONG_REMINDER) // four pulses: decade done
+  buzzDecade()
   celebrating = !final
   paint() // dims the ring for the swim (and keeps it dimmed after the last decade)
   playFish(final)
@@ -395,6 +413,8 @@ Page({
     if (pulseTimer) clearInterval(pulseTimer)
     if (turnTimer) clearInterval(turnTimer)
     clearFishTimers()
+    clearBuzzTimers()
+    vibrator.stop()
     offKey()
     offGesture()
     resetPageBrightTime()
