@@ -1,0 +1,32 @@
+msgid "appName"
+msgstr "ROSARY"
+
+msgid "decade"
+msgstr "DECADE"
+
+msgid "ourFather"
+msgstr "Our Father"
+
+msgid "hailMary"
+msgstr "Hail Mary"
+
+msgid "decadeDone"
+msgstr "Prayed"
+
+msgid "rosaryDone"
+msgstr "Rosary complete"
+
+msgid "gloryToLord"
+msgstr "Glory to the Lord!"
+
+msgid "resetQuestion"
+msgstr "Reset?"
+
+msgid "gloryBe"
+msgstr "Glory Be"
+
+msgid "fatimaPrayer"
+msgstr "O my Jesus"
+
+msgid "resetHint"
+msgstr "Up again = yes, tap = no"

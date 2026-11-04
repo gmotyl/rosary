@@ -1,0 +1,32 @@
+msgid "appName"
+msgstr "RÓŻANIEC"
+
+msgid "decade"
+msgstr "DZIESIĄTEK"
+
+msgid "ourFather"
+msgstr "Ojcze nasz"
+
+msgid "hailMary"
+msgstr "Zdrowaś Maryjo"
+
+msgid "decadeDone"
+msgstr "Odmówione"
+
+msgid "rosaryDone"
+msgstr "Różaniec ukończony"
+
+msgid "gloryToLord"
+msgstr "Chwała Panu!"
+
+msgid "resetQuestion"
+msgstr "Reset?"
+
+msgid "gloryBe"
+msgstr "Chwała Ojcu"
+
+msgid "fatimaPrayer"
+msgstr "O mój Jezu"
+
+msgid "resetHint"
+msgstr "Góra ponownie = tak, tap = nie"
