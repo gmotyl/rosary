@@ -367,7 +367,7 @@ function onAdvance() {
   state = {bead: next.bead, decades: next.decades}
   // Persist the start of the next decade now, so leaving mid-fish loses nothing.
   storage.setItem(STORAGE_KEY, final ? state : nextDecade(state))
-  buzzBead() // the tenth Hail Mary gets the same 40 ms buzz as the others
+  buzzMode(VIBRATOR_SCENE_SHORT_LIGHT) // cross: a lighter tick, distinct from the 40 ms bead buzz
   phase = 'prayers'
   paint() // dims the ring and hides the counter
   showPrayers()
