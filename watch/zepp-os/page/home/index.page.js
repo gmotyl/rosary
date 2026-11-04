@@ -5,8 +5,8 @@ import {getText} from '@zos/i18n'
 import {LocalStorage} from '@zos/storage'
 import {
   Vibrator,
-  VIBRATOR_SCENE_SHORT_LIGHT,
-  VIBRATOR_SCENE_NOTIFICATION,
+  VIBRATOR_SCENE_SHORT_MIDDLE,
+  VIBRATOR_SCENE_STRONG_REMINDER,
 } from '@zos/sensor'
 import {
   onKey,
@@ -89,7 +89,11 @@ function save() {
 
 function buzz(mode) {
   try {
-    vibrator.start({mode})
+    // start({mode}) gave the wrong pattern on the T-Rex 3 Pro (four pulses for a short
+    // scene); the documented setMode() + start() pair is used instead.
+    vibrator.stop()
+    vibrator.setMode(mode)
+    vibrator.start()
   } catch (e) {
     // Vibration is a nicety; never let it break the prayer flow.
   }
@@ -260,7 +264,7 @@ function onAdvance() {
   }
   if (next.event === 'step') {
     state = {bead: next.bead, decades: next.decades}
-    buzz(VIBRATOR_SCENE_SHORT_LIGHT)
+    buzz(VIBRATOR_SCENE_SHORT_MIDDLE) // one short pulse per bead
     turn(stepForward(prev.bead))
     paint()
     save()
@@ -271,7 +275,7 @@ function onAdvance() {
   state = {bead: next.bead, decades: next.decades}
   // Persist the start of the next decade now, so leaving mid-fish loses nothing.
   storage.setItem(STORAGE_KEY, final ? state : nextDecade(state))
-  buzz(VIBRATOR_SCENE_NOTIFICATION)
+  buzz(VIBRATOR_SCENE_STRONG_REMINDER) // four pulses: decade done
   celebrating = !final
   paint() // dims the ring for the swim (and keeps it dimmed after the last decade)
   playFish(final)
