@@ -16,6 +16,8 @@ Vite, ESLint and Vitest setup does not touch this folder.
   turns on to the next Our Father. After the fifth decade the fish stays with
   "Różaniec ukończony / Chwała Panu!"; the next tap starts over.
 - Progress is saved in `localStorage`, so leaving the app keeps your place.
+- The screen stays lit for 5 minutes after every input, lowering the wrist does not switch it
+  off, and if it does go dark, waking the watch returns to the rosary (`setWakeUpRelaunch`).
 - No mystery selection yet.
 
 ## Controls
@@ -51,6 +53,12 @@ Zeus 1.9.3 is a local devDependency. It loads its private `zeppos-app-utils` thr
 `module-alias`, which reads `_moduleAliases` from **this** `package.json`; without that entry
 every `zeus` command dies with `Cannot find module 'zeppos-app-utils'`. The CLI also offers API
 levels up to 4.0 only, so `app.json` targets 4.0 (the T-Rex 3 Pro runs 4.2).
+
+### Device gotcha
+
+`setProperty(prop.MORE, …)` behaves like `createWidget`'s option: pass the full set (for
+`CIRCLE`: centre, radius, colour, alpha) as integers. Passing only `center_x/center_y` left the
+beads invisible on the T-Rex 3 Pro.
 
 ## Layout
 

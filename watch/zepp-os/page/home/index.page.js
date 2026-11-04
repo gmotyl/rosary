@@ -21,7 +21,13 @@ import {
   GESTURE_DOWN,
   GESTURE_LEFT,
 } from '@zos/interaction'
-import {setPageBrightTime, resetPageBrightTime} from '@zos/display'
+import {
+  setPageBrightTime,
+  resetPageBrightTime,
+  setWakeUpRelaunch,
+  pauseDropWristScreenOff,
+  resetDropWristScreenOff,
+} from '@zos/display'
 import {
   DECADES,
   HAIL_MARYS,
@@ -51,6 +57,7 @@ const FRAME_MS = 25
 const FISH_MS = 2600
 const FISH_W = 200
 const FISH_H = 120
+const BRIGHT_MS = 5 * 60 * 1000
 
 const {width: W, height: H} = getDeviceInfo()
 const CX = W / 2
@@ -88,15 +95,36 @@ function buzz(mode) {
   }
 }
 
+// prop.MORE works like createWidget's option: pass the full set every time
+// (a partial set left the circles without radius/colour on the device), as integers.
+function drawCircle(w, x, y, radius, color, alpha) {
+  w.setProperty(prop.MORE, {
+    center_x: Math.round(x),
+    center_y: Math.round(y),
+    radius: Math.max(0, Math.round(radius)),
+    color,
+    alpha: Math.round(alpha),
+  })
+}
+
+function drawBead(b) {
+  drawCircle(b.halo, b.x, b.y, b.haloR, CLARET, b.haloAlpha)
+  drawCircle(b.outer, b.x, b.y, b.outerR, CLARET, b.outerAlpha)
+  drawCircle(b.inner, b.x, b.y, b.r - RIM, BLACK, b.innerAlpha)
+}
+
+// A decade takes a few minutes: keep the screen lit, renewed on every input.
+function keepAwake() {
+  setPageBrightTime({brightTime: BRIGHT_MS})
+}
+
 // Position every bead for the current ring rotation.
 function layout() {
   beads.forEach((b, i) => {
     const a = (beadAngle(i, rotation) * Math.PI) / 180
-    const x = CX + RING_R * Math.cos(a)
-    const y = CY + RING_R * Math.sin(a)
-    b.halo.setProperty(prop.MORE, {center_x: x, center_y: y})
-    b.outer.setProperty(prop.MORE, {center_x: x, center_y: y})
-    b.inner.setProperty(prop.MORE, {center_x: x, center_y: y})
+    b.x = CX + RING_R * Math.cos(a)
+    b.y = CY + RING_R * Math.sin(a)
+    drawBead(b)
   })
 }
 
@@ -105,10 +133,12 @@ function paint() {
   const finished = state.decades >= DECADES
   beads.forEach((b, i) => {
     const filled = celebrating || finished || i <= state.bead
-    const alpha = celebrating || finished ? 40 : 255
-    b.outer.setProperty(prop.MORE, {alpha, radius: b.r})
-    b.inner.setProperty(prop.MORE, {alpha: filled ? 0 : 255, radius: b.r - RIM})
-    b.halo.setProperty(prop.MORE, {alpha: 0})
+    b.outerR = b.r
+    b.outerAlpha = celebrating || finished ? 40 : 255
+    b.innerAlpha = filled ? 0 : 255
+    b.haloR = b.r + HALO_PAD
+    b.haloAlpha = 0
+    drawBead(b)
   })
   texts.label.setProperty(prop.VISIBLE, !celebrating && !finished)
   texts.count.setProperty(prop.VISIBLE, !celebrating && !finished)
@@ -127,11 +157,10 @@ function pulse() {
   if (celebrating || state.decades >= DECADES) return
   const b = beads[state.bead]
   const s = pulseAt(Date.now())
-  b.outer.setProperty(prop.MORE, {radius: Math.round(b.r * (1 + 0.18 * s))})
-  b.halo.setProperty(prop.MORE, {
-    radius: Math.round((b.r + HALO_PAD) * (1 + 0.35 * s)),
-    alpha: Math.round(80 * (1 - 0.5 * s)),
-  })
+  b.outerR = b.r * (1 + 0.18 * s)
+  b.haloR = (b.r + HALO_PAD) * (1 + 0.35 * s)
+  b.haloAlpha = 80 * (1 - 0.5 * s)
+  drawBead(b)
 }
 
 function turn(delta) {
@@ -187,7 +216,7 @@ function clearFishTimers() {
 function playFish(final) {
   clearFishTimers()
   const y = CY - FISH_H / 2 - px(15)
-  fish.setProperty(prop.MORE, {x: -FISH_W, y})
+  fish.setProperty(prop.MORE, {x: -FISH_W, y: Math.round(y), w: FISH_W, h: FISH_H, src: 'fish.png'})
   fish.setProperty(prop.VISIBLE, true)
   fish.setProperty(prop.ANIM, {
     anim_steps: [
@@ -215,6 +244,7 @@ function playFish(final) {
 }
 
 function onAdvance() {
+  keepAwake()
   if (celebrating) return
   const prev = state
   const next = advance(state)
@@ -248,6 +278,7 @@ function onAdvance() {
 }
 
 function onBack() {
+  keepAwake()
   if (celebrating) return
   const prev = state
   const next = back(state)
@@ -264,8 +295,6 @@ Page({
     // A rosary that was completed earlier starts fresh on the next open.
     if (state.decades >= DECADES) state = {bead: 0, decades: 0}
     rotation = rotationForActive(slotForBead(state.bead))
-    // Keep the screen on while praying (10 min per page open).
-    setPageBrightTime({brightTime: 600000})
   },
 
   build() {
@@ -279,6 +308,13 @@ Page({
       const base = {center_x: CX, center_y: CY}
       beads.push({
         r,
+        x: CX,
+        y: CY,
+        outerR: r,
+        outerAlpha: 255,
+        innerAlpha: 255,
+        haloR: r + HALO_PAD,
+        haloAlpha: 0,
         halo: createWidget(widget.CIRCLE, {...base, radius: r + HALO_PAD, color: CLARET, alpha: 0}),
         outer: createWidget(widget.CIRCLE, {...base, radius: r, color: CLARET}),
         inner: createWidget(widget.CIRCLE, {...base, radius: r - RIM, color: BLACK}),
@@ -344,6 +380,11 @@ Page({
     layout()
     paint()
     pulseTimer = setInterval(pulse, 40)
+    keepAwake()
+    // If the screen still goes off, waking the watch returns here instead of the watch face.
+    setWakeUpRelaunch({relaunch: true})
+    // Lowering the wrist while praying must not switch the screen off.
+    pauseDropWristScreenOff({duration: 0})
   },
 
   onDestroy() {
@@ -353,6 +394,8 @@ Page({
     offKey()
     offGesture()
     resetPageBrightTime()
+    resetDropWristScreenOff()
+    setWakeUpRelaunch({relaunch: false})
     save()
   },
 })
