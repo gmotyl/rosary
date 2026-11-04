@@ -1,0 +1,21 @@
+{
+  "name": "rosary-zepp-os",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ROSARY for Zepp OS watches (Amazfit T-Rex 3 Pro first)",
+  "scripts": {
+    "build": "zeus build",
+    "preview": "zeus preview",
+    "dev": "zeus dev",
+    "bridge": "zeus bridge",
+    "test": "node --test test/*.test.mjs",
+    "fish": "node scripts/gen-fish.mjs"
+  },
+  "devDependencies": {
+    "@zeppos/device-types": "^3.0.0",
+    "@zeppos/zeus-cli": "1.9.3"
+  },
+  "_moduleAliases": {
+    "zeppos-app-utils": "node_modules/@zeppos/zeus-cli/private-modules/zeppos-app-utils"
+  }
+}

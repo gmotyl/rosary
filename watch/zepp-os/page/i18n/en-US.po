@@ -1,0 +1,26 @@
+msgid "appName"
+msgstr "ROSARY"
+
+msgid "decade"
+msgstr "DECADE"
+
+msgid "ourFather"
+msgstr "Our Father"
+
+msgid "hailMary"
+msgstr "Hail Mary"
+
+msgid "decadeDone"
+msgstr "Decade done!"
+
+msgid "left"
+msgstr "To go:"
+
+msgid "lastOne"
+msgstr "One more to go"
+
+msgid "rosaryDone"
+msgstr "Rosary complete"
+
+msgid "gloryToLord"
+msgstr "Glory to the Lord!"
