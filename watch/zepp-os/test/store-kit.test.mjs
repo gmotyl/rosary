@@ -162,3 +162,66 @@ test('store screenshot corners are transparent', () => {
     assert.equal(img.rgbaAt(180, 1)[3], 255, `${name} circle does not reach the top edge`)
   }
 })
+
+// --- Store listing and privacy statement ---
+
+const LOCALES = ['en-US', 'pl-PL', 'de-DE', 'es-ES', 'fr-FR', 'it-IT']
+const COFFEE = 'https://buymeacoffee.com/motyl.dev'
+
+// Split a listing into its `## ` sections, keyed by heading, with trimmed bodies.
+export function parseListing(text) {
+  const sections = {}
+  let current = null
+  for (const line of text.split('\n')) {
+    const heading = line.match(/^## (.+?)\s*$/)
+    if (heading) {
+      current = heading[1]
+      sections[current] = []
+    } else if (current) sections[current].push(line)
+  }
+  return Object.fromEntries(Object.entries(sections).map(([k, v]) => [k, v.join('\n').trim()]))
+}
+
+const readListing = (locale) =>
+  parseListing(readFileSync(storePath(`listing/${locale}.md`), 'utf8'))
+
+test('listing exists for all six locales', () => {
+  const files = readdirSync(storePath('listing')).sort()
+  assert.deepEqual(files, LOCALES.map((l) => `${l}.md`).sort())
+  for (const locale of LOCALES) {
+    const listing = readListing(locale)
+    for (const section of ['Name', 'Short description', 'Description']) {
+      assert.ok(listing[section], `${locale} has no "## ${section}" section`)
+    }
+    const short = listing['Short description']
+    assert.ok(!short.includes('\n'), `${locale} short description is not a single line`)
+    assert.match(short, /^[^.!?]+[.!?]$/, `${locale} short description is not one sentence`)
+  }
+})
+
+test('listing name matches the app.json appName', () => {
+  const appJson = JSON.parse(readFileSync(new URL('../app.json', import.meta.url), 'utf8'))
+  assert.deepEqual(Object.keys(appJson.i18n).sort(), [...LOCALES].sort())
+  for (const locale of LOCALES) {
+    assert.equal(readListing(locale).Name, appJson.i18n[locale].appName, `${locale} name`)
+  }
+})
+
+test('every description ends with motyl.dev and the coffee link', () => {
+  for (const locale of LOCALES) {
+    const lines = readListing(locale).Description.split('\n')
+    const last = lines[lines.length - 1]
+    assert.ok(last.includes('motyl.dev'), `${locale} last line does not name motyl.dev`)
+    assert.ok(last.includes(COFFEE), `${locale} last line has no coffee link`)
+  }
+})
+
+test('privacy statement exists and names local storage', () => {
+  const text = readFileSync(storePath('privacy.md'), 'utf8')
+  assert.match(text, /no personal data/i)
+  assert.match(text, /network/i)
+  assert.match(text, /local storage/i)
+  assert.match(text, /uninstall/i)
+  assert.match(text, /screen size/i)
+  assert.ok(text.includes('https://github.com/gmotyl/rosary'), 'privacy has no contact link')
+})
