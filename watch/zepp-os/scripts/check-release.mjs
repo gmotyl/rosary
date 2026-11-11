@@ -7,7 +7,7 @@ export const TEMPLATE_APP_ID = 24678
 export const REGISTER_MESSAGE =
   'register the app in the Zepp Developer Console and put its appId in app.json'
 
-const SEMVER = /^\d+\.\d+\.\d+$/
+const SEMVER = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/
 
 export function checkRelease(appJson) {
   const app = appJson?.app ?? {}

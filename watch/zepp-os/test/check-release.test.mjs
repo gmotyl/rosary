@@ -42,6 +42,18 @@ test('version must be MAJOR.MINOR.PATCH', () => {
   assert.match(result.reason, /1\.0/)
 })
 
+test('version components have no leading zeros', () => {
+  for (const name of ['01.2.3', '1.02.3', '1.2.03']) {
+    const result = checkRelease(appJson({ appId: 1135873, version: { code: 1, name } }))
+    assert.equal(result.ok, false, `version ${name}`)
+    assert.ok(result.reason.includes(name), `reason names ${name}`)
+  }
+  for (const name of ['0.1.0', '10.20.30']) {
+    const result = checkRelease(appJson({ appId: 1135873, version: { code: 1, name } }))
+    assert.deepEqual(result, { ok: true }, `version ${name}`)
+  }
+})
+
 test('registered appId with 1.0.0 passes', () => {
   const result = checkRelease(
     appJson({ appId: 1135873, version: { code: 1, name: '1.0.0' } }),
