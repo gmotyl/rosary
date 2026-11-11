@@ -1,6 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { readFileSync } from 'node:fs'
+import { readFileSync, readdirSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { inflateSync } from 'node:zlib'
 
@@ -128,5 +128,37 @@ test('store icon corners are transparent', () => {
   const icon = readPng(storePath('icon.png'))
   for (const [x, y] of corners(icon)) {
     assert.equal(icon.rgbaAt(x, y)[3], 0, `corner (${x},${y}) is not transparent`)
+  }
+})
+
+// --- Store screenshots ---
+
+const SCREENSHOTS = ['01-start', '02-mid-decade', '03-closing-prayers', '04-fish']
+
+test('four store screenshots exist', () => {
+  const pngs = readdirSync(storePath('screenshots')).filter((f) => f.endsWith('.png')).sort()
+  assert.deepEqual(pngs, SCREENSHOTS.map((n) => `${n}.png`))
+  const all = readdirSync(storePath('screenshots')).filter((f) => f !== 'src').sort()
+  assert.deepEqual(all, pngs, 'store/screenshots holds only the four PNGs (plus src/)')
+})
+
+test('store screenshots are 360x360 RGBA', () => {
+  for (const name of SCREENSHOTS) {
+    const img = readPng(storePath(`screenshots/${name}.png`))
+    assert.equal(img.width, 360, `${name} width`)
+    assert.equal(img.height, 360, `${name} height`)
+    assert.equal(img.bitDepth, 8, `${name} bit depth`)
+    assert.equal(img.colorType, 6, `${name} color type`)
+  }
+})
+
+test('store screenshot corners are transparent', () => {
+  for (const name of SCREENSHOTS) {
+    const img = readPng(storePath(`screenshots/${name}.png`))
+    for (const [x, y] of corners(img)) {
+      assert.equal(img.rgbaAt(x, y)[3], 0, `${name} corner (${x},${y}) is not transparent`)
+    }
+    // The round screen fills the image edge to edge: the top-centre pixel is opaque.
+    assert.equal(img.rgbaAt(180, 1)[3], 255, `${name} circle does not reach the top edge`)
   }
 })
