@@ -71,7 +71,7 @@ beads invisible on the T-Rex 3 Pro.
 | --- | --- |
 | `page/home/rosary.js` | Pure ring logic (slots, rotation, advance/back, easing, pulse); no `@zos` imports |
 | `page/home/index.page.js` | Widgets, timers, input, vibration, storage |
-| `page/i18n/*.po` | English and Polish strings |
+| `page/i18n/*.po` | Strings for the six locales (`en-US`, `pl-PL`, `de-DE`, `es-ES`, `fr-FR`, `it-IT`) |
 | `test/rosary.test.mjs` | Node tests for the ring logic |
 | `scripts/gen-images.mjs` | Draws the fish and cross PNGs |
 
@@ -86,6 +86,10 @@ beads invisible on the T-Rex 3 Pro.
 | `store/screenshots/src/*.svg` | SVG sources the screenshots are drawn from |
 | `store/listing/<locale>.md` | Name, short description and description for each of the six locales (`en-US`, `pl-PL`, `de-DE`, `es-ES`, `fr-FR`, `it-IT`) |
 | `store/privacy.md` | Privacy statement: no data collected, no network, progress only in local storage |
+
+The PNGs (icon and screenshots) were rendered once with headless Chromium from SVG sources: the
+screenshots from `store/screenshots/src/*.svg`, the icon from the web app's `src/rosary.svg` on
+`#880e4f`. Nothing regenerates them, so re-render them by hand if the UI changes.
 
 `npm test` checks the icon and screenshot sizes, that each listing name matches its `appName` in
 `app.json`, and that every description ends with the author and coffee link.
