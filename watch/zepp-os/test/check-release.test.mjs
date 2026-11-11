@@ -1,7 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { spawnSync } from 'node:child_process'
-import { mkdtempSync, writeFileSync } from 'node:fs'
+import { mkdtempSync, readFileSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -54,4 +54,21 @@ test('CLI exits 1 on the template appId', () => {
   const run = spawnSync(process.execPath, [SCRIPT, file], { encoding: 'utf8' })
   assert.equal(run.status, 1)
   assert.ok(run.stderr.includes(REGISTER_MESSAGE), run.stderr)
+})
+
+const readJson = (rel) =>
+  JSON.parse(readFileSync(fileURLToPath(new URL(rel, import.meta.url)), 'utf8'))
+
+test('app.json names version 1.0.0 and vendor motyl.dev', () => {
+  const { app } = readJson('../app.json')
+  assert.equal(app.version.name, '1.0.0')
+  assert.equal(app.version.code, 1)
+  assert.equal(app.vender, 'motyl.dev')
+  assert.equal(readJson('../package.json').version, '1.0.0')
+})
+
+test('app.json holds the Console appId and passes the release guard', () => {
+  const appJsonFile = readJson('../app.json')
+  assert.equal(appJsonFile.app.appId, 1135873)
+  assert.equal(checkRelease(appJsonFile).ok, true)
 })

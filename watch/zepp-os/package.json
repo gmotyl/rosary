@@ -1,6 +1,6 @@
 {
   "name": "rosary-zepp-os",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "description": "ROSARY for Zepp OS watches (Amazfit T-Rex 3 Pro first)",
   "scripts": {
