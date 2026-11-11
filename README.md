@@ -26,3 +26,7 @@ pnpm preview
 
 See [CONTEXT.md](./CONTEXT.md) for the glossary (Intention, Mystery, Decade,
 Rosary).
+
+---
+
+Created by Greg Motyl — [github.com/gmotyl](https://github.com/gmotyl) · [Buy me a coffee](https://buymeacoffee.com/motyl.dev)

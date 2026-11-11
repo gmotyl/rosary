@@ -74,3 +74,32 @@ beads invisible on the T-Rex 3 Pro.
 | `page/i18n/*.po` | English and Polish strings |
 | `test/rosary.test.mjs` | Node tests for the ring logic |
 | `scripts/gen-images.mjs` | Draws the fish and cross PNGs |
+
+## Store release
+
+`store/` holds everything the Zepp App Store listing needs:
+
+| Path | What |
+| --- | --- |
+| `store/icon.png` | Store icon, 240×240 RGBA, transparent corners |
+| `store/screenshots/*.png` | Four 360×360 round screenshots (start, mid-decade, closing prayers, fish) |
+| `store/screenshots/src/*.svg` | SVG sources the screenshots are drawn from |
+| `store/listing/<locale>.md` | Name, short description and description for each of the six locales (`en-US`, `pl-PL`, `de-DE`, `es-ES`, `fr-FR`, `it-IT`) |
+| `store/privacy.md` | Privacy statement: no data collected, no network, progress only in local storage |
+
+`npm test` checks the icon and screenshot sizes, that each listing name matches its `appName` in
+`app.json`, and that every description ends with the author and coffee link.
+
+`npm run release` runs the release guard (`scripts/check-release.mjs`) first: it refuses the
+template appId (and any missing appId or a version that is not `MAJOR.MINOR.PATCH`). When the
+guard passes it runs `zeus build`, which writes the package to
+`dist/<appId>-<appName>-<version>-<timestamp>.zab` (for example
+`dist/1135873-ROSARY-1.0.0-20261111175304.zab`). `dist/` is gitignored.
+
+The Zepp Developer Console steps (uploading the `.zab`, filling in the listing per language from
+`store/listing/`, the icon, screenshots and privacy statement, and submitting for review) are
+done by hand by the maintainer; nothing here talks to the Console.
+
+---
+
+Created by Greg Motyl — [github.com/gmotyl](https://github.com/gmotyl) · [Buy me a coffee](https://buymeacoffee.com/motyl.dev)
