@@ -27,6 +27,13 @@ test('missing appId is refused', () => {
   assert.deepEqual(result, { ok: false, reason: REGISTER_MESSAGE })
 })
 
+test('non-integer appId is refused', () => {
+  for (const appId of [1.5, 0, -3, NaN, Infinity]) {
+    const result = checkRelease(appJson({ appId, version: { code: 1, name: '1.0.0' } }))
+    assert.deepEqual(result, { ok: false, reason: REGISTER_MESSAGE }, `appId ${appId}`)
+  }
+})
+
 test('version must be MAJOR.MINOR.PATCH', () => {
   const result = checkRelease(
     appJson({ appId: 1135873, version: { code: 1, name: '1.0' } }),
