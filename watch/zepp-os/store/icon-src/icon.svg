@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480">
+  <!-- Rosary store icon: ten beads and a Latin cross as the eleventh, on one thread.
+       Eleven slots every 360/11 deg on r=148 around the centre; the cross takes the bottom slot.
+       Bead d=62, thread stroke 0.12d, cross 136 tall (2.2d), arms 28 thick (0.45d), crossbar 80 wide.
+       Rendered to assets/common.r/icon.png (248) and store/icon.png (240) with headless Chromium. -->
+  <circle cx="240" cy="240" r="240" fill="#880e4f"/>
+  <circle cx="240" cy="240" r="148" fill="none" stroke="#fff" stroke-width="7.44"/>
+  <g fill="#fff">
+    <circle cx="159.99" cy="364.51" r="31"/>
+    <circle cx="105.37" cy="301.48" r="31"/>
+    <circle cx="93.51" cy="218.94" r="31"/>
+    <circle cx="128.15" cy="143.08" r="31"/>
+    <circle cx="198.3" cy="98" r="31"/>
+    <circle cx="281.7" cy="98" r="31"/>
+    <circle cx="351.85" cy="143.08" r="31"/>
+    <circle cx="386.49" cy="218.94" r="31"/>
+    <circle cx="374.63" cy="301.48" r="31"/>
+    <circle cx="320.01" cy="364.51" r="31"/>
+    <path d="M226 320.48h28v29.52h26v28h-26v78.48h-28v-78.48h-26v-28h26z"/>
+  </g>
+</svg>

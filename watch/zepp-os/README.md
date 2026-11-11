@@ -88,8 +88,9 @@ beads invisible on the T-Rex 3 Pro.
 | `store/privacy.md` | Privacy statement: no data collected, no network, progress only in local storage |
 
 The PNGs (icon and screenshots) were rendered once with headless Chromium from SVG sources: the
-screenshots from `store/screenshots/src/*.svg`, the icon from the web app's `src/rosary.svg` on
-`#880e4f`. Nothing regenerates them, so re-render them by hand if the UI changes.
+screenshots from `store/screenshots/src/*.svg`, the icon (`store/icon.png` and
+`assets/common.r/icon.png`) from `store/icon-src/icon.svg`: ten white beads and a cross as the
+eleventh on a `#880e4f` disc. Nothing regenerates them, so re-render them by hand if the UI changes.
 
 `npm test` checks the icon and screenshot sizes, that each listing name matches its `appName` in
 `app.json`, and that every description ends with the author and coffee link.
