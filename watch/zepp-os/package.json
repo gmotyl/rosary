@@ -5,6 +5,7 @@
   "description": "ROSARY for Zepp OS watches (Amazfit T-Rex 3 Pro first)",
   "scripts": {
     "build": "zeus build",
+    "release": "node scripts/check-release.mjs && zeus build",
     "preview": "zeus preview",
     "dev": "zeus dev",
     "bridge": "zeus bridge",
