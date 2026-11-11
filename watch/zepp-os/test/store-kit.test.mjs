@@ -87,6 +87,15 @@ test('listing name matches the app.json appName', () => {
   }
 })
 
+test('default app name and en-US page string match the en-US appName', () => {
+  const appJson = JSON.parse(readFileSync(new URL('../app.json', import.meta.url), 'utf8'))
+  const enName = appJson.i18n['en-US'].appName
+  assert.equal(enName, 'Holy Rosary')
+  assert.equal(appJson.app.appName, enName, 'app.appName')
+  const po = readFileSync(new URL('../page/i18n/en-US.po', import.meta.url), 'utf8')
+  assert.match(po, new RegExp(`msgid "appName"\\nmsgstr "${enName}"`), 'en-US.po appName')
+})
+
 test('every description ends with motyl.dev and the coffee link', () => {
   for (const locale of LOCALES) {
     const lines = readListing(locale).Description.split('\n')

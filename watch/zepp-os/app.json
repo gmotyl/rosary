@@ -2,7 +2,7 @@
   "configVersion": "v3",
   "app": {
     "appId": 1135873,
-    "appName": "ROSARY",
+    "appName": "Holy Rosary",
     "appType": "app",
     "version": {
       "code": 1,
@@ -43,7 +43,7 @@
   },
   "i18n": {
     "en-US": {
-      "appName": "ROSARY"
+      "appName": "Holy Rosary"
     },
     "pl-PL": {
       "appName": "RÓŻANIEC"

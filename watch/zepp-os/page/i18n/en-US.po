@@ -1,5 +1,5 @@
 msgid "appName"
-msgstr "ROSARY"
+msgstr "Holy Rosary"
 
 msgid "decade"
 msgstr "DECADE"

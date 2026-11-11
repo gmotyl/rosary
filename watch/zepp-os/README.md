@@ -1,8 +1,11 @@
-# ROSARY for Zepp OS
+# Holy Rosary for Zepp OS
 
 Watch version of ROSARY for Amazfit Zepp OS watches, built and tested first on the **T-Rex 3 Pro**
 (round AMOLED, 480×480 / 466×466, API_LEVEL 4.2). A separate npm package: the web app's pnpm,
 Vite, ESLint and Vitest setup does not touch this folder.
+
+In English the watch app is called **Holy Rosary** (`app.appName` and the `en-US` `appName` in
+`app.json`, the name the Zepp App Store listing must match); the other locales keep their own names.
 
 ## What it does (iteration 1)
 
@@ -99,8 +102,8 @@ changes.
 `npm run release` runs the release guard (`scripts/check-release.mjs`) first: it refuses the
 template appId (and any missing appId or a version that is not `MAJOR.MINOR.PATCH`). When the
 guard passes it runs `zeus build`, which writes the package to
-`dist/<appId>-<appName>-<version>-<timestamp>.zab` (for example
-`dist/1135873-ROSARY-1.0.0-20261111175304.zab`). `dist/` is gitignored.
+`dist/<appId>-<appName>-<version>-<timestamp>.zab`, with the space in the name turned into an
+underscore (for example `dist/1135873-Holy_Rosary-1.0.0-20261111193011.zab`). `dist/` is gitignored.
 
 The Zepp Developer Console steps (uploading the `.zab`, filling in the listing per language from
 `store/listing/`, the icon, screenshots and privacy statement, and submitting for review) are
