@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480">
+  <!-- Rosary store icon: ten white beads and an equal-armed (Greek) cross as the eleventh, on one thread.
+       Disc r=240 #880e4f; thread R=172, stroke 8; eleven slots at 90deg + i*360/11 deg (slot 0 straight down).
+       Beads r=32; slot 0 gets a claret r=46 patch over the thread, then a cross inscribed in c=46
+       with arms t=28 thick: L = sqrt(c^2 - (t/2)^2) = 43.82.
+       Rendered to assets/common.r/icon.png (248) and store/icon.png (240) with headless Chromium. -->
+  <circle cx="240" cy="240" r="240" fill="#880e4f"/>
+  <circle cx="240" cy="240" r="172" fill="none" stroke="#fff" stroke-width="8"/>
+  <g fill="#fff">
+    <circle cx="147.01" cy="384.7" r="32"/>
+    <circle cx="83.54" cy="311.45" r="32"/>
+    <circle cx="69.75" cy="215.52" r="32"/>
+    <circle cx="110.01" cy="127.36" r="32"/>
+    <circle cx="191.54" cy="74.97" r="32"/>
+    <circle cx="288.46" cy="74.97" r="32"/>
+    <circle cx="369.99" cy="127.36" r="32"/>
+    <circle cx="410.25" cy="215.52" r="32"/>
+    <circle cx="396.46" cy="311.45" r="32"/>
+    <circle cx="332.99" cy="384.7" r="32"/>
+  </g>
+  <circle cx="240" cy="412" r="46" fill="#880e4f"/>
+  <g fill="#fff">
+    <rect x="196.18" y="398" width="87.64" height="28"/>
+    <rect x="226" y="368.18" width="28" height="87.64"/>
+  </g>
+</svg>

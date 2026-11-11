@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="480" viewBox="0 0 480 480">
+  <defs><clipPath id="screen"><circle cx="240" cy="240" r="240"/></clipPath></defs>
+  <g clip-path="url(#screen)">
+  <circle cx="240" cy="240" r="240" fill="#000"/>
+  <circle cx="240" cy="240" r="197" fill="#2a2226"/>
+  <circle cx="240" cy="240" r="195" fill="#000"/>
+  <circle cx="240.00" cy="436.00" r="32.90" fill="#d98ba6" fill-opacity="0.235"/>
+  <circle cx="240.00" cy="436.00" r="23.98" fill="#d98ba6" fill-opacity="1"/>
+  <circle cx="53.59" cy="300.57" r="15.00" fill="#d98ba6" fill-opacity="1"/>
+  <circle cx="53.59" cy="300.57" r="12" fill="#000"/>
+  <circle cx="45.07" cy="219.51" r="15.00" fill="#d98ba6" fill-opacity="1"/>
+  <circle cx="45.07" cy="219.51" r="12" fill="#000"/>
+  <circle cx="70.26" cy="142.00" r="15.00" fill="#d98ba6" fill-opacity="1"/>
+  <circle cx="70.26" cy="142.00" r="12" fill="#000"/>
+  <circle cx="124.79" cy="81.43" r="15.00" fill="#d98ba6" fill-opacity="1"/>
+  <circle cx="124.79" cy="81.43" r="12" fill="#000"/>
+  <circle cx="199.25" cy="48.28" r="15.00" fill="#d98ba6" fill-opacity="1"/>
+  <circle cx="199.25" cy="48.28" r="12" fill="#000"/>
+  <circle cx="280.75" cy="48.28" r="15.00" fill="#d98ba6" fill-opacity="1"/>
+  <circle cx="280.75" cy="48.28" r="12" fill="#000"/>
+  <circle cx="355.21" cy="81.43" r="15.00" fill="#d98ba6" fill-opacity="1"/>
+  <circle cx="355.21" cy="81.43" r="12" fill="#000"/>
+  <circle cx="409.74" cy="142.00" r="15.00" fill="#d98ba6" fill-opacity="1"/>
+  <circle cx="409.74" cy="142.00" r="12" fill="#000"/>
+  <circle cx="434.93" cy="219.51" r="15.00" fill="#d98ba6" fill-opacity="1"/>
+  <circle cx="434.93" cy="219.51" r="12" fill="#000"/>
+  <circle cx="426.41" cy="300.57" r="15.00" fill="#d98ba6" fill-opacity="1"/>
+  <circle cx="426.41" cy="300.57" r="12" fill="#000"/>
+  <text x="240" y="168" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="22" font-weight="normal" fill="#b8aea0" text-anchor="middle" dominant-baseline="central">DECADE</text>
+  <text x="240" y="233" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="80" font-weight="normal" fill="#f3ecdd" text-anchor="middle" dominant-baseline="central">1 / 5</text>
+  <text x="240" y="308" font-family="DejaVu Sans, Liberation Sans, sans-serif" font-size="26" font-weight="normal" fill="#e7cf9b" text-anchor="middle" dominant-baseline="central">Our Father</text>
+  </g>
+</svg>

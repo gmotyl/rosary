@@ -1,15 +1,15 @@
 {
   "configVersion": "v3",
   "app": {
-    "appId": 24678,
+    "appId": 1135873,
     "appName": "ROSARY",
     "appType": "app",
     "version": {
       "code": 1,
-      "name": "0.1.0"
+      "name": "1.0.0"
     },
     "icon": "icon.png",
-    "vender": "gmotyl",
+    "vender": "motyl.dev",
     "description": "Rosary decade ring: tap through the beads, count the decades"
   },
   "permissions": [

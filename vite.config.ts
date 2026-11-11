@@ -1,4 +1,4 @@
-import {defineConfig} from 'vitest/config'
+import {configDefaults, defineConfig} from 'vitest/config'
 import react from '@vitejs/plugin-react'
 import {VitePWA} from 'vite-plugin-pwa'
 import {fileURLToPath} from 'node:url'
@@ -54,6 +54,9 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: ['./src/setupTests.ts'],
+    // watch/zepp-os is a separate npm package whose suites use node:test
+    // (run via `npm test` there); vitest cannot bundle node:test.
+    exclude: [...configDefaults.exclude, 'watch/**'],
     css: false,
     clearMocks: true,
     restoreMocks: true,
