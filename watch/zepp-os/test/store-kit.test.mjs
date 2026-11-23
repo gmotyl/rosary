@@ -106,3 +106,21 @@ test('privacy statement exists and names local storage', () => {
   assert.match(text, /screen size/i)
   assert.ok(text.includes('https://github.com/gmotyl/rosary'), 'privacy has no contact link')
 })
+
+// Zepp review rejected v1.0.0 because "Rosary" duplicates an existing store app (appId 1127968).
+test('English app name is not the rejected duplicate "Rosary"', () => {
+  const appJson = JSON.parse(readFileSync(new URL('../app.json', import.meta.url), 'utf8'))
+  for (const [where, name] of [['app.appName', appJson.app.appName], ['i18n.en-US.appName', appJson.i18n['en-US'].appName]]) {
+    assert.notEqual(name.trim().toLowerCase(), 'rosary', `${where} is the rejected name "${name}"`)
+  }
+})
+
+test('English store copy and privacy statement name the app as in app.json', () => {
+  const name = JSON.parse(readFileSync(new URL('../app.json', import.meta.url), 'utf8')).i18n['en-US'].appName
+  const privacy = readFileSync(new URL('../store/privacy.md', import.meta.url), 'utf8')
+  const texts = { 'en-US description': readListing('en-US').Description, 'privacy.md': privacy }
+  for (const [where, text] of Object.entries(texts)) {
+    assert.doesNotMatch(text, /\bROSARY\b/, `${where} still calls the app ROSARY`)
+    assert.ok(text.includes(name), `${where} never names the app "${name}"`)
+  }
+})

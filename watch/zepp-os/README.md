@@ -100,7 +100,7 @@ changes.
 template appId (and any missing appId or a version that is not `MAJOR.MINOR.PATCH`). When the
 guard passes it runs `zeus build`, which writes the package to
 `dist/<appId>-<appName>-<version>-<timestamp>.zab` (for example
-`dist/1135873-ROSARY-1.0.0-20261111175304.zab`). `dist/` is gitignored.
+`dist/1135873-Holy_Rosary-1.0.0-20261123145427.zab`). `dist/` is gitignored.
 
 The Zepp Developer Console steps (uploading the `.zab`, filling in the listing per language from
 `store/listing/`, the icon, screenshots and privacy statement, and submitting for review) are
