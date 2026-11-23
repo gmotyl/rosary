@@ -1,6 +1,6 @@
 ## Name
 
-HOLY ROSARY
+Holy Rosary
 
 ## Short description
 
